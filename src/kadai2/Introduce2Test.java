@@ -9,22 +9,18 @@ class Introduce2Test {
 
 	@ParameterizedTest
 	@CsvSource({
-			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaは20文字以上です",
+			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,true",
 	})
-	void judgeTest(String na, String expected) {
-		Introduce2 target = new Introduce2();
-		target.judge(na);
-		System.out.println(na);
-		System.out.println(expected);
-		assertEquals(expected, na);
+	void judgeNameTest(String name, boolean expected) {
+		assertEquals(expected, Introduce2.judgeName(name));
 	}
 
-	void judgeTest2(int to, String expected) {
-		Introduce2 target = new Introduce2();
-		target.judge2(to);
-		System.out.println(to);
-		System.out.println(expected);
-		assertEquals(expected, to);
+	@ParameterizedTest
+	@CsvSource({
+			"-20,true",
+	})
+	void judgeAgeTest(int age, boolean expected) {
+		assertEquals(expected, Introduce2.judgeAge(age));
 	}
 
 }

@@ -1,4 +1,4 @@
-package kadai1_0609;
+package Kadai1_0609;
 
 import static org.junit.jupiter.api.Assertions.*;
 

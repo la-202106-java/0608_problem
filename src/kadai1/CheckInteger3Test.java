@@ -10,7 +10,6 @@ class CheckInteger3Test {
 
 	// 奇数・偶数の判定
 	// 正・負の判定
-	// 3回繰り返す
 
 	@ParameterizedTest
 	@CsvSource({

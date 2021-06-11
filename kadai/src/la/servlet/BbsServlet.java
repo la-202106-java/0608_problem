@@ -44,24 +44,11 @@ public class BbsServlet extends HttpServlet {
 		out.println("<input type=\"submit\" value=\"書き込み\">");
 		out.println("<hr>");
 
-		//		for (int i = 0; i < namelist.size(); i++) {
-		//			out.println(namelist+ ":" + messagelist);
-		//			out.println("<hr>");
-		//		}
-		for (String list1 : namelist) {
-			out.println(list1 + ":");
-		}
-
-		for (String list2 : messagelist) {
-			out.println(list2);
+		for (int i = 0; i < namelist.size(); i++) {
+			out.println(namelist.get(i) + ":" + messagelist.get(i));
 			out.println("<hr>");
-
 		}
-		//step4
-		//		for (String lists : messagelist) {
-		//			out.println(lists);
-		//			out.println("<hr>");
-		//		}
+
 		out.println("</body></html>");
 	}
 }

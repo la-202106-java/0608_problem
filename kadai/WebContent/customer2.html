@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer2</title>
+</head>
+<body>
+<form action="/lesson/CustomerServlet2" method="post">
+名前: <input type="text" name="name">
+<br>
+住所: <input type="text" name="address">
+<br>
+電話: <input type="text" name="tel">
+<br><br>
+<input type="hidden" name ="action" value="regist">
+<input type="submit" value="登録">
+</form>
+<br>
+<a href="/lesson/CustomerServlet2?action=confirm">情報確認</a>
+
+
+</body>
+</html>

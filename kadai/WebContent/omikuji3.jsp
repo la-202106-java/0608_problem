@@ -25,7 +25,7 @@ String uranai(int dice){
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>おみくじ</title>
 </head>
 <body>
 <h1>STEP3</h1><br>

@@ -31,9 +31,10 @@ public class BbsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String name = request.getParameter("name");
 		String message = request.getParameter("message");
 		if (message != null && message.length() != 0) {
-			messages.add(message);
+			messages.add(name + "：" + message);
 		}
 
 		//MessageBean bean = new MessageBean(messages);

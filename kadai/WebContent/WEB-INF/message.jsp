@@ -11,10 +11,11 @@
 <title>掲示板</title>
 </head>
 <body>
-メッセージ：
-<br>
 
 <form action="/lesson/BbsServlet" method="post">
+名前：<br>
+<input type="text" name="name"><br>
+メッセージ：<br>
 <textarea name="message" cols="40" rows="5"></textarea>
 <br>
 <input type="submit" value="書き込み">

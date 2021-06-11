@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "la.bean.FortuneBean" %>
+
+<%
+FortuneBean fb = (FortuneBean)request.getAttribute("fortune");
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +34,11 @@
 月
 <input type="submit" value="占ってみる">
 </form>
+<%if(fb!=null){ %>
 ${fortune.month}月の運勢は、、<br>
 ・ラッキーカラー: ${fortune.color }<br>
 ・ラッキーアイテム: ${fortune.item }<br>
 ・順位は: ${fortune.rank }位<br>
-
+<%} %>
 </body>
 </html>

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/BbsServlet")
 public class BbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	ArrayList<String> messages = new ArrayList<String>();
 
 	/**

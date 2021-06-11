@@ -21,14 +21,16 @@
 </form>
 
 <%
-ArrayList<String> messages = new ArrayList<String>();
-messages = (ArrayList<String>) request.getAttribute("messages");
+ArrayList<String> messages = (ArrayList<String>) request.getAttribute("messages");
+%>
+<%
+for(String m: messages ){
 %>
 <hr>
+<%= m%>
 <%
-for(int i=0; i<messages.size();i++ ){
-messages[i]
-}%>
+}
+%>
 
 </body>
 </html>

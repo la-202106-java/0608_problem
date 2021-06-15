@@ -138,15 +138,16 @@ public class AdminItemDAO {
 
 	}
 
-	public int addItem(String name, int price) throws DAOException {
+	public int addItem(int categoryCode, String name, int price) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
-		String sql = "INSERT INTO item(name, price) VALUES(?, ?)";
+		String sql = "INSERT INTO item(category_code, name, price) VALUES(?, ?, ?)";
 		try (PreparedStatement st = con.prepareStatement(sql)) {
-			st.setString(1, name);
-			st.setInt(2, price);
+			st.setInt(1, categoryCode);
+			st.setString(2, name);
+			st.setInt(3, price);
 
 			int rows = st.executeUpdate();
 			return rows;

@@ -16,6 +16,7 @@
 			<tr><td>価格</td><td><input type="text" name="price"></td></tr>
 		</table>
 		<input type="submit" value="登録">
+		<input type="hidden" name="action" value="add">
 	</form>
 </body>
 </html>

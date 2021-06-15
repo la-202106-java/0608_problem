@@ -45,9 +45,23 @@ public class AdminItemServlet extends HttpServlet {
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/WEB-INF/adminItems.jsp");
 			}
+
 			//regist
 			else if (action.equals("regist")) {
 				gotoPage(request, response, "/WEB-INF/adminAddItem.jsp");
+			}
+
+			//add
+			else if (action.equals("add")) {
+				int categoryCode = Integer.parseInt(request.getParameter("category_code"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+
+				dao.addItem(categoryCode, name, price);
+				List<ItemBean> list = dao.findAll();
+				request.setAttribute("items", list);
+
+				gotoPage(request, response, "/WEB-INF/adminItems.jsp");
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();

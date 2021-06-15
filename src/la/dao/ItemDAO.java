@@ -93,6 +93,50 @@ public class ItemDAO {
 
 	}
 
+	public List<ItemBean> sortPrice(boolean isAscending, int min, int max, String namePart) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql1 = "SELECT * FROM item WHERE price >= ? AND price <= ? AND name LIKE ?";
+		String sql2 = "";
+		if (isAscending) {
+			sql2 = " ORDER BY price";
+		} else {
+			sql2 = " ORDER BY price DESC";
+		}
+		List<ItemBean> list = new ArrayList<ItemBean>();
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql1 + sql2)) {
+			st.setInt(1, min);
+			st.setInt(2, max);
+			st.setString(3, "%" + namePart + "%");
+
+			rs = st.executeQuery();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				ItemBean bean = new ItemBean(code, name, price);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	public int addItem(String name, int price) throws DAOException {
 		if (con == null) {
 			getConnection();

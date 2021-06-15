@@ -63,11 +63,36 @@ public class ItemServlet2 extends HttpServlet {
 			else if (action.equals("sort")) {
 				String key = request.getParameter("key");
 				List<ItemBean> list;
+
+				boolean isAsc = false;
 				if (key.equals("price_asc")) {
-					list = dao.sortPrice(true);
-				} else {
-					list = dao.sortPrice(false);
+					isAsc = true;
 				}
+
+				int minPrice;
+				int maxPrice;
+
+				String min = (String) session.getAttribute("search_min");
+				if (min == null || min.length() == 0) {
+					minPrice = 0;
+				} else {
+					minPrice = Integer.parseInt(min);
+				}
+
+				String max = (String) session.getAttribute("search_max");
+				if (max == null || max.length() == 0) {
+					maxPrice = Integer.MAX_VALUE;
+				} else {
+					maxPrice = Integer.parseInt(max);
+				}
+
+				String name = (String) session.getAttribute("search_name");
+				if (name == null) {
+					name = "";
+				}
+
+				list = dao.sortPrice(isAsc, minPrice, maxPrice, name);
+
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/WEB-INF/showItem.jsp");
 			}

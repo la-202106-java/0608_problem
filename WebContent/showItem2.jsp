@@ -20,6 +20,6 @@
 	</c:forEach>
 
 	</table>
-<a href="/jmaster/ItemServlet2?action=regist">新規登録</a>
+<a href="/0608_problem/ItemServlet2?action=regist">新規登録</a>
 </body>
 </html>

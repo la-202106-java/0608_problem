@@ -12,7 +12,7 @@
 
 <h1>商品登録</h1>
 
-<form action="/jmaster/ItemServlet2" method="post">
+<form action="/0608_problem/ItemServlet2" method="post">
 	<table border="1">
 	<tr><td>カテゴリーコード</td><td><input type="text" name="category_code"  ></td></tr>
 <tr><td>名前</td><td><input type="text" name="name" ></td></tr>

@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import la.bean.ItemBean;
+import la.bean.ItemBean5;
 import la.dao.DAOException;
-import la.dao.ItemDAO2;
+import la.dao.ItemDAO5;
 
-@WebServlet("/ItemServlet2")
-public class ItemServlet2 extends HttpServlet {
+@WebServlet("/ItemServlet5")
+public class ItemServlet5 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -27,29 +27,29 @@ public class ItemServlet2 extends HttpServlet {
 			String action = request.getParameter("action");
 			HttpSession session = request.getSession();
 			// モデルのDAOを生成
-			ItemDAO2 dao = new ItemDAO2();
+			ItemDAO5 dao = new ItemDAO5();
 			// パラメータなしの場合は全レコード表示
 			if (action == null || action.length() == 0) {
-				List<ItemBean> list = dao.findAll();
+				List<ItemBean5> list = dao.findAll();
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
-				gotoPage(request, response, "/showItem2.jsp");
+				gotoPage(request, response, "/showItem.jsp");
 				// addは追加
 			} else if (action.equals("add")) {
 				String name = request.getParameter("name");
 				int price = Integer.parseInt(request.getParameter("price"));
 				dao.addItem(name, price);
 				// 追加後、全レコード表示
-				List<ItemBean> list = dao.findAll();
+				List<ItemBean5> list = dao.findAll();
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
-				gotoPage(request, response, "/showItem2.jsp");
+				gotoPage(request, response, "/showItem.jsp");
 			}
 			// sortはソート
 			else if (action.equals("sort")) {
 				String key = request.getParameter("key");
 				@SuppressWarnings("unchecked")
-				List<ItemBean> list = (List<ItemBean>) session.getAttribute("items");
+				List<ItemBean5> list = (List<ItemBean5>) session.getAttribute("items");
 				if (list == null) {
 					if (key.equals("price_asc")) {
 						list = dao.sortPrice(true);
@@ -59,13 +59,13 @@ public class ItemServlet2 extends HttpServlet {
 					// Listをリクエストスコープに入れてJSPへフォーワードする
 					request.setAttribute("items", list);
 				} else if (list != null && key.equals("price_asc")) {
-					list.sort(Comparator.comparing(ItemBean::getPrice));
+					list.sort(Comparator.comparing(ItemBean5::getPrice));
 					session.setAttribute("items", list);
 				} else {
-					list.sort(Comparator.comparing(ItemBean::getPrice).reversed());
+					list.sort(Comparator.comparing(ItemBean5::getPrice).reversed());
 					session.setAttribute("items", list);
 				}
-				gotoPage(request, response, "/showItem2.jsp");
+				gotoPage(request, response, "/showItem.jsp");
 				// searchは検索
 			} else if (action.equals("search")) {
 				int minprice;
@@ -93,21 +93,21 @@ public class ItemServlet2 extends HttpServlet {
 				session.setAttribute("minprice", minprice);
 				session.setAttribute("maxprice", maxprice);
 
-				List<ItemBean> list = dao.findByPrice(minprice, maxprice, name);
+				List<ItemBean5> list = dao.findByPrice(minprice, maxprice, name);
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				// requestをsessionに変更 step5
 				session.setAttribute("items", list);
-				gotoPage(request, response, "/showItem2.jsp");
+				gotoPage(request, response, "/showItem.jsp");
 			}
 			// deleteは削除
 			else if (action.equals("delete")) {
 				int code = Integer.parseInt(request.getParameter("code"));
 				dao.deleteByPrimaryKey(code);
 				// 削除後、全レコード表示
-				List<ItemBean> list = dao.findAll();
+				List<ItemBean5> list = dao.findAll();
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
-				gotoPage(request, response, "/showItem2.jsp");
+				gotoPage(request, response, "/showItem.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

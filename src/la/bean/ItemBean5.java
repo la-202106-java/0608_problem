@@ -2,18 +2,18 @@ package la.bean;
 
 import java.io.Serializable;
 
-public class ItemBean implements Serializable {
+public class ItemBean5 implements Serializable {
 	private int code;
 	private String name;
 	private int price;
 
-	public ItemBean(int code, String name, int price) {
+	public ItemBean5(int code, String name, int price) {
 		this.code = code;
 		this.name = name;
 		this.price = price;
 	}
 
-	public ItemBean() {
+	public ItemBean5() {
 
 	}
 

@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import la.bean.ItemBean;
+import la.bean.ItemBean5;
 
-public class ItemDAO2 {
+public class ItemDAO5 {
 	private Connection con;
 
-	public ItemDAO2() throws DAOException {
+	public ItemDAO5() throws DAOException {
 		getConnection();
 	}
 
-	public List<ItemBean> findAll() throws DAOException {
+	public List<ItemBean5> findAll() throws DAOException {
 		if (con == null)
 			getConnection();
 
@@ -31,12 +31,12 @@ public class ItemDAO2 {
 			// SQLの実行
 			rs = st.executeQuery();
 			// 結果の取得
-			List<ItemBean> list = new ArrayList<ItemBean>();
+			List<ItemBean5> list = new ArrayList<ItemBean5>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				ItemBean5 bean = new ItemBean5(code, name, price);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
@@ -58,7 +58,7 @@ public class ItemDAO2 {
 		}
 	}
 
-	public List<ItemBean> sortPrice(boolean isAscending) throws DAOException {
+	public List<ItemBean5> sortPrice(boolean isAscending) throws DAOException {
 		if (con == null)
 			getConnection();
 
@@ -77,12 +77,12 @@ public class ItemDAO2 {
 			// SQLの実行
 			rs = st.executeQuery();
 			// 結果の取得および表示
-			List<ItemBean> list = new ArrayList<ItemBean>();
+			List<ItemBean5> list = new ArrayList<ItemBean5>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				ItemBean5 bean = new ItemBean5(code, name, price);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
@@ -135,7 +135,7 @@ public class ItemDAO2 {
 		}
 	}
 
-	public List<ItemBean> findByPrice(int minprice, int maxprice, String name) throws DAOException {
+	public List<ItemBean5> findByPrice(int minprice, int maxprice, String name) throws DAOException {
 		if (con == null)
 			getConnection();
 
@@ -154,12 +154,12 @@ public class ItemDAO2 {
 			// SQLの実行
 			rs = st.executeQuery();
 			// 結果の取得および表示
-			List<ItemBean> list = new ArrayList<ItemBean>();
+			List<ItemBean5> list = new ArrayList<ItemBean5>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
 				String name1 = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name1, price);
+				ItemBean5 bean = new ItemBean5(code, name1, price);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す

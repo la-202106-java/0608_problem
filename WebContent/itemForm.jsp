@@ -19,7 +19,8 @@
 	</form>
 
 	<form action="/0608_problem/ItemServlet" method="post">
-		検索：価格<input type="text" name="minPrice" size="5">円以上 <input
+		検索：商品名<input type="text" name="name"> |
+		価格<input type="text" name="minPrice" size="5">円以上 <input
 			type="text" name="maxPrice" size="5">円以下の商品を <input
 			type="submit" value="検索"> <input type="hidden" name="action"
 			value="search">

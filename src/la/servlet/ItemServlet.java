@@ -60,6 +60,8 @@ public class ItemServlet extends HttpServlet {
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("search")) {
+				String name = request.getParameter("name");
+				name = "%" + name + "%";
 				String minprice = request.getParameter("minPrice");
 				if (minprice == null || minprice.length() == 0) {
 					minprice = "0";
@@ -72,7 +74,7 @@ public class ItemServlet extends HttpServlet {
 				}
 				int maxPrice = Integer.parseInt(maxprice);
 
-				List<ItemBean> list = dao.findByPrice(minPrice, maxPrice);
+				List<ItemBean> list = dao.findByPrice(name, minPrice, maxPrice);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("delete")) {

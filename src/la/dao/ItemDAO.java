@@ -117,17 +117,18 @@ public class ItemDAO {
 		}
 	}
 
-	public List<ItemBean> findByPrice(int minPrice, int maxPrice) throws DAOException {
+	public List<ItemBean> findByPrice(String productName, int minPrice, int maxPrice) throws DAOException {
 		if (con == null)
 			getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			String sql = "SELECT * FROM item WHERE price >= ? AND  price <= ?";
+			String sql = "SELECT * FROM item WHERE name LIKE ? AND price >= ? AND  price <= ?";
 			st = con.prepareStatement(sql);
 
-			st.setInt(1, minPrice);
-			st.setInt(2, maxPrice);
+			st.setString(1, productName);
+			st.setInt(2, minPrice);
+			st.setInt(3, maxPrice);
 			rs = st.executeQuery();
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {

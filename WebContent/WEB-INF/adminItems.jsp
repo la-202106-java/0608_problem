@@ -10,11 +10,25 @@
 <body>
 	<h1>商品一覧</h1>
 	<table border="1">
-		<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>価格</td></tr>
+		<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>価格</td><td>更新</td></tr>
+
 
 		<c:forEach items="${ items }" var="item">
-			<tr><td>${ item.code }</td><td>${ item.categoryCode }</td><td>${ item.name }</td><td>${ item.price }円</td></tr>
+			<tr>
+			<td>${ item.code }</td>
+			<td>${ item.categoryCode }</td>
+			<td>${ item.name }</td>
+			<td>${ item.price }円</td>
+			<td>
+				<form action="/0608_problem/AdminItemServlet" method="post">
+				<input type="hidden" name="action" value="edit">
+				<input type="hidden" name="code" value="${ item.code }">
+				<input type="submit" value="更新">
+				</form>
+			</td>
+			</tr>
 		</c:forEach>
+
 
 	</table>
 

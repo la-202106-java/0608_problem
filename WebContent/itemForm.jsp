@@ -8,8 +8,8 @@
 </head>
 <body>
 	ソート：
-	<a href="/jmaster/ItemServlet?action=sort&key=price_asc">値段の低い順</a>
-	<a href="/jmaster/ItemServlet?action=sort&key=price_desc">値段の高い順</a>
+	<a href="/0608_problem/ItemServlet?action=sort&key=price_asc">値段の低い順</a>
+	<a href="/0608_problem/ItemServlet?action=sort&key=price_desc">値段の高い順</a>
 
 	<form action="/jmaster/ItemServlet" method="post">
 		追加：商品名<input type="text" name="name"> 価格<input type="text"

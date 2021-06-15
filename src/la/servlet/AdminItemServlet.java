@@ -35,10 +35,20 @@ public class AdminItemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			AdminItemDAO dao = new AdminItemDAO();
-			List<AdminItemBean> list = dao.findAll();
-			request.setAttribute("adminItems", list);
-			gotoPage(request, response, "/WEB-INF/items.jsp");
+			request.setCharacterEncoding("UTF-8");
+			String action = request.getParameter("action");
+			if (action == null || action.length() == 0) {
+				AdminItemDAO dao = new AdminItemDAO();
+				List<AdminItemBean> list = dao.findAll();
+				request.setAttribute("adminItems", list);
+				gotoPage(request, response, "/WEB-INF/items.jsp");
+			} else if (action.equals("regist")) {
+				gotoPage(request, response, "/WEB-INF/addItem.jsp");
+			} else {
+				request.setAttribute("message", "正しい操作をしてください。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました");

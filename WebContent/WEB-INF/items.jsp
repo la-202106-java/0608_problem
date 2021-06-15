@@ -27,6 +27,6 @@
 		</c:forEach>
 
 	</table>
-
+<a href="/0608_problem/AdminItemServlet?action=regist">新規登録</a>
 </body>
 </html>

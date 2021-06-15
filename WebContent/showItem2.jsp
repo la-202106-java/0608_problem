@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>商品一覧</h1>
+  <h1>商品一覧</h1>
 
   <table border="1">
     <tr>
@@ -16,6 +16,8 @@
       <td>カテゴリコード</td>
       <td>商品名</td>
       <td>価格</td>
+      <td>更新</td>
+      <td>削除</td>
     </tr>
 
     <c:forEach items="${items}" var="item">
@@ -24,12 +26,21 @@
         <td>${item.category_code}</td>
         <td>${item.name}</td>
         <td>${item.price}</td>
+        <td>
+          <input type="submit" onclick="location.href='/0608_problem/ItemServlet2?action=edit&code=${item.code}'" value="更新">
+        </td>
+        <td>
+          <input type="submit" onclick="location.href='/0608_problem/ItemServlet2?action=delete&code=${item.code}'" value="削除">
+        </td>
       </tr>
     </c:forEach>
   </table>
 
-  <a href ="/0608_problem/ItemServlet2?action=regist">新規登録</a>
-
+  <a href="/0608_problem/ItemServlet2?action=regist">新規登録</a>
+<br>
+<c:if test="${!empty message}">
+<h3>${message}</h3>
+</c:if>
 
 </body>
 </html>

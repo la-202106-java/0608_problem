@@ -279,6 +279,37 @@ public class ItemDAO {
 
 	}
 
+	public int updateByInputs(int key, int categoryCode, String name, int price) throws DAOException {
+
+		if (con == null)
+			getConnection();
+		PreparedStatement st = null;
+
+		try {
+			String sql = "UPDATE item SET category_code=?, name=?, price=? WHERE code = ?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, categoryCode);
+			st.setString(2, name);
+			st.setInt(3, price);
+			st.setInt(4, key);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	// private
 	private void close() throws SQLException {
 		if (con != null) {

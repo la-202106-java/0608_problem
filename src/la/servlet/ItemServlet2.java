@@ -50,6 +50,29 @@ public class ItemServlet2 extends HttpServlet {
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem2.jsp");
 
+			} else if (action.equals("edit")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				request.setAttribute("code", code);
+				gotoPage(request, response, "/updateItem.jsp");
+			} else if (action.equals("update")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+				int rows = dao.updateByInputs(code, categoryCode, name, price);
+				List<ItemBean> list = dao.findAll2();
+				request.setAttribute("items", list);
+				request.setAttribute("message", rows + "件更新しました");
+				gotoPage(request, response, "/showItem2.jsp");
+
+			} else if (action.equals("delete")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				int rows = dao.deleteByPrimartKey(code);
+				List<ItemBean> list = dao.findAll2();
+				request.setAttribute("items", list);
+				request.setAttribute("message", rows + "件削除しました");
+				gotoPage(request, response, "/showItem2.jsp");
+
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

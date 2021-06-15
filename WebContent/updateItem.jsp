@@ -6,9 +6,16 @@
 <title>商品管理</title>
 </head>
 <body>
-<h1>商品登録</h1>
+  <h1>商品更新</h1>
   <form action="/0608_problem/ItemServlet2" method="post">
     <table border="1">
+      <tr>
+        <td>コード</td>
+        <td>
+          ${code}
+          <input type="hidden" name="code" value="${code}">
+        </td>
+      </tr>
       <tr>
         <td>カテゴリコード</td>
         <td>
@@ -27,8 +34,8 @@
         </td>
       </tr>
     </table>
-    <input type="submit" value="登録">
-    <input type="hidden" name="action" value="add">
+    <input type="submit" value="更新">
+    <input type="hidden" name="action" value="update">
 
   </form>
 </body>

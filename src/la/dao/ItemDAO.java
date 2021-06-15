@@ -82,7 +82,7 @@ public class ItemDAO {
 				int category = rs.getInt("category_code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				ItemBean bean = new ItemBean(code, category, name, price);
 				list.add(bean);
 			}
 			//商品一覧をListとして返す
@@ -186,6 +186,16 @@ public class ItemDAO {
 					sql = "select * from item where price <= ? order by price";
 				} else {
 					sql = "select * from item where price <= ? order by price desc";
+				}
+				int maxPrice = Integer.parseInt(getMaxPrice);
+				st = con.prepareStatement(sql);
+				st.setInt(1, maxPrice);
+				rs = st.executeQuery();
+			} else if (name == "" && getMinPrice == "" && getMaxPrice == "") {
+				if (asc) {
+					sql = "select * from item order by price";
+				} else {
+					sql = "select * from item order by price desc";
 				}
 				int maxPrice = Integer.parseInt(getMaxPrice);
 				st = con.prepareStatement(sql);

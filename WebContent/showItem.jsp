@@ -9,6 +9,9 @@
 </head>
 <body>
 
+<jsp:include page="/itemForm.jsp"/>
+
+<hr>
 
 	<table border="1">
 		<tr>

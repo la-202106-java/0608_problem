@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
+import la.bean.SearchBean;
 import la.bean.SearchStringBean;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
@@ -55,14 +56,26 @@ public class ItemServlet extends HttpServlet {
 				List<ItemBean> list = dao.findAll();
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
-			} else if (action.equals("sort")) {
+			}
+			//sort
+			else if (action.equals("sort")) {
+				SearchBean search = (SearchBean) (session.getAttribute("search"));
 				String key = request.getParameter("key");
 				List<ItemBean> list;
-				if (key.equals("price_asc")) {
-					list = dao.sortPrice(true);
+				if (search == null) {
+					if (key.equals("price_asc")) {
+						list = dao.sortPrice(true);
+					} else {
+						list = dao.sortPrice(false);
+					}
 				} else {
-					list = dao.sortPrice(false);
+					if (key.equals("price_asc")) {
+						list = dao.sortPrice(true, search);
+					} else {
+						list = dao.sortPrice(false, search);
+					}
 				}
+
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("search")) {
@@ -70,8 +83,8 @@ public class ItemServlet extends HttpServlet {
 				String minprice = request.getParameter("minPrice");
 				String maxprice = request.getParameter("maxPrice");
 
-				SearchStringBean search = new SearchStringBean(name, minprice, maxprice);
-				session.setAttribute("search", search);
+				SearchStringBean searchString = new SearchStringBean(name, minprice, maxprice);
+				session.setAttribute("searchStr", searchString);
 
 				if (minprice == null || minprice.length() == 0) {
 					minprice = "0";
@@ -81,6 +94,9 @@ public class ItemServlet extends HttpServlet {
 					maxprice = "100000000";
 				}
 				int maxPrice = Integer.parseInt(maxprice);
+
+				SearchBean search = new SearchBean(name, minPrice, maxPrice);
+				session.setAttribute("search", search);
 
 				List<ItemBean> list = dao.findByPrice(name, minPrice, maxPrice);
 				request.setAttribute("items", list);

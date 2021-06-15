@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.dao.DAOException;
@@ -30,10 +29,8 @@ public class AdminItemServlet extends HttpServlet {
 			String action = request.getParameter("action");
 			ItemDAO dao = new ItemDAO();
 
-			HttpSession session = request.getSession();
-
 			if (action == null || action.length() == 0) {
-				List<ItemBean> list = dao.findAll();
+				List<ItemBean> list = dao.findAll2();
 				//Listをリクエストスコープに入れてJSPへフォワードする
 				//session.setAttribute("items", list);
 				request.setAttribute("items", list);

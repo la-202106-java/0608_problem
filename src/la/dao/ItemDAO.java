@@ -126,7 +126,7 @@ public class ItemDAO {
 			String sql = "SELECT * FROM item WHERE name LIKE ? AND price >= ? AND  price <= ?";
 			st = con.prepareStatement(sql);
 
-			st.setString(1, productName);
+			st.setString(1, "%" + productName + "%");
 			st.setInt(2, minPrice);
 			st.setInt(3, maxPrice);
 			rs = st.executeQuery();

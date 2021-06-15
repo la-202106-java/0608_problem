@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
+import la.bean.SearchStringBean;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
 
@@ -34,6 +36,10 @@ public class ItemServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			request.getSession();
+		}
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
@@ -61,14 +67,16 @@ public class ItemServlet extends HttpServlet {
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("search")) {
 				String name = request.getParameter("name");
-				name = "%" + name + "%";
 				String minprice = request.getParameter("minPrice");
+				String maxprice = request.getParameter("maxPrice");
+
+				SearchStringBean search = new SearchStringBean(name, minprice, maxprice);
+				session.setAttribute("search", search);
+
 				if (minprice == null || minprice.length() == 0) {
 					minprice = "0";
 				}
 				int minPrice = Integer.parseInt(minprice);
-
-				String maxprice = request.getParameter("maxPrice");
 				if (maxprice == null || maxprice.length() == 0) {
 					maxprice = "100000000";
 				}

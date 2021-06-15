@@ -57,6 +57,9 @@ public class ItemServlet2 extends HttpServlet {
 			}
 			// searchは検索
 			else if (action.equals("search")) {
+				if (request.getParameter("product").equals("")) {
+
+				}
 				if (request.getParameter("minprice").equals("")) {
 					int minPrice = 0;
 					int maxPrice = Integer.parseInt(request.getParameter("maxprice"));

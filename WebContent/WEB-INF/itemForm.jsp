@@ -18,9 +18,9 @@
 
 	<form action="/jmaster/ItemServlet2" method="post">
 	検索：
-	商品名<input type="text" name="name" size="5"> |
-	価格<input type="text" name="min_price" size="5">円以上
-	<input type="text" name="max_price" size="5">円以下の商品を
+	商品名<input type="text" name="name" size="5" value="${search_name}"> |
+	価格<input type="text" name="min_price" size="5" value="${search_min}">円以上
+	<input type="text" name="max_price" size="5" value="${search_max}">円以下の商品を
 	<input type="submit" value="検索">
 	<input type="hidden" name="action" value="search">
 	</form>

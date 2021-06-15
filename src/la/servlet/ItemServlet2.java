@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.dao.DAOException;
@@ -36,6 +37,11 @@ public class ItemServlet2 extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			request.getSession();
+		}
+
 		try {
 			ItemDAO dao = new ItemDAO();
 
@@ -88,8 +94,12 @@ public class ItemServlet2 extends HttpServlet {
 				if (name == null) {
 					name = "";
 				}
+
 				List<ItemBean> list = dao.findByPriceAndName(minPrice, maxPrice, name);
 				request.setAttribute("items", list);
+				session.setAttribute("search_name", name);
+				session.setAttribute("search_min", min);
+				session.setAttribute("search_max", max);
 				gotoPage(request, response, "/WEB-INF/showItem.jsp");
 			}
 			//delete

@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.dao.DAOException;
@@ -23,6 +25,7 @@ public class ItemServlet2 extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			// パラメータの解析
 			String action = request.getParameter("action");
+			HttpSession session = request.getSession();
 			// モデルのDAOを生成
 			ItemDAO2 dao = new ItemDAO2();
 			// パラメータなしの場合は全レコード表示
@@ -45,41 +48,56 @@ public class ItemServlet2 extends HttpServlet {
 			// sortはソート
 			else if (action.equals("sort")) {
 				String key = request.getParameter("key");
-				List<ItemBean> list;
-				if (key.equals("price_asc")) {
-					list = dao.sortPrice(true);
+				@SuppressWarnings("unchecked")
+				List<ItemBean> list = (List<ItemBean>) session.getAttribute("items");
+				if (list == null) {
+					if (key.equals("price_asc")) {
+						list = dao.sortPrice(true);
+					} else {
+						list = dao.sortPrice(false);
+					}
+					// Listをリクエストスコープに入れてJSPへフォーワードする
+					request.setAttribute("items", list);
+				} else if (list != null && key.equals("price_asc")) {
+					list.sort(Comparator.comparing(ItemBean::getPrice));
+					session.setAttribute("items", list);
 				} else {
-					list = dao.sortPrice(false);
+					list.sort(Comparator.comparing(ItemBean::getPrice).reversed());
+					session.setAttribute("items", list);
 				}
-				// Listをリクエストスコープに入れてJSPへフォーワードする
-				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem2.jsp");
-			}
-			// searchは検索
-			else if (action.equals("search")) {
-				if (request.getParameter("product").equals("")) {
-
-				}
-				if (request.getParameter("minprice").equals("")) {
-					int minPrice = 0;
-					int maxPrice = Integer.parseInt(request.getParameter("maxprice"));
-					List<ItemBean> list = dao.findByPrice(minPrice, maxPrice);
-					request.setAttribute("items", list);
-					gotoPage(request, response, "/showItem2.jsp");
-				} else if (request.getParameter("maxprice").equals("")) {
-					int maxPrice = 100000000;
-					int minPrice = Integer.parseInt(request.getParameter("minprice"));
-					List<ItemBean> list = dao.findByPrice(minPrice, maxPrice);
-					request.setAttribute("items", list);
-					gotoPage(request, response, "/showItem2.jsp");
+				// searchは検索
+			} else if (action.equals("search")) {
+				int minprice;
+				int maxprice;
+				String name;
+				if (request.getParameter("minprice") == null || request.getParameter("minprice").length() == 0) {
+					minprice = 0;
 				} else {
-					int minPrice = Integer.parseInt(request.getParameter("minprice"));
-					int maxPrice = Integer.parseInt(request.getParameter("maxprice"));
-					List<ItemBean> list = dao.findByPrice(minPrice, maxPrice);
-					request.setAttribute("items", list);
-					gotoPage(request, response, "/showItem2.jsp");
+					minprice = Integer.parseInt(request.getParameter("minprice"));
+					request.setAttribute("minprice", minprice);
 				}
+				if (request.getParameter("maxprice") == null || request.getParameter("maxprice").length() == 0) {
+					maxprice = 99999;
+				} else {
+					maxprice = Integer.parseInt(request.getParameter("maxprice"));
+					request.setAttribute("maxprice", maxprice);
+				}
+				if (request.getParameter("name") == null || request.getParameter("name").length() == 0) {
+					name = "";
+				} else {
+					name = request.getParameter("name");
+					request.setAttribute("name", name);
+				}
+				session.setAttribute("name", name);
+				session.setAttribute("minprice", minprice);
+				session.setAttribute("maxprice", maxprice);
 
+				List<ItemBean> list = dao.findByPrice(minprice, maxprice, name);
+				// Listをリクエストスコープに入れてJSPへフォーワードする
+				// requestをsessionに変更 step5
+				session.setAttribute("items", list);
+				gotoPage(request, response, "/showItem2.jsp");
 			}
 			// deleteは削除
 			else if (action.equals("delete")) {

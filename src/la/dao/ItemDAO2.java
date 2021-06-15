@@ -135,7 +135,7 @@ public class ItemDAO2 {
 		}
 	}
 
-	public List<ItemBean> findByPrice(int minPrice, int maxPrice) throws DAOException {
+	public List<ItemBean> findByPrice(int minprice, int maxprice, String name) throws DAOException {
 		if (con == null)
 			getConnection();
 
@@ -143,31 +143,23 @@ public class ItemDAO2 {
 		ResultSet rs = null;
 		try {
 			// SQL文の作成
-			String sql = "SELECT * FROM item WHERE price >= ? AND price <= ?";
+			String sql = "SELECT * FROM item WHERE ? <= price AND price <= ? AND name LIKE ?";
+			//String sql = "SELECT * FROM item WHERE ? <= price AND price <= ?";
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
-			if (minPrice == 0) {
-				// 値段のセット
-				st.setInt(1, minPrice);
-				st.setInt(2, maxPrice);
-			} else if (maxPrice == 100000000) {
-				// 値段のセット
-				st.setInt(1, minPrice);
-				st.setInt(2, maxPrice);
-			} else {
-				// 値段のセット
-				st.setInt(1, minPrice);
-				st.setInt(2, maxPrice);
-			}
+			//値段と商品名のセット
+			st.setInt(1, minprice);
+			st.setInt(2, maxprice);
+			st.setString(3, "%" + name + "%");
 			// SQLの実行
 			rs = st.executeQuery();
 			// 結果の取得および表示
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
-				String name = rs.getString("name");
+				String name1 = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				ItemBean bean = new ItemBean(code, name1, price);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す

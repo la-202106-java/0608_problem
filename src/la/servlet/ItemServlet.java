@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.dao.DAOException;
@@ -29,20 +30,27 @@ public class ItemServlet extends HttpServlet {
 			String action = request.getParameter("action");
 			ItemDAO dao = new ItemDAO();
 
+			HttpSession session = request.getSession();
+
 			if (action == null || action.length() == 0) {
 				List<ItemBean> list = dao.findAll();
 				//Listをリクエストスコープに入れてJSPへフォワードする
+				//session.setAttribute("items", list);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("sort")) {
 				String key = request.getParameter("key");
+				String name = (String) session.getAttribute("name");
+				String minPrice = (String) session.getAttribute("minPrice");
+				String maxPrice = (String) session.getAttribute("maxPrice");
 				List<ItemBean> list;
 				if (key.equals("price_asc")) {
-					list = dao.sortPrice(true);
+					list = dao.sortPrice(true, name, minPrice, maxPrice);
 				} else {
-					list = dao.sortPrice(false);
+					list = dao.sortPrice(false, name, minPrice, maxPrice);
 				}
 				// Listをリクエストスコープに入れてJSPへフォーワードする
+				//session.setAttribute("items", list);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("add")) {
@@ -55,27 +63,32 @@ public class ItemServlet extends HttpServlet {
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			} else if (action.equals("search")) {
+				String name = request.getParameter("name");
 				String getMinPrice = request.getParameter("minPrice");
 				String getMaxPrice = request.getParameter("maxPrice");
+
+				session.setAttribute("name", name);
+				session.setAttribute("minPrice", getMinPrice);
+				session.setAttribute("maxPrice", getMaxPrice);
+
 				List<ItemBean> list;
-				if (getMaxPrice == "") {
-					int minPrice = Integer.parseInt(getMinPrice);
-					list = dao.findByMinPrice(minPrice);
-				} else if (getMinPrice == "") {
-					int maxPrice = Integer.parseInt(getMaxPrice);
-					list = dao.findByMaxPrice(maxPrice);
+				if (name == "" && getMaxPrice == "" && getMinPrice == "") {
+					list = dao.findAll();
 				} else {
-					int minPrice = Integer.parseInt(getMinPrice);
-					int maxPrice = Integer.parseInt(getMaxPrice);
-					list = dao.findByPrice(minPrice, maxPrice);
+					list = dao.findByNameAndPrice(name, getMinPrice, getMaxPrice);
 				}
+
+				//session.setAttribute("items", list);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 
-			} else if (action.equals("delete")) {
+			} else if (action.equals("delete"))
+
+			{
 				int code = Integer.parseInt(request.getParameter("code"));
 				dao.deleteByPrimaryKey(code);
 				List<ItemBean> list = dao.findAll();
+				//session.setAttribute("items", list);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			}

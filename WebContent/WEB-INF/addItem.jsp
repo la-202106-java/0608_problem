@@ -24,6 +24,7 @@
 		</tr>
 </table>
 <input type="submit" value="登録">
+<input type="hidden" name="action" value="add">
 </form>
 
 </body>

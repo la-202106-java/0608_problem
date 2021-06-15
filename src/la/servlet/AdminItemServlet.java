@@ -37,13 +37,19 @@ public class AdminItemServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
+			AdminItemDAO dao = new AdminItemDAO();
 			if (action == null || action.length() == 0) {
-				AdminItemDAO dao = new AdminItemDAO();
 				List<AdminItemBean> list = dao.findAll();
 				request.setAttribute("adminItems", list);
 				gotoPage(request, response, "/WEB-INF/items.jsp");
 			} else if (action.equals("regist")) {
 				gotoPage(request, response, "/WEB-INF/addItem.jsp");
+			} else if (action.equals("add")) {
+				int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+				dao.addItem(categoryCode, name, price);
+				gotoPage(request, response, "/AdminItemServlet");
 			} else {
 				request.setAttribute("message", "正しい操作をしてください。");
 				gotoPage(request, response, "/errInternal.jsp");

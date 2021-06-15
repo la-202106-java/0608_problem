@@ -162,30 +162,30 @@ public class ItemDAO {
 					st.setInt(2, maxPrice);
 				}
 			}
-
-			if (!pname.equals("")) {
-				if (minPrice == 0 && maxPrice == 0) {
-					//		sql = "SELECT * FROM item WHERE name LIKE '%?%' ";
-					sql = "SELECT * FROM item WHERE name LIKE  '%?%' ";
-					st = con.prepareStatement(sql);
-					st.setString(1, pname);
-				}
-			}
 			/*
+						if (!pname.equals("")) {
+							if (minPrice == 0 && maxPrice == 0) {
+								//		sql = "SELECT * FROM item WHERE name LIKE '%?%' ";
+								sql = "SELECT * FROM item WHERE name LIKE  ? ";
+								st = con.prepareStatement(sql);
+								st.setString(1, "%" + pname + "%");
+							}
+						}
+			*/
 			if (!pname.equals("")) {
 				if (minPrice == 0 && maxPrice == 0) {
-					sql = "SELECT * FROM item WHERE name LIKE %?%";
+					sql = "SELECT * FROM item WHERE name LIKE ?";
 					st = con.prepareStatement(sql);
-					st.setString(1, pname);
+					st.setString(1, "%" + pname + "%");
 				} else if (minPrice == 0) {
-					sql = "SELECT * FROM item WHERE name LIKE %?% and price <= ?";
+					sql = "SELECT * FROM item WHERE name LIKE ? and price <= ?";
 					st = con.prepareStatement(sql);
-					st.setString(1, pname);
+					st.setString(1, "%" + pname + "%");
 					st.setInt(2, maxPrice);
 				} else if (maxPrice == 0) {
-					sql = "SELECT * FROM item WHERE name LIKE %?% and price >= ?";
+					sql = "SELECT * FROM item WHERE name LIKE ? and price >= ?";
 					st = con.prepareStatement(sql);
-					st.setString(1, pname);
+					st.setString(1, "%" + pname + "%");
 					st.setInt(2, minPrice);
 				} else {
 					sql = "SELECT * FROM item WHERE price between ? and ?";
@@ -194,7 +194,7 @@ public class ItemDAO {
 					st.setInt(2, maxPrice);
 				}
 			}
-			*/
+
 			if (pname.equals("") && minPrice == 0 && maxPrice == 0) {
 				sql = "SELECT * FROM item";
 				st = con.prepareStatement(sql);

@@ -29,33 +29,33 @@ public class OrderDAO {
 		ResultSet rs = null;
 
 		try {
-			// 顧客番号の取得 Serial型の暗黙シーケンスから取得
-			int customerNumber = 0;
-			String sql = "SELECT nextval('customer_code_seq')";
-			st = con.prepareStatement(sql);
-			rs = st.executeQuery();
-			if (rs.next()) {
-				customerNumber = rs.getInt(1);
-			}
-			rs.close();
-			st.close();
-			// 顧客情報の追加SQL文
-			sql = "INSERT INTO customer VALUES(?, ?, ?, ?, ?)";
-			// PreparedStatementオブジェクトの取得
-			st = con.prepareStatement(sql);
-			// プレースホルダーの設定
-			st.setInt(1, customerNumber);
-			st.setString(2, customer.getName());
-			st.setString(3, customer.getAddress());
-			st.setString(4, customer.getTel());
-			st.setString(5, customer.getEmail());
-			// SQLの実行
-			st.executeUpdate();
-			st.close();
+			//			// 顧客番号の取得 Serial型の暗黙シーケンスから取得
+			//			int customerNumber = 0;
+			//			String sql = "SELECT nextval('customer_code_seq')";
+			//			st = con.prepareStatement(sql);
+			//			rs = st.executeQuery();
+			//			if (rs.next()) {
+			//				customerNumber = rs.getInt(1);
+			//			}
+			//			rs.close();
+			//			st.close();
+			//			// 顧客情報の追加SQL文
+			//			sql = "INSERT INTO customer VALUES(?, ?, ?, ?, ?)";
+			//			// PreparedStatementオブジェクトの取得
+			//			st = con.prepareStatement(sql);
+			//			// プレースホルダーの設定
+			//			st.setInt(1, customerNumber);
+			//			st.setString(2, customer.getName());
+			//			st.setString(3, customer.getAddress());
+			//			st.setString(4, customer.getTel());
+			//			st.setString(5, customer.getEmail());
+			//			// SQLの実行
+			//			st.executeUpdate();
+			//			st.close();
 
 			// 注文番号の取得 Serial型の暗黙シーケンスから取得
 			int orderNumber = 0;
-			sql = "SELECT nextval('ordered_code_seq')";
+			String sql = "SELECT nextval('ordered_code_seq')";
 			st = con.prepareStatement(sql);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -69,7 +69,7 @@ public class OrderDAO {
 			st = con.prepareStatement(sql);
 			// プレースホルダーの設定
 			st.setInt(1, orderNumber);
-			st.setInt(2, customerNumber);
+			st.setInt(2, customer.getCode());
 			Date today = new Date(System.currentTimeMillis());
 			st.setDate(3, today);
 			st.setInt(4, cart.getTotal());

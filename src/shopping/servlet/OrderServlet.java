@@ -45,13 +45,14 @@ public class OrderServlet extends HttpServlet {
 				gotoPage(request, response, "/customerInfo.jsp");
 				// confirmは確認処理を行う
 			} else if (action.equals("confirm")) {
-				CustomerBean bean = new CustomerBean();
-				bean.setName(request.getParameter("name"));
-				bean.setAddress(request.getParameter("address"));
-				bean.setTel(request.getParameter("tel"));
-				bean.setEmail(request.getParameter("email"));
-				session.setAttribute("customer", bean);
-				gotoPage(request, response, "/confirm.jsp");
+
+				CustomerBean bean = (CustomerBean) session.getAttribute("customer");
+				if (bean != null) {
+					gotoPage(request, response, "/confirm.jsp");
+				} else {
+					request.setAttribute("message", "ログインしてください");
+					gotoPage(request, response, "/login.jsp");
+				}
 				// orderは注文確定
 			} else if (action.equals("order")) {
 				CustomerBean customer = (CustomerBean) session.getAttribute("customer");

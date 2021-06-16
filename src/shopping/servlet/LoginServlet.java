@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 					gotoPage(request, response, "/login.jsp");
 				} else {
 					HttpSession session = request.getSession();
-					session.setAttribute("user", cu);
+					session.setAttribute("customer", cu);
 					gotoPage(request, response, "/top.jsp");
 				}
 			} else if (action.equals("logout")) {

@@ -47,10 +47,20 @@ public class ShowItemServlet extends HttpServlet {
 				ItemDAO2 dao = new ItemDAO2();
 				List<ItemBean2> list = dao.findByName(keyword);
 				int number = list.size();
+				int pageNum = (int) (number / 10) + 1;
+
+				List<ItemBean2> list2 = null;
+
+				for (int i = 0; i < number; i++) {
+					list2.add(list.get(i));
+				}
+
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("number", number);
+				request.setAttribute("pageNum", pageNum);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
+
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

@@ -40,18 +40,18 @@ public class OrderDAO {
 			rs.close();
 			st.close();
 			// 顧客情報の追加SQL文
-			sql = "INSERT INTO customer VALUES(?, ?, ?, ?, ?)";
-			// PreparedStatementオブジェクトの取得
-			st = con.prepareStatement(sql);
-			// プレースホルダーの設定
-			st.setInt(1, customerNumber);
-			st.setString(2, customer.getName());
-			st.setString(3, customer.getAddress());
-			st.setString(4, customer.getTel());
-			st.setString(5, customer.getEmail());
-			// SQLの実行
-			st.executeUpdate();
-			st.close();
+			//			sql = "INSERT INTO customer VALUES(?, ?, ?, ?, ?)";
+			//			// PreparedStatementオブジェクトの取得
+			//			st = con.prepareStatement(sql);
+			//			// プレースホルダーの設定
+			//			st.setInt(1, customerNumber);
+			//			st.setString(2, customer.getName());
+			//			st.setString(3, customer.getAddress());
+			//			st.setString(4, customer.getTel());
+			//			st.setString(5, customer.getEmail());
+			//			// SQLの実行
+			//			st.executeUpdate();
+			//			st.close();
 
 			// 注文番号の取得 Serial型の暗黙シーケンスから取得
 			int orderNumber = 0;

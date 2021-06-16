@@ -33,7 +33,7 @@
 
 <h3>お客様情報</h3>
 
-<form action="/shopping/OrderServlet?action=order" method="post">
+<form action="/0608_problem/OrderServlet?action=order" method="post">
 	<table border="1">
 	<tr>
 	<td>お名前</td><td>${customer.name}</td>

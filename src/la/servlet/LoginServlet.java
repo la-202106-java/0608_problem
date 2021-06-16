@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 					//request.setAttribute("items", list);
 					HttpSession session = request.getSession();
 					session.setAttribute("ibean", bean);
-					request.setAttribute("isLogin", "true");
+					session.setAttribute("isLogin", "true");
 					gotoPage(request, response, "/top.jsp");
 				} else { //ログイン失敗の時
 					request.setAttribute("isLogin", "false");

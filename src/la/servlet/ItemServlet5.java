@@ -60,10 +60,10 @@ public class ItemServlet5 extends HttpServlet {
 					request.setAttribute("items", list);
 				} else if (list != null && key.equals("price_asc")) {
 					list.sort(Comparator.comparing(ItemBean5::getPrice));
-					session.setAttribute("items", list);
+					request.setAttribute("items", list);
 				} else {
 					list.sort(Comparator.comparing(ItemBean5::getPrice).reversed());
-					session.setAttribute("items", list);
+					request.setAttribute("items", list);
 				}
 				gotoPage(request, response, "/showItem.jsp");
 				// searchは検索
@@ -75,23 +75,20 @@ public class ItemServlet5 extends HttpServlet {
 					minprice = 0;
 				} else {
 					minprice = Integer.parseInt(request.getParameter("minprice"));
-					request.setAttribute("minprice", minprice);
+					session.setAttribute("minprice", minprice);
 				}
 				if (request.getParameter("maxprice") == null || request.getParameter("maxprice").length() == 0) {
 					maxprice = 99999;
 				} else {
 					maxprice = Integer.parseInt(request.getParameter("maxprice"));
-					request.setAttribute("maxprice", maxprice);
+					session.setAttribute("maxprice", maxprice);
 				}
 				if (request.getParameter("name") == null || request.getParameter("name").length() == 0) {
 					name = "";
 				} else {
 					name = request.getParameter("name");
-					request.setAttribute("name", name);
+					session.setAttribute("name", name);
 				}
-				session.setAttribute("name", name);
-				session.setAttribute("minprice", minprice);
-				session.setAttribute("maxprice", maxprice);
 
 				List<ItemBean5> list = dao.findByPrice(minprice, maxprice, name);
 				// Listをリクエストスコープに入れてJSPへフォーワードする

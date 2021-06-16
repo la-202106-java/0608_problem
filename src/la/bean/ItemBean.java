@@ -1,21 +1,27 @@
 package la.bean;
 
-import java.io.Serializable;
-
-public class ItemBean6 implements Serializable {
+public class ItemBean {
 	private int code;
+	private int categoryCode;
 	private String name;
 	private int price;
-	private int category_code;
 
-	public ItemBean6(int code, String name, int price, int category_code) {
+	public ItemBean(int code, String name, int price) {
+		super();
 		this.code = code;
 		this.name = name;
 		this.price = price;
-		this.category_code = category_code;
 	}
 
-	public ItemBean6() {
+	public ItemBean(int code, int categoryCode, String name, int price) {
+		super();
+		this.code = code;
+		this.categoryCode = categoryCode;
+		this.name = name;
+		this.price = price;
+	}
+
+	public ItemBean() {
 
 	}
 
@@ -25,6 +31,14 @@ public class ItemBean6 implements Serializable {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public int getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(int categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 
 	public String getName() {
@@ -42,13 +56,4 @@ public class ItemBean6 implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	public int getCategory_code() {
-		return category_code;
-	}
-
-	public void setCategory_code(int category_code) {
-		this.category_code = category_code;
-	}
-
 }

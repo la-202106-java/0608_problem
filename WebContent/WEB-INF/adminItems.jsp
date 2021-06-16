@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,21 +13,21 @@
 		<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>価格</td><td>更新</td><td>削除</td></tr>
 
 
-		<c:forEach items="${ items }" var="item">
+		<c:forEach items="${items}" var="item">
 			<tr>
-			<td>${ item.code }</td>
-			<td>${ item.categoryCode }</td>
-			<td>${ item.name }</td>
-			<td>${ item.price }円</td>
+			<td>${item.code}</td>
+			<td>${item.categoryCode}</td>
+			<td>${item.name}</td>
+			<td>${item.price}円</td>
 			<td>
-				<form action="/0608_problem/ItemServlet6" method="post">
+				<form action="/0608_problem/AdminItemServlet" method="post">
 				<input type="hidden" name="action" value="edit">
 				<input type="hidden" name="code" value="${ item.code }">
 				<input type="submit" value="更新">
 				</form>
 			</td>
 			<td>
-				<form action="/0608_problem/ItemServlet6" method="post">
+				<form action="/0608_problem/AdminItemServlet" method="post">
 				<input type="hidden" name="action" value="delete">
 				<input type="hidden" name="code" value="${ item.code }">
 				<input type="submit" value="削除">
@@ -40,6 +39,6 @@
 
 	</table>
 
-	<a href="/0608_problem/ItemServlet6?action=regist">新規登録</a>
+	<a href="/0608_problem/AdminItemServlet?action=regist">新規登録</a>
 </body>
 </html>

@@ -64,7 +64,7 @@ public class OrderServlet extends HttpServlet {
 				int orderNumber = order.saveOrder(customer, cart);
 				// 注文後はセッション情報をクリアする
 				session.removeAttribute("cart");
-				session.removeAttribute("customer");
+				//session.removeAttribute("customer");
 				// 注文番号をクライアントへ送る
 				request.setAttribute("orderNumber", Integer.valueOf(orderNumber));
 				gotoPage(request, response, "/order.jsp");

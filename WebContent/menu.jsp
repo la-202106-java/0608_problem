@@ -5,8 +5,14 @@
  <a href="/shopping/ShowItemServlet?action=top">ようこそ</a>
 
  <c:forEach items="${categories }" var="category">
-<a href="ShowItemServlet?action=list&code=${category.code }">${category.name}</a>
+<a href="ShowItemServlet?action=list&code=${category.code }&page=0">${category.name}</a>
 
  </c:forEach>
 
  <a href="/shopping/CartServlet?action=show">カートを見る</a>
+<br>
+<form action="ShowItemServlet" method="get" >
+<input type="hidden" value="search" name="action">
+<input type="hidden" value="0" name="page">
+<input type="text" name="name" ><input type="submit" value="検索" >
+</form>

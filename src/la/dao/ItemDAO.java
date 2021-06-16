@@ -185,6 +185,42 @@ public class ItemDAO {
 		}
 	}
 
+	public List<ItemBean> searchByName(String nameStr) throws DAOException {
+		if (con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from item where name like '%" + nameStr
+					+ "%'  order by price";
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery();
+			List<ItemBean> list = new ArrayList<ItemBean>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				int category_code = rs.getInt("category_code");
+				ItemBean bean = new ItemBean(code, name, price, category_code);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				close();
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public ItemBean findByPrimaryKey(int key) throws DAOException {
 		if (con == null)
 			getConnection();

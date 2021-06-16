@@ -44,15 +44,15 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("ibean", bean);
 					session.setAttribute("isLogin", "true");
 					gotoPage(request, response, "/top.jsp");
-				} else { //ログイン失敗の時
+				} else { //メアドとパスワードが間違えている場合
 					request.setAttribute("isLogin", "false");
 					gotoPage(request, response, "/login.jsp");
 				}
-			} else if (action.equals("logout")) {
+			} else if (action.equals("logout")) { //ログアウト
 				HttpSession session = request.getSession(false);
 				if (session != null) {
 					session.invalidate();
-					request.setAttribute("isLogin", "false");
+					//request.setAttribute("isLogin", "false");
 					gotoPage(request, response, "/menu.jsp");
 				}
 			}

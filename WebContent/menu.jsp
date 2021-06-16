@@ -11,7 +11,7 @@
 <a href="/0608_problem/LoginServlet?action=logout">ログアウト</a>|
 </c:if>
 <c:if test="${isLogin eq false}">
-<a href="/0608_problem/LoginServlet?action=login">ログイン</a>|
+<a href="/0608_problem/login.jsp">ログイン</a>|
 </c:if>
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>
 <br>

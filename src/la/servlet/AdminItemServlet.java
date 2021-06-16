@@ -1,6 +1,8 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -35,6 +37,7 @@ public class AdminItemServlet extends HttpServlet {
 			if (action == null || action.length() == 0) {
 				List<AdminItemBean> list = dao.findAll();
 				request.setAttribute("items", list);
+				Collections.sort(list, new CodeComparator());
 				gotoPage(request, response, "/items.jsp");
 				return;
 			} else if (action.equals("regist")) {
@@ -47,6 +50,25 @@ public class AdminItemServlet extends HttpServlet {
 				dao.registItem(category_code, name, price);
 				//追加後全レコード表示
 				List<AdminItemBean> list = dao.findAll();
+				Collections.sort(list, new CodeComparator());
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/items.jsp");
+				return;
+			} else if (action.equals("edit")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				request.setAttribute("code", code);
+				gotoPage(request, response, "/updateItem.jsp");
+				return;
+			} else if (action.equals("update")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				int price = Integer.parseInt(request.getParameter("price"));
+				String name = request.getParameter("name");
+				int category_code = Integer.parseInt(request.getParameter("category_code"));
+				dao.updateItem(code, category_code, name, price);
+				//追加後全レコード表示
+				List<AdminItemBean> list = dao.findAll();
+				//昇順に並べる
+				Collections.sort(list, new CodeComparator());
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/items.jsp");
 				return;
@@ -64,6 +86,14 @@ public class AdminItemServlet extends HttpServlet {
 			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
+	}
+
+	public class CodeComparator implements Comparator<AdminItemBean> {
+
+		@Override
+		public int compare(AdminItemBean b1, AdminItemBean b2) {
+			return b1.getCode() < b2.getCode() ? -1 : 1;
+		}
 	}
 
 	protected void doPost(HttpServletRequest request,

@@ -97,6 +97,41 @@ public class AdminItemDAO {
 		}
 	}
 
+	//修正
+	public int updateItem(int code, int category_code, String name, int price) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+
+		try {
+			//SQL作成
+			String sql = "UPDATE item SET category_code = ? , name = ? , price = ? WHERE code =?";
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			st.setInt(1, category_code);
+			st.setString(2, name);
+			st.setInt(3, price);
+			st.setInt(4, code);
+			//SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				//リソースの開放
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			//JDBCドライバの登録

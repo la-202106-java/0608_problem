@@ -23,22 +23,27 @@ public class ShowItemServlet extends HttpServlet {
 		try {
 			// パラメータの解析
 			String action = request.getParameter("action");
+			ShopItemDAO dao = new ShopItemDAO();
 			// topまたはパラメータなしの場合はトップページを表示
 			if (action == null || action.length() == 0 || action.equals("top")) {
 				gotoPage(request, response, "/top.jsp");
 			} else if (action.equals("list")) {
 				int categoryCode = Integer.parseInt(request.getParameter("code"));
-				ShopItemDAO dao = new ShopItemDAO();
 				List<ShopItemBean> list = dao.findByCategory(categoryCode);
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
 			} else if (action.equals("detail")) {
 				int code = Integer.parseInt(request.getParameter("code"));
-				ShopItemDAO dao = new ShopItemDAO();
 				ShopItemBean item = dao.findByPrimaryKey(code);
 				request.setAttribute("item", item);
 				gotoPage(request, response, "/item.jsp");
+			} else if (action.equals("search")) {
+				String keyword = request.getParameter("keyword");
+				List<ShopItemBean> list = dao.findByKeyword(keyword);
+				// Listをリクエストスコープに入れてJSPへフォーワードする
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/list.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

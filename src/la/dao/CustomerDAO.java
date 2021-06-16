@@ -30,6 +30,14 @@ public class CustomerDAO {
 			rs = st.executeQuery();
 			CustomerBean bean = new CustomerBean();
 			while (rs.next()) {
+				int code = rs.getInt("code");
+				bean.setCode(code);
+				String name = rs.getString("name");
+				bean.setName(name);
+				String address = rs.getString("address");
+				bean.setAddress(address);
+				String tel = rs.getString("tel");
+				bean.setTel(tel);
 				String customerEmail = rs.getString("email");
 				bean.setEmail(customerEmail);
 				String customerPassword = rs.getString("password");

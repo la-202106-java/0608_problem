@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.CustomerBean;
 import la.dao.CustomerDAO;
@@ -53,6 +54,8 @@ public class LoginServlet extends HttpServlet {
 				CustomerDAO dao = new CustomerDAO();
 				CustomerBean customer = dao.findByEmailAndPassword(email, password);
 				if (customer.getEmail() != null && customer.getPassword() != null) {
+					HttpSession session = request.getSession();
+					session.setAttribute("Customer", customer);
 					gotoPage(request, response, "/top.jsp");
 				} else {
 					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");

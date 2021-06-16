@@ -19,7 +19,7 @@ ${error}。
 メールアドレス：
 <input type="text" name="email"><br>
 パスワード：
-<input type="text" name="password"><br>
+<input type="password" name="password"><br>
 <input type="submit" value="ログイン">
 <input type="hidden" name="action" value="login">
 </form>

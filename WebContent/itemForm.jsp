@@ -18,7 +18,7 @@
 </form>
 
 <form action="/0608_problem/ItemServlet2" method="post">
-検索：商品名<input type="text" name="name" value=${search_items.name}>| 価格<input type="text" name="min_price" size="5" value=${search_items.min_price}>円以上<input type="text" name="max_price" size="5" value=${search_items.max_price}>円以下の商品を
+検索：商品名<input type="text" name="name" value=${search_items.name }>| 価格<input type="text" name="min_price" size="5" value=${search_items.min_price }>円以上<input type="text" name="max_price" size="5" value=${search_items.max_price }>円以下の商品を
 <input type="submit" value="検索">
 <input type="hidden" name="action" value="search">
 </form>

@@ -145,6 +145,53 @@ public class ItemDAO2 {
 		}
 	}
 
+	//商品名で検索
+	public List<ItemBean2> findByName(String namePart) throws DAOException {
+		if (con == null)
+			getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			//SQL作成
+			String sql = "SELECT * FROM item WHERE name LIKE ?";
+
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			//名前のセット
+			String NamePart = "%" + namePart + "%";
+			st.setString(1, NamePart);
+			//SQLの実行
+			rs = st.executeQuery();
+			//結果の取得
+			List<ItemBean2> list = new ArrayList<ItemBean2>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				ItemBean2 bean = new ItemBean2(code, name, price);
+				list.add(bean);
+			}
+			//商品一覧をlistとして返す
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				//リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			// JDBCドライバの登録

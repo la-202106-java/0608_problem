@@ -7,4 +7,11 @@
 	<a href="/0608_problem/ShowItemServlet?action=list&code=${category.code}">${category.name}</a>|
 </c:forEach>
 
+
+<form action = "/0608_problem/ShowItemServlet?action=search&keyword=${keyword}">
+<input type="hidden" name="action" value="search">
+<input type = "text" name = "keyword">
+<input type = "submit" value = "検索">
+</form>
+
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>

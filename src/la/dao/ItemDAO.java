@@ -54,7 +54,8 @@ public class ItemDAO {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				int category_code = rs.getInt("category_code");
+				ItemBean bean = new ItemBean(code, name, price, category_code);
 				list.add(bean);
 			}
 			return list;
@@ -63,6 +64,7 @@ public class ItemDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		} finally {
 			try {
+				close();
 				if (rs != null)
 					rs.close();
 				if (st != null)
@@ -79,7 +81,8 @@ public class ItemDAO {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			String sql = "select * from item where price >= ? and  price <= ? and name like '%"+str+"%'  order by price";
+			String sql = "select * from item where price >= ? and  price <= ? and name like '%" + str
+					+ "%'  order by price";
 			st = con.prepareStatement(sql);
 			st.setInt(1, lower);
 			st.setInt(2, upper);
@@ -89,7 +92,8 @@ public class ItemDAO {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				int category_code = rs.getInt("category_code");
+				ItemBean bean = new ItemBean(code, name, price, category_code);
 				list.add(bean);
 			}
 			return list;
@@ -98,6 +102,7 @@ public class ItemDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		} finally {
 			try {
+				close();
 				if (rs != null)
 					rs.close();
 				if (st != null)
@@ -130,6 +135,7 @@ public class ItemDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		} finally {
 			try {
+				close();
 				if (rs != null)
 					rs.close();
 				if (st != null)
@@ -156,7 +162,8 @@ public class ItemDAO {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				int category_code = rs.getInt("category_code");
+				ItemBean bean = new ItemBean(code, name, price, category_code);
 				list.add(bean);
 
 			}
@@ -167,6 +174,7 @@ public class ItemDAO {
 
 		} finally {
 			try {
+				close();
 				if (rs != null)
 					rs.close();
 				if (st != null)
@@ -193,7 +201,8 @@ public class ItemDAO {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				int category_code = rs.getInt("category_code");
+				ItemBean bean = new ItemBean(code, name, price, category_code);
 				return bean;
 			} else {
 				return null;
@@ -204,6 +213,7 @@ public class ItemDAO {
 
 		} finally {
 			try {
+				close();
 				if (rs != null)
 					rs.close();
 				if (st != null)
@@ -232,12 +242,101 @@ public class ItemDAO {
 		} finally {
 
 			try {
+				close();
 				if (st != null)
 					st.close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");
 			}
 
+		}
+
+	}
+
+	public int updateBeanByCode(ItemBean bean) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		try {
+			String sql = "UPDATE item set category_code=? , name=? , price=?  where code=? ";
+			st = con.prepareStatement(sql);
+			st.setInt(1, bean.getCategory());
+			st.setString(2, bean.getName());
+			st.setInt(3, bean.getPrice());
+			st.setInt(4, bean.getCode());
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("ItemBeanの更新は失敗しました。");
+		} finally {
+
+			try {
+				close();
+				if (st != null)
+					st.close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+
+		}
+
+	}
+
+	public int deleteBeanByCode(int code) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		try {
+			String sql = "delete from item where code=?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, code);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("ItemBeanの削除は失敗しました。");
+		} finally {
+
+			try {
+				close();
+				if (st != null)
+					st.close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+
+		}
+
+	}
+
+	public int addItem(ItemBean bean) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		try {
+			String sql = "Insert into item(name,price,category_code) values(?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setString(1, bean.getName());
+			st.setInt(2, bean.getPrice());
+			st.setInt(3, bean.getCategory());
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("商品の追加に失敗しました。");
+
+		} finally {
+			try {
+				close();
+				if (st != null)
+					st.close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
 		}
 
 	}
@@ -257,7 +356,8 @@ public class ItemDAO {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				int category_code = rs.getInt("category_code");
+				ItemBean bean = new ItemBean(code, name, price, category_code);
 				list.add(bean);
 
 			}
@@ -268,6 +368,7 @@ public class ItemDAO {
 
 		} finally {
 			try {
+				close();
 				if (rs != null)
 					rs.close();
 				if (st != null)

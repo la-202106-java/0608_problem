@@ -45,6 +45,8 @@ public class ShowItemServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		try {
 			String action = request.getParameter("action");
 			if (action == null || action.length() == 0 || action.equals("top")) {

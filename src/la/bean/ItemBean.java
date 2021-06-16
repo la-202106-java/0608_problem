@@ -4,10 +4,19 @@ public class ItemBean implements Comparable<ItemBean> {
 	private int code;
 	private String name;
 	private int price;
-	private int quantity;
+	//	private int quantity;
+	private int category;
 
 	public int getCode() {
 		return code;
+	}
+
+	public int getCategory() {
+		return category;
+	}
+
+	public void setCategory(int category) {
+		this.category = category;
 	}
 
 	public void setCode(int code) {
@@ -30,20 +39,12 @@ public class ItemBean implements Comparable<ItemBean> {
 		this.price = price;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public ItemBean(int code, String name, int price, int quantity) {
+	public ItemBean(int code, String name, int price, int category_code) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.price = price;
-		this.quantity = quantity;
+		this.category = category_code;
 	}
 
 	public ItemBean(int code, String name, int price) {
@@ -51,6 +52,13 @@ public class ItemBean implements Comparable<ItemBean> {
 		this.code = code;
 		this.name = name;
 		this.price = price;
+	}
+
+	public ItemBean(String name, int price, int category) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.category = category;
 	}
 
 	@Override

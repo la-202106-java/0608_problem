@@ -34,7 +34,7 @@ public class ItemManagement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -45,15 +45,52 @@ public class ItemManagement extends HttpServlet {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		try {
+			request.setCharacterEncoding("UTF-8");
+			RequestDispatcher rd = null;
 			ItemDAO dao = new ItemDAO();
 			String action = request.getParameter("action");
 			if (action == null || action.trim().length() == 0) {
 				List<ItemBean> list = dao.findAll();
-
 				request.setAttribute("items", list);
+				rd = request.getRequestDispatcher("itemList.jsp");
+			} else if (action.equals("regist")) {
+				rd = request.getRequestDispatcher("addItem.jsp");
+			} else if (action.equals("add")) {
+
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+				int category = Integer.parseInt(request.getParameter("category"));
+
+				ItemBean bean = new ItemBean(name, price, category);
+				int result = dao.addItem(bean);
+				System.out.println(result == 0 ? "Insert failed" : "Insert success");
+				rd = request.getRequestDispatcher("ItemManagement?action=");
+
+			} else if (action.equals("goUpdate")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				ItemBean bean = dao.findByPrimaryKey(code);
+				request.setAttribute("bean", bean);
+				rd = request.getRequestDispatcher("updateItem.jsp");
+			} else if (action.equals("update")) {
+
+				int code = Integer.parseInt(request.getParameter("code"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+				int category = Integer.parseInt(request.getParameter("category"));
+
+				ItemBean bean = new ItemBean(code, name, price, category);
+				int result = dao.updateBeanByCode(bean);
+				System.out.println(result == 0 ? "Update failed" : "Update success");
+				rd = request.getRequestDispatcher("ItemManagement?action=");
+			} else if (action.equals("delete")) {
+
+				int code = Integer.parseInt(request.getParameter("code"));
+
+				int result = dao.deleteBeanByCode(code);
+				System.out.println(result == 0 ? "Delete failed" : "Delete success");
+				rd = request.getRequestDispatcher("ItemManagement?action=");
 			}
 
-			RequestDispatcher rd = request.getRequestDispatcher("itemList.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

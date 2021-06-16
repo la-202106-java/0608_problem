@@ -1,6 +1,9 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String password = hashed(request.getParameter("password"));
 
 		try {
 			CustomerDAO dao = new CustomerDAO();
@@ -77,6 +80,19 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("message", "正しく操作してください。");
 			gotoPage(request, response, "/errInternal.jsp");
 		}
+	}
+
+	private String hashed(String str) {
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+			byte[] result = digest.digest(str.getBytes());
+			return String.format("%040x", new BigInteger(1, result));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 	private void gotoPage(HttpServletRequest request,

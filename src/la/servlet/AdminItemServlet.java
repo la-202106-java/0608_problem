@@ -47,8 +47,28 @@ public class AdminItemServlet extends HttpServlet {
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/items.jsp");
+			} else if (action.equals("updateForm")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				request.setAttribute("code", code);
+				gotoPage(request, response, "/updateItem.jsp");
+			} else if (action.equals("update")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				int category = Integer.parseInt(request.getParameter("category"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+				dao.update(code, category, name, price);
+				List<ItemBean> list = dao.findAll2();
+				// Listをリクエストスコープに入れてJSPへフォーワードする
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/items.jsp");
+			} else if (action.equals("delete")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				dao.deleteByPrimaryKey(code);
+				List<ItemBean> list = dao.findAll2();
+				// Listをリクエストスコープに入れてJSPへフォーワードする
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/items.jsp");
 			}
-
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");

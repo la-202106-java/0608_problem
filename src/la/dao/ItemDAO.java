@@ -283,128 +283,6 @@ public class ItemDAO {
 		}
 	}
 
-	//	public List<ItemBean> findByPrice(int minPrice, int maxPrice) throws DAOException {
-	//		if (con == null)
-	//			getConnection();
-	//
-	//		PreparedStatement st = null;
-	//		ResultSet rs = null;
-	//		try {
-	//			String sql = "select * from item where price >= ? and price <= ?";
-	//			st = con.prepareStatement(sql);
-	//
-	//			st.setInt(1, minPrice);
-	//			st.setInt(2, maxPrice);
-	//
-	//			rs = st.executeQuery();
-	//
-	//			List<ItemBean> list = new ArrayList<ItemBean>();
-	//			while (rs.next()) {
-	//				int code = rs.getInt("code");
-	//				String name = rs.getString("name");
-	//				int price = rs.getInt("price");
-	//				ItemBean bean = new ItemBean(code, name, price);
-	//				list.add(bean);
-	//			}
-	//			//商品一覧をListとして返す
-	//			return list;
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//			throw new DAOException("レコードの操作に失敗しました。");
-	//		} finally {
-	//			try {
-	//				// リソースの開放
-	//				if (rs != null)
-	//					rs.close();
-	//				if (st != null)
-	//					st.close();
-	//				close();
-	//			} catch (Exception e) {
-	//				throw new DAOException("リソースの開放に失敗しました。");
-	//			}
-	//		}
-	//	}
-	//
-	//	public List<ItemBean> findByMinPrice(int minPrice) throws DAOException {
-	//		if (con == null)
-	//			getConnection();
-	//
-	//		PreparedStatement st = null;
-	//		ResultSet rs = null;
-	//		try {
-	//			String sql = "select * from item where price >= ?";
-	//			st = con.prepareStatement(sql);
-	//
-	//			st.setInt(1, minPrice);
-	//			rs = st.executeQuery();
-	//
-	//			List<ItemBean> list = new ArrayList<ItemBean>();
-	//			while (rs.next()) {
-	//				int code = rs.getInt("code");
-	//				String name = rs.getString("name");
-	//				int price = rs.getInt("price");
-	//				ItemBean bean = new ItemBean(code, name, price);
-	//				list.add(bean);
-	//			}
-	//			//商品一覧をListとして返す
-	//			return list;
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//			throw new DAOException("レコードの操作に失敗しました。");
-	//		} finally {
-	//			try {
-	//				// リソースの開放
-	//				if (rs != null)
-	//					rs.close();
-	//				if (st != null)
-	//					st.close();
-	//				close();
-	//			} catch (Exception e) {
-	//				throw new DAOException("リソースの開放に失敗しました。");
-	//			}
-	//		}
-	//	}
-	//
-	//	public List<ItemBean> findByMaxPrice(int maxPrice) throws DAOException {
-	//		if (con == null)
-	//			getConnection();
-	//
-	//		PreparedStatement st = null;
-	//		ResultSet rs = null;
-	//		try {
-	//			String sql = "select * from item where price <= ?";
-	//			st = con.prepareStatement(sql);
-	//
-	//			st.setInt(1, maxPrice);
-	//			rs = st.executeQuery();
-	//
-	//			List<ItemBean> list = new ArrayList<ItemBean>();
-	//			while (rs.next()) {
-	//				int code = rs.getInt("code");
-	//				String name = rs.getString("name");
-	//				int price = rs.getInt("price");
-	//				ItemBean bean = new ItemBean(code, name, price);
-	//				list.add(bean);
-	//			}
-	//			//商品一覧をListとして返す
-	//			return list;
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//			throw new DAOException("レコードの操作に失敗しました。");
-	//		} finally {
-	//			try {
-	//				// リソースの開放
-	//				if (rs != null)
-	//					rs.close();
-	//				if (st != null)
-	//					st.close();
-	//				close();
-	//			} catch (Exception e) {
-	//				throw new DAOException("リソースの開放に失敗しました。");
-	//			}
-	//		}
-	//	}
-
 	public List<ItemBean> findByNameAndPrice(String name, String getMinPrice, String getMaxPrice) throws DAOException {
 		if (con == null)
 			getConnection();
@@ -487,6 +365,37 @@ public class ItemDAO {
 				// リソースの開放
 				if (rs != null)
 					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	public int update(int code, int category, String name, int price) throws DAOException {
+		if (con == null)
+			getConnection();
+		PreparedStatement st = null;
+		try {
+			//update SQL文の定義
+			String sql = "update item set category_code = ? , name = ?, price = ? where code = ?";
+			st = con.prepareStatement(sql);
+			//?に値を代入する
+			st.setInt(1, category);
+			st.setString(2, name);
+			st.setInt(3, price);
+			st.setInt(4, code);
+			int rows = st.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
 				if (st != null)
 					st.close();
 				close();

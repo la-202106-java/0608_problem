@@ -29,6 +29,8 @@
 		<option value="5">5
 		</select>
 		個<br>
+		<a href="/0608_problem/ShowItemServlet?action=detail&code=${item.code}">詳細</a>
+		<br>
 		<input type="submit" value="カートに追加">
 	</form>
 </c:forEach>

@@ -15,7 +15,7 @@
 メールアドレスとパスワードが一致しませんでした。
 </c:if>
 <br>
-	<form action="/0608_problem/LoginServlet" method="post">
+	<form action="/0608_problem/LoginServlet" method="get">
 	 <input type ="hidden" name ="action" value ="login">
   メールアドレス：<input type="text" name="address"><br>
   パスワード：<input type="text" name="password"><br>

@@ -37,8 +37,8 @@ public class LoginServlet extends HttpServlet {
 				if (bean != null) { //ログイン成功時
 					// Listをリクエストスコープに入れてJSPへフォーワードする
 					//request.setAttribute("items", list);
-					//				HttpSession session = request.getSession();
-					//				session.setAttribute("isLogin", "true");
+					HttpSession session = request.getSession();
+					session.setAttribute("ibean", bean);
 					gotoPage(request, response, "/top.jsp");
 				} else { //ログイン失敗の時
 					request.setAttribute("isLogin", "false");

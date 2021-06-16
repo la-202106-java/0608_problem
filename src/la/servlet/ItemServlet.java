@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.dao.DAOException;
@@ -19,6 +21,9 @@ public class ItemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+
 		try {
 			request.setCharacterEncoding("UTF-8");
 			// パラメータの解析
@@ -45,14 +50,24 @@ public class ItemServlet extends HttpServlet {
 			// sortはソート
 			else if (action.equals("sort")) {
 				String key = request.getParameter("key");
-				List<ItemBean> list;
-				if (key.equals("price_asc")) {
-					list = dao.sortPrice(true);
+
+				@SuppressWarnings("unchecked")
+				List<ItemBean> list = (List<ItemBean>) session.getAttribute("items");
+
+				if (list == null) {
+					if (key.equals("price_asc")) {
+						list = dao.sortPrice(true);
+					} else {
+						list = dao.sortPrice(false);
+					}
+				} else if (list != null && key.equals("price_asc")) {
+					list.sort(Comparator.comparingInt(ItemBean::getPrice));
 				} else {
-					list = dao.sortPrice(false);
+					list.sort(Comparator.comparingInt(ItemBean::getPrice).reversed());
 				}
+
 				// Listをリクエストスコープに入れてJSPへフォーワードする
-				request.setAttribute("items", list);
+				session.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 			}
 
@@ -71,25 +86,17 @@ public class ItemServlet extends HttpServlet {
 				if (!maxPrice.equals("")) {
 					max = Integer.parseInt(maxPrice);
 				}
-
-				/*
-				if (minPrice == "") {
-					min = 0;
-					max = Integer.parseInt(maxPrice);
-				} else if (maxPrice == "") {
-					min = Integer.parseInt(minPrice);
-					max = 0;
-				} else if (minPrice == "" && maxPrice == "") {
-					min = 0;
-					max = 0;
-				} else {
-					min = Integer.parseInt(minPrice);
-					max = Integer.parseInt(maxPrice);
-				}
-				*/
 				List<ItemBean> list = dao.findByPrice(pname, min, max);
 				// Listをリクエストスコープに入れてJSPへフォーワードする
-				request.setAttribute("items", list);
+
+				//		ArrayList<String> log = (ArrayList<String>) session.getAttribute("");
+
+				request.setAttribute("name", pname);
+				request.setAttribute("minPrice", minPrice);
+				request.setAttribute("maxPrice", maxPrice);
+
+				session.setAttribute("items", list);
+
 				gotoPage(request, response, "/showItem.jsp");
 			}
 

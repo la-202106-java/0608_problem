@@ -135,7 +135,7 @@ public class ItemDAO {
 		}
 	}
 
-	//*************************************1STEP1**********************************
+	//*************************************STEP3**********************************
 	public List<ItemBean> findByPrice(String pname, int minPrice, int maxPrice) throws DAOException {
 		if (con == null)
 			getConnection();
@@ -162,16 +162,7 @@ public class ItemDAO {
 					st.setInt(2, maxPrice);
 				}
 			}
-			/*
-						if (!pname.equals("")) {
-							if (minPrice == 0 && maxPrice == 0) {
-								//		sql = "SELECT * FROM item WHERE name LIKE '%?%' ";
-								sql = "SELECT * FROM item WHERE name LIKE  ? ";
-								st = con.prepareStatement(sql);
-								st.setString(1, "%" + pname + "%");
-							}
-						}
-			*/
+
 			if (!pname.equals("")) {
 				if (minPrice == 0 && maxPrice == 0) {
 					sql = "SELECT * FROM item WHERE name LIKE ?";
@@ -199,52 +190,6 @@ public class ItemDAO {
 				sql = "SELECT * FROM item";
 				st = con.prepareStatement(sql);
 			}
-			/*
-			if (pname == null) {
-			if (minPrice == 0 && maxPrice == 0) {
-			sql = "SELECT * FROM item";
-			st = con.prepareStatement(sql);
-			} else if (minPrice == 0) {
-			sql = "SELECT * FROM item WHERE price <= ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, maxPrice);
-			} else if (maxPrice == 0) {
-			sql = "SELECT * FROM item WHERE price >= ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, minPrice);
-			} else if (minPrice != 0 && maxPrice != 0) {
-			sql = "SELECT * FROM item WHERE price between ? and ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, minPrice);
-			st.setInt(2, maxPrice);
-			} else {
-			System.exit(0);
-			}
-			}
-			if (pname != null) {
-			if (minPrice == 0 && maxPrice == 0) {
-			sql = "SELECT * FROM item WHERE name = ?";
-			st = con.prepareStatement(sql);
-			st.setString(1, pname);
-			} else if (minPrice == 0) {
-			sql = "SELECT * FROM item WHERE price <= ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, maxPrice);
-			} else if (maxPrice == 0) {
-			sql = "SELECT * FROM item WHERE price >= ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, minPrice);
-			
-			} else if (minPrice != 0 && maxPrice != 0) {
-			sql = "SELECT * FROM item WHERE price between ? and ?";
-			st = con.prepareStatement(sql);
-			st.setInt(1, minPrice);
-			st.setInt(2, maxPrice);
-			} else {
-			System.exit(0);
-			}
-			}
-			*/
 
 			// SQLの実行
 			rs = st.executeQuery();

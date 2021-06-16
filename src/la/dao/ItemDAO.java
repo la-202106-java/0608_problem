@@ -47,8 +47,10 @@ public class ItemDAO {
 		} finally {
 			try {
 				// リソースの開放
-				if(rs != null) rs.close();
-				if(st != null) st.close();
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");
@@ -57,7 +59,7 @@ public class ItemDAO {
 	}
 
 	public List<ItemBean> findByCategory(int categoryCode)
-												throws DAOException {
+			throws DAOException {
 		if (con == null)
 			getConnection();
 
@@ -65,8 +67,7 @@ public class ItemDAO {
 		ResultSet rs = null;
 		try {
 			// SQL文の作成
-			String sql =
-					"SELECT * FROM item WHERE category_code = ? ORDER BY code";
+			String sql = "SELECT * FROM item WHERE category_code = ? ORDER BY code";
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			// カテゴリの設定
@@ -90,8 +91,10 @@ public class ItemDAO {
 		} finally {
 			try {
 				// リソースの開放
-				if(rs != null) rs.close();
-				if(st != null) st.close();
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");
@@ -131,8 +134,10 @@ public class ItemDAO {
 		} finally {
 			try {
 				// リソースの開放
-				if(rs != null) rs.close();
-				if(st != null) st.close();
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");
@@ -160,6 +165,48 @@ public class ItemDAO {
 		if (con != null) {
 			con.close();
 			con = null;
+		}
+	}
+
+	public List<ItemBean> findByName(String keyword) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+			String sql = "SELECT * FROM item where name like ?";
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			st.setString(1, "%" + keyword + "%");
+			// SQLの実行
+			rs = st.executeQuery();
+			// 結果の取得および表示
+			List<ItemBean> list = new ArrayList<ItemBean>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				ItemBean bean = new ItemBean(code, name, price);
+				list.add(bean);
+			}
+			// カテゴリ一覧をListとして返す
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
 		}
 	}
 }

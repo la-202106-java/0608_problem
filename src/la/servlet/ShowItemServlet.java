@@ -29,10 +29,12 @@ public class ShowItemServlet extends HttpServlet {
 			if (action == null || action.length() == 0 || action.equals("top")) {
 				gotoPage(request, response, "/top.jsp");
 			} else if (action.equals("list")) {
+				//list
 				int categoryCode = Integer.parseInt(request.getParameter("code"));
 				List<SampleItemBean> list = dao.findByCategory(categoryCode);
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
+				request.setAttribute("items_number", list.size());
 				gotoPage(request, response, "/list.jsp");
 			} else if (action.equals("detail")) {
 				//商品詳細
@@ -40,6 +42,13 @@ public class ShowItemServlet extends HttpServlet {
 				SampleItemBean item = dao.findByPrimaryKey(code);
 				request.setAttribute("item", item);
 				gotoPage(request, response, "/item.jsp");
+			} else if (action.equals("search")) {
+				//検索
+				String keyword = request.getParameter("keyword");
+				List<SampleItemBean> list = dao.findByName(keyword);
+				request.setAttribute("items", list);
+				request.setAttribute("items_number", list.size());
+				gotoPage(request, response, "/list.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

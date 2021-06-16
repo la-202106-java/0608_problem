@@ -8,7 +8,7 @@
 </c:forEach>
 
 
-<form action = "/0608_problem/ShowItemServlet?action=search&keyword=${keyword}">
+<form action = "/0608_problem/ShowItemServlet" method = "post">
 <input type="hidden" name="action" value="search">
 <input type = "text" name = "keyword">
 <input type = "submit" value = "検索">

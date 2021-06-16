@@ -104,9 +104,8 @@ public class ItemDAO2 {
 		try {
 			String sql = "INSERT INTO item(name,price) VALUES(?,?)";
 			st = con.prepareStatement(sql);
-			st.setInt(1, price);
+			st.setString(1, name);
 			st.setInt(2, price);
-			st.setString(3, name);
 
 			int rows = st.executeUpdate();
 			return rows;
@@ -128,46 +127,72 @@ public class ItemDAO2 {
 	public List<ItemBean> findByPrice(int min, int max, String name) throws DAOE {
 		if (con == null)
 			getConnection();
-
+		PreparedStatement st = null;
 		ResultSet rs = null;
-		List<ItemBean> list = new ArrayList<ItemBean>();
-		String sql = "SELECT * FROM item WHERE price >= ? AND price <= ? AND name LIKE ? ";
+
+		//SQL文の作成
+		String sql = "SELECT * FROM item  ";
+		String name1 = "%" + name + "%";
+
+		//かなり処理が大変になったのでやめました
+		//			String.valueOf(min);
+		//			String.valueOf(max);
+		//WHERE minP >= ? AND maxP <= ? AND LIKE name
+		//			if (min != null && max != "") {
+		//				//最小に値あり最大なにもなし
+		//				//SELECT * FROM item WHERE  >= minP
+		//				sql = sql + "WHERE >=" + min;
+		//
+		//				if (name != null) {
+		//					sql = sql + "AND LIKE" + name1;
+		//
+		//				}
+		//			} else if (min != "" && max != null) {
+		//				//最小値なし最大値あり
+		//				sql = sql + "WHERE <= " + max;
+		//				if (name != null) {
+		//					sql = sql + "AND LIKE" + name1;
+		//				}
+		//			} else if (min != null && max != null) {
+		//				sql = sql + "WHERE >= " + min + "AND <= " + max;
+		//				if (name != null) {
+		//					sql = sql + "AND LIKE" + name1;
+		//				}
+		//			}
+		//			List<ItemBean> list = new ArrayList<ItemBean>();
+		//オブジェクトの取得
 
 		try {
-			PreparedStatement st = con.prepareStatement(sql);
-
+			sql = sql + "where price >= ? and  price <= ? and name like " + name1 + "  order by price";
+			st = con.prepareStatement(sql);
 			st.setInt(1, min);
 			st.setInt(2, max);
-
-			st.setString(3, name);
-
 			rs = st.executeQuery();
+			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
-				String name1 = rs.getString("name");
+				name1 = rs.getString("name");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name1, price);
+				ItemBean bean = new ItemBean(code, name, price);
 				list.add(bean);
-
 			}
-			return list;
-		} catch (
 
-		Exception e) {
+			return list;
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOE("レコード操作失敗");
 
-		} finally
-
-		{
+		} finally {
 			try {
 				if (rs != null)
 					rs.close();
-
+				if (st != null)
+					st.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOE("失敗");
 			}
+
 		}
 	}
 

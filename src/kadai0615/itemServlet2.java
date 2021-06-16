@@ -21,21 +21,22 @@ import la.dao.ItemDAO2;
 public class itemServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//	private static final HttpServletRequest request = null;
-	//
-	//	HttpSession session = request.getSession();
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
+
+			//モデルのDAOを作成
 			ItemDAO2 dao = new ItemDAO2();
 
 			if (action == null || action.length() == 0) {
 				List<ItemBean> list = dao.findAll();
 				request.setAttribute("items", list);
+				//showItem2.jspに転送
 				gotoPage(request, response, "/showItem2.jsp");
+
+				//valueにaddが記載されていたら
 			} else if (action.equals("add")) {
 				String name = request.getParameter("name");
 				int price = Integer.parseInt(request.getParameter("price"));
@@ -44,10 +45,10 @@ public class itemServlet2 extends HttpServlet {
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem2.jsp");
 
+				//valueにsort
 			} else if (action.equals("sort")) {
 				String key = request.getParameter("key");
 				List<ItemBean> list = dao.findAll();
-
 				if (key.equals("price_asc")) {
 					list = dao.sortPrice(true);
 				} else {
@@ -56,39 +57,42 @@ public class itemServlet2 extends HttpServlet {
 
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem2.jsp");
+
+				//valueにserch
 			} else if (action.equals("serch")) {
+
 				int min;
+				min = 0;
 				int max;
-				String name = request.getParameter("name");
+				max = Integer.MAX_VALUE;
 
-				String minP = request.getParameter("minPrice");
-				if (minP == null || minP.length() == 0) {
-					min = 0;
-
-				} else {
-					min = Integer.parseInt(minP);
+				if (request.getParameter("price1") != null && request.getParameter("price1").trim().length() > 0) {
+					min = Integer.parseInt(request.getParameter("price1"));
+					request.setAttribute("price1", min);
 				}
 
-				String maxP = request.getParameter("maxPrice");
-				if (maxP == null || maxP.length() == 0) {
-					max = Integer.MAX_VALUE;
-
-				} else {
-					max = Integer.parseInt(maxP);
+				if (request.getParameter("price2") != null && request.getParameter("price2").trim().length() > 0) {
+					max = Integer.parseInt(request.getParameter("price2"));
+					request.setAttribute("price2", max);
 				}
 
-				if (name == null) {
-					name = "";
+				String name;
+				name = "";
+
+				if (request.getParameter("name") != null && request.getParameter("name").trim().length() > 0) {
+					name = request.getParameter("name");
+					request.setAttribute("name", name);
 				}
 
-				//				int price = Integer.parseInt(request.getParameter("price"));
 				List<ItemBean> list = dao.findByPrice(min, max, name);
-				//				session.setAttribute("items", list);
 
 				request.setAttribute("items", list);
-				gotoPage(request, response, "/showItem2.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("showItem2.jsp");
+				rd.forward(request, response);
+
 			}
 
+			//valueにdelete
 			else if (action.equals("delete")) {
 				int code = Integer.parseInt(request.getParameter("code"));
 				dao.deleteByPrimaryKey(code);

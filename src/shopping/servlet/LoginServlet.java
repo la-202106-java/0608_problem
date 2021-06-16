@@ -41,8 +41,16 @@ public class LoginServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("user", cu);
 					gotoPage(request, response, "/top.jsp");
-
 				}
+			} else if (action.equals("logout")) {
+				HttpSession session = request.getSession(false);
+				if (session == null) {
+					request.setAttribute("message", "正しく操作してください。");
+					gotoPage(request, response, "/errInternal.jsp");
+				}
+				session.invalidate();
+				gotoPage(request, response, "/login.jsp");
+
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

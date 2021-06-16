@@ -6,7 +6,13 @@
 <c:forEach items="${categories}" var="category">
 	<a href="/0608_problem/ShowItemServlet?action=list&code=${category.code}">${category.name}</a>|
 </c:forEach>
+<c:if test="${!empty user}">
 こんにちは、${user.name}さん|
+<a href="/0608_problem/LoginServlet?action=logout">ログアウト</a>|
+</c:if>
+<c:if test="${empty user}">
+<a href="/0608_problem/LoginServlet">ログイン</a>|
+</c:if>
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>
 <br>
 <form action="/0608_problem/ShowItemServlet" method="get">

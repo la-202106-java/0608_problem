@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,8 @@
 
 <h3>商品一覧</h3>
 
+${fn:length(items)}件の商品が存在しました<br>
+<br>
 <c:forEach items="${items}" var="item">
 	<form action="/0608_problem/CartServlet?action=add" method="post">
 		<input type="hidden" name="item_code" value="${item.code}">

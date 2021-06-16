@@ -256,6 +256,33 @@ public class ItemDAO {
 		}
 	}
 
+	public int addItem2(int category, String name, int price) throws DAOException {
+		if (con == null)
+			getConnection();
+		PreparedStatement st = null;
+		try {
+			String sql = "insert into item(category_code,name,price) values(?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setInt(1, category);
+			st.setString(2, name);
+			st.setInt(3, price);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	//	public List<ItemBean> findByPrice(int minPrice, int maxPrice) throws DAOException {
 	//		if (con == null)
 	//			getConnection();

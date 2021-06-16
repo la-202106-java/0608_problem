@@ -343,22 +343,20 @@ public class ItemDAO {
 		try {
 			//SQL作成
 			String sql;
-			String namesql;
-			if (!namePart.isEmpty()) {
-
-			}
 
 			if (isAscending) {
-				sql = "SELECT * FROM item WHERE name LIKE ? ORDER BY price";
+				sql = "SELECT * FROM item WHERE ? <= price and price <= ? and name LIKE ? ORDER BY price";
 			} else {
-				sql = "SELECT * FROM item WHERE name LIKE ? ORDER BY price desc";
+				sql = "SELECT * FROM item WHERE ? <= price and price <= ? and name LIKE ? ORDER BY price desc";
 			}
 
 			//PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			//名前のセット
 			String NamePart = "%" + namePart + "%";
-			st.setString(1, NamePart);
+			st.setInt(1, minPrice);
+			st.setInt(2, maxPrice);
+			st.setString(3, NamePart);
 
 			//SQLの実行
 			rs = st.executeQuery();

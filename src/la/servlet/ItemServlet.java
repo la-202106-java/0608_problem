@@ -43,21 +43,29 @@ public class ItemServlet extends HttpServlet {
 			else if (action.equals("sort")) {
 				String key = request.getParameter("key");
 				String name = (String) session.getAttribute("name");
-				List<ItemBean> list;
-				if (!name.isEmpty()) {
-					if (key.equals("price_asc")) {
-						list = dao.findByNameSortPrice(name, true);
-					} else {
-						list = dao.findByNameSortPrice(name, false);
-					}
-				} else {
-					if (key.equals("price_asc")) {
-						list = dao.sortPrice(true);
-					} else {
-						list = dao.sortPrice(false);
-					}
+				String SminPrice = (String) session.getAttribute("minPrice");
+				String SmaxPrice = (String) session.getAttribute("maxPrice");
+				int minPrice;
+				int maxPrice;
+				if (name.isEmpty()) {
+					name = "";
 				}
-
+				if (SminPrice.isEmpty()) {
+					minPrice = 0;
+				} else {
+					minPrice = Integer.parseInt(SminPrice);
+				}
+				if (SmaxPrice.isEmpty()) {
+					maxPrice = 100000000;
+				} else {
+					maxPrice = Integer.parseInt(SmaxPrice);
+				}
+				List<ItemBean> list;
+				if (key.equals("price_asc")) {
+					list = dao.findByNameSortPrice(name, minPrice, maxPrice, true);
+				} else {
+					list = dao.findByNameSortPrice(name, minPrice, maxPrice, false);
+				}
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 				return;
@@ -165,9 +173,7 @@ public class ItemServlet extends HttpServlet {
 				return;
 			}
 
-		} catch (
-
-		DAOException e) {
+		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");

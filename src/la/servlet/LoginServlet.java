@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.CustomerBean;
 import la.dao.CustomerDAO;
@@ -51,11 +52,30 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("message", "メールアドレスとパスワードが一致しませんでした");
 					gotoPage(request, response, "/login.jsp");
 				} else {
+					HttpSession session = request.getSession();
+					session.setAttribute("customer", bean);
 					gotoPage(request, response, "/top.jsp");
 				}
+			} else {
+				request.setAttribute("message", "正しく操作してください。");
+				gotoPage(request, response, "/errInternal.jsp");
 			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		if (action.equals("logout")) {
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+			gotoPage(request, response, "/top.jsp");
+		} else {
+			request.setAttribute("message", "正しく操作してください。");
+			gotoPage(request, response, "/errInternal.jsp");
 		}
 	}
 

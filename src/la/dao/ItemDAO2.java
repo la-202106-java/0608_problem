@@ -10,10 +10,10 @@ import java.util.List;
 
 import la.bean.ItemBean;
 
-public class ItemDAO {
+public class ItemDAO2 {
 	private Connection con;
 
-	public ItemDAO() throws DAOException {
+	public ItemDAO2() throws DAOException {
 		getConnection();
 	}
 
@@ -84,32 +84,6 @@ public class ItemDAO {
 				list.add(bean);
 			}
 			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの操作に失敗しました。");
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (st != null)
-					st.close();
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの解放に失敗しました。");
-			}
-		}
-	}
-
-	public List<ItemBean> arterSort(boolean isAscending, String Name, int MinPrice, int MaxPrice) throws DAOException {
-		if (con == null) {
-			getConnection();
-		}
-		PreparedStatement st = null;
-		ResultSet rs = null;
-
-		try {
-
-			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました。");

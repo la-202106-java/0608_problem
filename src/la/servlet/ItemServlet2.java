@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.dao.DAOException;
@@ -18,8 +17,8 @@ import la.dao.ItemDAO;
 /**
  * Servlet implementation class ItemServlet
  */
-@WebServlet("/ItemServlet")
-public class ItemServlet extends HttpServlet {
+@WebServlet("/ItemServlet2")
+public class ItemServlet2 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -43,16 +42,8 @@ public class ItemServlet extends HttpServlet {
 				gotoPage(request, response, "/showItem.jsp");
 
 			} else if (action.equals("sort")) {
-
-				HttpSession session = request.getSession();
-
 				String key = request.getParameter("key");
-				String name = (String) session.getAttribute("Sgname");
-				int MINprice = (int) session.getAttribute("Sminp");
-				int MAXprice = (int) session.getAttribute("Smaxp");
-
 				List<ItemBean> list;
-
 				if (key.equals("price_asc")) {
 					list = dao.sortPrice(true);
 				} else {
@@ -63,8 +54,6 @@ public class ItemServlet extends HttpServlet {
 
 			} else if (action.equals("search")) {
 
-				HttpSession session = request.getSession();
-
 				String GoodsName = request.getParameter("Gname");
 				String minP = request.getParameter("price1");
 				String maxP = request.getParameter("price2");
@@ -73,21 +62,18 @@ public class ItemServlet extends HttpServlet {
 					GoodsName = null;
 				} else {
 					request.setAttribute("GNAME", GoodsName);
-					session.setAttribute("Sgname", GoodsName);
 				}
 
 				if (minP == "") {
 					minP = "-1";
 				} else {
 					request.setAttribute("MINP", minP);
-					session.setAttribute("Sminp", minP);
 				}
 
 				if (maxP == "") {
 					maxP = "-1";
 				} else {
 					request.setAttribute("MAXP", maxP);
-					session.setAttribute("Smaxp", maxP);
 				}
 
 				int minPrice = Integer.parseInt(minP);

@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import la.bean.CustomerBean;
+import la.dao.CustomerDAO;
+import la.dao.DAOException;
+
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
@@ -23,30 +27,36 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String action = request.getParameter("action");
-		if (action.equals("login")) {
-			//			String name = request.getParameter("name");
-			//			String passWord = request.getParameter("pw");
-			gotoPage(request, response, "/top.jsp");
-			//			if (name.equals(USER) && passWord.equals(PASS)) {
-			//				HttpSession session = request.getSession();
-			//				session.setAttribute("isLogin", "true");
-			//				out.println("<html><head><title>SelectProduct</title></head><body>");
-			//				out.println("<h1>ログイン成功</h1>");
-			//				out.println("</body></html>");
-			//			} else {
-			//				out.println("<html><head><title>SelectProduct</title></head><body>");
-			//				out.println("<h1>ユーザ名またはパスワードが違います</h1>");
-			//				out.println("</body></html>");
-			//			}
-		} else if (action.equals("logout")) {
-			HttpSession session = request.getSession(false);
-			if (session != null) {
-				session.invalidate();
-				out.println("<html><head><title>SelectProduct</title></head><body>");
-				out.println("<h1>ログアウトしました</h1>");
-				out.println("</body></html>");
+		try {
+			String action = request.getParameter("action");
+			if (action.equals("login")) {
+				String address = request.getParameter("address");
+				String passWord = request.getParameter("password");
+				CustomerDAO dao = new CustomerDAO();
+				CustomerBean bean = dao.findByEmailAndPassword(address, passWord);
+				if (bean != null) { //ログイン成功時
+					// Listをリクエストスコープに入れてJSPへフォーワードする
+					//request.setAttribute("items", list);
+					//				HttpSession session = request.getSession();
+					//				session.setAttribute("isLogin", "true");
+					gotoPage(request, response, "/top.jsp");
+				} else { //ログイン失敗の時
+					request.setAttribute("isLogin", "false");
+					gotoPage(request, response, "/login.jsp");
+				}
+			} else if (action.equals("logout")) {
+				HttpSession session = request.getSession(false);
+				if (session != null) {
+					session.invalidate();
+					out.println("<html><head><title>SelectProduct</title></head><body>");
+					out.println("<h1>ログアウトしました</h1>");
+					out.println("</body></html>");
+				}
 			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
+			gotoPage(request, response, "/errInternal.jsp");
 		}
 
 	}

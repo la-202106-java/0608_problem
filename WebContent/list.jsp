@@ -15,7 +15,7 @@
 <h3>商品一覧</h3>
 
 <c:forEach items="${items}" var="item">
-	<form action="/shopping/CartServlet?action=add" method="post">
+	<form action="/0608_problem/CartServlet?action=add" method="post">
 		<input type="hidden" name="item_code" value="${item.code}">
 		商品番号：<b>${item.code}</b><br>
 		商品名：<b>${item.name}</b><br>

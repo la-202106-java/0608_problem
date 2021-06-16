@@ -8,3 +8,9 @@
 </c:forEach>
 
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>
+<br>
+<form action="/0608_problem/ShowItemServlet" method="get">
+<input type="text" name="keyword">
+<input type="submit" value="検索">
+<input type="hidden" name="action" value="search">
+</form>

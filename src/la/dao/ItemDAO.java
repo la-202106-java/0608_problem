@@ -102,6 +102,46 @@ public class ItemDAO {
 		}
 	}
 
+	public int countByCategory(int categoryCode)
+			throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+			String sql = "SELECT count(*) count FROM item WHERE category_code = ?";
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// カテゴリの設定
+			st.setInt(1, categoryCode);
+			// SQLの実行
+			rs = st.executeQuery();
+			// 結果の取得および表示
+			int count = 0;
+			if (rs.next()) {
+				count = rs.getInt("count");
+			}
+			return count;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public ShoppingItemBean findByPrimaryKey(int key) throws DAOException {
 		if (con == null)
 			getConnection();
@@ -171,6 +211,45 @@ public class ItemDAO {
 			}
 			return list;
 			// 商品一覧をListとして返す
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	public int countByName(String keyword) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+			String sql = "SELECT count(*) count FROM item WHERE name LIKE ?";
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// カテゴリの設定
+			st.setString(1, "%" + keyword + "%");
+			// SQLの実行
+			rs = st.executeQuery();
+			// 結果の取得および表示
+			int count = 0;
+			if (rs.next()) {
+				count = rs.getInt("count");
+			}
+			return count;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");

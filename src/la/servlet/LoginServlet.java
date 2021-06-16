@@ -2,6 +2,7 @@ package la.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import la.bean.CategoryBean;
 import la.bean.CustomerBean;
 import la.dao.CustomerDAO;
 import la.dao.DAOException;
+import la.dao.ItemDAO;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -39,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 					//request.setAttribute("items", list);
 					HttpSession session = request.getSession();
 					session.setAttribute("ibean", bean);
+					request.setAttribute("isLogin", "true");
 					gotoPage(request, response, "/top.jsp");
 				} else { //ログイン失敗の時
 					request.setAttribute("isLogin", "false");
@@ -48,9 +52,8 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession(false);
 				if (session != null) {
 					session.invalidate();
-					out.println("<html><head><title>SelectProduct</title></head><body>");
-					out.println("<h1>ログアウトしました</h1>");
-					out.println("</body></html>");
+					request.setAttribute("isLogin", "false");
+					gotoPage(request, response, "/menu.jsp");
 				}
 			}
 		} catch (DAOException e) {
@@ -66,6 +69,18 @@ public class LoginServlet extends HttpServlet {
 			IOException {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
+	}
+
+	public void init() throws ServletException {
+		try {
+			// カテゴリ一覧は最初にアプリケーションスコープへ入れる
+			ItemDAO dao = new ItemDAO();
+			List<CategoryBean> list = dao.findAllCategory();
+			getServletContext().setAttribute("categories", list);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServletException();
+		}
 	}
 
 	@Override

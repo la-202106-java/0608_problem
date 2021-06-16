@@ -49,7 +49,9 @@ public class AdminItemServlet extends HttpServlet {
 				String name = request.getParameter("name");
 				int price = Integer.parseInt(request.getParameter("price"));
 				dao.addItem(categoryCode, name, price);
-				gotoPage(request, response, "/AdminItemServlet");
+				List<AdminItemBean> list = dao.findAll();
+				request.setAttribute("adminItems", list);
+				gotoPage(request, response, "/WEB-INF/items.jsp");
 			} else {
 				request.setAttribute("message", "正しい操作をしてください。");
 				gotoPage(request, response, "/errInternal.jsp");

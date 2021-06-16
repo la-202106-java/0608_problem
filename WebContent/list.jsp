@@ -13,7 +13,8 @@
 <jsp:include page="/menu.jsp" />
 
 <h3>商品一覧</h3>
-
+${count}件の商品が存在しました
+<br><br>
 <c:forEach items="${items}" var="item">
 	<form action="/0608_problem/CartServlet?action=add" method="post">
 		<input type="hidden" name="item_code" value="${item.code}">

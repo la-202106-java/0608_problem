@@ -20,6 +20,9 @@ public class AdminItemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
 		try {
 			String action = request.getParameter("action");
 			AdminItemDAO dao = new AdminItemDAO();
@@ -33,6 +36,19 @@ public class AdminItemServlet extends HttpServlet {
 				rd.forward(request, response);
 			} else if (action.equals("regist")) {
 				RequestDispatcher rd = request.getRequestDispatcher("/addItem.jsp");
+				rd.forward(request, response);
+			} else if (action.equals("add")) {
+				int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+
+				dao.addItem(categoryCode, name, price);
+
+				List<AdminItemBean> list = dao.findAll();
+
+				request.setAttribute("items", list);
+
+				RequestDispatcher rd = request.getRequestDispatcher("/items.jsp");
 				rd.forward(request, response);
 			}
 

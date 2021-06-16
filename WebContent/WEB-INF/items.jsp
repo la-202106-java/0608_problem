@@ -16,6 +16,7 @@
 			<td>カテゴリコード</td>
 			<td>商品名</td>
 			<td>値段</td>
+			<td>更新</td>
 		</tr>
 		<c:forEach items="${adminItems}" var="item">
 			<tr>
@@ -23,6 +24,15 @@
 				<td>${item.categoryCode}</td>
 				<td>${item.name}</td>
 				<td>${item.price }</td>
+				<td><form action="/0608_problem/AdminItemServlet">
+				<input type="submit" value="更新">
+				<input type="hidden" name="code" value="${item.code}">
+				<input type="hidden" name="categoryCode" value="${item.categoryCode}">
+				<input type="hidden" name="name" value="${item.name}">
+				<input type="hidden" name="price" value="${item.price}">
+				<input type="hidden" name="action" value="edit">
+				</form>
+				</td>
 			</tr>
 		</c:forEach>
 

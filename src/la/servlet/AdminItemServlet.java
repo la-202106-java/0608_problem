@@ -42,7 +42,9 @@ public class AdminItemServlet extends HttpServlet {
 				List<AdminItemBean> list = dao.findAll();
 				request.setAttribute("adminItems", list);
 				gotoPage(request, response, "/WEB-INF/items.jsp");
-			} else if (action.equals("regist")) {
+			}
+			//add
+			else if (action.equals("regist")) {
 				gotoPage(request, response, "/WEB-INF/addItem.jsp");
 			} else if (action.equals("add")) {
 				int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
@@ -52,7 +54,39 @@ public class AdminItemServlet extends HttpServlet {
 				List<AdminItemBean> list = dao.findAll();
 				request.setAttribute("adminItems", list);
 				gotoPage(request, response, "/WEB-INF/items.jsp");
-			} else {
+			}
+			//update
+			else if (action.equals("edit")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+				AdminItemBean item = new AdminItemBean(code, categoryCode, name, price);
+				request.setAttribute("item", item);
+				gotoPage(request, response, "/WEB-INF/updateItem.jsp");
+			} else if (action.equals("update")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				String stringCategoryCode = request.getParameter("categoryCode");
+				if (stringCategoryCode == null || stringCategoryCode.length() == 0) {
+					request.setAttribute("message", "数値を入力してください。");
+					gotoPage(request, response, "/errInternal.jsp");
+				}
+				int categoryCode = Integer.parseInt(stringCategoryCode);
+
+				String name = request.getParameter("name");
+				String stringPrice = request.getParameter("price");
+				if (stringPrice == null || stringPrice.length() == 0) {
+					request.setAttribute("message", "数値を入力してください。");
+					gotoPage(request, response, "/errInternal.jsp");
+				}
+				int price = Integer.parseInt(stringPrice);
+				dao.updateItem(code, categoryCode, name, price);
+				List<AdminItemBean> list = dao.findAll();
+				request.setAttribute("adminItems", list);
+				gotoPage(request, response, "/WEB-INF/items.jsp");
+			}
+			//error
+			else {
 				request.setAttribute("message", "正しい操作をしてください。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}

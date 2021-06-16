@@ -132,6 +132,38 @@ public class AdminItemDAO {
 		}
 	}
 
+	//主キーで削除
+	public int deleteByPrimaryKey(int key) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+
+		try {
+			//SQL作成
+			String sql = "DELETE FROM item WHERE code = ?";
+			//PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			st.setInt(1, key);
+			//SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		} finally {
+			try {
+				//リソースの開放
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			//JDBCドライバの登録

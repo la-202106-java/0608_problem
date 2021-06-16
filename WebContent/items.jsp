@@ -11,7 +11,7 @@
 <h1><b>商品一覧</b></h1>
 
 	<table border="1">
-	<tr><td><b>コード</b></td><td><b>カテゴリーコード</b></td><td><b>商品名</b></td><td><b>価格</b></td><td><b>更新</b></td></tr>
+	<tr><td><b>コード</b></td><td><b>カテゴリーコード</b></td><td><b>商品名</b></td><td><b>価格</b></td><td><b>更新</b></td><td><b>削除</b></td></tr>
 
 	<c:forEach items="${items}" var="item">
 		<tr><td>${item.code}</td><td>${item.category_code}</td><td>${item.name}</td><td>${item.price}</td>
@@ -19,6 +19,11 @@
 		<input type="hidden" name="code" value="${item.code}">
 		<input type= "submit" value = 更新>
 		<input type = "hidden" name = "action" value = "edit"></form>
+		<td><form action = "/0608_problem/AdminItemServlet" method = "post">
+		<input type="hidden" name="code" value="${item.code}">
+		<input type= "submit" value = 削除>
+		<input type = "hidden" name = "action" value = "delete"></form>
+
 		</td>
 	</tr>
 	</c:forEach>

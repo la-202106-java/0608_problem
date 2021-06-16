@@ -72,6 +72,15 @@ public class AdminItemServlet extends HttpServlet {
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/items.jsp");
 				return;
+			} else if (action.equals("delete")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				dao.deleteByPrimaryKey(code);
+				//削除後、全レコードを表示
+				List<AdminItemBean> list = dao.findAll();
+				Collections.sort(list, new CodeComparator());
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/items.jsp");
+				return;
 			}
 
 		} catch (DAOException e) {

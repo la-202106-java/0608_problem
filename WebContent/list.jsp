@@ -38,5 +38,10 @@ ${items_number}件の商品が存在しました<br>
 	</form>
 </c:forEach>
 
+<br>
+<c:forEach var="i" begin="1" end="${page_max}" step="1">
+	<a href="/0608_problem/ShowItemServlet?action=list&code=${category_code}&keyword=${keyword}&page=${i}">${i}</a>
+</c:forEach>
+
 </body>
 </html>

@@ -17,6 +17,7 @@ import la.dao.SampleItemDAO;
 
 @WebServlet("/ShowItemServlet")
 public class ShowItemServlet extends HttpServlet {
+	private static int limit = 10;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -30,12 +31,35 @@ public class ShowItemServlet extends HttpServlet {
 				gotoPage(request, response, "/top.jsp");
 			} else if (action.equals("list")) {
 				//list
-				int categoryCode = Integer.parseInt(request.getParameter("code"));
-				List<SampleItemBean> list = dao.findByCategory(categoryCode);
-				// Listをリクエストスコープに入れてJSPへフォーワードする
-				request.setAttribute("items", list);
-				request.setAttribute("items_number", list.size());
-				gotoPage(request, response, "/list.jsp");
+				String code = request.getParameter("code");
+				String keyword = request.getParameter("keyword");
+				String page = request.getParameter("page");
+				int currentPage = 1;
+				if (page != null && page.length() != 0) {
+					currentPage = Integer.parseInt(page);
+				}
+				if (code != null && code.length() != 0) {
+					int categoryCode = Integer.parseInt(code);
+					int itemsNum = dao.countByCategory(categoryCode);
+					List<SampleItemBean> list = dao.findByCategory(categoryCode, limit, (currentPage - 1) * 10);
+					// Listをリクエストスコープに入れてJSPへフォーワードする
+					request.setAttribute("items", list);
+					request.setAttribute("items_number", itemsNum);
+					request.setAttribute("page_max", Math.ceil(itemsNum / (double) limit));
+					request.setAttribute("category_code", categoryCode);
+					gotoPage(request, response, "/list.jsp");
+				} else if (keyword != null && keyword.length() != 0) {
+					int itemsNum = dao.countByName(keyword);
+					List<SampleItemBean> list = dao.findByName(keyword, limit, (currentPage - 1) * 10);
+					request.setAttribute("items", list);
+					request.setAttribute("items_number", itemsNum);
+					request.setAttribute("page_max", Math.ceil(itemsNum / (double) limit));
+					request.setAttribute("keyword", keyword);
+					gotoPage(request, response, "/list.jsp");
+				} else {
+					request.setAttribute("message", "正しく操作してください。");
+					gotoPage(request, response, "/errInternal.jsp");
+				}
 			} else if (action.equals("detail")) {
 				//商品詳細
 				int code = Integer.parseInt(request.getParameter("code"));
@@ -45,9 +69,17 @@ public class ShowItemServlet extends HttpServlet {
 			} else if (action.equals("search")) {
 				//検索
 				String keyword = request.getParameter("keyword");
-				List<SampleItemBean> list = dao.findByName(keyword);
+				String page = request.getParameter("page");
+				int currentPage = 1;
+				if (page != null && page.length() != 0) {
+					currentPage = Integer.parseInt(page);
+				}
+				int itemsNum = dao.countByName(keyword);
+				List<SampleItemBean> list = dao.findByName(keyword, limit, (currentPage - 1) * 10);
 				request.setAttribute("items", list);
-				request.setAttribute("items_number", list.size());
+				request.setAttribute("items_number", itemsNum);
+				request.setAttribute("page_max", Math.ceil(itemsNum / (double) limit));
+				request.setAttribute("keyword", keyword);
 				gotoPage(request, response, "/list.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");

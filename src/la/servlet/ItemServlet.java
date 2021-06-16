@@ -48,8 +48,10 @@ public class ItemServlet extends HttpServlet {
 
 				String key = request.getParameter("key");
 				String name = (String) session.getAttribute("Sgname");
-				int MINprice = (int) session.getAttribute("Sminp");
-				int MAXprice = (int) session.getAttribute("Smaxp");
+				String tmpMIN = (String) session.getAttribute("Sminp");
+				String tmpMAX = (String) session.getAttribute("Smaxp");
+				int MINprice = Integer.parseInt(tmpMIN);
+				int MAXprice = Integer.parseInt(tmpMAX);
 
 				List<ItemBean> list;
 

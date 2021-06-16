@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action="/jmaster/LoginServlet" method="post">
+ユーザ名：<input type="text" name="name"><br>
+パスワード：<input type="password" name="pw"><br>
+<input type="hidden" name="action" value="login">
+<input type="submit" value="ログイン">
+</form>
+
+
+商品を選択してください。
+<hr>
+
+<a href="/jmaster/AddCartServlet?product_no=100">パソコン</a>
+<br>
+<a href="/jmaster/AddCartServlet?product_no=101">プリンタ</a>
+<br>
+<a href="/jmaster/AddCartServlet?product_no=102">デジタルカメラ</a>
+<br>
+<br>
+<a href="/jmaster/LoginServlet?action=logout">ログアウト</a>
+<br>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Payment</title>
+</head>
+<body>
+
+<form action="/jmaster/PaymentServlet" method="post">
+お支払方法を選択してください<br>
+<input type="radio" name="pay" value="card">クレジットカード
+<input type="radio" name="pay" value="bank">銀行振り込み
+<input type="radio" name="pay" value="cash">代引き
+<br><br>
+最後にアンケートにお答えください。<br>
+普段ご利用されているサービスは何ですか?（複数回答可能）<br>
+<input type="checkbox" name="site" value="fb">facebook
+<input type="checkbox" name="site" value="tw">Twitter
+<input type="checkbox" name="site" value="yt">YouTube
+<br>
+<input type="submit" value="送信">
+</form>
+
+</body>
+</html>

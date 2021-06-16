@@ -83,15 +83,15 @@ public class ItemServlet extends HttpServlet {
 
 				if (request.getParameter("itemName") != null && request.getParameter("itemName").length() != 0) {
 					itemName = request.getParameter("itemName");
-					session.setAttribute("itemName", itemName);
+					request.setAttribute("itemName", itemName);
 				}
 				if (request.getParameter("minPrice") != null && request.getParameter("minPrice").length() != 0) {
 					minPrice = Integer.parseInt(request.getParameter("minPrice"));
-					session.setAttribute("minPrice", minPrice);
+					request.setAttribute("minPrice", minPrice);
 				}
 				if (request.getParameter("maxPrice") != null && request.getParameter("maxPrice").length() != 0) {
 					maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-					session.setAttribute("maxPrice", maxPrice);
+					request.setAttribute("maxPrice", maxPrice);
 				}
 
 				List<ItemBean> list = dao.findBy3Inputs(itemName, minPrice, maxPrice);

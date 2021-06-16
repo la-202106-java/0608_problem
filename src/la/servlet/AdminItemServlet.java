@@ -85,6 +85,14 @@ public class AdminItemServlet extends HttpServlet {
 				request.setAttribute("adminItems", list);
 				gotoPage(request, response, "/WEB-INF/items.jsp");
 			}
+			//delete
+			else if (action.equals("delete")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				dao.deleteItem(code);
+				List<AdminItemBean> list = dao.findAll();
+				request.setAttribute("adminItems", list);
+				gotoPage(request, response, "/WEB-INF/items.jsp");
+			}
 			//error
 			else {
 				request.setAttribute("message", "正しい操作をしてください。");

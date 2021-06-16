@@ -113,6 +113,33 @@ public class AdminItemDAO {
 		}
 	}
 
+	public int deleteItem(int code) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+
+		try {
+			String sql = "DELETE FROM item WHERE code=?";
+			st = con.prepareStatement(sql);
+
+			st.setInt(1, code);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			Class.forName("org.postgresql.Driver");

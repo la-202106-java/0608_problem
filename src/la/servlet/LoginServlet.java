@@ -1,7 +1,6 @@
 package la.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,7 +27,6 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
 
 		try {
 			String action = request.getParameter("action");
@@ -52,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession(false);
 				if (session != null) {
 					session.invalidate();
-					//request.setAttribute("isLogin", "false");
 					gotoPage(request, response, "/menu.jsp");
 				}
 			}

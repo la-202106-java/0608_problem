@@ -63,6 +63,37 @@ public class AdminItemServlet extends HttpServlet {
 
 				gotoPage(request, response, "/WEB-INF/adminItems.jsp");
 			}
+
+			//edit
+			else if (action.equals("edit")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				request.setAttribute("code", code);
+				gotoPage(request, response, "/WEB-INF/adminEditItem.jsp");
+			}
+
+			//update
+			else if (action.equals("update")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				int categoryCode = Integer.parseInt(request.getParameter("category_code"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+
+				dao.updateItem(code, categoryCode, name, price);
+				List<ItemBean> list = dao.findAll();
+				request.setAttribute("items", list);
+
+				gotoPage(request, response, "/WEB-INF/adminItems.jsp");
+			}
+
+			//delete
+			else if (action.equals("delete")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				dao.deleteByPrimaryKey(code);
+				List<ItemBean> list = dao.findAll();
+				request.setAttribute("items", list);
+
+				gotoPage(request, response, "/WEB-INF/adminItems.jsp");
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました");

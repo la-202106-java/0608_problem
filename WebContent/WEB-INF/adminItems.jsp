@@ -10,7 +10,7 @@
 <body>
 	<h1>商品一覧</h1>
 	<table border="1">
-		<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>価格</td><td>更新</td></tr>
+		<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>価格</td><td>更新</td><td>削除</td></tr>
 
 
 		<c:forEach items="${ items }" var="item">
@@ -24,6 +24,13 @@
 				<input type="hidden" name="action" value="edit">
 				<input type="hidden" name="code" value="${ item.code }">
 				<input type="submit" value="更新">
+				</form>
+			</td>
+			<td>
+				<form action="/0608_problem/AdminItemServlet" method="post">
+				<input type="hidden" name="action" value="delete">
+				<input type="hidden" name="code" value="${ item.code }">
+				<input type="submit" value="削除">
 				</form>
 			</td>
 			</tr>

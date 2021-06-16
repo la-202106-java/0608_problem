@@ -25,7 +25,7 @@ public class AdminItemDAO {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT * FROM item";
+		String sql = "SELECT * FROM item ORDER BY code";
 
 		try {
 			List<ItemBean> list = new ArrayList<ItemBean>();
@@ -59,85 +59,6 @@ public class AdminItemDAO {
 		}
 	}
 
-	public List<ItemBean> sortPrice(boolean isAscending) throws DAOException {
-		if (con == null) {
-			getConnection();
-		}
-
-		String sql;
-		if (isAscending) {
-			sql = "SELECT * FROM item ORDER BY price";
-		} else {
-			sql = "SELECT * FROM item ORDER BY price DESC";
-		}
-		List<ItemBean> list = new ArrayList<ItemBean>();
-		try (PreparedStatement st = con.prepareStatement(sql);
-				ResultSet rs = st.executeQuery()) {
-			while (rs.next()) {
-				int code = rs.getInt("code");
-				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
-				list.add(bean);
-			}
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの操作に失敗しました");
-		} finally {
-			try {
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの開放に失敗しました");
-			}
-		}
-
-	}
-
-	public List<ItemBean> sortPrice(boolean isAscending, int min, int max, String namePart) throws DAOException {
-		if (con == null) {
-			getConnection();
-		}
-
-		String sql1 = "SELECT * FROM item WHERE price >= ? AND price <= ? AND name LIKE ?";
-		String sql2 = "";
-		if (isAscending) {
-			sql2 = " ORDER BY price";
-		} else {
-			sql2 = " ORDER BY price DESC";
-		}
-		List<ItemBean> list = new ArrayList<ItemBean>();
-		ResultSet rs = null;
-		try (PreparedStatement st = con.prepareStatement(sql1 + sql2)) {
-			st.setInt(1, min);
-			st.setInt(2, max);
-			st.setString(3, "%" + namePart + "%");
-
-			rs = st.executeQuery();
-			while (rs.next()) {
-				int code = rs.getInt("code");
-				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
-				list.add(bean);
-			}
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの操作に失敗しました");
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの開放に失敗しました");
-			}
-		}
-
-	}
-
 	public int addItem(int categoryCode, String name, int price) throws DAOException {
 		if (con == null) {
 			getConnection();
@@ -163,41 +84,54 @@ public class AdminItemDAO {
 		}
 	}
 
-	public List<ItemBean> findByPriceAndName(int minPrice, int maxPrice, String namePart)
-			throws DAOException {
+	public int updateItem(int code, int categoryCode, String name, int price) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
-		String sql = "SELECT * FROM item WHERE price >= ? AND price <= ? AND name LIKE ?";
-		List<ItemBean> list = new ArrayList<ItemBean>();
+		String categoryCodeSql = "";
+		String nameSql = "";
+		String priceSql = "";
 
-		ResultSet rs = null;
+		String comma = "";
+		if (categoryCode > 0) {
+			categoryCodeSql = "category_code=? ";
+			comma = ", ";
+		}
+		if (name != null && name.length() != 0) {
+			nameSql = comma + "name=? ";
+			comma = ", ";
+		}
+		if (price > 0) {
+			priceSql = comma + "price=? ";
+		}
 
-		try (PreparedStatement st = con.prepareStatement(sql);) {
+		String sql = "UPDATE item SET "
+				+ categoryCodeSql + nameSql + priceSql + "WHERE code=?";
 
-			st.setInt(1, minPrice);
-			st.setInt(2, maxPrice);
-			st.setString(3, "%" + namePart + "%");
-			rs = st.executeQuery();
-
-			while (rs.next()) {
-				int code = rs.getInt("code");
-				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
-				list.add(bean);
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			int i = 1;
+			if (categoryCodeSql.length() != 0) {
+				st.setInt(i, categoryCode);
+				i++;
 			}
-			return list;
+			if (nameSql.length() != 0) {
+				st.setString(i, name);
+				i++;
+			}
+			if (priceSql.length() != 0) {
+				st.setInt(i, price);
+				i++;
+			}
+			st.setInt(i, code);
 
+			int rows = st.executeUpdate();
+			return rows;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました");
 		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
-				}
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました");

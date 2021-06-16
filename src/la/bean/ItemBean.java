@@ -6,14 +6,23 @@ public class ItemBean implements Serializable {
 	private int code;
 	private String name;
 	private int price;
-	private int category_code;
+	private int quantity;
 
-	public int getCategory_code() {
-		return category_code;
+	public ItemBean(int code, String name, int price) {
+		this.code = code;
+		this.name = name;
+		this.price = price;
 	}
 
-	public void setCategory_code(int category_code) {
-		this.category_code = category_code;
+	public ItemBean(int code, String name, int price, int quantity) {
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public ItemBean() {
+
 	}
 
 	public int getCode() {
@@ -31,36 +40,16 @@ public class ItemBean implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public int getPrice() {
 		return price;
 	}
-
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	ItemBean() {
+	public int getQuantity() {
+		return quantity;
 	}
-
-	/**
-	 * @param code
-	 * @param name
-	 * @param price
-	 */
-	public ItemBean(int code, String name, int price) {
-		super();
-		this.code = code;
-		this.name = name;
-		this.price = price;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-
-	public ItemBean(int code, String name, int price, int category_code) {
-		super();
-		this.code = code;
-		this.name = name;
-		this.price = price;
-		this.category_code = category_code;
-	}
-
 }

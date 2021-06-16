@@ -54,18 +54,26 @@ public class ItemServlet extends HttpServlet {
 
 			} else if (action.equals("search")) {
 
-				String minP = request.getParameter("price");
+				String GoodsName = request.getParameter("Gname");
+				String minP = request.getParameter("price1");
 				String maxP = request.getParameter("price2");
 
-				if (minP == "") {
+				if (GoodsName == "") {
+					GoodsName = null;
+				}
+
+				if (minP == "" && maxP == "") {
 					minP = "-1";
-				} else if (maxP == "") {
 					maxP = "-1";
+				} else if (minP != "") {
+					maxP = "-1";
+				} else {
+					minP = "-1";
 				}
 
 				int minPrice = Integer.parseInt(minP);
 				int maxPrice = Integer.parseInt(maxP);
-				List<ItemBean> list = dao.findByPrice(minPrice, maxPrice);
+				List<ItemBean> list = dao.findByPrice(GoodsName, minPrice, maxPrice);
 
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");

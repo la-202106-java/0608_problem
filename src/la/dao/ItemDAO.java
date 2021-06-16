@@ -127,7 +127,7 @@ public class ItemDAO {
 	}
 
 	//find追加箇所
-	public List<ItemBean> findByPrice(int lePrice, int hePrice) throws DAOException {
+	public List<ItemBean> findByPrice(String gName, int lePrice, int hePrice) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
@@ -135,19 +135,50 @@ public class ItemDAO {
 		ResultSet rs = null;
 		try {
 			String sql;
-			if (lePrice != -1 && hePrice != -1) {
-				sql = "SELECT * FROM item WHERE price BETWEEN ? AND ?";
-				st = con.prepareStatement(sql);
-				st.setInt(1, lePrice);
-				st.setInt(2, hePrice);
-			} else if (hePrice == -1) {
-				sql = "SELECT * FROM item WHERE price >= ?";
-				st = con.prepareStatement(sql);
-				st.setInt(1, lePrice);
+			if (lePrice == -1 && hePrice == -1) {
+				if (gName == null) {
+					sql = "SELECT * FROM item";
+					st = con.prepareStatement(sql);
+				} else {
+					sql = "SELECT * FROM item WHERE name LIKE ?";
+					st = con.prepareStatement(sql);
+					st.setString(1, "%" + gName + "%");
+				}
+			} else if (lePrice != -1) {
+				if (gName == null) {
+					sql = "SELECT * FROM item WHERE price >= ?";
+					st = con.prepareStatement(sql);
+					st.setInt(1, lePrice);
+				} else {
+					sql = "SELECT * FROM item WHERE price >= ? AND name LIKE ?";
+					st = con.prepareStatement(sql);
+					st.setInt(1, lePrice);
+					st.setString(2, "%" + gName + "%");
+				}
+			} else if (hePrice != -1) {
+				if (gName == null) {
+					sql = "SELECT * FROM item WHERE price <= ?";
+					st = con.prepareStatement(sql);
+					st.setInt(1, hePrice);
+				} else {
+					sql = "SELECT * FROM item WHERE price <= ? AND name LIKE ?";
+					st = con.prepareStatement(sql);
+					st.setInt(1, hePrice);
+					st.setString(2, "%" + gName + "%");
+				}
 			} else {
-				sql = "SELECT * FROM item WHERE price <= ?";
-				st = con.prepareStatement(sql);
-				st.setInt(1, hePrice);
+				if (gName == null) {
+					sql = "SELECT * FROM item WHERE price BETWEEN ? AND ?";
+					st = con.prepareStatement(sql);
+					st.setInt(1, lePrice);
+					st.setInt(2, hePrice);
+				} else {
+					sql = "SELECT * FROM item WHERE price BETWEEN ? AND ? AND name LIKE ?";
+					st = con.prepareStatement(sql);
+					st.setInt(1, lePrice);
+					st.setInt(2, hePrice);
+					st.setString(3, "%" + gName + "%");
+				}
 			}
 
 			rs = st.executeQuery();

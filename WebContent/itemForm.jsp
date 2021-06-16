@@ -20,11 +20,9 @@
 
 <form action="/0608_problem/ItemServlet" method="post">
 
-	検索：価格<input type="text" name="price" size="5">円以上
-
+	検索：商品名<input type="text" name="Gname" size="10">｜
+	価格<input type="text" name="price1" size="5">円以上
 	<input type="text" name="price2" size="5">円以下の商品を
-
-
 
 	<input type="submit" value="検索">
 	<input type="hidden" name="action" value="search">

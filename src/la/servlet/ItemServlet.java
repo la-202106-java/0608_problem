@@ -60,15 +60,20 @@ public class ItemServlet extends HttpServlet {
 
 				if (GoodsName == "") {
 					GoodsName = null;
+				} else {
+					request.setAttribute("GNAME", GoodsName);
 				}
 
-				if (minP == "" && maxP == "") {
+				if (minP == "") {
 					minP = "-1";
-					maxP = "-1";
-				} else if (minP != "") {
+				} else {
+					request.setAttribute("MINP", minP);
+				}
+
+				if (maxP == "") {
 					maxP = "-1";
 				} else {
-					minP = "-1";
+					request.setAttribute("MAXP", maxP);
 				}
 
 				int minPrice = Integer.parseInt(minP);

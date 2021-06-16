@@ -67,10 +67,12 @@ public class ItemDAO {
 		ResultSet rs = null;
 		try {
 			String sql;
+
 			if (isAscending)
 				sql = "SELECT * FROM item ORDER BY price";
 			else
 				sql = "SELECT * FROM item ORDER BY price desc";
+
 			st = con.prepareStatement(sql);
 			rs = st.executeQuery();
 			List<ItemBean> list = new ArrayList<ItemBean>();

@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -49,10 +50,12 @@ public class ShowItemServlet extends HttpServlet {
 				int number = list.size();
 				int pageNum = (int) (number / 10) + 1;
 
-				List<ItemBean2> list2 = null;
+				ArrayList<ItemBean2> list2 = new ArrayList<ItemBean2>();
 
-				for (int i = 0; i < number; i++) {
-					list2.add(list.get(i));
+				for (int i = 1; i <= pageNum; i++) {
+					for (int j = 0; j < i * 10; i++) {
+
+					}
 				}
 
 				// Listをリクエストスコープに入れてJSPへフォーワードする

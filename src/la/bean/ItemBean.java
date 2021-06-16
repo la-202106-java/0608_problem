@@ -4,12 +4,24 @@ public class ItemBean {
 	private int code;
 	private String name;
 	private int price;
+	private int quantity;
 
 	public ItemBean(int code, String name, int price) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.price = price;
+	}
+
+	public ItemBean(int code, String name, int price, int quantity) {
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public ItemBean() {
+
 	}
 
 	public int getCode() {
@@ -34,6 +46,14 @@ public class ItemBean {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }

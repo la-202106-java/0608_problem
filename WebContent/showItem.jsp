@@ -9,7 +9,6 @@
 <title>Show All Items</title>
 </head>
 <body>
-
 <jsp:include page="/itemForm.jsp"/>
 <hr>
 

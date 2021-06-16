@@ -42,6 +42,16 @@ public class ItemServlet2 extends HttpServlet {
 				List<ItemBean2> list = dao.findAll();
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/items.jsp");
+
+			} else if (action.equals("update")) {
+				int code = Integer.parseInt(request.getParameter("category_code"));
+				String name = request.getParameter("name");
+				int price = Integer.parseInt(request.getParameter("price"));
+
+				dao.updateItem(code, name, price);
+				List<ItemBean2> list = dao.findAll();
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/items.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal2.jsp");

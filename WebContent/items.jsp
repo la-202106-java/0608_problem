@@ -15,14 +15,16 @@
 
 
 	<table border="1">
-	<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>値段</td></tr>
+	<tr><td>コード</td><td>カテゴリコード</td><td>商品名</td><td>価格</td><td>更新</td></tr>
 
 	<c:forEach items="${items}" var="item">
-		<tr><td>${item.code}</td><td>${item.category_code}</td><td>${item.name}</td><td>${item.price}</td></tr>
+		<tr><td>${item.code}</td><td>${item.category_code}</td><td>${item.name}</td><td>${item.price}</td>
+		<td><input type="button" value="更新">
+		<input type="hidden" name="code" value=${item.code }>
+		</td>
+		</tr>
 	</c:forEach>
-
 	</table>
-
 <a href="/0608_problem/ItemServlet2?action=regist">新規登録</a><br>
 
 </body>

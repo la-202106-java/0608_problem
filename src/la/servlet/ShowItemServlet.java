@@ -33,6 +33,12 @@ public class ShowItemServlet extends HttpServlet {
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
+			} else if (action.equals("detail")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				ShopItemDAO dao = new ShopItemDAO();
+				ShopItemBean item = dao.findByPrimaryKey(code);
+				request.setAttribute("item", item);
+				gotoPage(request, response, "/item.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

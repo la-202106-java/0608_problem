@@ -20,9 +20,9 @@
 
 <form action="/0608_problem/ItemServlet" method="post">
 
-	検索：価格<input type="text" name="price" size="5" value="-1">円以上
+	検索：価格<input type="text" name="price" size="5">円以上
 
-	<input type="text" name="price2" size="5" value="-1">円以下の商品を
+	<input type="text" name="price2" size="5">円以下の商品を
 
 
 

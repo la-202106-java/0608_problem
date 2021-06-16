@@ -140,7 +140,7 @@ public class ItemDAO {
 				st = con.prepareStatement(sql);
 				st.setInt(1, lePrice);
 				st.setInt(2, hePrice);
-			} else if (lePrice == -1) {
+			} else if (hePrice == -1) {
 				sql = "SELECT * FROM item WHERE price >= ?";
 				st = con.prepareStatement(sql);
 				st.setInt(1, lePrice);

@@ -62,6 +62,12 @@ public class LoginServlet extends HttpServlet {
 					gotoPage(request, response, "/login.jsp");
 				}
 
+			} else if (action.equals("logout")) {
+				HttpSession session = request.getSession(false);
+				if (session != null) {
+					session.invalidate();
+				}
+				gotoPage(request, response, "/login.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
@@ -72,6 +78,14 @@ public class LoginServlet extends HttpServlet {
 			gotoPage(request, response, "/errInternal.jsp");
 		}
 
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 	private void gotoPage(HttpServletRequest request,

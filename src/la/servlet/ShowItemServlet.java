@@ -94,11 +94,13 @@ public class ShowItemServlet extends HttpServlet {
 				gotoPage(request, response, "/list.jsp");
 
 			} else {
+
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();
+
 			request.setAttribute("message", "内部エラーが発生しました。");
 			gotoPage(request, response, "/errInternal.jsp");
 		}

@@ -28,6 +28,7 @@ public class ItemDAO {
 	}
 
 	private void close() throws SQLException {
+
 		if (con != null) {
 			con.close();
 			con = null;

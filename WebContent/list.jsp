@@ -12,7 +12,7 @@
 <jsp:include page="/menu.jsp"></jsp:include>
 
 <h3>商品一覧</h3>
-${totalItem }件の商品が存在しました。
+${totalItem  }件の商品が存在しました
 <br><br>
 <c:forEach items="${items }" var="item">
 <form action="CartServlet?action=add" method="post">

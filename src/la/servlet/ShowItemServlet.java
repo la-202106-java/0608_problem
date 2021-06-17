@@ -30,7 +30,11 @@ public class ShowItemServlet extends HttpServlet {
 				int categoryCode = Integer.parseInt(request.getParameter("code"));
 				ItemDAO7 dao = new ItemDAO7();
 				List<ItemBean> list = dao.findByCategory(categoryCode);
+				int count;
+
+				count = list.size();
 				// Listをリクエストスコープに入れてJSPへフォーワードする
+				request.setAttribute("count", count);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
 			} else if (action.equals("detail")) {
@@ -42,7 +46,11 @@ public class ShowItemServlet extends HttpServlet {
 			} else if (action.equals("search")) {
 				String key = request.getParameter("keyword");
 				ItemDAO7 dao = new ItemDAO7();
+				int count;
 				List<ItemBean> list = dao.findByName(key);
+				int c = dao.findByNameCount(key);
+				count = list.size();
+				request.setAttribute("count", c);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
 

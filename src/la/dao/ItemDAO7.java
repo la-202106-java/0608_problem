@@ -189,6 +189,46 @@ public class ItemDAO7 {
 		}
 	}
 
+	public int findByNameCount(String keyword) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+			String sql = "SELECT count(*) FROM item WHERE name LIKE ? ";
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// カテゴリの設定
+			st.setString(1, "%" + keyword + "%");
+			// SQLの実行
+			rs = st.executeQuery();
+			// 結果の取得および表示
+
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+			// 商品一覧をListとして返す
+			return 0;
+			// 商品一覧をListとして返す
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			// JDBCドライバの登録

@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 
 		String filePath = this.getServletContext().getRealPath("/WEB-INF/postgresql.properties");
 		String action = request.getParameter("action");
@@ -47,11 +48,12 @@ public class LoginServlet extends HttpServlet {
 
 			CustomerDAO dao = new CustomerDAO(filePath);
 
-			if (email == null || email.length() == 0 || password == null || password.length() == 0) {
-				gotoPage(request, response, "/login.jsp");
-			}
 			//login
-			else if (action.equals("login")) {
+			if (action.equals("login")) {
+				if (email == null || email.length() == 0 || password == null || password.length() == 0) {
+					gotoPage(request, response, "/login.jsp");
+					return;
+				}
 				CustomerBean bean = dao.findByEmailAndPassword(email, password);
 				if (bean == null) {
 					request.setAttribute("message", "メールアドレスとパスワードが一致しませんでした");
@@ -61,6 +63,22 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("customer", bean);
 					gotoPage(request, response, "/top.jsp");
 				}
+			}
+			//add customer
+			else if (action.equals("add")) {
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+
+				if (name.length() == 0 || address.length() == 0 || tel.length() == 0
+						|| email.length() == 0 || password.length() == 0) {
+					request.setAttribute("message", "すべての項目を入力してください。");
+					gotoPage(request, response, "/customer.jsp");
+					return;
+				}
+				dao.addCustomer(name, address, tel, email, password);
+
+				gotoPage(request, response, "/login.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
@@ -78,6 +96,10 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			session.invalidate();
 			gotoPage(request, response, "/top.jsp");
+		}
+		//signup
+		else if (action.equals("signup")) {
+			gotoPage(request, response, "/customer.jsp");
 		} else {
 			request.setAttribute("message", "正しく操作してください。");
 			gotoPage(request, response, "/errInternal.jsp");
@@ -85,6 +107,9 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private String hashed(String str) {
+		if (str == null) {
+			return null;
+		}
 		MessageDigest digest;
 		try {
 			digest = MessageDigest.getInstance("SHA-256");

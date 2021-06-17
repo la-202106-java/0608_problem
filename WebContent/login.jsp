@@ -17,5 +17,7 @@
 		パスワード：<input type="password" name="password"><br>
 		<input type="submit" value="ログイン">
 	</form>
+	<br>
+	<a href="/0608_problem/LoginServlet?action=signup">新規登録</a>
 </body>
 </html>

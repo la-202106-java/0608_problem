@@ -58,6 +58,35 @@ public class CustomerDAO {
 		}
 	}
 
+	public int addCustomer(String name, String address, String tel, String email, String password)
+			throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		String sql = "INSERT INTO customer (name, address, tel, email, password) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, name);
+			st.setString(2, address);
+			st.setString(3, tel);
+			st.setString(4, email);
+			st.setString(5, password);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		} finally {
+			try {
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 
 		Properties pr = new Properties();

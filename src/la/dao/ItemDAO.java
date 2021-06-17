@@ -102,7 +102,6 @@ public class ItemDAO {
 		}
 	}
 
-<<<<<<< HEAD
 	public int countByCategory(int categoryCode)
 			throws DAOException {
 		if (con == null)
@@ -250,78 +249,6 @@ public class ItemDAO {
 				count = rs.getInt("count");
 			}
 			return count;
-
-=======
-	public ShoppingItemBean findByPrimaryKey(int key) throws DAOException {
-		if (con == null)
-			getConnection();
-
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			// SQL文の作成
-			String sql = "SELECT * FROM item WHERE code = ?";
-			// PreparedStatementオブジェクトの取得
-			st = con.prepareStatement(sql);
-			// カテゴリの設定
-			st.setInt(1, key);
-			// SQLの実行
-			rs = st.executeQuery();
-			// 結果の取得および表示
-			if (rs.next()) {
-				int code = rs.getInt("code");
-				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				ShoppingItemBean bean = new ShoppingItemBean(code, name, price);
-				return bean;
-			} else {
-				return null; // 主キーに該当するレコードなし
-			}
-			// 商品一覧をListとして返す
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
-		} finally {
-			try {
-				// リソースの開放
-				if (rs != null)
-					rs.close();
-				if (st != null)
-					st.close();
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの開放に失敗しました。");
-			}
-		}
-	}
-
-	public List<ShoppingItemBean> findByName(String keyword) throws DAOException {
-		if (con == null)
-			getConnection();
-
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-			// SQL文の作成
-			String sql = "SELECT * FROM item WHERE name LIKE ?";
-			// PreparedStatementオブジェクトの取得
-			st = con.prepareStatement(sql);
-			// カテゴリの設定
-			st.setString(1, "%" + keyword + "%");
-			// SQLの実行
-			rs = st.executeQuery();
-			// 結果の取得および表示
-			List<ShoppingItemBean> list = new ArrayList<ShoppingItemBean>();
-			while (rs.next()) {
-				int code = rs.getInt("code");
-				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				ShoppingItemBean bean = new ShoppingItemBean(code, name, price);
-				list.add(bean);
-			}
-			return list;
-			// 商品一覧をListとして返す
->>>>>>> branch '20210615_Sato' of https://github.com/la-202106-java/0608_problem.git
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");

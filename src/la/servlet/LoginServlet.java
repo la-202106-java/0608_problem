@@ -35,23 +35,24 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			String email = request.getParameter("email");
-			if (email == null || email.length() == 0) {
-				request.setAttribute("error", "メールアドレスが入力されていません");
-				gotoPage(request, response, "/login.jsp");
-				return;
-			}
-			String password = request.getParameter("password");
-			if (password == null || password.length() == 0) {
-				request.setAttribute("error", "パスワードが入力されていません");
-				gotoPage(request, response, "/login.jsp");
-				return;
-			}
 			String action = request.getParameter("action");
+			CustomerDAO dao = new CustomerDAO();
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/login.jsp");
 			} else if (action.equals("login")) {
-				CustomerDAO dao = new CustomerDAO();
+				String email = request.getParameter("email");
+				if (email == null || email.length() == 0) {
+					request.setAttribute("error", "メールアドレスが入力されていません");
+					gotoPage(request, response, "/login.jsp");
+					return;
+				}
+				String password = request.getParameter("password");
+				if (password == null || password.length() == 0) {
+					request.setAttribute("error", "パスワードが入力されていません");
+					gotoPage(request, response, "/login.jsp");
+					return;
+				}
+
 				CustomerBean customer = dao.findByEmailAndPassword(email, password);
 				if (customer.getEmail() != null && customer.getPassword() != null) {
 					HttpSession session = request.getSession();

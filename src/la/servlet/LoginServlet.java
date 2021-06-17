@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import la.bean.CustomerBean;
+import la.dao.CustomerDAO;
+import la.dao.DAOException;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -20,17 +24,33 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
 
-		//actionリクエストパラメータの読み込み
-		String action = request.getParameter("action");
-		if (action.equals("login")) {
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			gotoPage(request, response, "/top.jsp");
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
 
+			CustomerDAO dao = new CustomerDAO();
+			//actionリクエストパラメータの読み込み
+			String action = request.getParameter("action");
+			if (action.equals("login")) {
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
+				CustomerBean bean = dao.findByEmailAndPassword(email, password);
+				if (bean != null) {
+					gotoPage(request, response, "/top.jsp");
+				} else {
+					request.setAttribute("message", "メールアドレスとパスワードが一致しませんでした");
+					gotoPage(request, response, "/login.jsp");
+				}
+
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
+			RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");
+			rd.forward(request, response);
 		}
+
 	}
 
 	/**

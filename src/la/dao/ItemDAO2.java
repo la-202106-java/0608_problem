@@ -124,54 +124,27 @@ public class ItemDAO2 {
 		}
 	}
 
-	public List<ItemBean> findByPrice(int min, int max, String name) throws DAOE {
+	public List<ItemBean> findByPrice(int minP, int maxP) throws DAOE {
+
 		if (con == null)
 			getConnection();
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
 		//SQL文の作成
-		String sql = "SELECT * FROM item  ";
-		String name1 = "%" + name + "%";
-
-		//かなり処理が大変になったのでやめました
-		//			String.valueOf(min);
-		//			String.valueOf(max);
-		//WHERE minP >= ? AND maxP <= ? AND LIKE name
-		//			if (min != null && max != "") {
-		//				//最小に値あり最大なにもなし
-		//				//SELECT * FROM item WHERE  >= minP
-		//				sql = sql + "WHERE >=" + min;
-		//
-		//				if (name != null) {
-		//					sql = sql + "AND LIKE" + name1;
-		//
-		//				}
-		//			} else if (min != "" && max != null) {
-		//				//最小値なし最大値あり
-		//				sql = sql + "WHERE <= " + max;
-		//				if (name != null) {
-		//					sql = sql + "AND LIKE" + name1;
-		//				}
-		//			} else if (min != null && max != null) {
-		//				sql = sql + "WHERE >= " + min + "AND <= " + max;
-		//				if (name != null) {
-		//					sql = sql + "AND LIKE" + name1;
-		//				}
-		//			}
-		//			List<ItemBean> list = new ArrayList<ItemBean>();
-		//オブジェクトの取得
 
 		try {
-			sql = sql + "where price >= ? and  price <= ? and name like " + name1 + "  order by price";
+
+			String sql = "SELECT * FROM item WHERE price >= ? AND  price <= ? ";
 			st = con.prepareStatement(sql);
-			st.setInt(1, min);
-			st.setInt(2, max);
+
+			st.setInt(1, minP);
+			st.setInt(2, maxP);
 			rs = st.executeQuery();
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
-				name1 = rs.getString("name");
+				String name = rs.getString("name");
 				int price = rs.getInt("price");
 				ItemBean bean = new ItemBean(code, name, price);
 				list.add(bean);

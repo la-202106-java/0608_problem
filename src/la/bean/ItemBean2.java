@@ -2,19 +2,32 @@ package la.bean;
 
 import java.io.Serializable;
 
-public class ItemBean implements Serializable {
+public class ItemBean2 implements Serializable {
 	private int code;
 	private String name;
 	private int price;
+	private int category_code;
 
-	public ItemBean(int code, String name, int price) {
+	public ItemBean2(int code, String name, int price, int category_code) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.code = code;
 		this.name = name;
 		this.price = price;
+		this.category_code = category_code;
 	}
 
-	public ItemBean() {
+	/**
+	 * @return cotegory_code
+	 */
+	public int getCategory_code() {
+		return category_code;
+	}
+
+	public void setCategory_code(int category_code) {
+		this.category_code = category_code;
+	}
+
+	public ItemBean2() {
 
 	}
 

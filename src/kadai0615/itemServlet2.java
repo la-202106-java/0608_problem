@@ -19,8 +19,6 @@ import la.dao.ItemDAO2;
  */
 @WebServlet("/itemServlet2")
 public class itemServlet2 extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -61,38 +59,19 @@ public class itemServlet2 extends HttpServlet {
 				//valueにserch
 			} else if (action.equals("serch")) {
 
-				int min;
-				min = 0;
-				int max;
-				max = Integer.MAX_VALUE;
+				int minP = Integer.parseInt(request.getParameter("minPrice"));
+				int maxP = Integer.parseInt(request.getParameter("maxPrice"));
 
-				if (request.getParameter("price1") != null && request.getParameter("price1").trim().length() > 0) {
-					min = Integer.parseInt(request.getParameter("price1"));
-					request.setAttribute("price1", min);
-				}
+				request.setAttribute("minP", minP);
+				request.setAttribute("maxP", maxP);
 
-				if (request.getParameter("price2") != null && request.getParameter("price2").trim().length() > 0) {
-					max = Integer.parseInt(request.getParameter("price2"));
-					request.setAttribute("price2", max);
-				}
-
-				String name;
-				name = "";
-
-				if (request.getParameter("name") != null && request.getParameter("name").trim().length() > 0) {
-					name = request.getParameter("name");
-					request.setAttribute("name", name);
-				}
-
-				List<ItemBean> list = dao.findByPrice(min, max, name);
+				List<ItemBean> list = dao.findByPrice(minP, maxP);
 
 				request.setAttribute("items", list);
 				RequestDispatcher rd = request.getRequestDispatcher("showItem2.jsp");
 				rd.forward(request, response);
 
-			}
-
-			//valueにdelete
+			} //valueにdelete
 			else if (action.equals("delete")) {
 				int code = Integer.parseInt(request.getParameter("code"));
 				dao.deleteByPrimaryKey(code);
@@ -103,11 +82,9 @@ public class itemServlet2 extends HttpServlet {
 			} else {
 				request.setAttribute("message", "正しく操作できません");
 				gotoPage(request, response, "/errInternal.jsp");
+
 			}
-
-		} catch (
-
-		DAOE e) {
+		} catch (DAOE e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラー");
 			gotoPage(request, response, "errInternal.jsp");

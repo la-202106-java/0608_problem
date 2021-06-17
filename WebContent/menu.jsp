@@ -7,8 +7,10 @@
 	<a href="/0608_problem/ShowItemServlet?action=list&code=${category.code}">${category.name}</a>|
 </c:forEach>
 
-
+<c: if test=${customer}>
 こんにちは、${customer.name }さん|
+<a href="/0608_problem/LoginServlet?action=login">ログイン</a>
+</c:>
 
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>
 

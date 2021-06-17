@@ -43,11 +43,20 @@ public class LoginServlet extends HttpServlet {
 					gotoPage(request, response, "/login.jsp");
 				}
 
+			} else if (action.equals("logout")) {
+				HttpSession session = request.getSession(false);
+				if (session != null) {
+					session.invalidate();
+				}
+				gotoPage(request, response, "/login.jsp");
+
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
-		} catch (DAOException e) {
+		} catch (
+
+		DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			gotoPage(request, response, "/errInternal.jsp");

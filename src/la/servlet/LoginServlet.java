@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.CustomerBean;
 import la.dao.CustomerDAO;
@@ -29,6 +30,11 @@ public class LoginServlet extends HttpServlet {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 
+			//セッション作成
+			HttpSession session = request.getSession(false);
+			if (session == null) {
+				request.getSession();
+			}
 			CustomerDAO dao = new CustomerDAO();
 			//actionリクエストパラメータの読み込み
 			String action = request.getParameter("action");
@@ -37,6 +43,7 @@ public class LoginServlet extends HttpServlet {
 				String password = request.getParameter("password");
 				CustomerBean bean = dao.findByEmailAndPassword(email, password);
 				if (bean != null) {
+					session.setAttribute("bean", bean);
 					gotoPage(request, response, "/top.jsp");
 				} else {
 					request.setAttribute("message", "メールアドレスとパスワードが一致しませんでした");

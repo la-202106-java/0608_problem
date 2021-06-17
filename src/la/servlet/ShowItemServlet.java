@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import la.bean.CategoryBean;
 import la.bean.ItemBean;
+import la.bean.ItemBean7;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
 
@@ -21,6 +22,7 @@ public class ShowItemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
+			ItemDAO dao = new ItemDAO();
 			// パラメータの解析
 			String action = request.getParameter("action");
 			// topまたはパラメータなしの場合はトップページを表示
@@ -28,11 +30,15 @@ public class ShowItemServlet extends HttpServlet {
 				gotoPage(request, response, "/top.jsp");
 			} else if (action.equals("list")) {
 				int categoryCode = Integer.parseInt(request.getParameter("code"));
-				ItemDAO dao = new ItemDAO();
 				List<ItemBean> list = dao.findByCategory(categoryCode);
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
+			} else if (action.equals("detail")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				ItemBean7 item = dao.findByPrimaryKey(code);
+				request.setAttribute("item", item);
+				gotoPage(request, response, "/item.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

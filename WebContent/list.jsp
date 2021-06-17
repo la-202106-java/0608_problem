@@ -29,9 +29,7 @@
 		<option value="5">5
 		</select>
 		個<br>
-		<a href = "/0608_problem/ShowItemServlet">
-		<jsp:forward page="/ShowItemServlet?action=detail&code=item_code" />
-		詳細</a>
+		<a href="/0608_problem/ShowItemServlet?action=detail&code=${item.code}">詳細</a>
 		<input type="submit" value="カートに追加">
 	</form>
 </c:forEach>

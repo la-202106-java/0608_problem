@@ -121,9 +121,7 @@ public class ItemServlet2 extends HttpServlet {
 				gotoPage(request, response, "/errInternal.jsp");
 			}
 
-		} catch (
-
-		DAOException e) {
+		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			gotoPage(request, response, "/errInternal.jsp");

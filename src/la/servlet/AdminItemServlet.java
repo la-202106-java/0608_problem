@@ -50,8 +50,11 @@ public class AdminItemServlet extends HttpServlet {
 
 				RequestDispatcher rd = request.getRequestDispatcher("/items.jsp");
 				rd.forward(request, response);
+			} else {
+				request.setAttribute("message", "正しく操作してください。");
+				RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");
+				rd.forward(request, response);
 			}
-
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");

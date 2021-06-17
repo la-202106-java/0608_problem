@@ -39,6 +39,13 @@ public class ShowItemServlet extends HttpServlet {
 				ItemBean item = dao.findByPrimaryKey(categoryCode);
 				request.setAttribute("item", item);
 				gotoPage(request, response, "/item.jsp");
+			} else if (action.equals("search")) {
+				String key = request.getParameter("keyword");
+				ItemDAO7 dao = new ItemDAO7();
+				List<ItemBean> list = dao.findByName(key);
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/list.jsp");
+
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

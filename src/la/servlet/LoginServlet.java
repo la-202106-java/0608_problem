@@ -50,7 +50,20 @@ public class LoginServlet extends HttpServlet {
 					gotoPage(request, response, "/login.jsp");
 				}
 
+			} else if (action.equals("gotologin")) {
+				gotoPage(request, response, "/login.jsp");
 			}
+
+			else if (action.equals("logout")) {
+				//すでに作成されているセッション領域を取得する。新しく作成しない。
+				session = request.getSession(false);
+				if (session != null) {
+					//セッション領域を無効にする
+					session.invalidate();
+					gotoPage(request, response, "/top.jsp");
+				}
+			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");

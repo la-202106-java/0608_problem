@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SampleServlet
  */
-@WebServlet("/hello")
-public class SampleServlet extends HttpServlet {
+@WebServlet("/hello2")
+public class SampleServlet_wang extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -22,7 +22,5 @@ public class SampleServlet extends HttpServlet {
 			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/hello.jsp");
 		rd.forward(request, response);
-
-
 	}
 }

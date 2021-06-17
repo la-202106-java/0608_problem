@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SampleServlet
  */
-@WebServlet("/hello2")
+@WebServlet("/wang")
 public class SampleServlet2 extends HttpServlet {
 
 	/**

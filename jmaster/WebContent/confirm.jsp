@@ -36,16 +36,16 @@
 <form action="/jmaster/OrderServlet?action=order" method="post">
 	<table border="1">
 	<tr>
-	<td>お名前</td><td>${customer.name}</td>
+	<td>お名前</td><td>${logined.name}</td>
 	</tr>
 	<tr>
-	<td>住所</td><td>${customer.address}</td>
+	<td>住所</td><td>${logined.address}</td>
 	</tr>
 	<tr>
-	<td>電話番号</td><td>${customer.tel}</td>
+	<td>電話番号</td><td>${logined.tel}</td>
 	</tr>
 	<tr>
-	<td>e-mail</td><td>${customer.email}</td>
+	<td>e-mail</td><td>${logined.email}</td>
 	</tr>
 	</table><br>
 	<input type="submit" value="この内容で注文">

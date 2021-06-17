@@ -2,6 +2,7 @@ package shopping.dao;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -29,15 +30,7 @@ public class CustomerDAO {
 		if (con == null)
 			getConnection();
 
-		MessageDigest md = null;
-		try {
-			md = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException e1) {
-			e1.printStackTrace();
-		}
-		byte[] b = password.getBytes();
-		String hashedCode = new String(md.digest(b));
-
+		String hashedCode = hash(password);
 		String sql = "SELECT * FROM customer WHERE email = ? AND password = ? ";
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, email);
@@ -106,14 +99,7 @@ public class CustomerDAO {
 		if (con == null)
 			getConnection();
 
-		MessageDigest md = null;
-		try {
-			md = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException e1) {
-			e1.printStackTrace();
-		}
-		byte[] b = password.getBytes();
-		String hashedCode = new String(md.digest(b));
+		String hashedCode = hash(password);
 
 		CustomerBean cu = findByEmail(email);
 		if (cu != null) {
@@ -138,6 +124,18 @@ public class CustomerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("登録時にエラーが発生しました");
+		}
+	}
+
+	public String hash(String pw) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] b = md.digest(pw.getBytes());
+			String hashedCode = String.format("%040x", new BigInteger(1, b));
+			return hashedCode;
+		} catch (NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+			return null;
 		}
 	}
 

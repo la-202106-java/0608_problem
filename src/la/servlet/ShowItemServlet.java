@@ -21,6 +21,7 @@ public class ShowItemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		try {
 			// パラメータの解析
 			String action = request.getParameter("action");

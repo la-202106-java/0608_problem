@@ -240,7 +240,8 @@ public class ItemDAO2 {
 			getConnection();
 		}
 
-		String sql = "SELECT * FROM item WHERE name LIKE ? LIMIT ? OFFSET ?";
+		String sql = "select * from item where name like ? limit ? offset ?";
+		//String sql = "select * from item where name like ? ";
 		ResultSet rs = null;
 		try (PreparedStatement st = con.prepareStatement(sql);) {
 			st.setString(1, "%" + keyword + "%");

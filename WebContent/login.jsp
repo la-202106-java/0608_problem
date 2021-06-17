@@ -8,6 +8,8 @@
 </head>
 <body>
 <h1>ログイン</h1>
+<p>${ errMessage }</p>
+
 <form action="/0608_problem/LoginServlet" method="post">
 <input type="hidden" name="action" value="login">
 メールアドレス：<input type="text" name="mail"><br>

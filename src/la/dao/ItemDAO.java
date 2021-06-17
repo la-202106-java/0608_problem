@@ -100,14 +100,58 @@ public class ItemDAO {
 		}
 	}
 
-	public List<ItemBean> arterSort(boolean isAscending, String Name, int MinPrice, int MaxPrice) throws DAOException {
+	public List<ItemBean> afterSort(boolean isAscending, String Name, int MinPrice, int MaxPrice) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 		PreparedStatement st = null;
 		ResultSet rs = null;
+		boolean connectFlag = false;
 
 		try {
+
+			String sql = "SELECT * FROM item WHERE ";
+
+			if (MinPrice != -1 && MaxPrice != -1) {
+				connectFlag = true;
+				sql += "price BETWEEN" + MinPrice + "AND" + MaxPrice;
+			}
+
+			if (MinPrice != -1 && MaxPrice == -1) {
+				connectFlag = true;
+				sql += "price >= " + MinPrice;
+
+			}
+
+			if (MinPrice == -1 && MaxPrice != -1) {
+				connectFlag = true;
+				sql += "price <= " + MaxPrice;
+			}
+
+			if (connectFlag == true) {
+				sql += "AND ";
+			}
+
+			if (MinPrice == -1 && MaxPrice == -1) {
+				sql += "name LIKE '" + "%" + Name + "%" + "' ";
+			}
+
+			if (isAscending) {
+				sql += "ORDER BY price";
+			} else {
+				sql += "ORDER BY price desc";
+			}
+
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery();
+			List<ItemBean> list = new ArrayList<ItemBean>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				ItemBean bean = new ItemBean(code, name, price);
+				list.add(bean);
+			}
 
 			return null;
 		} catch (Exception e) {

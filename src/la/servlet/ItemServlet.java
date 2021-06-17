@@ -50,16 +50,34 @@ public class ItemServlet extends HttpServlet {
 				String name = (String) session.getAttribute("Sgname");
 				String tmpMIN = (String) session.getAttribute("Sminp");
 				String tmpMAX = (String) session.getAttribute("Smaxp");
+				if (tmpMIN == null) {
+					tmpMIN = "-1";
+				}
+				if (tmpMAX == null) {
+					tmpMAX = "-1";
+
+				}
 				int MINprice = Integer.parseInt(tmpMIN);
 				int MAXprice = Integer.parseInt(tmpMAX);
-
 				List<ItemBean> list;
 
-				if (key.equals("price_asc")) {
-					list = dao.sortPrice(true);
+				boolean judgeInput = (name == null && MINprice == -1) &&
+						(MINprice == -1 && MAXprice == -1);
+
+				if (judgeInput) {
+					if (key.equals("price_asc")) {
+						list = dao.sortPrice(true);
+					} else {
+						list = dao.sortPrice(false);
+					}
 				} else {
-					list = dao.sortPrice(false);
+					if (key.equals("price_asc")) {
+						list = dao.afterSort(true, name, MINprice, MAXprice);
+					} else {
+						list = dao.afterSort(false, name, MINprice, MAXprice);
+					}
 				}
+
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/showItem.jsp");
 

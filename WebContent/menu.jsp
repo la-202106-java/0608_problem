@@ -7,11 +7,14 @@
 	<a href="/0608_problem/ShowItemServlet?action=list&code=${category.code}">${category.name}</a>|
 </c:forEach>
 
+<<<<<<< HEAD
 <c: if test=${customer}>
 こんにちは、${customer.name }さん|
 <a href="/0608_problem/LoginServlet?action=login">ログイン</a>
 </c:>
 
+=======
+>>>>>>> branch '20210615_Sato' of https://github.com/la-202106-java/0608_problem.git
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>
 
 <form  action="/0608_problem/ShowItemServlet" method="post">

@@ -26,6 +26,7 @@ public class ShowItemServlet extends HttpServlet {
 			// topまたはパラメータなしの場合はトップページを表示
 			if (action == null || action.length() == 0 || action.equals("top")) {
 				gotoPage(request, response, "/top.jsp");
+<<<<<<< HEAD
 
 			} else if (action.equals("list")) {
 				int categoryCode = Integer.parseInt(request.getParameter("code"));
@@ -54,6 +55,29 @@ public class ShowItemServlet extends HttpServlet {
 				request.setAttribute("items", list);
 				request.setAttribute("length", count);
 				//request.setAttribute("length", list.size());
+=======
+			} else if (action.equals("list")) {
+				int categoryCode = Integer.parseInt(request.getParameter("code"));
+				ItemDAO dao = new ItemDAO();
+				List<ShoppingItemBean> list = dao.findByCategory(categoryCode);
+				// Listをリクエストスコープに入れてJSPへフォーワードする
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/list.jsp");
+
+			} else if (action.equals("detail")) {
+				int code = Integer.parseInt(request.getParameter("code"));
+				ItemDAO dao = new ItemDAO();
+				ShoppingItemBean bean = dao.findByPrimaryKey(code);
+				request.setAttribute("item", bean);
+				gotoPage(request, response, "/item.jsp");
+
+			} else if (action.equals("search")) {
+				String keyword = request.getParameter("keyword");
+				ItemDAO dao = new ItemDAO();
+				List<ShoppingItemBean> list = dao.findByName(keyword);
+				// Listをリクエストスコープに入れてJSPへフォーワードする
+				request.setAttribute("items", list);
+>>>>>>> branch '20210615_Sato' of https://github.com/la-202106-java/0608_problem.git
 				gotoPage(request, response, "/list.jsp");
 
 			} else {

@@ -1,7 +1,6 @@
 package la.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +17,7 @@ import la.dao.ItemDAO2;
 
 @WebServlet("/ShowItemServlet")
 public class ShowItemServlet extends HttpServlet {
+	private static int limit = 10;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -28,14 +28,40 @@ public class ShowItemServlet extends HttpServlet {
 			if (action == null || action.length() == 0 || action.equals("top")) {
 				gotoPage(request, response, "/top.jsp");
 			} else if (action.equals("list")) {
-				int categoryCode = Integer.parseInt(request.getParameter("code"));
-				ItemDAO2 dao = new ItemDAO2();
-				List<ItemBean2> list = dao.findByCategory(categoryCode);
-				int number = list.size();
-				// Listをリクエストスコープに入れてJSPへフォーワードする
-				request.setAttribute("number", number);
-				request.setAttribute("items", list);
-				gotoPage(request, response, "/list.jsp");
+				String categoryCode = request.getParameter("code");
+				String page = request.getParameter("page");
+				String keyword = request.getParameter("keyword");
+				int curPage = 1;
+				if (page != null && page != "") {
+					curPage = Integer.parseInt(page);
+				}
+				if (categoryCode != null && categoryCode != "") {
+					int catCode = Integer.parseInt(categoryCode);
+					ItemDAO2 dao = new ItemDAO2();
+					List<ItemBean2> list = dao.findByCategory(catCode);
+					int number = list.size();
+					int pageNum = (int) (number / 10) + 1;
+					list = dao.findByCategory(catCode, limit, (curPage - 1) * 10);
+					request.setAttribute("category", catCode);
+					request.setAttribute("number", number);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("items", list);
+					gotoPage(request, response, "/list.jsp");
+				} else if (categoryCode == null || categoryCode == "") {
+					ItemDAO2 dao = new ItemDAO2();
+					List<ItemBean2> list = dao.findByName(keyword);
+					int number = list.size();
+					int pageNum = (int) (number / 10) + 1;
+					list = dao.findByName(keyword, limit, (curPage - 1) * 10);
+					request.setAttribute("number", number);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("keyword", keyword);
+					request.setAttribute("items", list);
+					gotoPage(request, response, "/list.jsp");
+				} else {
+					request.setAttribute("message", "正しく操作してください。");
+					gotoPage(request, response, "/errInternal.jsp");
+				}
 			} else if (action.equals("detail")) {
 				int code = Integer.parseInt(request.getParameter("code"));
 				ItemDAO2 dao = new ItemDAO2();
@@ -45,25 +71,24 @@ public class ShowItemServlet extends HttpServlet {
 				gotoPage(request, response, "/item.jsp");
 			} else if (action.equals("search")) {
 				String keyword = request.getParameter("keyword");
+				String page = request.getParameter("page");
+				int curPage = 1;
+				if (page != null && page != "") {
+					curPage = Integer.parseInt(page);
+				}
+				if (page != null && page != "") {
+					curPage = Integer.parseInt(page);
+				}
 				ItemDAO2 dao = new ItemDAO2();
 				List<ItemBean2> list = dao.findByName(keyword);
 				int number = list.size();
 				int pageNum = (int) (number / 10) + 1;
-
-				ArrayList<ItemBean2> list2 = new ArrayList<ItemBean2>();
-
-				for (int i = 1; i <= pageNum; i++) {
-					for (int j = 0; j < i * 10; i++) {
-
-					}
-				}
-
-				// Listをリクエストスコープに入れてJSPへフォーワードする
+				list = dao.findByName(keyword, limit, (curPage - 1) * 10);
 				request.setAttribute("number", number);
 				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("keyword", keyword);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
-
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

@@ -37,5 +37,9 @@ ${number}件の商品が存在しました
 	</form>
 </c:forEach>
 
+<br>
+<c:forEach var="i" begin="1" end="${pageNum}" step="1">
+	<a href="/0608_problem/ShowItemServlet?action=list&code=${category}&page=${i}&keyword=${keyword}">${i}</a>
+</c:forEach>
 </body>
 </html>

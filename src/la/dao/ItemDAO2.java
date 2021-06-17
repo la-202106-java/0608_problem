@@ -102,6 +102,52 @@ public class ItemDAO2 {
 		}
 	}
 
+	public List<ItemBean2> findByCategory(int categoryCode, int limit, int offset)
+			throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+			String sql = "SELECT * FROM item WHERE category_code = ? ORDER BY code LIMIT ? OFFSET ?";
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// カテゴリの設定
+			st.setInt(1, categoryCode);
+			st.setInt(2, limit);
+			st.setInt(3, offset);
+			// SQLの実行
+			rs = st.executeQuery();
+			// 結果の取得および表示
+			List<ItemBean2> list = new ArrayList<ItemBean2>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				ItemBean2 bean = new ItemBean2(code, name, price);
+				list.add(bean);
+			}
+			// 商品一覧をListとして返す
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public ItemBean2 findByPrimaryKey(int key) throws DAOException {
 		if (con == null)
 			getConnection();
@@ -182,6 +228,43 @@ public class ItemDAO2 {
 					rs.close();
 				if (st != null)
 					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	public List<ItemBean2> findByName(String keyword, int limit, int offset) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "SELECT * FROM item WHERE name LIKE ? LIMIT ? OFFSET ?";
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql);) {
+			st.setString(1, "%" + keyword + "%");
+			st.setInt(2, limit);
+			st.setInt(3, offset);
+			rs = st.executeQuery();
+
+			List<ItemBean2> list = new ArrayList<ItemBean2>();
+			while (rs.next()) {
+				int code = rs.getInt("code");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				ItemBean2 bean = new ItemBean2(code, name, price);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");

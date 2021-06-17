@@ -38,12 +38,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String filePath = this.getServletContext().getRealPath("/WEB-INF/postgresql.properties");
 		String action = request.getParameter("action");
 		String email = request.getParameter("email");
 		String password = hashed(request.getParameter("password"));
 
 		try {
-			CustomerDAO dao = new CustomerDAO();
+
+			CustomerDAO dao = new CustomerDAO(filePath);
 
 			if (email == null || email.length() == 0 || password == null || password.length() == 0) {
 				gotoPage(request, response, "/login.jsp");

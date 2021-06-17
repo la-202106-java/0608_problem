@@ -1,5 +1,6 @@
 package la.dao;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Properties;
 
 import la.bean.CartBean;
 import la.bean.CustomerBean;
@@ -15,8 +17,10 @@ import la.bean.SampleItemBean;
 
 public class OrderDAO {
 	private Connection con;
+	private String filePath;
 
-	public OrderDAO() throws DAOException {
+	public OrderDAO(String filePath) throws DAOException {
+		this.filePath = filePath;
 		getConnection();
 	}
 
@@ -112,13 +116,24 @@ public class OrderDAO {
 	}
 
 	private void getConnection() throws DAOException {
+
+		Properties pr = new Properties();
+		try (FileInputStream in = new FileInputStream(filePath)) {
+			pr.load(in);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("設定ファイルの読み込みに失敗しました。");
+		}
+
+		String className = pr.getProperty("className");
+		String url = pr.getProperty("url");
+		String user = pr.getProperty("user");
+		String pass = pr.getProperty("pass");
+
 		try {
-			// JDBCドライバの登録
-			Class.forName("org.postgresql.Driver");
-			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
-			String pass = "himitu";
+			//JDBCドライバの登録
+			Class.forName(className);
+
 			// データベースへの接続
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (Exception e) {

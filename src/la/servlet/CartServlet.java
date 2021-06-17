@@ -37,7 +37,8 @@ public class CartServlet extends HttpServlet {
 					session.setAttribute("cart", cart);
 				}
 				// 商品コードの商品を取得する
-				SampleItemDAO dao = new SampleItemDAO();
+				String filePath = this.getServletContext().getRealPath("/WEB-INF/postgresql.properties");
+				SampleItemDAO dao = new SampleItemDAO(filePath);
 				SampleItemBean bean = dao.findByPrimaryKey(code);
 				// カートに追加する
 				cart.addCart(bean, quantity);

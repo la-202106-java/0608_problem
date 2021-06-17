@@ -21,11 +21,12 @@ public class ShowItemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String filePath = this.getServletContext().getRealPath("/WEB-INF/postgresql.properties");
 		try {
 			// パラメータの解析
 			String action = request.getParameter("action");
 
-			SampleItemDAO dao = new SampleItemDAO();
+			SampleItemDAO dao = new SampleItemDAO(filePath);
 			// topまたはパラメータなしの場合はトップページを表示
 			if (action == null || action.length() == 0 || action.equals("top")) {
 				gotoPage(request, response, "/top.jsp");
@@ -102,7 +103,8 @@ public class ShowItemServlet extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			// カテゴリ一覧は最初にアプリケーションスコープへ入れる
-			SampleItemDAO dao = new SampleItemDAO();
+			String filePath = this.getServletContext().getRealPath("/WEB-INF/postgresql.properties");
+			SampleItemDAO dao = new SampleItemDAO(filePath);
 			List<CategoryBean> list = dao.findAllCategory();
 			getServletContext().setAttribute("categories", list);
 		} catch (DAOException e) {

@@ -60,7 +60,8 @@ public class OrderServlet extends HttpServlet {
 					gotoPage(request, response, "/errInternal.jsp");
 				}
 
-				OrderDAO order = new OrderDAO();
+				String filePath = this.getServletContext().getRealPath("/WEB-INF/postgresql.properties");
+				OrderDAO order = new OrderDAO(filePath);
 				int orderNumber = order.saveOrder(customer, cart);
 				// 注文後はセッション情報をクリアする
 				session.removeAttribute("cart");

@@ -3,6 +3,7 @@ package shopping.servlet;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,8 @@ import shopping.dao.OrderDAO;
 
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
+
+	private String realPath;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -61,11 +64,11 @@ public class OrderServlet extends HttpServlet {
 					gotoPage(request, response, "/errInternal.jsp");
 				}
 
-				OrderDAO order = new OrderDAO();
+				OrderDAO order = new OrderDAO(realPath);
 				int orderNumber = order.saveOrder(customer, cart);
-				// 注文後はセッション情報をクリアする
-				session.removeAttribute("cart");
-				session.removeAttribute("customer");
+				//				// 注文後はセッション情報をクリアする
+				//				session.removeAttribute("cart");
+				//				session.removeAttribute("customer");
 				// 注文番号をクライアントへ送る
 				request.setAttribute("orderNumber", Integer.valueOf(orderNumber));
 				gotoPage(request, response, "/order.jsp");
@@ -90,5 +93,10 @@ public class OrderServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	public void init() throws ServletException {
+		ServletContext context = this.getServletContext();
+		realPath = context.getRealPath("/WEB-INF/common.properties");
 	}
 }

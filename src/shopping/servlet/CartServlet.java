@@ -3,6 +3,7 @@ package shopping.servlet;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +18,8 @@ import shopping.dao.ItemDAO;
 
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
+
+	private String realPath;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +40,7 @@ public class CartServlet extends HttpServlet {
 					session.setAttribute("cart", cart);
 				}
 				// 商品コードの商品を取得する
-				ItemDAO dao = new ItemDAO();
+				ItemDAO dao = new ItemDAO(realPath);
 				ItemBean bean = dao.findByPrimaryKey(code);
 				// カートに追加する
 				cart.addCart(bean, quantity);
@@ -81,5 +84,10 @@ public class CartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	public void init() throws ServletException {
+		ServletContext context = this.getServletContext();
+		realPath = context.getRealPath("/WEB-INF/common.properties");
 	}
 }

@@ -12,6 +12,7 @@
 </c:if>
 <c:if test="${empty customer}">
 <a href="/0608_problem/LoginServlet">ログイン</a>|
+<a href="/0608_problem/RegistServlet">新規登録</a>|
 </c:if>
 <a href="/0608_problem/CartServlet?action=show">カートを見る</a>
 <br>

@@ -1,5 +1,7 @@
 package shopping.dao;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Properties;
 
 import shopping.bean.CartBean;
 import shopping.bean.CustomerBean;
@@ -15,8 +18,14 @@ import shopping.bean.ItemBean;
 
 public class OrderDAO {
 	private Connection con;
+	private String path;
 
 	public OrderDAO() throws DAOException {
+		getConnection();
+	}
+
+	public OrderDAO(String path) throws DAOException {
+		this.path = path;
 		getConnection();
 	}
 
@@ -29,30 +38,6 @@ public class OrderDAO {
 		ResultSet rs = null;
 
 		try {
-			//			// 顧客番号の取得 Serial型の暗黙シーケンスから取得
-			//			int customerNumber = 0;
-			//			String sql = "SELECT nextval('customer_code_seq')";
-			//			st = con.prepareStatement(sql);
-			//			rs = st.executeQuery();
-			//			if (rs.next()) {
-			//				customerNumber = rs.getInt(1);
-			//			}
-			//			rs.close();
-			//			st.close();
-			//			// 顧客情報の追加SQL文
-			//			sql = "INSERT INTO customer VALUES(?, ?, ?, ?, ?)";
-			//			// PreparedStatementオブジェクトの取得
-			//			st = con.prepareStatement(sql);
-			//			// プレースホルダーの設定
-			//			st.setInt(1, customerNumber);
-			//			st.setString(2, customer.getName());
-			//			st.setString(3, customer.getAddress());
-			//			st.setString(4, customer.getTel());
-			//			st.setString(5, customer.getEmail());
-			//			// SQLの実行
-			//			st.executeUpdate();
-			//			st.close();
-
 			// 注文番号の取得 Serial型の暗黙シーケンスから取得
 			int orderNumber = 0;
 			String sql = "SELECT nextval('ordered_code_seq')";
@@ -110,14 +95,20 @@ public class OrderDAO {
 
 	private void getConnection() throws DAOException {
 		try {
-			// JDBCドライバの登録
-			Class.forName("org.postgresql.Driver");
-			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
-			String pass = "himitu";
-			// データベースへの接続
-			con = DriverManager.getConnection(url, user, pass);
+			Properties properties = new Properties();
+			try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(path));) {
+				properties.load(in);
+				Class.forName(properties.getProperty("driver"));
+				String url = properties.getProperty("url");
+				String user = properties.getProperty("user");
+				String pass = properties.getProperty("pass");
+				// データベースへの接続
+				con = DriverManager.getConnection(url, user, pass);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("設定ファイル読み込みに失敗しました。");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("接続に失敗しました。");

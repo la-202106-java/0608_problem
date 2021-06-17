@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,8 @@ import shopping.dao.ItemDAO;
 @WebServlet("/ShowItemServlet")
 public class ShowItemServlet extends HttpServlet {
 
+	private String realPath;
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -28,20 +31,20 @@ public class ShowItemServlet extends HttpServlet {
 				gotoPage(request, response, "/top.jsp");
 			} else if (action.equals("list")) {
 				int categoryCode = Integer.parseInt(request.getParameter("code"));
-				ItemDAO dao = new ItemDAO();
+				ItemDAO dao = new ItemDAO(realPath);
 				List<ItemBean> list = dao.findByCategory(categoryCode);
 				// Listをリクエストスコープに入れてJSPへフォーワードする
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
 			} else if (action.equals("detail")) {
 				int code = Integer.parseInt(request.getParameter("code"));
-				ItemDAO dao = new ItemDAO();
+				ItemDAO dao = new ItemDAO(realPath);
 				ItemBean item = dao.findByPrimaryKey(code);
 				request.setAttribute("item", item);
 				gotoPage(request, response, "/item.jsp");
 			} else if (action.equals("search")) {
 				String keyword = request.getParameter("keyword");
-				ItemDAO dao = new ItemDAO();
+				ItemDAO dao = new ItemDAO(realPath);
 				List<ItemBean> list = dao.findByName(keyword);
 				request.setAttribute("items", list);
 				gotoPage(request, response, "/list.jsp");
@@ -66,9 +69,14 @@ public class ShowItemServlet extends HttpServlet {
 	}
 
 	public void init() throws ServletException {
+		ServletContext context = this.getServletContext();
+		realPath = context.getRealPath("/WEB-INF/common.properties");
+
+		// 読み込み処理
+
 		try {
 			// カテゴリ一覧は最初にアプリケーションスコープへ入れる
-			ItemDAO dao = new ItemDAO();
+			ItemDAO dao = new ItemDAO(realPath);
 			List<CategoryBean> list = dao.findAllCategory();
 			getServletContext().setAttribute("categories", list);
 		} catch (DAOException e) {

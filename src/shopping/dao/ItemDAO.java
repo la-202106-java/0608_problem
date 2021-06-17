@@ -1,5 +1,7 @@
 package shopping.dao;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,15 +9,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import shopping.bean.CategoryBean;
 import shopping.bean.ItemBean;
 
 public class ItemDAO {
 	private Connection con;
+	private String path;
 
 	public ItemDAO() throws DAOException {
-		getConnection();
+		//		getConnection();
+	}
+
+	public ItemDAO(String path) throws DAOException {
+		this.path = path;
+		//		getConnection();
 	}
 
 	public List<CategoryBean> findAllCategory() throws DAOException {
@@ -190,15 +199,23 @@ public class ItemDAO {
 	}
 
 	private void getConnection() throws DAOException {
+
 		try {
-			// JDBCドライバの登録
-			Class.forName("org.postgresql.Driver");
-			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
-			String pass = "himitu";
-			// データベースへの接続
-			con = DriverManager.getConnection(url, user, pass);
+
+			Properties properties = new Properties();
+			try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(path));) {
+				properties.load(in);
+				Class.forName(properties.getProperty("driver"));
+				String url = properties.getProperty("url");
+				String user = properties.getProperty("user");
+				String pass = properties.getProperty("pass");
+				// データベースへの接続
+				con = DriverManager.getConnection(url, user, pass);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("設定ファイル読み込みに失敗しました。");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("接続に失敗しました。");

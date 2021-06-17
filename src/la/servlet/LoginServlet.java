@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -74,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 
 	public void init() throws ServletException {
 		try {
-			ServletContext context = this.getServletContext();
+			//ServletContext context = this.getServletContext();
 			String realPath = this.getServletContext().getRealPath("/WEB-INF/common.properties");
 			getServletContext().setAttribute("realpath", realPath);
 			// カテゴリ一覧は最初にアプリケーションスコープへ入れる

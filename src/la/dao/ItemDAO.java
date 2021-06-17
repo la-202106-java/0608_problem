@@ -187,12 +187,6 @@ public class ItemDAO {
 
 	private void getConnection2(String realpath) throws DAOException {
 		try {
-			// JDBCドライバの登録
-			//			Class.forName("org.postgresql.Driver");
-			//			// URL、ユーザ名、パスワードの設定
-			//			String url = "jdbc:postgresql:sample";
-			//			String user = "student";
-			//			String pass = "himitu";
 
 			String filename = realpath;
 

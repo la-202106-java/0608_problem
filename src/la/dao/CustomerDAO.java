@@ -1,5 +1,7 @@
 package la.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import la.bean.CategoryBean;
 import la.bean.CustomerBean;
@@ -17,6 +20,10 @@ public class CustomerDAO {
 
 	public CustomerDAO() throws DAOException {
 		getConnection();
+	}
+
+	public CustomerDAO(String realpath) throws DAOException {
+		getConnection2(realpath);
 	}
 
 	public List<CategoryBean> findAllCategory() throws DAOException {
@@ -195,12 +202,62 @@ public class CustomerDAO {
 
 	private void getConnection() throws DAOException {
 		try {
-			// JDBCドライバの登録
-			Class.forName("org.postgresql.Driver");
+			//			// JDBCドライバの登録
+			//			Class.forName("org.postgresql.Driver");
+			//			// URL、ユーザ名、パスワードの設定
+			//			String url = "jdbc:postgresql:sample";
+			//			String user = "student";
+			//			String pass = "himitu";
+
+			String filename = "/WEB-INF/common.properties";
+
+			Properties properties = new Properties();
+			try {
+				FileInputStream file = new FileInputStream(filename);
+				properties.load(file);
+			} catch (IOException e) {
+				System.err.println("Cannot open " + filename + ".");
+				e.printStackTrace();
+				System.exit(-1);
+			}
+			Class.forName(properties.getProperty("driver"));
 			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
-			String pass = "himitu";
+			String url = properties.getProperty("url");
+			String user = properties.getProperty("student");
+			String pass = properties.getProperty("himitu");
+			// データベースへの接続
+			con = DriverManager.getConnection(url, user, pass);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("接続に失敗しました。");
+		}
+	}
+
+	private void getConnection2(String realpath) throws DAOException {
+		try {
+			// JDBCドライバの登録
+			//			Class.forName("org.postgresql.Driver");
+			//			// URL、ユーザ名、パスワードの設定
+			//			String url = "jdbc:postgresql:sample";
+			//			String user = "student";
+			//			String pass = "himitu";
+
+			String filename = realpath;
+
+			Properties properties = new Properties();
+			try {
+				FileInputStream file = new FileInputStream(filename);
+				properties.load(file);
+			} catch (IOException e) {
+				System.err.println("Cannot open " + filename + ".");
+				e.printStackTrace();
+				System.exit(-1);
+			}
+			Class.forName(properties.getProperty("driver"));
+			// URL、ユーザ名、パスワードの設定
+			String url = properties.getProperty("url");
+			String user = properties.getProperty("user");
+			String pass = properties.getProperty("pass");
 			// データベースへの接続
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (Exception e) {

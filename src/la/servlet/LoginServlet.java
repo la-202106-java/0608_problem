@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,13 +28,16 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
-
 		try {
 			String action = request.getParameter("action");
 			if (action.equals("login")) {
 				String address = request.getParameter("address");
 				String passWord = request.getParameter("password");
-				CustomerDAO dao = new CustomerDAO();
+				//パスワードのハッシュ化
+				//String PassWord = DigestUtils.sha256Hex(request.getParameter("password"));
+				String path = (String) getServletContext().getAttribute("realpath");
+				CustomerDAO dao = new CustomerDAO(path);
+				//CustomerDAO dao = new CustomerDAO();
 				CustomerBean bean = dao.findByEmailAndPassword(address, passWord);
 				if (bean != null) { //ログイン成功時
 					// Listをリクエストスコープに入れてJSPへフォーワードする
@@ -70,8 +74,11 @@ public class LoginServlet extends HttpServlet {
 
 	public void init() throws ServletException {
 		try {
+			ServletContext context = this.getServletContext();
+			String realPath = this.getServletContext().getRealPath("/WEB-INF/common.properties");
+			getServletContext().setAttribute("realpath", realPath);
 			// カテゴリ一覧は最初にアプリケーションスコープへ入れる
-			ItemDAO dao = new ItemDAO();
+			ItemDAO dao = new ItemDAO(realPath);
 			List<CategoryBean> list = dao.findAllCategory();
 			getServletContext().setAttribute("categories", list);
 		} catch (DAOException e) {

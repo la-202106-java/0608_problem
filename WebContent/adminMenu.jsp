@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
 	<a href="">TOP</a> |
 	<a href="">教科書検索</a> |
-	<a href="">教科書登録</a> |
-	ようこそ 山田花子さん |
-	<a href="">マイページ</a> |
+	<a href="">会員検索</a> |
+	管理者でログインしています |
 	<a href="">ログアウト</a>
 </body>
 </html>

@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<h3>
 <a href="/0608_problem/index.jsp">TOP</a>|
 <a href="/0608_problem/kaiin_menu.jsp">会員管理</a>|
 
@@ -17,6 +18,8 @@
 
 
 <a href="/0608_problem/siryou_henkyaku.jsp">資料の返却</a><br>
-
+</h3>
+<hr>
+<br>
 </body>
 </html>

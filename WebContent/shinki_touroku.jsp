@@ -10,5 +10,8 @@
 
 <jsp:include page="/menu.jsp" />
 
+<form>
+
+</form>
 </body>
 </html>

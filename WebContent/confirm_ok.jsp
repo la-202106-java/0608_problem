@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>図書管理システム | 会員の新規登録</title>
+<title>図書管理システム | 会員情報の変更</title>
 </head>
 <body>
 
 <jsp:include page="/menu.jsp" />
 
-<h3>登録完了しました。</h3>
+<h3>変更完了しました。</h3>
 <br>
 
 <table border="1">

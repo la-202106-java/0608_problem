@@ -15,7 +15,6 @@
 	 <input type ="hidden" name ="action" value ="login">
 ISBN番号：<input type="text" name="address"><br>
   資料名：<input type="text" name="address"><br>
- 入荷年月日：<input type="text" name="address"><br>
   <input type="submit" value="登録">
 </form>
 </body>

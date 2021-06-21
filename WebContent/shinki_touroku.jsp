@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>図書管理システム | 会員の新規登録</title>
-</head>
+</head>aaa
 <body>
 
 <jsp:include page="/menu.jsp" />

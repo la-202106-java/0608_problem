@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>図書管理システム | 資料の検索</title>
+<title>図書管理システム | 資料の廃棄</title>
 </head>
 <body>
 
@@ -12,13 +12,10 @@
 
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
-	 <input type ="hidden" name ="action" value ="login">
-資料ID：<input type="text" name="address"><br>
-資料名：<input type="text" name="address"><br>
-  <input type="submit" value="検索">
+<h3>正しい情報が入力されていれば、『廃棄』ボタンを押してください。</h3>
+  <input type="submit" value="廃棄">
+  <input type="submit" value="修正">
 </form>
-
-<h3>該当する資料の情報は以下の通りです。</h3>
 <br>
 <table border="1">
 <tr><td>資料ID</td><td>5</td></tr>

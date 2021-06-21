@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>図書管理システム | 会員の退会</title>
+<title>図書管理システム | 資料の登録</title>
 </head>
 <body>
 

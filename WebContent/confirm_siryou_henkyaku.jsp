@@ -12,11 +12,17 @@
 
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
-	 <input type ="hidden" name ="action" value ="login">
-会員ID：<input type="text" name="address"><br>
-資料ID：<input type="text" name="address"><br>
+<h3>正しい情報が入力されていれば、『返却』ボタンを押してください。</h3>
   <input type="submit" value="返却">
+  <input type="submit" value="修正">
 </form>
+<br>
+<table border="1">
+<tr><td>会員ID</td><td>5</td></tr>
+<tr><td>資料ID</td><td>65489</td></tr>
+<tr><td>貸出年月日</td><td>2021年6月21日</td></tr>
+<tr><td>返却期日</td><td>2021年6月31日</td></tr>
+</table>
 
 </body>
 </html>

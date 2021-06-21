@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>図書管理システム | 会員の新規登録</title>
+<title>図書管理システム | 会員情報の変更</title>
 </head>
 <body>
 
@@ -13,13 +13,12 @@
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 	 <input type ="hidden" name ="action" value ="login">
+会員ID：<input type="text" name="address"><br>
   氏名：<input type="text" name="address"><br>
   住所：<input type="text" name="password"><br>
   電話番号：<input type="text" name="password"><br>
   E-Mail：<input type="text" name="password"><br>
-  生年月日：<input type="text" name="password"><br>
-  入会年月日：<input type="text" name="password"><br>
-  <input type="submit" value="会員登録">
+  <input type="submit" value="変更">
 </form>
 </body>
 </html>

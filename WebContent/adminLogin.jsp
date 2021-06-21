@@ -4,12 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 	<h1>管理者ログイン</h1>
 
 	<form>
+		メールアドレス<br>
+		<input type="text"><br>
+		<br>
 		パスワード<br>
 		<input type="password"><br>
 		<br>

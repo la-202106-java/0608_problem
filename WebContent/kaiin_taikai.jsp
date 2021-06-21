@@ -9,12 +9,11 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-
+<h2>会員の退会</h2>
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 	 <input type ="hidden" name ="action" value ="login">
 会員ID：<input type="text" name="address"><br>
-  氏名：<input type="text" name="address"><br>
   <input type="submit" value="退会">
 </form>
 </body>

@@ -9,6 +9,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
+<h2>会員の新規登録</h2>
 
 <form>
 <form action="/0608_problem/LoginServlet" method="post">

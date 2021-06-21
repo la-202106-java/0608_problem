@@ -9,7 +9,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-
+<h2>会員情報の変更</h2>
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 	 <input type ="hidden" name ="action" value ="login">

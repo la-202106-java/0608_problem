@@ -9,7 +9,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-
+<h2>貸出情報の登録</h2>
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 	 <input type ="hidden" name ="action" value ="login">

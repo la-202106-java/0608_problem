@@ -9,7 +9,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-
+<h2>資料の廃棄</h2>
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 <h3>正しい情報が入力されていれば、『廃棄』ボタンを押してください。</h3>

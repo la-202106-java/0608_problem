@@ -19,18 +19,16 @@ public class AdminDAO {
 		}
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM admin WHERE email_address=? AND pass=?";
+		String sql = "SELECT * FROM admin WHERE email_address=?";
 		try {
 			st = con.prepareStatement(sql);
 			st.setString(1, email);
-			st.setString(2, password);
 			rs = st.executeQuery();
-			String d = null;
+			String pass = null;
 			while (rs.next()) {
-				d = rs.getString("email_address");
+				pass = rs.getString("pass");
 			}
-
-			return (d != null);
+			return (pass.equals(password));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました");
@@ -51,7 +49,7 @@ public class AdminDAO {
 		try {
 			Class.forName("org.postgresql.Driver");
 			String url = "jdbc:postgresql:reservationsystem";
-			String user = "student";
+			String user = "adminuser";
 			String pass = "himitu";
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (Exception e) {

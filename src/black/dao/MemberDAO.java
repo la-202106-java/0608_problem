@@ -134,7 +134,9 @@ public class MemberDAO {
 		}
 
 		String sql = "INSERT INTO member(name, address, tel, email, birthday, pass, join_date)"
-				+ " VALUES(?, ?, ?, ?, ?, ?)";
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
+
+		Date day = new Date(System.currentTimeMillis());
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, name);
@@ -143,7 +145,7 @@ public class MemberDAO {
 			st.setString(4, email);
 			st.setDate(5, birthday);//あとでなおす
 			st.setString(6, pass);
-			st.setDate(7, birthday);
+			st.setDate(7, day);
 
 			//SQL実行
 			st.executeUpdate();
@@ -231,8 +233,8 @@ public class MemberDAO {
 			// JDBCドライバの登録
 			Class.forName("org.postgresql.Driver");
 			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
+			String url = "jdbc:postgresql:webtext";
+			String user = "webtextuser";
 			String pass = "himitu";
 			// データベースへの接続
 			con = DriverManager.getConnection(url, user, pass);

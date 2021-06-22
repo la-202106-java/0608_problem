@@ -7,19 +7,17 @@
 <title>教科書売買サイト</title>
 </head>
 <body>
-	<jsp:include page="/adminMenu.jsp" />
+	<h1>会員情報確認</h1>
 
-	<h1>会員情報</h1>
-	<a href="">会員情報変更</a>
-	<br>
-
-	<h3>山田花子</h3>
+	名前：山田花子<br>
 	住所：東京都新宿区1-1-1<br>
 	電話番号：090-999-9999<br>
 	E-Mail：sample@aaa.com<br>
 	生年月日：2000/01/01<br>
 
-	<hr>
-	<a href="">退会</a>
+	<form>
+		<input type="submit" value="登録">
+		<input type="submit" value="キャンセル">
+	</form>
 </body>
 </html>

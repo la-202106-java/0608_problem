@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 	<a href="">TOP</a> |

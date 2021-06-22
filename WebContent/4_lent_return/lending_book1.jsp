@@ -9,7 +9,7 @@
 <body>
 <h2>貸出履歴</h2>
 貸出をする会員IDを入力してください<br>
-会員ID <input type ="text" name = "id">
+会員ID <input type ="text" name = "user_id">
 <input type="submit" value = 次へ>
 </body>
 </html>

@@ -8,8 +8,10 @@
 </head>
 <body>
 <h2>資料貸出</h2>
-資料ID <input type ="text" name = "b_id">
-会員ID <input type ="text" name = "u_id"><br>
+資料ID <input type ="text" name = "book_id">
+<input type="submit" value = 延滞資料><br>
+会員ID <input type ="text" name = "user_id">
+<input type="checkbox">貸出中のみ<br>
 <input type="submit" value = 検索>
 
 <table border="1">
@@ -18,10 +20,15 @@
       <th>会員ID</th>
       <th>資料ID</th>
       <th>貸出年月日</th>
-      <th>資料名</th>
-      <th>返却予定日</th>
+      <th>返却期限（年月日）</th>
+      <th>返却年月日</th>
+      <th>備考</th>
     </tr>
     <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>

@@ -24,7 +24,9 @@ public class AdminDAO {
 		ResultSet rs = null;
 		try {
 			// SQL文の作成
-			String sql = "SELECT * FROM  where email = ? AND password = ?";
+
+			String sql = "SELECT * FROM admin where email = ? AND pass = ?";
+
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			// カテゴリの設定

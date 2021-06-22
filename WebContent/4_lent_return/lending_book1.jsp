@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>資料貸出</title>
+<title>貸出履歴</title>
 </head>
 <body>
-<h2>資料貸出</h2>
+<h2>貸出履歴</h2>
 貸出をする会員IDを入力してください<br>
 会員ID <input type ="text" name = "id">
 <input type="submit" value = 次へ>

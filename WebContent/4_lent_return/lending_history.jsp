@@ -4,12 +4,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>資料貸出</title>
+<title>貸出履歴</title>
 </head>
 <body>
 <h2>資料貸出</h2>
-貸出をする会員IDを入力してください<br>
-会員ID <input type ="text" name = "id">
-<input type="submit" value = 次へ>
+資料ID <input type ="text" name = "b_id">
+会員ID <input type ="text" name = "u_id"><br>
+<input type="submit" value = 検索>
+
+<table border="1">
+    <tr>
+      <th>貸出ID</th>
+      <th>会員ID</th>
+      <th>資料ID</th>
+      <th>貸出年月日</th>
+      <th>資料名</th>
+      <th>返却予定日</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
 </body>
 </html>

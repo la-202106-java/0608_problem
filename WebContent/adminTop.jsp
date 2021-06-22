@@ -7,6 +7,12 @@
 <title>トップメニュー(管理者)</title>
 </head>
 <body>
-上手くいった URLはこちら
+
+<jsp:include page="/WEB-INF/adminMenu.html" />
+
+<form action="/0608_problem/AdminLoginServlet" method="post">
+<input type="submit" value="ログアウト">
+<input type="hidden" name="action" value="logout">
+</form>
 </body>
 </html>

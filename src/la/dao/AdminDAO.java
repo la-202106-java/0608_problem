@@ -25,7 +25,12 @@ public class AdminDAO {
 			st.setString(1, email);
 			st.setString(2, password);
 			rs = st.executeQuery();
-			return (rs.getString("email_address") != null);
+			String d = null;
+			while (rs.next()) {
+				d = rs.getString("email_address");
+			}
+
+			return (d != null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました");

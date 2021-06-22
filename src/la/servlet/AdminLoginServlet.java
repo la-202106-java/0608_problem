@@ -37,26 +37,28 @@ public class AdminLoginServlet extends HttpServlet {
 			String action = request.getParameter("action");
 			AdminDAO dao = new AdminDAO();
 			if (action == null || action.length() == 0) {
-				gotoPage(request, response, "/login.jsp");
+				gotoPage(request, response, "/adminLogin.jsp");
 			} else if (action.equals("login")) {
 				String email = request.getParameter("email");
 				if (email == null || email.length() == 0) {
 					request.setAttribute("error", "メールアドレスが入力されていません");
-					gotoPage(request, response, "/login.jsp");
+					gotoPage(request, response, "/adminLogin.jsp");
 					return;
 				}
 				String password = request.getParameter("password");
 				if (password == null || password.length() == 0) {
 					request.setAttribute("error", "パスワードが入力されていません");
-					gotoPage(request, response, "/login.jsp");
+					gotoPage(request, response, "/adminLogin.jsp");
 					return;
 				}
 				if (dao.isAdmin(email, password)) {
-					gotoPage(request, response, "/top.jsp");
+					gotoPage(request, response, "/adminTop.jsp");
 				} else {
 					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");
-					gotoPage(request, response, "/login.jsp");
+					gotoPage(request, response, "/adminLogin.jsp");
 				}
+			} else if (action.equals("logout")) {
+
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

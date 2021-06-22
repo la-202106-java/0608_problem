@@ -13,3 +13,4 @@ INSERT INTO now_user VALUES(1,'新宿太郎','1996-04-02','2010-05-05','東京�
 
 INSERT INTO former_user VALUES(2,'新宿太郎2','1996-04-02','2010-05-05','2012-06-08','東京都新宿区三丁目リナックルアカデミービル401','090-9999-9999','shinjuku@gmail.com');
 
+INSERT INTO admin VALUES(1,'shinjuku@gmail.com','himitu');

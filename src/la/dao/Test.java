@@ -28,6 +28,13 @@ public class Test {
 			System.out.println(fuser.getName());
 			System.out.println(fuser.getQuitDate());
 
+			ReservedDAO reserved = new ReservedDAO();
+			//日付変換の方法
+			java.util.Date d1 = new java.util.Date();
+			java.sql.Date d3 = new java.sql.Date(d1.getTime());
+			int number = reserved.addReserved(1, 1, d3);
+			System.out.println(number + "件の取り置きを追加しました");
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}

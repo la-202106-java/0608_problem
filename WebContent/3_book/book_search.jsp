@@ -10,9 +10,9 @@
 
 <h2>資料検索</h2>
 
-資料ID検索 <input type ="text" placeholder="資料ID"  name = ""><br>
-ISBN番号検索 <input type ="text" placeholder="ISBN番号"  name = ""><br>
-資料名検索 <input type ="text" placeholder="資料名"  name = ""><br>
+資料ID検索 <input type ="text" placeholder="資料ID"  name = "book_id"><br>
+ISBN番号検索 <input type ="text" placeholder="ISBN番号"  name = "isbn"><br>
+資料名検索 <input type ="text" placeholder="資料名"  name = "title"><br>
 
 <input type="submit" value = 検索>
 

@@ -21,8 +21,10 @@ public class LeaveServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		//退会チェック選択画面
-		//退会完了ページに行く
-		if (action.equals("doleave")) {
+		if (action.equals("leave")) {
+			gotoPage(request, response, "/Leave_Check.jsp");
+		} else if (action.equals("doleave")) {
+			//退会完了ページに行く
 			gotoPage(request, response, "/Leave_Done.jsp");
 		}
 		//キャンセル　マイページに行く

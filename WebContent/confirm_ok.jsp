@@ -4,16 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>図書管理システム | 会員の新規登録</title>
+<title>図書管理システム | 会員情報の変更</title>
 </head>
 <body>
 
 <jsp:include page="/menu.jsp" />
-
+<h2>会員の新規登録</h2>
 <h3>登録完了しました。</h3>
 <br>
 
 <table border="1">
+<tr><td>会員ID</td><td>5</td></tr>
 <tr><td>氏名</td><td>田中太郎</td></tr>
 <tr><td>住所</td><td>東京都新宿区新宿2-1-11</td></tr>
 <tr><td>電話番号</td><td>03-0000-1111</td></tr>

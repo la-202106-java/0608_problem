@@ -9,6 +9,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
+<h2>会員情報の変更</h2>
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 <h3>正しい情報が入力されていれば、『完了』ボタンを押してください。</h3>

@@ -1,6 +1,8 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import la.bean.MemberBean;
-import la.dao.MembersDAO;
+import la.bean.PlanBean;
+import la.dao.MembersDAOSub;
+import la.dao.PlansDAOSub;
 
-@WebServlet("/ShowPlan")
-public class ShowPlan extends HttpServlet {
+@WebServlet("/ShowPlanServlet")
+public class ShowPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +50,7 @@ public class ShowPlan extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 
-			MembersDAO dao = new MembersDAO();
+			MembersDAOSub dao = new MembersDAOSub();
 			MemberBean member = new MemberBean();
 			member = dao.find(email);
 
@@ -54,9 +58,18 @@ public class ShowPlan extends HttpServlet {
 				session.setAttribute("isLogin", "true");
 				gotoPage(request, response, "/top.jsp");
 			} else {
-
+				// ログイン失敗時の処理書く
 			}
 		} else if (action.equals("plan")) { // 検索ボタンクリック時
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+
+			PlansDAOSub dao = new PlansDAOSub();
+			List<PlanBean> plans = new ArrayList<PlanBean>();
+
+			plans = dao.find(checkIn, checkOut);
+			request.setAttribute("plans", plans);
+
 			gotoPage(request, response, "/top.jsp");
 		} else {
 			request.setAttribute("message", "正しく操作してください。");

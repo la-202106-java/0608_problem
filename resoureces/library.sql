@@ -17,7 +17,7 @@ ALTER TABLE catalog OWNER TO sd;
 
 DROP TABLE IF EXISTS book;
 CREATE TABLE book (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     isbn CHAR(13) NOT NULL,
     title VARCHAR(255) NOT NULL,
     arrival_date DATE NOT NULL,
@@ -44,7 +44,7 @@ ALTER TABLE discarded_book OWNER TO sd;
 
 DROP TABLE IF EXISTS lending;
 CREATE TABLE lending (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     book_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     lending_date DATE NOT NULL,
@@ -58,7 +58,7 @@ ALTER TABLE lending OWNER TO sd;
 
 DROP TABLE IF EXISTS returned_lending;
 CREATE TABLE returned_lending (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     book_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     lending_date DATE NOT NULL,
@@ -72,7 +72,7 @@ ALTER TABLE returned_lending OWNER TO sd;
 
 DROP TABLE IF EXISTS now_user;
 CREATE TABLE now_user (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     birth_date DATE NOT NULL,
     join_date DATE NOT NULL,
@@ -100,7 +100,7 @@ ALTER TABLE former_user OWNER TO sd;
 
 DROP TABLE IF EXISTS admin;
 CREATE TABLE admin (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(30) NOT NULL
 );
@@ -110,7 +110,7 @@ ALTER TABLE admin OWNER TO sd;
 
 DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     isbn CHAR NOT NULL,
     user_id INTEGER NOT NULL,
     reservation_time TIMESTAMP NOT NULL,
@@ -122,7 +122,7 @@ ALTER TABLE reservation OWNER TO sd;
 
 DROP TABLE IF EXISTS reserved;
 CREATE TABLE reserved (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     user_id INTEGER NOT NULL,
     book_id INTEGER NOT NULL,
     reserved_date DATE NOT NULL,
@@ -131,4 +131,30 @@ CREATE TABLE reserved (
 
 ALTER TABLE reserved OWNER TO sd;
 
+
+
+
+ALTER TABLE book
+ADD FOREIGN KEY (isbn)
+REFERENCES catalog (isbn);
+
+ALTER TABLE discarded_book
+ADD FOREIGN KEY (isbn)
+REFERENCES catalog (isbn);
+
+ALTER TABLE lending
+ADD FOREIGN KEY (book_id)
+REFERENCES book (id);
+
+ALTER TABLE returned_lending
+ADD FOREIGN KEY (book_id)
+REFERENCES book (id);
+
+ALTER TABLE reservation
+ADD FOREIGN KEY (isbn)
+REFERENCES catalog (isbn);
+
+ALTER TABLE reserved
+ADD FOREIGN KEY (book_id)
+REFERENCES book (id);
 

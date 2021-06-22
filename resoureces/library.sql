@@ -13,7 +13,6 @@ CREATE TABLE catalog (
     publisher VARCHAR(255) NOT NULL,
     publication_date DATE NOT NULL
 );
-
 ALTER TABLE catalog OWNER TO sd;
 
 DROP TABLE IF EXISTS book;
@@ -71,8 +70,8 @@ CREATE TABLE returned_lending (
 ALTER TABLE returned_lending OWNER TO sd;
 
 
-DROP TABLE IF EXISTS user;
-CREATE TABLE user (
+DROP TABLE IF EXISTS now_user;
+CREATE TABLE now_user (
     id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     birth_date DATE NOT NULL,
@@ -81,8 +80,7 @@ CREATE TABLE user (
     tel VARCHAR(20) NOT NULL,
     email VARCHAR(100) NOT NULL
 );
-
-ALTER TABLE user OWNER TO sd;
+ALTER TABLE now_user OWNER TO sd;
 
 
 DROP TABLE IF EXISTS former_user;
@@ -134,5 +132,3 @@ CREATE TABLE reserved (
 ALTER TABLE reserved OWNER TO sd;
 
 
-INSERT INTO catalog VALUES('4906638015','7 つの習慣',3,'スティーブン・R・コビー','キングベアー出版','1996-12-25');
-INSERT INTO catalog VALUES('4480425993','よいこの君主論',1,'架神恭介/辰巳 一世','筑摩書房','2009-05-11');

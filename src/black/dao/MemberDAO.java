@@ -86,8 +86,8 @@ public class MemberDAO {
 			st.setString(3, "%" + tel + "%");
 			st.setString(4, "%" + email + "%");
 			if (birthday != null) {
-				st.setDate(5, birthday);
-				;
+				st.setDate(5, birthday);//aあとで直す
+
 			}
 
 			// SQLの実行
@@ -127,18 +127,103 @@ public class MemberDAO {
 	}
 
 	//会員登録（新規）
-	public void addMember() throws DAOException {
+	public void addMember(String name, String address,
+			String tel, String email, Date birthday, String pass) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
 
+		String sql = "INSERT INTO member(name, address, tel, email, birthday, pass, join_date)"
+				+ " VALUES(?, ?, ?, ?, ?, ?)";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, name);
+			st.setString(2, address);
+			st.setString(3, tel);
+			st.setString(4, email);
+			st.setDate(5, birthday);//あとでなおす
+			st.setString(6, pass);
+			st.setDate(7, birthday);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 	//会員情報更新
-	public void updateMenber() throws DAOException {
+	public void updateMenber(int id, String name, String address,
+			String tel, String email, Date birthday, String pass) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
 
+		String sql = "UPDATE member SET name=? address=? tel=? email=? birthday=? pass=?"
+				+ " WHERE id=?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, name);
+			st.setString(2, address);
+			st.setString(3, tel);
+			st.setString(4, email);
+			st.setDate(5, birthday);//あとでなおす
+			st.setString(6, pass);
+			st.setInt(7, id);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 	//退会処理
-	public void memberQuit() throws DAOException {
+	public void memberQuit(int id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
 
+		String sql = "UPDATE member SET quit_date=? WHERE id=?";
+
+		Date today = new Date(System.currentTimeMillis());
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setDate(1, today);
+			st.setInt(2, id);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 	private void getConnection() throws DAOException {

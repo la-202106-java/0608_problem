@@ -19,7 +19,7 @@
   E-Mail：<input type="text" name="password"><br>
   生年月日：<input type="text" name="password"><br>
   入会年月日：<input type="text" name="password"><br>
-  <input type="submit" value="会員登録">
+  <input type="submit" value="貸出登録">
 </form>
 </body>
 </html>

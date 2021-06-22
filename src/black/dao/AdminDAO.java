@@ -24,7 +24,9 @@ public class AdminDAO {
 		ResultSet rs = null;
 		try {
 			// SQL文の作成
+
 			String sql = "SELECT * FROM admin where email = ? AND pass = ?";
+
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
 			// カテゴリの設定
@@ -63,8 +65,8 @@ public class AdminDAO {
 			// JDBCドライバの登録
 			Class.forName("org.postgresql.Driver");
 			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
+			String url = "jdbc:postgresql:webtext";
+			String user = "webtextuser";
 			String pass = "himitu";
 			// データベースへの接続
 			con = DriverManager.getConnection(url, user, pass);

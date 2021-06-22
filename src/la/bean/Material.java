@@ -2,12 +2,11 @@ package la.bean;
 
 import java.util.Date;
 
-public class MaterialLedger {
+public class Material {
 	private String id;
 	private String isbn;
 	private Date stockDate;
-	private Date disposalDate;
-	private String remark;
+	private String title;
 
 	public String getId() {
 		return id;
@@ -33,31 +32,23 @@ public class MaterialLedger {
 		this.stockDate = stockDate;
 	}
 
-	public Date getDisposalDate() {
-		return disposalDate;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDisposalDate(Date disposalDate) {
-		this.disposalDate = disposalDate;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public MaterialLedger(String id, String isbn, Date stockDate, Date disposalDate, String remark) {
+	public Material(String id, String isbn, Date stockDate, String title) {
 		super();
 		this.id = id;
 		this.isbn = isbn;
 		this.stockDate = stockDate;
-		this.disposalDate = disposalDate;
-		this.remark = remark;
+		this.title = title;
 	}
 
-	public MaterialLedger() {
+	public Material() {
 	}
+
 }

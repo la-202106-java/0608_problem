@@ -12,10 +12,6 @@ public class MaterialCatalog implements Serializable {
 	private String publisher;
 	private Date publicationDate;
 
-	public MaterialCatalog() {
-		super();
-	}
-
 	public String getIsbn() {
 		return isbn;
 	}

@@ -10,12 +10,12 @@
 
 <jsp:include page="/menu.jsp" />
 <h2>貸出情報の登録</h2>
-<form>
-<form action="/0608_problem/LoginServlet" method="post">
+
+<form action="/0608_problem/KasidasiServlet?action=add" method="post">
 	 <input type ="hidden" name ="action" value ="login">
 
-  会員ID：<input type="text" name="member_id"><br>
-  資料ID：<input type="text" name="material_id"><br>
+  会員ID：<input type="text" name="mid"><br>
+  資料ID：<input type="text" name="sid"><br>
   <input type="submit" value="登録">
 
 

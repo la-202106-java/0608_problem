@@ -4,11 +4,47 @@ import java.util.Date;
 
 public class LendingLedger {
 	private int id;
-	private int memeberID;
+	private int memberID;
+	private Member member;
+	private MaterialLedger materialLedger;
+	private MaterialCatalog materialCatalog;
+
 	private int materialID;
 	private Date checkoutDate;
 	private Date returnDeadline;
 	private Date returnDate;
+
+	public LendingLedger() {
+		super();
+		this.member = new Member();
+		this.materialLedger = new MaterialLedger();
+		this.materialCatalog = new MaterialCatalog();
+
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public MaterialLedger getMaterialLedger() {
+		return materialLedger;
+	}
+
+	public void setMaterialLedger(MaterialLedger materialLedger) {
+		this.materialLedger = materialLedger;
+	}
+
+	public MaterialCatalog getMaterialCatalog() {
+		return materialCatalog;
+	}
+
+	public void setMaterialCatalog(MaterialCatalog materialCatalog) {
+		this.materialCatalog = materialCatalog;
+	}
 
 	public int getId() {
 		return id;
@@ -19,11 +55,11 @@ public class LendingLedger {
 	}
 
 	public int getMemeberID() {
-		return memeberID;
+		return memberID;
 	}
 
 	public void setMemeberID(int memeberID) {
-		this.memeberID = memeberID;
+		this.memberID = memeberID;
 	}
 
 	public int getMaterialID() {
@@ -62,7 +98,7 @@ public class LendingLedger {
 			Date returnDate) {
 		super();
 		this.id = id;
-		this.memeberID = memeberID;
+		this.memberID = memeberID;
 		this.materialID = materialID;
 		this.checkoutDate = checkoutDate;
 		this.returnDeadline = returnDeadline;

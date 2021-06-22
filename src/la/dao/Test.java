@@ -2,21 +2,20 @@ package la.dao;
 
 import java.util.List;
 
-import la.bean.BookBean;
+import la.bean.DiscardedBookBean;
 
 public class Test {
 	public static void main(String[] args) {
-		BookDAO book;
+		DiscardedBookDAO book;
 		try {
-			book = new BookDAO();
-			List<BookBean> list = book.findAll();
-			for (BookBean bean : list) {
+			book = new DiscardedBookDAO();
+			List<DiscardedBookBean> list = book.findAll();
+			for (DiscardedBookBean bean : list) {
 				System.out.println(bean.getTitle());
 			}
 
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

@@ -9,7 +9,7 @@
 <body>
 <h2>資料貸出</h2>
 返却をする資料IDを入力してください<br>
-資料ID <input type ="text" name = "id">
+資料ID <input type ="text" name = "book_id">
 <input type="submit" value = 返却>
 </body>
 </html>

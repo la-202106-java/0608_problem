@@ -25,4 +25,12 @@ public class MaterialCategory {
 		this.id = id;
 		this.name = name;
 	}
+
+	/**
+	 *
+	 */
+	public MaterialCategory() {
+		super();
+	}
+
 }

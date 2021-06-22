@@ -12,7 +12,7 @@
 ${error}。
 <br><br>
 </c:if>
-<form action="/0608_problem/AdminLoginServlet" method="post">
+<form action="/0608_problem/admin/login" method="post">
 メールアドレス：
 <input type="text" name="email"><br>
 パスワード：

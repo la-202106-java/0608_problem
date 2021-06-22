@@ -21,6 +21,6 @@
 	生年月日：2000/01/01<br>
 
 	<hr>
-	<a href="">退会</a>
+	<a href="/0608_problem/myPageServlet?action=leave">退会</a>
 </body>
 </html>

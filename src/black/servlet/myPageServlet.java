@@ -17,9 +17,27 @@ public class myPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//会員側のメニューページ遷移
 		String action = request.getParameter("action");
-		action.equals("leave");
-		gotoPage(request, response, "/Leave_Check.jsp");
+		if (action.equals("top")) {
+			//トップページに移動
+			gotoPage(request, response, "/top.jsp");
+		} else if (action.equals("myPage")) {
+			//マイページに移動
+			gotoPage(request, response, "/myPage.jsp");
+		} else if (action.equals("serch")) {
+			//教書検索ページに移動
+			//遷移先ページ未完了
+			gotoPage(request, response, "/.jsp");
+		} else if (action.equals("regist")) {
+			//教科書登録ページに移動
+			//遷移先ページ未完了
+			gotoPage(request, response, "/.jsp");
+		} else if (action.equals("regist")) {
+			//ログアウトページに移動
+			//遷移先ページ未完了
+			gotoPage(request, response, "/.jsp");
+		}
 	}
 
 	private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)

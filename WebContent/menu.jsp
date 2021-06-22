@@ -7,11 +7,11 @@
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
 </head>
 <body>
-	<a href="">TOP</a> |
-	<a href="">教科書検索</a> |
-	<a href="">教科書登録</a> |
+	<a href="/0608_problem/myPageServlet?action=top">TOP</a> |
+	<a href="/0608_problem/myPageServlet?action=serch">教科書検索</a> |
+	<a href="/0608_problem/myPageServlet?action=regist">教科書登録</a> |
 	ようこそ 山田花子さん |
-	<a href="">マイページ</a> |
-	<a href="">ログアウト</a>
+	<a href="/0608_problem/myPageServlet?action=myPage">マイページ</a> |
+	<a href="/0608_problem/myPageServlet?action=logout">ログアウト</a>
 </body>
 </html>

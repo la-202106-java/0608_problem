@@ -2,25 +2,28 @@ package la.bean;
 
 import java.util.Date;
 
-public class NowUserBean {
+public class FormerUserBean {
 
 	private int id;
 	private String name;
 	private Date birthDate;
 	private Date joinDate;
+	private Date quitDate;
 	private String address;
 	private String tel;
 	private String email;
 
-	public NowUserBean() {
+	public FormerUserBean() {
 	}
 
-	public NowUserBean(int id, String name, Date birthDate, Date joinDate, String address, String tel, String email) {
+	public FormerUserBean(int id, String name, Date birthDate, Date joinDate, Date quitDate, String address, String tel,
+			String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.birthDate = birthDate;
 		this.joinDate = joinDate;
+		this.quitDate = quitDate;
 		this.address = address;
 		this.tel = tel;
 		this.email = email;
@@ -80,5 +83,13 @@ public class NowUserBean {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getQuitDate() {
+		return quitDate;
+	}
+
+	public void setQuitDate(Date quitDate) {
+		this.quitDate = quitDate;
 	}
 }

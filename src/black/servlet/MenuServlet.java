@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class myPageServlet
  */
-@WebServlet("/myPageServlet")
-public class myPageServlet extends HttpServlet {
+@WebServlet("/MenuServlet")
+public class MenuServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,10 +31,6 @@ public class myPageServlet extends HttpServlet {
 			gotoPage(request, response, "/.jsp");
 		} else if (action.equals("regist")) {
 			//教科書登録ページに移動
-			//遷移先ページ未完了
-			gotoPage(request, response, "/.jsp");
-		} else if (action.equals("regist")) {
-			//ログアウトページに移動
 			//遷移先ページ未完了
 			gotoPage(request, response, "/.jsp");
 		}

@@ -13,7 +13,8 @@
 会員情報の検索<br>
 氏名:<input type="text" name="name">
 e-mail:<input type="text" name="email">
-<input type="submit" value="検索"><br>
+<input type="submit" value="検索">
+<input type="hidden" name="action" value="search"><br>
 </form>
 <hr>
 </body>

@@ -11,7 +11,6 @@
 <h2>
 <ul>
 <li><a href="/0608_problem/ShowItemServlet?action=top">資料の新規登録</a></li>
-<li><a href="/0608_problem/ShowItemServlet?action=top">資料の廃棄</a></li>
 <li><a href="/0608_problem/ShowItemServlet?action=top">資料の検索</a></li>
 </ul>
 </h2>

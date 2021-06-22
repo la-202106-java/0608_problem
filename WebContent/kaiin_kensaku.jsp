@@ -30,5 +30,10 @@
 <tr><td>入会年月日</td><td>2021年6月21日</td></tr>
 </table>
 
+<form>
+<form action="/0608_problem/LoginServlet" method="post">
+  <input type="submit" value="変更">
+  <input type="submit" value="退会">
+</form>
 </body>
 </html>

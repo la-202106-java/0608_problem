@@ -11,5 +11,6 @@
 <jsp:include page="/menu.jsp" />
 
 <h2>ようこそ、図書管理システムへ</h2>
+
 </body>
 </html>

@@ -27,6 +27,11 @@
 <tr><td>入荷年月日</td><td>2021年6月21日</td></tr>
 <tr><td>資料目録ID</td><td>123</td></tr>
 </table>
+<form>
+<form action="/0608_problem/LoginServlet" method="post">
+  <input type="submit" value="変更">
+  <input type="submit" value="廃棄">
+</form>
 
 </body>
 </html>

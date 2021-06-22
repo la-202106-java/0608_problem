@@ -3,7 +3,7 @@ package la.bean;
 import java.util.Date;
 
 public class Member {
-	private int id;
+	private int id = -1;
 	private String name;
 	private String address;
 	private String tel;

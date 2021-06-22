@@ -60,16 +60,16 @@ CREATE TABLE lending_ledger
 );
 
 
-ALTER TABLE material_catalog ADD FOREIGN KEY (category_code) 
+ALTER TABLE material_catalog ADD FOREIGN KEY (category_code)
 REFERENCES material_category (category_code);
 
-ALTER TABLE material_ledger ADD FOREIGN KEY (isbn) 
+ALTER TABLE material_ledger ADD FOREIGN KEY (isbn)
 REFERENCES material_catalog (isbn);
 
-ALTER TABLE lending_ledger ADD FOREIGN KEY (member_id) 
+ALTER TABLE lending_ledger ADD FOREIGN KEY (member_id)
 REFERENCES member (member_id);
 
-ALTER TABLE lending_ledger ADD FOREIGN KEY (material_id) 
+ALTER TABLE lending_ledger ADD FOREIGN KEY (material_id)
 REFERENCES material_ledger (material_id);
 
 
@@ -97,7 +97,7 @@ INSERT INTO material_category VALUES(9, '文学');
 INSERT INTO material_catalog VALUES('9780070131439', 'introduction to algorithms',5,'Thomas H. Cormen','MIT Press','1990-12-12' );
 INSERT INTO material_ledger (material_id,isbn,stock_date,remark) VALUES(0,'9780070131439','1995-01-01','first' );
 INSERT INTO member VALUES(0,'鈴木','関東地方','000-0000-0000','abc@cba.mail.com','2021-06-21','2021-06-22');
-INSERT INTO lending_ledger VALUES(0,0,0,'2021-06-22');
+INSERT INTO lending_ledger VALUES(0,0,0,'2021-06-22','2021-07-02');
 
 
 

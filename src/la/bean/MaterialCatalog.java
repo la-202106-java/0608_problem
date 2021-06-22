@@ -11,6 +11,10 @@ public class MaterialCatalog {
 	private String publisher;
 	private Date publicationDate;
 
+	public MaterialCatalog() {
+		super();
+	}
+
 	public String getIsbn() {
 		return isbn;
 	}

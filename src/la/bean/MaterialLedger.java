@@ -9,6 +9,10 @@ public class MaterialLedger {
 	private Date disposalDate;
 	private String remark;
 
+	public MaterialLedger() {
+		super();
+	}
+
 	public String getId() {
 		return id;
 	}

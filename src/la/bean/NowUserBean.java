@@ -6,8 +6,8 @@ public class NowUserBean {
 
 	private int id;
 	private String name;
-	private Date birth_date;
-	private Date join_date;
+	private Date birthDate;
+	private Date joinDate;
 	private String address;
 	private String tel;
 	private String email;
@@ -19,8 +19,8 @@ public class NowUserBean {
 		super();
 		this.id = id;
 		this.name = name;
-		this.birth_date = birth_date;
-		this.join_date = join_date;
+		this.birthDate = birth_date;
+		this.joinDate = join_date;
 		this.address = address;
 		this.tel = tel;
 		this.email = email;
@@ -43,19 +43,19 @@ public class NowUserBean {
 	}
 
 	public Date getBirth_date() {
-		return birth_date;
+		return birthDate;
 	}
 
 	public void setBirth_date(Date birth_date) {
-		this.birth_date = birth_date;
+		this.birthDate = birth_date;
 	}
 
 	public Date getJoin_date() {
-		return join_date;
+		return joinDate;
 	}
 
 	public void setJoin_date(Date join_date) {
-		this.join_date = join_date;
+		this.joinDate = join_date;
 	}
 
 	public String getAddress() {

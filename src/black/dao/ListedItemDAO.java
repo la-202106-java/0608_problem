@@ -28,6 +28,8 @@ public class ListedItemDAO {
 
 		String sql = "SELECT * FROM listed_item WHERE isbn LIKE ? AND title LIKE ?"
 				+ " AND author=? AND price>=? AND price<=? AND conditon=?";
+
+		//departmentCodeが0～10の場合のみ検索条件に追加
 		String sql2 = "";
 		if (0 <= departmentCode && departmentCode <= 10) {
 			sql2 = " AND department_code=?";
@@ -64,7 +66,7 @@ public class ListedItemDAO {
 						_author, price, _condition, seller_id);
 				list.add(bean);
 			}
-			//会員一覧リストを返す
+			//教科書情報一覧リストを返す
 			return list;
 
 		} catch (Exception e) {

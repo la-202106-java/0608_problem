@@ -19,6 +19,15 @@ public class InnBean implements Serializable {
 
 	}
 
+	public InnBean(String name, int classCode, String postalCode, String address, Time inTime, Time outTime) {
+		this.name = name;
+		this.classCode = classCode;
+		this.postalCode = postalCode;
+		this.address = address;
+		this.inTime = inTime;
+		this.outTime = outTime;
+	}
+
 	public InnBean(int id, String name, int classCode, String postalCode, String address, Time inTime, Time outTime,
 			Date date, String note) {
 		super();

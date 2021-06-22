@@ -2,17 +2,18 @@ package la.dao;
 
 import java.util.List;
 
-import la.bean.BookBean;
+import la.bean.DiscardedBookBean;
 import la.bean.NowUserBean;
 
 public class Test {
 	public static void main(String[] args) {
 		BookDAO book;
 		NowUserDAO user;
+
 		try {
-			book = new BookDAO();
-			List<BookBean> list = book.findAll();
-			for (BookBean bean : list) {
+			book = new DiscardedBookDAO();
+			List<DiscardedBookBean> list = book.findAll();
+			for (DiscardedBookBean bean : list) {
 				System.out.println(bean.getTitle());
 			}
 
@@ -23,6 +24,5 @@ public class Test {
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

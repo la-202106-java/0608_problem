@@ -10,10 +10,10 @@
 
 <jsp:include page="/menu.jsp" />
 <h2>資料の新規登録</h2>
-<form>
-<form action="/0608_problem/LoginServlet" method="post">
-	 <input type ="hidden" name ="action" value ="login">
-ISBN番号：<input type="text" name="address"><br>
+
+<form action="/0608_problem/Shiryou_tourokuServlet" method="post">
+ISBN番号：<input type="text" name="isbn">
+ <input type ="hidden" name ="action" value ="regist">
   <input type="submit" value="登録">
 </form>
 </body>

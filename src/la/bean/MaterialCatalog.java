@@ -1,8 +1,9 @@
 package la.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MaterialCatalog {
+public class MaterialCatalog implements Serializable {
 
 	private String isbn;
 	private String title;
@@ -68,5 +69,12 @@ public class MaterialCatalog {
 
 	public void setPublicationDate(Date publicationDate) {
 		this.publicationDate = publicationDate;
+	}
+
+	/**
+	 *
+	 */
+	public MaterialCatalog() {
+		super();
 	}
 }

@@ -12,14 +12,11 @@
 <body>
 
 <!-- 管理者と会員のログイン判定 -->
-<!-- 管理者ならadminMenu -->
-<c:if test="">
-	<jsp:include page="/adminMenu.jsp" />
+<c:if test="${user == 'admin'}">
+<jsp:include page="/adminMenu.jsp" />
 </c:if>
-
-<!-- 会員ならmenu -->
-<c:if test="">
-	<jsp:include page="/menu.jsp" />
+<c:if test="${user != 'admin'}">
+<jsp:include page="/menu.jsp" />
 </c:if>
 
 	<h1>会員情報</h1>

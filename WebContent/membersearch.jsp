@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<jsp:include page="/adminMenu.jsp" />
+
     <h1>会員検索</h1>
     <form action="/0608_problem/" method ="post">
         <p>会員ID:<br>

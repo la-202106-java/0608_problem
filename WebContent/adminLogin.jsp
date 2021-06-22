@@ -9,13 +9,12 @@
 <body>
 	<h1>管理者ログイン</h1>
 
-	<form>
+	<form action="/0608_problem/AdminLoginServlet" method ="post">
 		メールアドレス<br>
-		<input type="text"><br>
-		<br>
+		<input type="text" name = "mail"><br>
 		パスワード<br>
-		<input type="password"><br>
-		<br>
+		<input type="password" name = password><br>
+		<input type="hidden" name = "action" value = "login">
 		<input type="submit" value="ログイン">
 	</form>
 </body>

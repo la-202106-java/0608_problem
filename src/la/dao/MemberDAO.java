@@ -24,6 +24,40 @@ public class MemberDAO {
 		}
 	}
 
+	/*****会員登録 by ishida********
+	//	 */
+	//	public int confirmMember(String name, String address, String tel, String mail, String birth) {
+	//		String sql = " INSERT INTO member(member_name,member_address,tel,email,birth) VALUES(?,?,?,?,?)";
+	//		try (Connection con = ConnectionFactory.createConnection();
+	//				PreparedStatement st = con.prepareStatement(sql);) {
+	//			st.setString(1, name);
+	//			st.setString(2, address);
+	//			st.setString(3, tel);
+	//			st.setString(4, mail);
+	//			st.setString(5, birth);
+	//			int rows = st.executeUpdate();
+	//			return rows;
+	//		} catch (SQLException e) {
+	//			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
+	//		}
+	//	}
+
+	public int addMember(String name, String address, String tel, String mail, String birth) {
+		String sql = " INSERT INTO member(member_name,member_address,tel,email,birth) VALUES(?,?,?,?,?)";
+		try (Connection con = ConnectionFactory.createConnection();
+				PreparedStatement st = con.prepareStatement(sql);) {
+			st.setString(1, name);
+			st.setString(2, address);
+			st.setString(3, tel);
+			st.setString(4, mail);
+			st.setString(5, birth);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
+		}
+	}
+
 	public List<Member> findByName(Member member) {
 		String sql = "SELECT * FROM member where member_id = ?";
 		try (Connection con = ConnectionFactory.createConnection();

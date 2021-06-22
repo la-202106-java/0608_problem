@@ -14,7 +14,7 @@ import la.bean.MemberBean;
 import la.dao.MembersDAO;
 
 @WebServlet("/ShowPlan")
-public class ShowPlan extends HttpServlet {
+public class ShowPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

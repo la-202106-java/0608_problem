@@ -13,7 +13,7 @@
 
 <c:choose>
 	<c:when test = "${isLogin eq 'true'}">
-		<a href="/0608_problem/ShowPlan?action=logout">ログアウト</a>
+		<a href="/0608_problem/ShowPlanServlet?action=logout">ログアウト</a>
 		<a href="/0608_problem/menu.jsp">会員メニュー</a> <!-- jsp適当なので要変更 -->
 	</c:when>
 	<c:otherwise><a href="/0608_problem/login.jsp">ログイン</a></c:otherwise>

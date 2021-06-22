@@ -21,7 +21,8 @@ public class ListedItemDAO {
 	//検索
 	//金額が空欄の場合は、サーブレット側で下限ゼロ/上限intのmax値を入れる
 	public List<ListedItemBean> findItem(String isbn, String title, int departmentCode,
-			String author, int priceMin, int priceMax, String condition) throws DAOException {
+			String author, int priceMin, int priceMax, String condition, boolean inStock, int sellerId)
+			throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
@@ -35,8 +36,24 @@ public class ListedItemDAO {
 			sql2 = " AND department_code=?";
 		}
 
+		//在庫ありのみ
+		String sql3 = "";
+		if (inStock) {
+			sql3 = " AND orderd_date=NULL AND byer_id=NULL";
+		}
+
+		//出品者ID指定（自分が出品したもののみ）
+		//空欄の場合はサーブレットでマイナスの値を入れる
+		String sql4 = "";
+		if (sellerId > 0) {
+			sql4 = " AND seller_id=?";
+		}
+
+		//新しい順
+		String sqlOrder = " ORDER BY id DESC";
+
 		ResultSet rs = null;
-		try (PreparedStatement st = con.prepareStatement(sql + sql2)) {
+		try (PreparedStatement st = con.prepareStatement(sql + sql2 + sql3 + sql4 + sqlOrder)) {
 			st.setString(1, "%" + isbn + "%");
 			st.setString(2, "%" + title + "%");
 			st.setString(3, "%" + author + "%");
@@ -45,6 +62,9 @@ public class ListedItemDAO {
 			st.setString(6, condition);
 			if (0 <= departmentCode && departmentCode <= 10) {
 				st.setInt(7, priceMax);
+			}
+			if (sellerId > 0) {
+				st.setInt(8, sellerId);
 			}
 
 			// SQLの実行

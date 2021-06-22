@@ -15,12 +15,12 @@ public class NowUserBean {
 	public NowUserBean() {
 	}
 
-	public NowUserBean(int id, String name, Date birth_date, Date join_date, String address, String tel, String email) {
+	public NowUserBean(int id, String name, Date birthDate, Date joinDate, String address, String tel, String email) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.birthDate = birth_date;
-		this.joinDate = join_date;
+		this.birthDate = birthDate;
+		this.joinDate = joinDate;
 		this.address = address;
 		this.tel = tel;
 		this.email = email;
@@ -42,20 +42,20 @@ public class NowUserBean {
 		this.name = name;
 	}
 
-	public Date getBirth_date() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirth_date(Date birth_date) {
-		this.birthDate = birth_date;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
-	public Date getJoin_date() {
+	public Date getJoinDate() {
 		return joinDate;
 	}
 
-	public void setJoin_date(Date join_date) {
-		this.joinDate = join_date;
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 
 	public String getAddress() {

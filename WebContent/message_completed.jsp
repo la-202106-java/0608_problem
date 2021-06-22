@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>図書管理システム | メインメニュー</title>
+<title>図書管理システム</title>
 </head>
 <body>
 
 <jsp:include page="/menu.jsp" />
 
-<h2>ようこそ、図書管理システムへ</h2>
+<h2>処理が完了しました</h2>
 
 </body>
 </html>

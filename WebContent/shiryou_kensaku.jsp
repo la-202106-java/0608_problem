@@ -9,26 +9,29 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-
+<h2>資料の検索</h2>
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
 	 <input type ="hidden" name ="action" value ="login">
-	E-Mail：<input type="text" name="address"><br>
-会員ID：<input type="text" name="address"><br>
+資料ID：<input type="text" name="address"><br>
+資料名：<input type="text" name="address"><br>
   <input type="submit" value="検索">
 </form>
 
-<h3>該当する会員の情報は以下の通りです。</h3>
+<h3>該当する資料の情報は以下の通りです。</h3>
 <br>
 <table border="1">
-<tr><td>ID</td><td>4</td></tr>
-<tr><td>氏名</td><td>田中太郎</td></tr>
-<tr><td>住所</td><td>東京都新宿区新宿2-1-11</td></tr>
-<tr><td>電話番号</td><td>03-0000-1111</td></tr>
-<tr><td>E-Mail</td><td>aaa@bbb.com</td></tr>
-<tr><td>生年月日</td><td>1997年5月11日</td></tr>
-<tr><td>入会年月日</td><td>2021年6月21日</td></tr>
+<tr><td>資料ID</td><td>5</td></tr>
+<tr><td>ISBN番号</td><td>4906638015</td></tr>
+<tr><td>資料名</td><td>リンゴの皮の向き方百選</td></tr>
+<tr><td>入荷年月日</td><td>2021年6月21日</td></tr>
+<tr><td>資料目録ID</td><td>123</td></tr>
 </table>
+<form>
+<form action="/0608_problem/LoginServlet" method="post">
+  <input type="submit" value="変更">
+  <input type="submit" value="廃棄">
+</form>
 
 </body>
 </html>

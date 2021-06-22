@@ -9,6 +9,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
+<h2>会員の新規登録</h2>
 
 <form>
 <form action="/0608_problem/LoginServlet" method="post">
@@ -18,7 +19,6 @@
   電話番号：<input type="text" name="password"><br>
   E-Mail：<input type="text" name="password"><br>
   生年月日：<input type="text" name="password"><br>
-  入会年月日：<input type="text" name="password"><br>
   <input type="submit" value="会員登録">
 </form>
 </body>

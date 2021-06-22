@@ -9,7 +9,7 @@
 <body>
 
     <h1>会員検索</h1>
-    <form>
+    <form action="/0608_problem/" method ="post">
         <p>会員ID:<br>
         <input type = "text" name = "id"></p>
         <p>会員名:<br>
@@ -204,7 +204,9 @@
                         <option value="30">30</option>
                         <option value="31">31</option>
                         </select>　日
-        <p><input type = "submit" value = "検索"></p>
+        <p>
+        <input type="hidden" name = "action" value = "search">
+        <input type = "submit" value = "検索"></p>
     </form>
     </body>
     </html>

@@ -1,3 +1,4 @@
+
 package black.servlet;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class AdminLoginServlet extends HttpServlet {
 
 		//actionリクエストパラメータの読み込み
 		String action = request.getParameter("action");
+
 		if (action.equals("login")) {//ログイン時
 			//ログイン時はユーザー名とパスワードを取得する
 			//パラメータのエラーチェックは省略

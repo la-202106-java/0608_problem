@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="menu.jsp"></jsp:include>
+<c:if test="${user == 'admin'}">
+<jsp:include page="/adminMenu.jsp" />
+</c:if>
+<c:if test="${user != 'admin'}">
+<jsp:include page="/menu.jsp" />
+</c:if>
 
 <h1>本当に退会しますか？</h1>
 

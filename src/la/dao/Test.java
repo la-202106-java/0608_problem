@@ -7,7 +7,7 @@ import la.bean.NowUserBean;
 
 public class Test {
 	public static void main(String[] args) {
-		BookDAO book;
+		DiscardedBookDAO book;
 		NowUserDAO user;
 
 		try {

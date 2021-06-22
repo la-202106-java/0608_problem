@@ -12,6 +12,9 @@
 	<a href="/0608_problem/myPageServlet?action=regist">教科書登録</a> |
 	ようこそ 山田花子さん |
 	<a href="/0608_problem/myPageServlet?action=myPage">マイページ</a> |
-	<a href="/0608_problem/myPageServlet?action=logout">ログアウト</a>
+
+
+	<!-- サーブレットまだ -->
+	<a href="/0608_problem/">ログアウト</a>
 </body>
 </html>

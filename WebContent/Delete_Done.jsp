@@ -11,9 +11,11 @@
 <jsp:include page="menu.jsp"></jsp:include>
 
 <h1>教科書が削除されました</h1>
-<form action="">
+<form action="/0608_problem/DeleteServlet" method = "post">
 <input type="submit" value="TOPに戻る">
-<input type="hidden" name = "action" value="serch">
+
+<!-- topページに戻る(DeleteServlet) -->
+<input type="hidden" name = "action" value="topReturn">
 </form>
 
 

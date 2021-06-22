@@ -2,7 +2,7 @@ package la.dao;
 
 import la.bean.MemberBean;
 
-public class MembersDAO {
+public class MembersDAOSub {
 	public MemberBean find(String email) {
 		MemberBean member = new MemberBean();
 

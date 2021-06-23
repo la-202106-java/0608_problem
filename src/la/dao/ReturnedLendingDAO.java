@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import la.bean.LendingBean;
 import la.bean.ReturnedLendingBean;
 
 public class ReturnedLendingDAO {
@@ -111,5 +112,38 @@ public class ReturnedLendingDAO {
 			con.close();
 			con = null;
 		}
+	}
+
+	public int addReturnedLending(LendingBean lending) throws DAOException {
+		if (con == null)
+			con = dao.getConnection();
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO returned_lending(book_id, user_id, lending_date, deadline, return_date, note) VALUES (?,?,?,?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setInt(1, lending.getBookId());
+			st.setInt(2, lending.getUserId());
+			st.setDate(3, new java.sql.Date(lending.getLendingDate().getTime()));
+			st.setDate(4, new java.sql.Date(lending.getDeadline().getTime()));
+			st.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
+			st.setString(6, lending.getNote());
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
 	}
 }

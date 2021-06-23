@@ -115,6 +115,52 @@ public class NowUserDAO {
 
 	}
 
+	public NowUserBean findByPrimaryKey(int key) throws DAOException {
+
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM now_user WHERE id=?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, key);
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				Date bitrhDate = rs.getDate("birth_date");
+				Date joinDate = rs.getDate("join_date");
+				String address = rs.getString("address");
+				String tel = rs.getString("tel");
+				String email = rs.getString("email");
+				NowUserBean bean = new NowUserBean(id, name, bitrhDate, joinDate, address, tel, email);
+				return bean;
+			} else {
+				return null;
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	// private
 	private void close() throws SQLException {
 		if (con != null) {

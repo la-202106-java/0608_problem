@@ -93,4 +93,24 @@ public class ReservationDAO {
 			con = null;
 		}
 	}
+
+	public int deleteReservation(int userID, String isbn) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		String sql = "DELETE FROM reservation WHERE user_id=? AND isbn=?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, userID);
+			st.setString(2, isbn);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		}
+
+	}
 }

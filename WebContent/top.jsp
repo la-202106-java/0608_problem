@@ -70,7 +70,7 @@
               <tr>
                 <td></td>
                 <td>
-                  <button type="submit" class="btn btn-primary btn-lg">資料返却</button>
+                <a class="btn btn-primary btn-lg" href="/0608_problem/BookReturningServlet" role="button">資料返却</a>
                 </td>
                 <td></td>
                 <td></td>

@@ -130,6 +130,116 @@ public class BookDAO {
 				throw new DAOException("リソースの開放に失敗しました");
 			}
 		}
+	}
+
+	public List<BookBean> findByISBN(String isbn) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM book WHERE isbn=?";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			rs = st.executeQuery();
+
+			List<BookBean> list = new ArrayList<BookBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				Date arrivalDate = rs.getDate("arrival_date");
+				String note = rs.getString("note");
+				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
+				list.add(bean);
+			}
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
+	public List<BookBean> findByTitle(String title) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM book WHERE title LIKE ?";
+			st = con.prepareStatement(sql);
+			st.setString(1, "%" + title + "%");
+			rs = st.executeQuery();
+
+			List<BookBean> list = new ArrayList<BookBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String isbn = rs.getString("isbn");
+				String fullTitle = rs.getString("title");
+				Date arrivalDate = rs.getDate("arrival_date");
+				String note = rs.getString("note");
+				BookBean bean = new BookBean(id, isbn, fullTitle, arrivalDate, note);
+				list.add(bean);
+			}
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
+	public int deleteByPrimaryKey(int id) throws DAOException {
+		if (con == null)
+			con = dao.getConnection();
+		PreparedStatement st = null;
+
+		try {
+			String sql = "DELETE FROM book WHERE id = ?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, id);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
 
 	}
 

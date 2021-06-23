@@ -32,11 +32,10 @@ public class LoginServlet extends HttpServlet {
 			if (session == null) {
 				gotoPage(request, response, "/login.jsp");
 			} else {
-				if (Objects.isNull(session.getAttribute("admin"))) {
+				if (!Objects.isNull(session.getAttribute("admin"))) {
 					gotoPage(request, response, "/TopServlet");
 				} else {
-					request.setAttribute("message", "正しく操作してください。");
-					gotoPage(request, response, "/errInternal.jsp");
+					gotoPage(request, response, "/login.jsp");
 				}
 
 			}

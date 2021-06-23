@@ -28,7 +28,7 @@
           </div>
           <div class="form-group">
             <label for="InputPassword">パスワード</label>
-            <input type="password" name="password" class="form-control" id="InputPassword" placeholder="英数字8文字以上">
+            <input type="password" name="password" class="form-control" id="InputPassword">
           </div>
           <button type="submit" class="btn btn-primary">ログイン</button>
         </form>

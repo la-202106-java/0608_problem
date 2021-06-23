@@ -8,23 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import la.bean.NowUserBean;
 import la.dao.DAOException;
 import la.dao.NowUserDAO;
 
 /**
  * Servlet implementation class UserRegisterServlet
  */
-@WebServlet("/UserSearchServlet")
-public class UserSearchServlet extends HttpServlet {
+@WebServlet("/UserDeleteServlet")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserSearchServlet() {
+	public UserDeleteServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,35 +35,13 @@ public class UserSearchServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		//パラメータ解析
-		String action = request.getParameter("action");
 		try {
 			//セッション領域の取得
-			HttpSession session = request.getSession();
 			NowUserDAO dao = new NowUserDAO();
-			if (action == null || action.length() == 0) {
-				gotoPage(request, response, "2_user/user_search.jsp");
-			}
 
-			else if (action.equals("search")) {
-				String email = request.getParameter("email");
-				if (email.isEmpty()) {
-					gotoPage(request, response, "2_user/user_search.jsp");
-				}
-
-				NowUserBean bean = new NowUserBean();
-				bean = dao.findbyEmail(email);
-				request.setAttribute("bean", bean);
-				session.setAttribute("bean", bean);
-
-				gotoPage(request, response, "2_user/user_search_result.jsp");
-
-			} else if (action.equals("delete")) {
-				int id = Integer.parseInt(request.getParameter("id"));
-				int rows = dao.deleteByID(id);
-				System.out.println(rows);
-				gotoPage(request, response, "2_user/user_search.jsp");
-
-			}
+			int id = Integer.parseInt(request.getParameter("id"));
+			dao.deleteByID(id);
+			gotoPage(request, response, "2_user/user_search.jsp");
 
 		} catch (DAOException e) {
 			e.printStackTrace();

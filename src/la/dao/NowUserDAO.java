@@ -168,10 +168,9 @@ public class NowUserDAO {
 		}
 
 		PreparedStatement st = null;
-		ResultSet rs = null;
 
 		try {
-			String sql = "DELETE FROM now_user WHERE now_user_id_seq==?";
+			String sql = "DELETE FROM now_user WHERE id=?";
 			st = con.prepareStatement(sql);
 			st.setInt(1, id);
 			int rows = st.executeUpdate();
@@ -182,8 +181,7 @@ public class NowUserDAO {
 			throw new DAOException("レコードの操作に失敗しました");
 		} finally {
 			try {
-				if (rs != null)
-					rs.close();
+
 				if (st != null)
 					st.close();
 				close();

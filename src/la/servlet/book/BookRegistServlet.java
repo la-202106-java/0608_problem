@@ -41,7 +41,6 @@ public class BookRegistServlet extends HttpServlet {
 				request.setAttribute("isbn", isbn);
 				request.setAttribute("arrivalDate", arrivalDate);
 				gotoPage(request, response, "/3_book/book_register_confirmed.jsp");
-
 			}
 
 		} catch (DAOException e) {

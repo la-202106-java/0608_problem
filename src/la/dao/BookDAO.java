@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import la.bean.BookBean;
@@ -37,7 +36,7 @@ public class BookDAO {
 				int id = rs.getInt("id");
 				String isbn = rs.getString("isbn");
 				String title = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
 				list.add(bean);
@@ -78,7 +77,7 @@ public class BookDAO {
 				int id = rs.getInt("id");
 				String isbn = rs.getString("isbn");
 				String title = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
 				return bean;
@@ -108,6 +107,8 @@ public class BookDAO {
 			con = dao.getConnection();
 		}
 
+		java.sql.Date arrival_date = java.sql.Date.valueOf(arrivalDate);
+
 		PreparedStatement st = null;
 
 		try {
@@ -115,7 +116,7 @@ public class BookDAO {
 			st = con.prepareStatement(sql);
 			st.setString(1, isbn);
 			st.setString(2, title);
-			st.setString(3, arrivalDate);
+			st.setDate(3, arrival_date);
 			int rows = st.executeUpdate();
 			return rows;
 		} catch (Exception e) {
@@ -150,7 +151,7 @@ public class BookDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
 				list.add(bean);
@@ -192,7 +193,7 @@ public class BookDAO {
 				int id = rs.getInt("id");
 				String isbn = rs.getString("isbn");
 				String fullTitle = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, fullTitle, arrivalDate, note);
 				list.add(bean);

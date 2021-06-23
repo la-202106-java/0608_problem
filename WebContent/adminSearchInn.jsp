@@ -11,7 +11,8 @@
 	<jsp:include page="/WEB-INF/adminMenu.html" />
 
 	<form action="/0608_problem/admin/inn" method="post">
-		宿情報の検索<br> 宿名:<input type="text" name="name" value="${name}"> <input
+		<h1>宿情報の検索</h1>
+		宿名:<input type="text" name="name" value="${name}"> <input
 			type="submit" value="検索"> <input type="hidden" name="action"
 			value="search"> <br>
 	</form>
@@ -23,6 +24,7 @@
 
 	<table border="1">
 		<tr>
+			<td>宿ID</td>
 			<td>宿名</td>
 			<td>分類コード</td>
 			<td>郵便番号</td>
@@ -34,6 +36,7 @@
 		</tr>
 		<c:forEach items="${Inns}" var="inn">
 			<tr>
+				<td>${inn.id}</td>
 				<td>${inn.name}</td>
 				<td>${inn.classCode}</td>
 				<td>${inn.postalCode}</td>
@@ -41,10 +44,17 @@
 				<td>${inn.inTime}</td>
 				<td>${inn.outTime}</td>
 				<td>
-					<form action="/0608_problem/admin/inn?action=update"
+					<form action="/0608_problem/admin/inn"
 						method="post">
-						<input type="hidden" name="name" value="${inn.name}"> <input
-							type="submit" value="変更">
+						<input type="hidden" name="id" value="${inn.id}">
+						<input type="hidden" name="name" value="${inn.name}">
+						<input type="hidden" name="class_code" value="${inn.classCode}">
+						<input type="hidden" name="postal_code" value="${inn.postalCode}">
+						<input type="hidden" name="address" value="${inn.address}">
+						<input type="hidden" name="inTime" value="${inn.inTime}">
+						<input type="hidden" name="outTime" value="${inn.outTime}">
+						<input type="hidden" name="action" value="edit">
+						<input type="submit" value="変更">
 					</form>
 				</td>
 				<td>

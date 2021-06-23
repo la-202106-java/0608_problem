@@ -17,6 +17,59 @@ public class NowUserDAO {
 		con = dao.getConnection();
 	}
 
+	public NowUserBean register(String name, Date birthDate, Date joinDate, String address, String tel, String email)
+			throws DAOException {
+
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			//会員IDの取得
+			int id = 0;
+			String id_sql = "SELECT nextval('now_user_id_seq')";
+			st = con.prepareStatement(id_sql);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+			}
+			rs.close();
+			st.close();
+
+			//会員情報の追加SQL文
+			String sql = "INSERT INTO now_user(id,name,birth_date,join_date,address,tel,email) VALUES(?,?,?,?,?,?,?)";
+			st = con.prepareStatement(sql);
+
+			st.setInt(1, id);
+			st.setString(2, name);
+			st.setDate(3, new java.sql.Date(birthDate.getTime()));
+			st.setDate(4, new java.sql.Date(joinDate.getTime()));
+			st.setString(5, address);
+			st.setString(6, tel);
+			st.setString(7, email);
+
+			NowUserBean bean = new NowUserBean(id, name, birthDate, joinDate, address, tel, email);
+
+			int rows = st.executeUpdate();
+			return bean;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	public NowUserBean findbyEmail(String email) throws DAOException {
 
 		if (con == null) {

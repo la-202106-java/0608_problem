@@ -103,6 +103,42 @@ public class CatalogDAO {
 
 	}
 
+	public int addBooktoCatalog(String title, String isbn, int code, String author, String publisher,
+			String publicationDate) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		java.sql.Date publication_date = java.sql.Date.valueOf(publicationDate);
+
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO catalog VALUES (?,?,?,?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			st.setString(2, title);
+			st.setInt(3, code);
+			st.setString(4, author);
+			st.setString(5, publisher);
+			st.setDate(6, publication_date);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	// private
 	private void close() throws SQLException {
 		if (con != null) {

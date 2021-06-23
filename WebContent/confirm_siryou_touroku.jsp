@@ -16,6 +16,10 @@
 <h3>正しい情報が入力されていれば、『登録』ボタンを押してください。</h3>
 <input type ="hidden" name ="action" value ="add">
   <input type="submit" value="登録">
+</form>
+<br>
+<form action="/0608_problem/Shiryou_tourokuServlet" method="post">
+<input type ="hidden" name ="action" value ="mod">
   <input type="submit" value="修正">
 </form>
 <br>

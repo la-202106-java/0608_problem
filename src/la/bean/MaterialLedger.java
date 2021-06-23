@@ -3,17 +3,17 @@ package la.bean;
 import java.util.Date;
 
 public class MaterialLedger {
-	private String id;
+	private int id;
 	private String isbn;
 	private Date stockDate;
 	private Date disposalDate;
 	private String remark;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -49,7 +49,7 @@ public class MaterialLedger {
 		this.remark = remark;
 	}
 
-	public MaterialLedger(String id, String isbn, Date stockDate, Date disposalDate, String remark) {
+	public MaterialLedger(int id, String isbn, Date stockDate, Date disposalDate, String remark) {
 		super();
 		this.id = id;
 		this.isbn = isbn;

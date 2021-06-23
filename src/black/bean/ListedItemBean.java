@@ -11,6 +11,7 @@ public class ListedItemBean implements Serializable {
 	private String author;
 	private int price;
 	private String condition;
+
 	private int sellerId;
 	private Date orderdDate;
 	private int byerId;
@@ -25,6 +26,10 @@ public class ListedItemBean implements Serializable {
 		this.price = price;
 		this.condition = condition;
 		this.sellerId = sellerId;
+	}
+
+	public ListedItemBean() {
+		super();
 	}
 
 	/**

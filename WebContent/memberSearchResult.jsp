@@ -7,21 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 
-	<c:if test="${user == 'admin'}">
-	<jsp:include page="/adminMenu.jsp" />
-	</c:if>
-	<c:if test="${user != 'admin'}">
-	<jsp:include page="/menu.jsp" />
-	</c:if>
 
     <h1>会員検索結果</h1>
     <form>
 
-        <table border="1">
+        <table>
         <tr><th>会員ID</th><th>氏名</th><th>住所</th><th>電話番号</th>
         <th>E-mail</th><th>生年月日</th><th>入会年月日</th><th>退会年月日</th><th></th><th></th>
 

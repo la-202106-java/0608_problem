@@ -10,34 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DeleteServlet
+ * Servlet implementation class ListedItemChange
  */
-@WebServlet("/DeleteServlet")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/ListedItemChange")
+public class ListedItemChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 
-		//教科書削除チェック選択画面
-		if (action.equals("leave")) {
-			gotoPage(request, response, "/listedItemDeleteCheck.jsp");
+		//教科書変更画面
+		if (action.equals("change")) {
+			gotoPage(request, response, "/.jsp");
 		} else if (action.equals("delete")) {
-			//削除完了ページに行く
-			gotoPage(request, response, "/listedItemDeleteDone.jsp");
-		}
-		//キャンセル　教科書詳細ページに行く
-		//遷移先ページ未完了
-		else if (action.equals("cancel")) {
-			gotoPage(request, response, "/ListedItemDetail.jsp");
+			//変更完了ページに行く
+			gotoPage(request, response, "/.jsp");
 		}
 
-		//教科書削除完了後、トップページに戻る
-		//遷移先ページ未完了
-		else if (action.equals("topReturn")) {
-			gotoPage(request, response, "/top.jsp");
-		}
 	}
 
 	private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)

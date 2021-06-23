@@ -1,6 +1,9 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import la.bean.MemberBean;
-import la.dao.MembersDAO;
+import la.bean.PlanBean;
+import la.dao.MembersDAOSub;
+import la.dao.PlansDAOSub;
 
-@WebServlet("/ShowPlan")
-public class ShowPlan extends HttpServlet {
+@WebServlet("/ShowPlanServlet")
+public class ShowPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,10 +30,11 @@ public class ShowPlan extends HttpServlet {
 
 		if (action == null) { // 最初のアクセス
 			gotoPage(request, response, "/top.jsp");
-		} else if (action.equals("registration")) { // 会員登録ボタンクリック時
-			gotoPage(request, response, "reservation.jsp");
-		} else if (action.equals("logout")) {
+		} else if (action.equals("logout")) { // ログアウトリンククリック時
 			session.setAttribute("isLogin", "false");
+			gotoPage(request, response, "top.jsp");
+		} else if (action.equals("complete")) { // 予約完了画面でトップページが押された場合
+			// sessionに保存した情報のうち必要のない情報、planなど？をnullとする
 			gotoPage(request, response, "top.jsp");
 		} else {
 			request.setAttribute("message", "正しく操作してください。");
@@ -46,17 +52,53 @@ public class ShowPlan extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 
-			MembersDAO dao = new MembersDAO();
+			MembersDAOSub dao = new MembersDAOSub();
 			MemberBean member = new MemberBean();
 			member = dao.find(email);
 
 			if (password.equals(member.getPassword())) {
 				session.setAttribute("isLogin", "true");
+				session.setAttribute("member", member);
 				gotoPage(request, response, "/top.jsp");
 			} else {
-
+				// ログイン失敗時の処理書く
 			}
+		} else if (action.equals("registration")) { // 会員登録ボタンクリック時
+			String name = request.getParameter("name");
+			String postalCode = request.getParameter("postalCode");
+			String address = request.getParameter("address");
+			String tel = request.getParameter("tel");
+			String email = request.getParameter("email");
+			String birthday = request.getParameter("birthday");
+
+			MemberBean member = new MemberBean();
+			member.setName(name);
+			member.setPostalCode(postalCode);
+			member.setAddress(address);
+			member.setTel(tel);
+			member.setEmailAddress(email);
+			member.setBirthDate(Date.valueOf(birthday));
+
+			MembersDAOSub dao = new MembersDAOSub();
+			dao.registration(member);
+
+			session.setAttribute("isLogin", "true");
+			session.setAttribute("member", member);
+
+			gotoPage(request, response, "/top.jsp");
 		} else if (action.equals("plan")) { // 検索ボタンクリック時
+			String checkIn = request.getParameter("checkIn");
+			String checkOut = request.getParameter("checkOut");
+
+			session.setAttribute("checkIn", checkIn);
+			session.setAttribute("checkOut", checkOut);
+
+			PlansDAOSub dao = new PlansDAOSub();
+			List<PlanBean> plans = new ArrayList<PlanBean>();
+
+			plans = dao.find(checkIn, checkOut);
+			request.setAttribute("plans", plans);
+
 			gotoPage(request, response, "/top.jsp");
 		} else {
 			request.setAttribute("message", "正しく操作してください。");

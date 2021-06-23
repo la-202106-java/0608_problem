@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>ログイン</h1>
-<form action="/0608_problem/ShowPlan" method="post">
+<form action="/0608_problem/ShowPlanServlet" method="post">
 メールアドレス：<input type="text" name="email"><br>
 パスワード：<input type="password" name="password"><br>
 <input type="hidden" name="action" value="login">
@@ -17,8 +17,7 @@
 </form>
 <hr>
 会員登録されていない方
-<form action="" method="post">
-<input type="hidden" name="action" value="registration">
+<form action="/0608_problem/registration.jsp" method="post">
 <input type="submit" value="会員登録">
 </form>
 

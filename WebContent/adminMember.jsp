@@ -9,11 +9,12 @@
 <body>
 <jsp:include page="/WEB-INF/adminMenu.html" />
 
-<form action="/0608_problem/AdminUserServlet" method="post">
+<form action="/0608_problem/AdminMemberServlet" method="post">
 会員情報の検索<br>
 氏名:<input type="text" name="name">
 e-mail:<input type="text" name="email">
-<input type="submit" value="検索"><br>
+<input type="submit" value="検索">
+<input type="hidden" name="action" value="search"><br>
 </form>
 <hr>
 </body>

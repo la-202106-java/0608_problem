@@ -86,7 +86,7 @@ public class MemberBean implements Serializable {
 		return emailAddress;
 	}
 
-	public void setEmail_address(String emailAddress) {
+	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
 

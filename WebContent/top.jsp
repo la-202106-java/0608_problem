@@ -13,16 +13,17 @@
 
 <c:choose>
 	<c:when test = "${isLogin eq 'true'}">
-		<a href="/0608_problem/ShowPlan?action=logout">ログアウト</a>
+		<a href="/0608_problem/ShowPlanServlet?action=logout">ログアウト</a>
 		<a href="/0608_problem/menu.jsp">会員メニュー</a> <!-- jsp適当なので要変更 -->
 	</c:when>
 	<c:otherwise><a href="/0608_problem/login.jsp">ログイン</a></c:otherwise>
 </c:choose>
 <!--  |<a href="">会員メニュー</a> -->
 
-<form action="" method="post">
+<form action="/0608_problem/ShowPlanServlet" method="post">
 チェックイン<input type="date"  name="checkIn">
 チェックアウト<input type="date" name="checkOut">
+<input type="hidden" name="action" value="plan">
 <input type="submit" value="検索">
 <hr>
 <br>
@@ -36,6 +37,17 @@
 下限<input type="number" name="lower">
 上限<input type="number" name="upper">
 <input type="submit" value="検索">
+</form>
+
+<form action="/0608_problem/ReservationServlet" method="post">
+<c:forEach items="${plans}" var="plan">
+	<input type="hidden" name="planId" value="${plan.planId}">
+	<hr>
+	<table>
+	<tr><td><img src="${plan.imgUrl}" alt="" width="300" height="200"></td>
+	<td>${plan.inn.name} ${plan.content} ${plan.inn.address} ${plan.fee}<br><input type="submit" value="予約"></td></tr>
+	</table>
+</c:forEach>
 </form>
 
 </body>

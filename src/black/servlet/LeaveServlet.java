@@ -22,14 +22,14 @@ public class LeaveServlet extends HttpServlet {
 
 		//退会チェック選択画面
 		if (action.equals("leave")) {
-			gotoPage(request, response, "/Leave_Check.jsp");
+			gotoPage(request, response, "/memberLeaveCheck.jsp");
 		} else if (action.equals("doleave")) {
 			//退会完了ページに行く
-			gotoPage(request, response, "/Leave_Done.jsp");
+			gotoPage(request, response, "/memberLeaveDone.jsp");
 		}
 		//キャンセル　マイページに行く
 		else if (action.equals("cancel")) {
-			gotoPage(request, response, "/myPage.jsp");
+			gotoPage(request, response, "/memberDetail.jsp");
 		}
 	}
 

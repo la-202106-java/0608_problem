@@ -19,8 +19,10 @@
 
 </table>
 
+<form action="">
 <input type="hidden" name="item_code" value="${item.value.code}">
 <input type="submit" value="購入">
+</form>
 <input type="hidden" name="item_code" value="${item.value.code}">
 <input type="submit" value="変更">
 <input type="hidden" name="item_code" value="${item.value.code}">

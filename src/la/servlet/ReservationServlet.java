@@ -1,7 +1,6 @@
 package la.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,8 +36,8 @@ public class ReservationServlet extends HttpServlet {
 			ReservationBean reservation = new ReservationBean();
 			reservation.setMemberId(member.getId());
 			reservation.setPlanId(Integer.parseInt(planId));
-			reservation.setInDate(Date.valueOf(checkIn));
-			reservation.setOutDate(Date.valueOf(checkOut));
+			reservation.setInDate(checkIn);
+			reservation.setOutDate(checkOut);
 			reservation.setRoom(1); // ここどう処理する？
 
 			ReservationsDAOSub dao = new ReservationsDAOSub();

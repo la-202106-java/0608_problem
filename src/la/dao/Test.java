@@ -1,0 +1,53 @@
+package la.dao;
+
+import java.util.List;
+
+import la.bean.DiscardedBookBean;
+import la.bean.FormerUserBean;
+import la.bean.NowUserBean;
+
+public class Test {
+	public static void main(String[] args) {
+		DiscardedBookDAO book;
+		NowUserDAO user;
+
+		try {
+			book = new DiscardedBookDAO();
+			List<DiscardedBookBean> list = book.findAll();
+			for (DiscardedBookBean bean : list) {
+				System.out.println(bean.getTitle());
+			}
+
+			user = new NowUserDAO();
+			NowUserBean now = user.findbyEmail("shinjuku@gmail.com");
+			System.out.println(now.getName());
+			System.out.println(now.getBirthDate());
+
+			FormerUserDAO former = new FormerUserDAO();
+			FormerUserBean fuser = former.findbyEmail("shinjuku@gmail.com");
+			System.out.println(fuser.getName());
+			System.out.println(fuser.getQuitDate());
+
+			//			ReservedDAO reserved = new ReservedDAO();
+			//			// 日付変換の方法
+			//			// java.sql.Date.ValueOfでStringもつっこめる
+			//			java.sql.Date day = java.sql.Date.valueOf("2021-01-01");
+			//			// utilとsqlのDateの変換はこちら
+			//			java.util.Date d1 = new java.util.Date();
+			//			java.sql.Date d2 = new java.sql.Date(d1.getTime());
+			//			int number = reserved.addReserved(1, 2, d2);
+			//			System.out.println(number + "件の取り置きを追加しました");
+
+			ReservationDAO reservation = new ReservationDAO();
+			//			LocalDateTime localDateTime = LocalDateTime.now();
+			//
+			//			int number = reservation.addReservation("4480425993", 2, localDateTime);
+			//			System.out.println(number + "件の予約を追加しました");
+			NowUserBean rank1 = reservation.findbyISBN("4480425993");
+			System.out.println(rank1.getId() + ": " + rank1.getName());
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+	}
+}

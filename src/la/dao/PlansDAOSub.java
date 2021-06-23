@@ -23,4 +23,18 @@ public class PlansDAOSub {
 
 		return plans;
 	}
+
+	public PlanBean find(int planId) {
+		PlanBean plan = new PlanBean();
+		InnBean inn = new InnBean();
+
+		inn.setName("テスト宿");
+		plan.setInn(inn);
+		plan.setContent("テスト夕食付");
+		plan.setFee(70000);
+		plan.setRoomMax(2);
+		plan.setImgUrl("test.png");
+
+		return plan;
+	}
 }

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import la.bean.BookBean;
@@ -37,7 +36,7 @@ public class BookDAO {
 				int id = rs.getInt("id");
 				String isbn = rs.getString("isbn");
 				String title = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
 				list.add(bean);
@@ -78,7 +77,7 @@ public class BookDAO {
 				int id = rs.getInt("id");
 				String isbn = rs.getString("isbn");
 				String title = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
 				return bean;
@@ -103,6 +102,37 @@ public class BookDAO {
 
 	}
 
+	public int addBook(String title, String isbn, String arrivalDate) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		java.sql.Date arrival_date = java.sql.Date.valueOf(arrivalDate);
+
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO book(isbn,title,arrival_date) VALUES (?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			st.setString(2, title);
+			st.setDate(3, arrival_date);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	public List<BookBean> findByISBN(String isbn) throws DAOException {
 		if (con == null) {
 			con = dao.getConnection();
@@ -121,7 +151,7 @@ public class BookDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
 				list.add(bean);
@@ -163,7 +193,7 @@ public class BookDAO {
 				int id = rs.getInt("id");
 				String isbn = rs.getString("isbn");
 				String fullTitle = rs.getString("title");
-				Date arrivalDate = rs.getDate("arrival_date");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
 				BookBean bean = new BookBean(id, isbn, fullTitle, arrivalDate, note);
 				list.add(bean);
@@ -201,6 +231,7 @@ public class BookDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました");
+
 		} finally {
 			try {
 				if (st != null)

@@ -1,6 +1,8 @@
 package black.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,12 +60,16 @@ public class MemberSearchServlet extends HttpServlet {
 
 				if (idStr == null || idStr.length() == 0) {
 					//idが指定されていない→名前などで検索
+					String name = request.getParameter("name");
 
 				} else {
 					//id指定あり→idのみで検索
 					int id = Integer.parseInt(idStr);
 					MemberBean bean = dao.findMember(id);
-					request.setAttribute("member", bean);
+					List<MemberBean> list = new ArrayList<MemberBean>();
+					list.add(bean);
+					request.setAttribute("member", list);
+					gotoPage(request, response, "/memberSearch.jsp");
 
 				}
 			} catch (DAOException e) {

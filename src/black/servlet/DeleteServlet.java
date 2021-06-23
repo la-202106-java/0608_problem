@@ -34,6 +34,7 @@ public class DeleteServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 
 			if ((session.getAttribute("user").equals("member")) || (session.getAttribute("user").equals("admin"))) {
+
 				if (request.getAttribute("seller_id").equals("id"))
 
 					//教科書削除チェック選択画面
@@ -66,9 +67,6 @@ public class DeleteServlet extends HttpServlet {
 		} catch (
 
 		Exception e) {
-
-			////////////////////////////////////
-			//エラーメッセ‐ジ先のページ未完了
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました");
 			gotoPage(request, response, "/errInternal.jsp");

@@ -18,6 +18,10 @@ public class InnBean implements Serializable {
 
 	}
 
+	public InnBean(String name) {
+		this.name = name;
+	}
+
 	public InnBean(int id, String name, int classCode, String postalCode, String address, String inTime,
 			String outTime) {
 		this.id = id;

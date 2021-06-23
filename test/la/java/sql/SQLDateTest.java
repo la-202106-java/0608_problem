@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,26 @@ import org.junit.jupiter.api.Test;
  * JavaBeansにはjava.timeパッケージで管理するようにしましょう
  */
 class SQLDateTest {
+
+	@Test
+	void 時間のフォーマットテスト() {
+		String before = "11:00:00";
+		String after = "15:00";
+
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+		LocalTime beforeTime = java.time.LocalTime.parse(before);
+		LocalTime afterTime = java.time.LocalTime.parse(after);
+		String beforeResult = beforeTime.format(df);
+		String afterResult = afterTime.format(df);
+		System.out.println(beforeResult);
+		System.out.println(afterResult);
+
+		System.out.println(java.sql.Time.valueOf(beforeTime));
+		System.out.println(java.sql.Time.valueOf(afterTime));
+		System.out.println(java.sql.Time.valueOf(beforeResult));
+		System.out.println(java.sql.Time.valueOf(afterResult));
+	}
 
 	@Test
 	void WebからgetParameterした日付をsqlに変換する() {

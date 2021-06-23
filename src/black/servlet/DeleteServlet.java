@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import black.bean.ListedItemBean;
 import black.dao.ListedItemDAO;
@@ -28,38 +29,46 @@ public class DeleteServlet extends HttpServlet {
 
 			ListedItemDAO dao = new ListedItemDAO();
 			//商品情報の取得
+			HttpSession session = request.getSession(false);
 
-			//教科書削除チェック選択画面
-			if (action.equals("deleteCheck")) {
-				String id_item = request.getParameter("item_code");
-				int id = Integer.parseInt(id_item);
-				ListedItemBean bean = dao.findItem(id);
-				request.setAttribute("id_item", bean);
+			if ((session.getAttribute("user").equals("member")) || (session.getAttribute("user").equals("admin"))) {
+				if (request.getAttribute("seller_id").equals("id"))
 
-				gotoPage(request, response, "/listedItemDeleteCheck.jsp");
-			} else if (action.equals("delete")) {
-				//削除完了ページに行く
+					//教科書削除チェック選択画面
+					if (action.equals("deleteCheck")) {
+						String id_item = request.getParameter("item_code");
+						int id = Integer.parseInt(id_item);
+						ListedItemBean bean = dao.findItem(id);
+						request.setAttribute("id_item", bean);
 
-				int id = Integer.parseInt(request.getParameter("id"));
-				dao.deleteItem(id);
-				gotoPage(request, response, "/listedItemDeleteDone.jsp");
+						gotoPage(request, response, "/listedItemDeleteCheck.jsp");
+					} else if (action.equals("delete")) {
+						//削除完了ページに行く
+						int id = Integer.parseInt(request.getParameter("id"));
+						dao.deleteItem(id);
+						gotoPage(request, response, "/listedItemDeleteDone.jsp");
+					}
+					//キャンセル　教科書詳細ページに行く
+					else if (action.equals("cancel")) {
+						gotoPage(request, response, "/ListedItemDetail.jsp");
+					}
+
+					//教科書削除完了後、トップページに戻る
+					else if (action.equals("topReturn")) {
+						gotoPage(request, response, "/top.jsp");
+					}
+
 			}
-			//キャンセル　教科書詳細ページに行く
-			else if (action.equals("cancel")) {
-				gotoPage(request, response, "/ListedItemDetail.jsp");
-			}
 
-			//教科書削除完了後、トップページに戻る
-			else if (action.equals("topReturn")) {
-				gotoPage(request, response, "/top.jsp");
-			}
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 
 			////////////////////////////////////
 			//エラーメッセ‐ジ先のページ未完了
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました");
-			gotoPage(request, response, "/.jsp");
+			gotoPage(request, response, "/errInternal.jsp");
 		}
 	}
 

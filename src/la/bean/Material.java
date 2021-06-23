@@ -3,17 +3,17 @@ package la.bean;
 import java.util.Date;
 
 public class Material {
-	private String id;
+	private String material_id;
 	private String isbn;
 	private Date stockDate;
 	private String title;
 
-	public String getId() {
-		return id;
+	public String getMaterial_id() {
+		return material_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMaterial_id(String material_id) {
+		this.material_id = material_id;
 	}
 
 	public String getIsbn() {
@@ -40,9 +40,9 @@ public class Material {
 		this.title = title;
 	}
 
-	public Material(String id, String isbn, Date stockDate, String title) {
+	public Material(String material_id, String isbn, Date stockDate, String title) {
 		super();
-		this.id = id;
+		this.material_id = material_id;
 		this.isbn = isbn;
 		this.stockDate = stockDate;
 		this.title = title;

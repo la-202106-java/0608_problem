@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import black.bean.ListedItemBean;
+import black.dao.DAOException;
+import black.dao.ListedItemDAO;
 
 /**
  * Servlet implementation class ListedItemChange
@@ -28,19 +30,30 @@ public class ListedItemChangeServlet extends HttpServlet {
 
 		//教科書変更画面
 		if (action.equals("change")) {
-			ListedItemBean bean = new ListedItemBean();
-			bean.setId(Integer.parseInt(request.getParameter("id")));
-			bean.setIsbn(request.getParameter("isbn"));
-			bean.setTitle(request.getParameter("title"));
-			bean.setDepartmentCode(Integer.parseInt(request.getParameter("departmentCode")));
-			bean.setAuthor(request.getParameter("author"));
-			bean.setPrice(Integer.parseInt(request.getParameter("price")));
-			request.setAttribute("textbook", bean);
+			int id = Integer.parseInt(request.getParameter("id"));
+			ListedItemDAO dao = null;
+			try {
+				dao = new ListedItemDAO();
+				ListedItemBean bean = dao.findItem(id);
+				request.setAttribute("textbook", bean);
+			} catch (DAOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+
 			gotoPage(request, response, "/listedItemRegistForm.jsp");
 		} else if (action.equals("dochange")) {
 			//変更確認ページに行く
 			int id = Integer.parseInt(request.getParameter("id"));
-
+			ListedItemDAO dao = null;
+			try {
+				dao = new ListedItemDAO();
+				ListedItemBean bean = dao.findItem(id);
+				request.setAttribute("textbook", bean);
+			} catch (DAOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 			gotoPage(request, response, "/listedItemRegistCheck.jsp");
 		}
 

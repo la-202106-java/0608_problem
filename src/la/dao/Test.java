@@ -28,6 +28,16 @@ public class Test {
 			System.out.println(fuser.getName());
 			System.out.println(fuser.getQuitDate());
 
+			ReservedDAO reserved = new ReservedDAO();
+			// 日付変換の方法
+			// java.sql.Date.ValueOfでStringもつっこめる
+			java.sql.Date day = java.sql.Date.valueOf("2021-01-01");
+			// utilとsqlのDateの変換はこちら
+			java.util.Date d1 = new java.util.Date();
+			java.sql.Date d2 = new java.sql.Date(d1.getTime());
+			int number = reserved.addReserved(1, 2, d2);
+			System.out.println(number + "件の取り置きを追加しました");
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}

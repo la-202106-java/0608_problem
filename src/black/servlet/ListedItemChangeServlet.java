@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import black.bean.ListedItemBean;
+
 /**
  * Servlet implementation class ListedItemChange
  */
-@WebServlet("/ListedItemChange")
-public class ListedItemChange extends HttpServlet {
+@WebServlet("/ListedItemChangeServlet")
+public class ListedItemChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -26,10 +28,20 @@ public class ListedItemChange extends HttpServlet {
 
 		//教科書変更画面
 		if (action.equals("change")) {
-			gotoPage(request, response, "/.jsp");
-		} else if (action.equals("delete")) {
-			//変更完了ページに行く
-			gotoPage(request, response, "/.jsp");
+			ListedItemBean bean = new ListedItemBean();
+			bean.setId(Integer.parseInt(request.getParameter("id")));
+			bean.setIsbn(request.getParameter("isbn"));
+			bean.setTitle(request.getParameter("title"));
+			bean.setDepartmentCode(Integer.parseInt(request.getParameter("departmentCode")));
+			bean.setAuthor(request.getParameter("author"));
+			bean.setPrice(Integer.parseInt(request.getParameter("price")));
+			request.setAttribute("textbook", bean);
+			gotoPage(request, response, "/listedItemRegistForm.jsp");
+		} else if (action.equals("dochange")) {
+			//変更確認ページに行く
+			int id = Integer.parseInt(request.getParameter("id"));
+
+			gotoPage(request, response, "/listedItemRegistCheck.jsp");
 		}
 
 	}

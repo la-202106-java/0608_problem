@@ -1,16 +1,16 @@
 package la.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class PlanBean implements Serializable {
 	private int planId;
-	private int innID;
+	private int innId;
 	private String content;
 	private int fee;
 	private int roomMax;
 	private String imgUrl;
-	private Date deleteDate;
+	private LocalDate deleteDate;
 	private String note;
 	private InnBean inn;
 
@@ -18,19 +18,19 @@ public class PlanBean implements Serializable {
 
 	}
 
-	public PlanBean(int innID, String content, int fee, int roomMax, String imgUrl) {
-		this.innID = innID;
+	public PlanBean(int innId, String content, int fee, int roomMax, String imgUrl) {
+		this.innId = innId;
 		this.content = content;
 		this.fee = fee;
 		this.roomMax = roomMax;
 		this.imgUrl = imgUrl;
 	}
 
-	public PlanBean(int planId, int innID, String content, int fee, int roomMax, String imgUrl, Date deleteDate,
+	public PlanBean(int planId, int innId, String content, int fee, int roomMax, String imgUrl, LocalDate deleteDate,
 			String note, InnBean inn) {
 		super();
 		this.planId = planId;
-		this.innID = innID;
+		this.innId = innId;
 		this.content = content;
 		this.fee = fee;
 		this.roomMax = roomMax;
@@ -49,11 +49,11 @@ public class PlanBean implements Serializable {
 	}
 
 	public int getInnID() {
-		return innID;
+		return innId;
 	}
 
 	public void setInnID(int innID) {
-		this.innID = innID;
+		this.innId = innID;
 	}
 
 	public String getContent() {
@@ -88,11 +88,11 @@ public class PlanBean implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	public Date getDeleteDate() {
+	public LocalDate getDeleteDate() {
 		return deleteDate;
 	}
 
-	public void setDeleteDate(Date deleteDate) {
+	public void setDeleteDate(LocalDate deleteDate) {
 		this.deleteDate = deleteDate;
 	}
 

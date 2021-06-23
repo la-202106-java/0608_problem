@@ -1,8 +1,7 @@
 package la.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
 
 public class InnBean implements Serializable {
 	private int id;
@@ -10,16 +9,18 @@ public class InnBean implements Serializable {
 	private int classCode;
 	private String postalCode;
 	private String address;
-	private Time inTime;
-	private Time outTime;
-	private Date date;
+	private String inTime;
+	private String outTime;
+	private LocalDate date;
 	private String note;
 
 	public InnBean() {
 
 	}
 
-	public InnBean(String name, int classCode, String postalCode, String address, Time inTime, Time outTime) {
+	public InnBean(int id, String name, int classCode, String postalCode, String address, String inTime,
+			String outTime) {
+		this.id = id;
 		this.name = name;
 		this.classCode = classCode;
 		this.postalCode = postalCode;
@@ -28,8 +29,8 @@ public class InnBean implements Serializable {
 		this.outTime = outTime;
 	}
 
-	public InnBean(int id, String name, int classCode, String postalCode, String address, Time inTime, Time outTime,
-			Date date, String note) {
+	public InnBean(int id, String name, int classCode, String postalCode, String address, String inTime, String outTime,
+			LocalDate date, String note) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -82,27 +83,27 @@ public class InnBean implements Serializable {
 		this.address = address;
 	}
 
-	public Time getInTime() {
+	public String getInTime() {
 		return inTime;
 	}
 
-	public void setInTime(Time inTime) {
+	public void setInTime(String inTime) {
 		this.inTime = inTime;
 	}
 
-	public Time getOutTime() {
+	public String getOutTime() {
 		return outTime;
 	}
 
-	public void setOutTime(Time outTime) {
+	public void setOutTime(String outTime) {
 		this.outTime = outTime;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

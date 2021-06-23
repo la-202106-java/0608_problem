@@ -45,8 +45,10 @@ public class AdminInnServlet extends HttpServlet {
 				int classCode = Integer.parseInt(request.getParameter("class_code"));
 				String postalCode = request.getParameter("postal_code");
 				String address = request.getParameter("address");
-				java.sql.Time inTime = java.sql.Time.valueOf(request.getParameter("inTime") + ":00");
-				java.sql.Time outTime = java.sql.Time.valueOf(request.getParameter("outTime") + ":00");
+				String inTime = request.getParameter("inTime") + ":00";
+				String outTime = request.getParameter("outTime") + ":00";
+				//				java.sql.Time inTime = java.sql.Time.valueOf(request.getParameter("inTime") + ":00");
+				//				java.sql.Time outTime = java.sql.Time.valueOf(request.getParameter("outTime") + ":00");
 				dao.addInn(name, classCode, postalCode, address, inTime, outTime);
 				request.setAttribute("message", name + "を追加しました。");
 				gotoPage(request, response, "/adminConfirm.jsp");
@@ -56,6 +58,37 @@ public class AdminInnServlet extends HttpServlet {
 				request.setAttribute("name", name);
 				request.setAttribute("Inns", list);
 				gotoPage(request, response, "/adminSearchInn.jsp");
+			} else if (action.equals("edit")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				int classCode = Integer.parseInt(request.getParameter("class_code"));
+				String postalCode = request.getParameter("postal_code");
+				String address = request.getParameter("address");
+				String inTime = request.getParameter("inTime");
+				String outTime = request.getParameter("outTime");
+				//				java.sql.Time inTime = java.sql.Time.valueOf(request.getParameter("inTime") + ":00");
+				//				java.sql.Time outTime = java.sql.Time.valueOf(request.getParameter("outTime") + ":00");
+				InnBean target = new InnBean(id, name, classCode, postalCode, address, inTime, outTime);
+				request.setAttribute("innTarget", target);
+				gotoPage(request, response, "/adminUpdateInn.jsp");
+
+			} else if (action.equals("update")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				int classCode = Integer.parseInt(request.getParameter("class_code"));
+				String postalCode = request.getParameter("postal_code");
+				String address = request.getParameter("address");
+				String inTime = request.getParameter("inTime");
+				String outTime = request.getParameter("outTime");
+				if (inTime.matches("[0-9]{2}:[0-9]{2}")) {
+					inTime += ":00";
+				}
+				if (outTime.matches("[0-9]{2}:[0-9]{2}")) {
+					outTime += ":00";
+				}
+				dao.updateInn(id, name, classCode, postalCode, address, inTime, outTime);
+				request.setAttribute("message", name + "を更新しました。");
+				gotoPage(request, response, "/adminConfirm.jsp");
 			}
 
 			else {

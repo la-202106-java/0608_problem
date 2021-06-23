@@ -1,7 +1,6 @@
 package la.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import la.bean.MemberBean;
 import la.bean.PlanBean;
+import la.dao.DAOException;
 import la.dao.MembersDAOSub;
 import la.dao.PlansDAOSub;
 
@@ -45,64 +45,72 @@ public class ShowPlanServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		String action = request.getParameter("action");
+		try {
 
-		if (action.equals("login")) { // ログイン画面でログインボタンクリック時
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
+			HttpSession session = request.getSession();
+			String action = request.getParameter("action");
 
-			MembersDAOSub dao = new MembersDAOSub();
-			MemberBean member = new MemberBean();
-			member = dao.find(email);
+			if (action.equals("login")) { // ログイン画面でログインボタンクリック時
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
 
-			if (password.equals(member.getPassword())) {
+				MembersDAOSub dao = new MembersDAOSub();
+				MemberBean member = new MemberBean();
+				member = dao.find(email);
+
+				if (password.equals(member.getPassword()) && member.getQuiteDate() == null) {
+					session.setAttribute("isLogin", "true");
+					session.setAttribute("member", member);
+					gotoPage(request, response, "/top.jsp");
+				} else {
+					// ログイン失敗時の処理書く
+				}
+			} else if (action.equals("registration")) { // 会員登録ボタンクリック時
+				String name = request.getParameter("name");
+				String postalCode = request.getParameter("postalCode");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String email = request.getParameter("email");
+				String birthday = request.getParameter("birthday");
+
+				MemberBean member = new MemberBean();
+				member.setName(name);
+				member.setPostalCode(postalCode);
+				member.setAddress(address);
+				member.setTel(tel);
+				member.setEmailAddress(email);
+				member.setBirthDate(birthday);
+
+				MembersDAOSub dao = new MembersDAOSub();
+				dao.registration(member);
+
 				session.setAttribute("isLogin", "true");
 				session.setAttribute("member", member);
+
+				gotoPage(request, response, "/top.jsp");
+			} else if (action.equals("plan")) { // 検索ボタンクリック時
+				String checkIn = request.getParameter("checkIn");
+				String checkOut = request.getParameter("checkOut");
+
+				session.setAttribute("checkIn", checkIn);
+				session.setAttribute("checkOut", checkOut);
+
+				PlansDAOSub dao = new PlansDAOSub();
+				List<PlanBean> plans = new ArrayList<PlanBean>();
+
+				plans = dao.find(checkIn, checkOut);
+				request.setAttribute("plans", plans);
+
 				gotoPage(request, response, "/top.jsp");
 			} else {
-				// ログイン失敗時の処理書く
+				request.setAttribute("message", "正しく操作してください。");
+				gotoPage(request, response, "/errInternal.jsp");
 			}
-		} else if (action.equals("registration")) { // 会員登録ボタンクリック時
-			String name = request.getParameter("name");
-			String postalCode = request.getParameter("postalCode");
-			String address = request.getParameter("address");
-			String tel = request.getParameter("tel");
-			String email = request.getParameter("email");
-			String birthday = request.getParameter("birthday");
 
-			MemberBean member = new MemberBean();
-			member.setName(name);
-			member.setPostalCode(postalCode);
-			member.setAddress(address);
-			member.setTel(tel);
-			member.setEmailAddress(email);
-			member.setBirthDate(Date.valueOf(birthday));
+		} catch (DAOException e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
 
-			MembersDAOSub dao = new MembersDAOSub();
-			dao.registration(member);
-
-			session.setAttribute("isLogin", "true");
-			session.setAttribute("member", member);
-
-			gotoPage(request, response, "/top.jsp");
-		} else if (action.equals("plan")) { // 検索ボタンクリック時
-			String checkIn = request.getParameter("checkIn");
-			String checkOut = request.getParameter("checkOut");
-
-			session.setAttribute("checkIn", checkIn);
-			session.setAttribute("checkOut", checkOut);
-
-			PlansDAOSub dao = new PlansDAOSub();
-			List<PlanBean> plans = new ArrayList<PlanBean>();
-
-			plans = dao.find(checkIn, checkOut);
-			request.setAttribute("plans", plans);
-
-			gotoPage(request, response, "/top.jsp");
-		} else {
-			request.setAttribute("message", "正しく操作してください。");
-			gotoPage(request, response, "/errInternal.jsp");
 		}
 	}
 

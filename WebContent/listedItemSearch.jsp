@@ -19,6 +19,9 @@
 </c:if>
 <br>
 
+<h1>教科書検索</h1>
+
+<form>
 &nbsp;&nbsp;ISBN&nbsp;&nbsp;：<input type="text" name="isbn" size="15"><br><br>
 タイトル：<input type="text" name="title" size="15"><br><br>
 &nbsp;&nbsp;分類&nbsp;&nbsp;：<select name="select1">
@@ -45,41 +48,12 @@
       </select><br><br>
 <input type="checkbox" name="stock" value="stock">在庫有のみ表示<br>
 <input type="checkbox" name="stock" value="stock">自分が出品した商品のみ表示<br>
-<input type="submit" value="検索"><br><br>
+<input type="submit" value="検索">
+</form>
 
-<table border="1">
-<tr><td>ID</td><td>ISBN</td><td>タイトル</td>
-    <td>分類</td><td>著者名</td><td>売値</td></tr>
+<hr>
 
+<jsp:include page="/listedItemSearchResult.jsp" />
 
-<tr>
-	<td align="center">1</td>
-	<td align="center">12345678</td>
-	<td align="center">ドラえもん</td>
-	<td align="right">文学部系</td>
-	<td align="center">藤子不二雄</td>
-	<td align="right">1000円</td>
-
-
-<td>
-	<input type="hidden" name="item_code" value="${item.value.code}">
-	<input type="submit" value="詳細">
-</td>
-</tr>
-
-	<tr>
-	<td align="center">2</td>
-	<td align="center">12345679</td>
-	<td align="center">アンパンマン</td>
-	<td align="right">理学部系</td>
-	<td align="center">藤子不二雄A</td>
-	<td align="right">1500円</td>
-
-<td>
-	<input type="hidden" name="item_code" value="${item.value.code}">
-	<input type="submit" value="詳細">
-</td>
-</tr>
-</table>
 </body>
 </html>

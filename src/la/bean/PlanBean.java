@@ -18,6 +18,14 @@ public class PlanBean implements Serializable {
 
 	}
 
+	public PlanBean(int innID, String content, int fee, int roomMax, String imgUrl) {
+		this.innID = innID;
+		this.content = content;
+		this.fee = fee;
+		this.roomMax = roomMax;
+		this.imgUrl = imgUrl;
+	}
+
 	public PlanBean(int planId, int innID, String content, int fee, int roomMax, String imgUrl, Date deleteDate,
 			String note, InnBean inn) {
 		super();

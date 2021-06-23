@@ -9,7 +9,8 @@
 <body>
 <jsp:include page="/WEB-INF/adminMenu.html" />
 
-<form action="/0608_problem/admin/inn" method="post">
+<h1>宿の追加</h1>
+<form action="/0608_problem/admin/inn" method="get">
 宿名：<input type="text" name="name"><br>
 分類コード：<input type="number" name="class_code"><br>
 郵便番号：〒<input type="text" name="postal_code"><br>

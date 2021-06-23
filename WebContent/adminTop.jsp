@@ -10,7 +10,7 @@
 
 <jsp:include page="/WEB-INF/adminMenu.html" />
 
-<form action="/0608_problem/AdminLoginServlet" method="post">
+<form action="/0608_problem/admin/login" method="post">
 <input type="submit" value="ログアウト">
 <input type="hidden" name="action" value="logout">
 </form>

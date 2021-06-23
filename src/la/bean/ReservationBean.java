@@ -1,20 +1,20 @@
 package la.bean;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ReservationBean {
 	private int id;
 	private String isbn;
 	private int userId;
-	private Timestamp reservationTime;
+	private LocalDateTime reservationTime;
 	private Date reservedDate;
 
 	public ReservationBean() {
 
 	}
 
-	public ReservationBean(int id, String isbn, int userId, Timestamp reservationTime, Date reservedDate) {
+	public ReservationBean(int id, String isbn, int userId, LocalDateTime reservationTime, Date reservedDate) {
 		super();
 		this.id = id;
 		this.isbn = isbn;
@@ -47,11 +47,11 @@ public class ReservationBean {
 		this.userId = userId;
 	}
 
-	public Timestamp getReservationTime() {
+	public LocalDateTime getReservationTime() {
 		return reservationTime;
 	}
 
-	public void setReservationTime(Timestamp reservationTime) {
+	public void setReservationTime(LocalDateTime reservationTime) {
 		this.reservationTime = reservationTime;
 	}
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import la.bean.NowUserBean;
 
@@ -26,7 +27,7 @@ public class ReservationDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM reservation WHERE isbn=? AND reservation_time=NULL ORDER BY reservation_time ASC LIMIT 1";
+			String sql = "SELECT * FROM reservation WHERE isbn=? AND reserved_date is NULL ORDER BY reservation_time ASC LIMIT 1";
 			st = con.prepareStatement(sql);
 			st.setString(1, isbn);
 			rs = st.executeQuery();
@@ -55,6 +56,32 @@ public class ReservationDAO {
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました");
 			}
+		}
+
+	}
+
+	// 新しい予約を追加
+	public int addReservation(String isbn, int userID, java.time.LocalDateTime reservationTime) throws DAOException {
+
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		// localtimeとsqlの変換
+		Timestamp time = Timestamp.valueOf(reservationTime);
+
+		String sql = "INSERT INTO reservation(isbn, user_id, reservation_time) VALUES(?, ?, ?)";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, isbn);
+			st.setInt(2, userID);
+			st.setTimestamp(3, time);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
 		}
 
 	}

@@ -227,6 +227,34 @@ public class MemberDAO {
 		}
 	}
 
+	//残高付与
+	public void plusSales(int sales, int id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "UPDATE member SET sales=? WHERE id=?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, sales);
+			st.setInt(2, id);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			// JDBCドライバの登録

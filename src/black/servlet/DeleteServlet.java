@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import black.bean.ListedItemBean;
+import black.dao.ListedItemDAO;
+
 /**
  * Servlet implementation class DeleteServlet
  */
@@ -16,27 +19,47 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String action = request.getParameter("action");
 
-		//教科書削除チェック選択画面
-		if (action.equals("leave")) {
-			gotoPage(request, response, "/listedItemDeleteCheck.jsp");
-		} else if (action.equals("delete")) {
-			//削除完了ページに行く
-			gotoPage(request, response, "/listedItemDeleteDone.jsp");
-		}
-		//キャンセル　教科書詳細ページに行く
-		//遷移先ページ未完了
-		else if (action.equals("cancel")) {
-			gotoPage(request, response, "/ListedItemDetail.jsp");
-		}
+		try {
+			response.setCharacterEncoding("UTF-8");
+			String action = request.getParameter("action");
 
-		//教科書削除完了後、トップページに戻る
-		//遷移先ページ未完了
-		else if (action.equals("topReturn")) {
-			gotoPage(request, response, "/top.jsp");
+			ListedItemDAO dao = new ListedItemDAO();
+			//商品情報の取得
+
+			//教科書削除チェック選択画面
+			if (action.equals("deleteCheck")) {
+				String id_item = request.getParameter("item_code");
+				int id = Integer.parseInt(id_item);
+				ListedItemBean bean = dao.findItem(id);
+				request.setAttribute("id_item", bean);
+
+				gotoPage(request, response, "/listedItemDeleteCheck.jsp");
+			} else if (action.equals("delete")) {
+				//削除完了ページに行く
+
+				int id = Integer.parseInt(request.getParameter("id"));
+				dao.deleteItem(id);
+				gotoPage(request, response, "/listedItemDeleteDone.jsp");
+			}
+			//キャンセル　教科書詳細ページに行く
+			else if (action.equals("cancel")) {
+				gotoPage(request, response, "/ListedItemDetail.jsp");
+			}
+
+			//教科書削除完了後、トップページに戻る
+			else if (action.equals("topReturn")) {
+				gotoPage(request, response, "/top.jsp");
+			}
+		} catch (Exception e) {
+
+			////////////////////////////////////
+			//エラーメッセ‐ジ先のページ未完了
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました");
+			gotoPage(request, response, "/.jsp");
 		}
 	}
 
@@ -45,15 +68,6 @@ public class DeleteServlet extends HttpServlet {
 		// TODO 自動生成されたメソッド・スタブ
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

@@ -17,7 +17,8 @@
 <jsp:include page="/menu.jsp" />
 </c:if>
 
-<h1>教科書を削除しますか？</h1>
+<h1>この教科書を削除しますか？</h1>
+
 
 <!-- キャンセルするボタン(DeleteServlet)-->
 <div style="display:inline-flex">

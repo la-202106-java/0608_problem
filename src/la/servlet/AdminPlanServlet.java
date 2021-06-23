@@ -1,7 +1,6 @@
 package la.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import la.bean.InnBean;
-import la.dao.AdminInnDAO;
+import la.dao.AdminPlanDAO;
 import la.dao.DAOException;
 
 /**
- * Servlet implementation class AdminInnServlet
+ * Servlet implementation class AdminPlanServlet
  */
-@WebServlet("/admin/inn")
-public class AdminInnServlet extends HttpServlet {
+@WebServlet("/admin/plan")
+public class AdminPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdminInnServlet() {
+	public AdminPlanServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,28 +35,19 @@ public class AdminInnServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
-			AdminInnDAO dao = new AdminInnDAO();
+			AdminPlanDAO dao = new AdminPlanDAO();
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/adminTop.jsp");
 			} else if (action.equals("add")) {
-				String name = request.getParameter("name");
-				int classCode = Integer.parseInt(request.getParameter("class_code"));
-				String postalCode = request.getParameter("postal_code");
-				String address = request.getParameter("address");
-				java.sql.Time inTime = java.sql.Time.valueOf(request.getParameter("inTime") + ":00");
-				java.sql.Time outTime = java.sql.Time.valueOf(request.getParameter("outTime") + ":00");
-				dao.addInn(name, classCode, postalCode, address, inTime, outTime);
-				request.setAttribute("message", name + "を追加しました。");
+				int innID = Integer.parseInt(request.getParameter("id"));
+				String content = request.getParameter("contents");
+				int fee = Integer.parseInt(request.getParameter("fee"));
+				int roomMax = Integer.parseInt(request.getParameter("room"));
+				String imgUrl = request.getParameter("picture");
+				int row = dao.addPlan(innID, content, fee, roomMax, imgUrl);
+				request.setAttribute("message", row + "件追加しました。");
 				gotoPage(request, response, "/adminConfirm.jsp");
-			} else if (action.equals("search")) {
-				String name = request.getParameter("name");
-				List<InnBean> list = dao.searchInn(name);
-				request.setAttribute("name", name);
-				request.setAttribute("Inns", list);
-				gotoPage(request, response, "/adminSearchInn.jsp");
-			}
-
-			else {
+			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
@@ -74,7 +63,6 @@ public class AdminInnServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

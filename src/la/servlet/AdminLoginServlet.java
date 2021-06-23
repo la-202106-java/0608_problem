@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.dao.AdminDAO;
 import la.dao.DAOException;
@@ -52,6 +53,8 @@ public class AdminLoginServlet extends HttpServlet {
 					return;
 				}
 				if (dao.isAdmin(email, password)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("isAdminLogin", true);
 					gotoPage(request, response, "/adminTop.jsp");
 				} else {
 					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");

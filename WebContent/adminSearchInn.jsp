@@ -11,7 +11,7 @@
 	<jsp:include page="/WEB-INF/adminMenu.html" />
 
 	<form action="/0608_problem/admin/inn" method="post">
-		宿情報の検索<br> 宿名:<input type="text" name="name"> <input
+		宿情報の検索<br> 宿名:<input type="text" name="name" value="${name}"> <input
 			type="submit" value="検索"> <input type="hidden" name="action"
 			value="search"> <br>
 	</form>

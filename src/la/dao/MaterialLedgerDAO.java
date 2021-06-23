@@ -114,7 +114,7 @@ public class MaterialLedgerDAO {
 			try (ResultSet rs = st.executeQuery()) {
 				if (rs.next()) {
 					MaterialLedger bean = new MaterialLedger();
-					bean.setId(rs.getString("material_id"));
+					bean.setId(rs.getInt("material_id"));
 					bean.setIsbn(rs.getString("isbn"));
 					bean.setStockDate(rs.getDate("stock_date"));
 					bean.setDisposalDate(rs.getDate("disposal_date"));
@@ -122,7 +122,13 @@ public class MaterialLedgerDAO {
 				} else {
 					return null;
 				}
+
+			} catch (SQLException e) {
+				throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
 			}
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
 		}
 	}
 

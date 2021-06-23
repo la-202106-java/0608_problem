@@ -39,13 +39,16 @@
 <input type="submit" value="検索">
 </form>
 
+<form action="/0608_problem/ReservationServlet" method="post">
 <c:forEach items="${plans}" var="plan">
+	<input type="hidden" name="planId" value="${plan.planId}">
 	<hr>
 	<table>
 	<tr><td><img src="${plan.imgUrl}" alt="" width="300" height="200"></td>
-	<td>${plan.inn.name} ${plan.content} ${plan.inn.address} ${plan.fee}<br><input type=submit value="予約"></td></tr>
+	<td>${plan.inn.name} ${plan.content} ${plan.inn.address} ${plan.fee}<br><input type="submit" value="予約"></td></tr>
 	</table>
 </c:forEach>
+</form>
 
 </body>
 </html>

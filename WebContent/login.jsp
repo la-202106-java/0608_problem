@@ -17,8 +17,7 @@
 </form>
 <hr>
 会員登録されていない方
-<form action="" method="post">
-<input type="hidden" name="action" value="registration">
+<form action="/0608_problem/registration.jsp" method="post">
 <input type="submit" value="会員登録">
 </form>
 

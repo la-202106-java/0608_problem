@@ -1,7 +1,6 @@
 package la.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class ShowPlanServlet extends HttpServlet {
 			member.setAddress(address);
 			member.setTel(tel);
 			member.setEmailAddress(email);
-			member.setBirthDate(Date.valueOf(birthday));
+			member.setBirthDate(birthday);
 
 			MembersDAOSub dao = new MembersDAOSub();
 			dao.registration(member);

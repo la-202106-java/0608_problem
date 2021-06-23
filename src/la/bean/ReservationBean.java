@@ -1,14 +1,15 @@
 package la.bean;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
-public class ReservationBean {
+public class ReservationBean implements Serializable {
 	private int id;
 	private int memberId;
 	private int planId;
-	private Date date;
-	private Date inDate;
-	private Date outDate;
+	private LocalDate date;
+	private String inDate;
+	private String outDate;
 	private int room;
 	private boolean cancelCheck;
 	private String note;
@@ -17,7 +18,7 @@ public class ReservationBean {
 
 	}
 
-	public ReservationBean(int id, int memberId, int planId, Date date, Date inDate, Date outDate, int room,
+	public ReservationBean(int id, int memberId, int planId, LocalDate date, String inDate, String outDate, int room,
 			boolean cancelCheck, String note) {
 		super();
 		this.id = id;
@@ -55,27 +56,27 @@ public class ReservationBean {
 		this.planId = planId;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
-	public Date getInDate() {
+	public String getInDate() {
 		return inDate;
 	}
 
-	public void setInDate(Date inDate) {
+	public void setInDate(String inDate) {
 		this.inDate = inDate;
 	}
 
-	public Date getOutDate() {
+	public String getOutDate() {
 		return outDate;
 	}
 
-	public void setOutDate(Date outDate) {
+	public void setOutDate(String outDate) {
 		this.outDate = outDate;
 	}
 

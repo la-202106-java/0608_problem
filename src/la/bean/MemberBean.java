@@ -1,7 +1,7 @@
 package la.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class MemberBean implements Serializable {
 	private int id;
@@ -11,16 +11,16 @@ public class MemberBean implements Serializable {
 	private String address;
 	private String tel;
 	private String emailAddress;
-	private Date birthDate;
-	private Date joinDate;
-	private Date quiteDate;
+	private String birthDate;
+	private LocalDate joinDate;
+	private LocalDate quiteDate;
 
 	public MemberBean() {
 
 	}
 
 	public MemberBean(int id, String password, String name, String postalCode, String address, String tel,
-			String emailAddress, Date birthDate, Date joinDate, Date quiteDate) {
+			String emailAddress, String birthDate, LocalDate joinDate, LocalDate quiteDate) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -90,27 +90,27 @@ public class MemberBean implements Serializable {
 		this.emailAddress = emailAddress;
 	}
 
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
-	public Date getJoinDate() {
+	public LocalDate getJoinDate() {
 		return joinDate;
 	}
 
-	public void setJoinDate(Date joinDate) {
+	public void setJoinDate(LocalDate joinDate) {
 		this.joinDate = joinDate;
 	}
 
-	public Date getQuiteDate() {
+	public LocalDate getQuiteDate() {
 		return quiteDate;
 	}
 
-	public void setQuiteDate(Date quiteDate) {
+	public void setQuiteDate(LocalDate quiteDate) {
 		this.quiteDate = quiteDate;
 	}
 

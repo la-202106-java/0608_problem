@@ -1,7 +1,7 @@
 package la.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class PlanBean implements Serializable {
 	private int planId;
@@ -10,7 +10,7 @@ public class PlanBean implements Serializable {
 	private int fee;
 	private int roomMax;
 	private String imgUrl;
-	private Date deleteDate;
+	private LocalDate deleteDate;
 	private String note;
 	private InnBean inn;
 
@@ -26,7 +26,7 @@ public class PlanBean implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	public PlanBean(int planId, int innID, String content, int fee, int roomMax, String imgUrl, Date deleteDate,
+	public PlanBean(int planId, int innID, String content, int fee, int roomMax, String imgUrl, LocalDate deleteDate,
 			String note, InnBean inn) {
 		super();
 		this.planId = planId;
@@ -88,11 +88,11 @@ public class PlanBean implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	public Date getDeleteDate() {
+	public LocalDate getDeleteDate() {
 		return deleteDate;
 	}
 
-	public void setDeleteDate(Date deleteDate) {
+	public void setDeleteDate(LocalDate deleteDate) {
 		this.deleteDate = deleteDate;
 	}
 

@@ -15,8 +15,8 @@ import la.bean.Material;
 import la.dao.DAOException;
 import la.dao.MaterialDAO;
 
-@WebServlet("/ShiryoServlet")
-public class ShiryoServlet extends HttpServlet {
+@WebServlet("/Shiryou_kensakuServlet")
+public class Shiryou_kensakuServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -27,32 +27,41 @@ public class ShiryoServlet extends HttpServlet {
 
 			MaterialDAO dao = new MaterialDAO();
 			if (action.equals("search")) {
+				String radio = request.getParameter("radio");
 				List<Material> list = new ArrayList<Material>();
 
-				//資料ID検索だったら
-				String str_id = request.getParameter("id");//資料ID
-				if (str_id != null && str_id.length() != 0) {
-					int id = Integer.parseInt(str_id);
-					list = dao.findById(id);
-				}
+				String str_id = null;
+				String title = null;
 
-				//資料名検索（あいまい検索）だったら
-				String title = request.getParameter("part_of_title");//資料名
-				if (title != null && title.length() != 0) {
-					list = dao.findByName(title);
+				if (radio.equals("id")) {//資料ID検索だったら
+					str_id = request.getParameter("id");//資料ID
+					//入力値があったら検索、なかったらlistはnullのまま
+					if (str_id != null && str_id.length() != 0) {
+						int id = Integer.parseInt(str_id);
+						list = dao.findById(id);
+					}
+
+				} else if (radio.equals("title")) {//資料名検索（あいまい検索）だったら
+					title = request.getParameter("part_of_title");//資料名
+					//入力値があったら検索、なかったらlistはnullのまま
+					if (title != null && title.length() != 0) {
+						list = dao.findByName(title);
+					}
 				}
 
 				//検索件数
 				int count = list.size();
 				request.setAttribute("count", count);
 
+				//入力値の保持
+				request.setAttribute("id", str_id);
+				request.setAttribute("title", title);
+
 				if (list.isEmpty()) {//資料IDでも、資料名でも結果が拾えなかったら
-					request.setAttribute("message", "検索結果が存在しません。");
-					gotoPage(request, response, "/shiryo_search.jsp");
+					gotoPage(request, response, "/shiryou_kensaku.jsp");
 				} else {
 					request.setAttribute("items", list);
-					request.setAttribute("message", "検索成功!");
-					gotoPage(request, response, "/shiryo_search.jsp");
+					gotoPage(request, response, "/shiryou_kensaku.jsp");
 				}
 
 			} else {

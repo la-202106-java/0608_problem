@@ -84,6 +84,49 @@ public class ListedItemDAO {
 		}
 	}
 
+	public ListedItemBean findItem(int id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "SELECT * FROM listed_item WHERE id = ?";
+
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, id);
+			// SQLの実行
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				//				int id = rs.getInt("id");
+				String _isbn = rs.getString("isbn");
+				String _title = rs.getString("title");
+				int _departmentCode = rs.getInt("department_code");
+				String _author = rs.getString("author");
+				int price = rs.getInt("price");
+				String _condition = rs.getString("condition");
+				int seller_id = rs.getInt("seller_id");
+
+				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
+						_author, price, _condition, seller_id);
+				return bean;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	//教科書登録
 	public void addItem(String isbn, String title, int departmentCode,
 			String author, int price, String condition) throws DAOException {

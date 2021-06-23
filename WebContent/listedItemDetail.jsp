@@ -19,14 +19,21 @@
 
 </table>
 
-<form action="">
+<form action="/0608_problem/BuyServlet?action=buy" method="post">
 <input type="hidden" name="item_code" value="${item.value.code}">
 <input type="submit" value="購入">
 </form>
+
+
+<form action="/0608_problem/ChangeServlet?action=change" method="post">
 <input type="hidden" name="item_code" value="${item.value.code}">
 <input type="submit" value="変更">
-<input type="hidden" name="item_code" value="${item.value.code}">
+</form>
+
+<form action="/0608_problem/DeleteServlet?action=deleteCheck" method="post">
+<input type="hidden" name="item_code" value="${item.value.id}">
 <input type="submit" value="削除">
+</form>
 
 </body>
 </html>

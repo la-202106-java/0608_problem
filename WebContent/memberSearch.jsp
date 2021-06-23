@@ -30,6 +30,8 @@
         <input type = "submit" value = "検索"></p>
     </form>
 
+	<hr>
+
     <jsp:include page="/memberSearchResult.jsp" />
 
     </body>

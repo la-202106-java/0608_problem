@@ -20,7 +20,7 @@ public class MaterialDAO {
 			List<Material> list = new ArrayList<Material>();
 			while (rs.next()) {
 				Material bean = new Material();
-				bean.setId(rs.getString("material_id"));
+				bean.setMaterial_id(rs.getString("material_id"));
 				bean.setIsbn(rs.getString("isbn"));
 				bean.setStockDate(rs.getDate("stock_date"));
 				bean.setTitle(rs.getString("title"));
@@ -41,7 +41,7 @@ public class MaterialDAO {
 				List<Material> list = new ArrayList<Material>();
 				while (rs.next()) {
 					Material bean = new Material();
-					bean.setId(rs.getString("material_id"));
+					bean.setMaterial_id(rs.getString("material_id"));
 					bean.setIsbn(rs.getString("isbn"));
 					bean.setStockDate(rs.getDate("stock_date"));
 					bean.setTitle(rs.getString("title"));
@@ -63,7 +63,7 @@ public class MaterialDAO {
 				List<Material> list = new ArrayList<Material>();
 				while (rs.next()) {
 					Material bean = new Material();
-					bean.setId(rs.getString("material_id"));
+					bean.setMaterial_id(rs.getString("material_id"));
 					bean.setIsbn(rs.getString("isbn"));
 					bean.setStockDate(rs.getDate("stock_date"));
 					bean.setTitle(rs.getString("title"));

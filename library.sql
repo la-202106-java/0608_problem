@@ -29,7 +29,7 @@ CREATE TABLE material_catalog
 
 CREATE TABLE material_ledger
 (
-  material_id INTEGER PRIMARY KEY,
+  material_id SERIAL PRIMARY KEY,
   isbn TEXT,
   stock_date TIMESTAMP,
   disposal_date TIMESTAMP,

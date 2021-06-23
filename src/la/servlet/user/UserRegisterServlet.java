@@ -44,16 +44,25 @@ public class UserRegisterServlet extends HttpServlet {
 			//セッション領域の取得
 			HttpSession session = request.getSession();
 			NowUserDAO dao = new NowUserDAO();
+			if (action == null || action.length() == 0) {
+				gotoPage(request, response, "2_user/user_register.jsp");
+			}
 
-			if (action.equals("register1")) {
+			else if (action.equals("register1")) {
 
 				String name = request.getParameter("name");
-				Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
+				String BirthDate = request.getParameter("birthDate");
+
 				LocalDate todaysDate = LocalDate.now();
 				Date joinDate = java.sql.Date.valueOf(todaysDate);
 				String address = request.getParameter("address");
 				String tel = request.getParameter("tel");
 				String email = request.getParameter("email");
+				if (name.isEmpty() || BirthDate.isEmpty() || address.isEmpty() || tel.isEmpty() || email.isEmpty()) {
+					gotoPage(request, response, "2_user/user_register_error.jsp");
+				}
+
+				Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
 				NowUserBean bean = new NowUserBean(name, birthDate, joinDate, address, tel, email);
 				request.setAttribute("bean", bean);
 				session.setAttribute("bean", bean);
@@ -76,7 +85,7 @@ public class UserRegisterServlet extends HttpServlet {
 				gotoPage(request, response, "2_user/user_register_confirmed.jsp");
 
 			} else if (action.equals("top")) {
-				gotoPage(request, response, "top_example.html");
+				gotoPage(request, response, "/TopServlet");
 
 			}
 

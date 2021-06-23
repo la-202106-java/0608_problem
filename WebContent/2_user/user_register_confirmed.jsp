@@ -27,10 +27,8 @@ email：${r_bean.email}<br>
 <input type="hidden" name = "action" value = "return_register1" >
 </form>
 
-<form action = "/0608_problem/UserRegisterServlet" method = "get">
-
+<form action = "/0608_problem/TopServlet" method = "get">
 <input type="submit" value = 終了>
-<input type="hidden" name = "action" value = "top" >
 </form>
 
 </body>

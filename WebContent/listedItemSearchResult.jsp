@@ -11,12 +11,7 @@
 </head>
 <body>
 
-<c:if test="${user == 'admin'}">
-<jsp:include page="/adminMenu.jsp" />
-</c:if>
-<c:if test="${user != 'admin'}">
-<jsp:include page="/menu.jsp" />
-</c:if>
+<h1>教科書検索結果</h1>
 
 <table border="1">
 <tr><td>ID</td><td>ISBN</td><td>タイトル</td>

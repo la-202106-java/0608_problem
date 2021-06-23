@@ -31,6 +31,8 @@ public class ListedItemBuyServlet extends HttpServlet {
 			} else if (action.equals("")) {
 				//購入完了ページに行く
 				int id = Integer.parseInt(request.getParameter("id"));
+				int sales = Integer.parseInt(request.getParameter("sales"));
+				int seller_id = Integer.parseInt(request.getParameter("seller_id"));
 				dao.deleteItem(id);
 				gotoPage(request, response, "/.jsp");
 			}

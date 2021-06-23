@@ -1,6 +1,7 @@
 package black.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,20 @@ public class MemberSearchServlet extends HttpServlet {
 				if (idStr == null || idStr.length() == 0) {
 					//idが指定されていない→名前などで検索
 					String name = request.getParameter("name");
+					String address = request.getParameter("address");
+					String tel = request.getParameter("tel");
+					String email = request.getParameter("email");
+					String date = request.getParameter("date");
+					Date birthday = null;
+					if (date != null && date.length() != 0) {
+						//生年月日をString型からDate型に変更する処理
+						birthday = Date.valueOf(date);
+					}
+
+					List<MemberBean> list = dao.findMember(name, address, tel, email, birthday);
+					request.setAttribute("member", list);
+					request.setAttribute("result_num", list.size());
+					gotoPage(request, response, "/memberSearch.jsp");
 
 				} else {
 					//id指定あり→idのみで検索
@@ -69,6 +84,7 @@ public class MemberSearchServlet extends HttpServlet {
 					List<MemberBean> list = new ArrayList<MemberBean>();
 					list.add(bean);
 					request.setAttribute("member", list);
+					request.setAttribute("result_num", list.size());
 					gotoPage(request, response, "/memberSearch.jsp");
 
 				}

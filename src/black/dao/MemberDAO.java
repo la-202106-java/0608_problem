@@ -71,7 +71,7 @@ public class MemberDAO {
 			getConnection();
 		}
 
-		String sql = "SELECT * FROM member WHERE name LIKE ? AND adress LIKE ?"
+		String sql = "SELECT * FROM member WHERE name LIKE ? AND address LIKE ?"
 				+ " AND tel LIKE ? AND email LIKE ?";
 		String sql2 = "";
 
@@ -86,8 +86,7 @@ public class MemberDAO {
 			st.setString(3, "%" + tel + "%");
 			st.setString(4, "%" + email + "%");
 			if (birthday != null) {
-				st.setDate(5, birthday);//aあとで直す
-
+				st.setDate(5, birthday);
 			}
 
 			// SQLの実行
@@ -102,7 +101,7 @@ public class MemberDAO {
 				String _tel = rs.getString("tel");
 				String _email = rs.getString("email");
 				Date _birthday = rs.getDate("birthday");
-				Date joinDate = rs.getDate("joinDate");
+				Date joinDate = rs.getDate("join_date");
 				String pass = rs.getString("pass");
 
 				MemberBean bean = new MemberBean(id, _name, _address, _tel, _email, _birthday, joinDate, pass);
@@ -210,6 +209,34 @@ public class MemberDAO {
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setDate(1, today);
+			st.setInt(2, id);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	//残高付与
+	public void plusSales(int sales, int id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "UPDATE member SET sales=? WHERE id=?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, sales);
 			st.setInt(2, id);
 
 			//SQL実行

@@ -34,6 +34,13 @@ public class CatalogRegistServlet extends HttpServlet {
 				String publicationDate = request.getParameter("publication_date");
 				if (title == "" || isbn == "" || code == "" || author == "" || publisher == ""
 						|| publicationDate == "") {
+					request.setAttribute("title", title);
+					request.setAttribute("isbn", isbn);
+					request.setAttribute("code", code);
+					request.setAttribute("author", author);
+					request.setAttribute("publisher", publisher);
+					request.setAttribute("publicationDate", publicationDate);
+					request.setAttribute("message", "すべての項目を入力してください。");
 					gotoPage(request, response, "/3_book/catalog_register.jsp");
 				}
 
@@ -53,8 +60,8 @@ public class CatalogRegistServlet extends HttpServlet {
 				String publisher = request.getParameter("publisher");
 				String publicationDate = request.getParameter("publicationDate");
 
-				dao.addBooktoCatalog(isbn, title, code, author, publisher, publicationDate);
-				gotoPage(request, response, "/3_book/register_confirm.jsp");
+				dao.addBooktoCatalog(title, isbn, code, author, publisher, publicationDate);
+				gotoPage(request, response, "/3_book/catalog_register.jsp");
 			}
 
 		} catch (DAOException e) {

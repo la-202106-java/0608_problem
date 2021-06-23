@@ -10,13 +10,14 @@
 
 <h2>資料登録確認</h2>
 <h4>以下の資料は目録に存在しません</h4>
-資料名：<br>
-ISBN番号：<br>
+<form action="/0608_problem/BookRegistServlet?action=catalog_regist&title=${title}&isbn=${isbn}" method="post">
+資料名：${title}<br>
+ISBN番号：${isbn}<br>
 <br>
 目録に登録しますか？<br>
-<input type="submit" value = いいえ>
+<a href="/0608_problem/3_book/book_register.jsp">いいえ</a>
 <input type="submit" value = はい>
-
+</form>
 
 </body>
 </html>

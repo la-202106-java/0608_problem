@@ -25,6 +25,8 @@ public class ShowPlanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 
@@ -45,11 +47,12 @@ public class ShowPlanServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+
+		HttpSession session = request.getSession();
+		String action = request.getParameter("action");
+
 		try {
-
-			HttpSession session = request.getSession();
-			String action = request.getParameter("action");
-
 			if (action.equals("login")) { // ログイン画面でログインボタンクリック時
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
@@ -66,6 +69,7 @@ public class ShowPlanServlet extends HttpServlet {
 					// ログイン失敗時の処理書く
 				}
 			} else if (action.equals("registration")) { // 会員登録ボタンクリック時
+				String password = request.getParameter("password");
 				String name = request.getParameter("name");
 				String postalCode = request.getParameter("postalCode");
 				String address = request.getParameter("address");
@@ -74,6 +78,7 @@ public class ShowPlanServlet extends HttpServlet {
 				String birthday = request.getParameter("birthday");
 
 				MemberBean member = new MemberBean();
+				member.setPassword(password);
 				member.setName(name);
 				member.setPostalCode(postalCode);
 				member.setAddress(address);

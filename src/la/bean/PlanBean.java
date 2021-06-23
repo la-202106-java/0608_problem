@@ -48,12 +48,12 @@ public class PlanBean implements Serializable {
 		this.planId = planId;
 	}
 
-	public int getInnID() {
+	public int getInnId() {
 		return innId;
 	}
 
-	public void setInnID(int innID) {
-		this.innId = innID;
+	public void setInnId(int innId) {
+		this.innId = innId;
 	}
 
 	public String getContent() {

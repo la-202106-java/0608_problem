@@ -19,10 +19,6 @@ public class MembersDAOSub {
 		getConnection();
 	}
 
-	public void registration(MemberBean member) {
-
-	}
-
 	// emailを元に会員情報を取得する
 	public MemberBean find(String email) throws DAOException {
 		if (con == null) {
@@ -73,13 +69,51 @@ public class MembersDAOSub {
 				if (rs != null)
 					rs.close();
 				if (st != null)
-					rs.close();
+					st.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");
 			}
 		}
 
+	}
+
+	// 会員登録を行うメソッド
+	public int registration(MemberBean member) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO members(pass, name, postal_code, address, tel, email_address, birth_date, join_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
+			st = con.prepareStatement(sql);
+			st.setString(1, member.getPassword());
+			st.setString(2, member.getName());
+			st.setString(3, member.getPostalCode());
+			st.setString(4, member.getAddress());
+			st.setString(5, member.getTel());
+			st.setString(6, member.getEmailAddress());
+			st.setDate(7, java.sql.Date.valueOf(member.getBirthDate()));
+			st.setDate(8, java.sql.Date.valueOf(LocalDate.now()));
+
+			int rows = st.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 	private void getConnection() throws DAOException {

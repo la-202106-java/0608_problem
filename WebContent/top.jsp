@@ -39,9 +39,9 @@
                   </button>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-secondary btn-lg">
+                  <a class="btn btn-secondary btn-lg" href="/0608_problem/BookSearchServlet" role="button">
                     資料検索 <i class="fas fa-search"></i>
-                  </button>
+                  </a>
                 </td>
                 <td>
                   <button type="submit" class="btn btn-secondary btn-lg">資料登録 <i class="fas fa-plus-circle"></i></button>

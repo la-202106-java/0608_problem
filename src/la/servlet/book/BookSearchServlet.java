@@ -3,6 +3,7 @@ package la.servlet.book;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +41,10 @@ public class BookSearchServlet extends HttpServlet {
 					bookID = Integer.parseInt(request.getParameter("bookID"));
 					request.setAttribute("bookID", bookID);
 					list.clear();
-					list.add(dao.findByPrimaryKey(bookID));
+					BookBean book = dao.findByPrimaryKey(bookID);
+					if (!Objects.isNull(book)) {
+						list.add(dao.findByPrimaryKey(bookID));
+					}
 				} else {
 					list = dao.findAll();
 				}

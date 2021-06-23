@@ -1,7 +1,6 @@
 package la.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,18 +61,21 @@ public class ReservedDAO {
 	}
 
 	// UserIDとBookIDと日付を指定して取り置きを追加する
-	public int addReserved(int userID, int bookID, Date reservedDate) throws DAOException {
+	public int addReserved(int userID, int bookID, java.util.Date reservedDate) throws DAOException {
 
 		if (con == null) {
 			con = dao.getConnection();
 		}
+
+		// utilとsqlの変換
+		java.sql.Date date = new java.sql.Date(reservedDate.getTime());
 
 		String sql = "INSERT INTO reserved(user_id, book_id, reserved_date) VALUES(?, ?, ?)";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setInt(1, userID);
 			st.setInt(2, bookID);
-			st.setDate(3, reservedDate);
+			st.setDate(3, date);
 
 			int rows = st.executeUpdate();
 			return rows;

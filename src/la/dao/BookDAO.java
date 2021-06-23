@@ -103,6 +103,36 @@ public class BookDAO {
 
 	}
 
+	public int addBook(String title, String isbn, String arrivalDate) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO book(isbn,title,arrival_date) VALUES (?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			st.setString(2, title);
+			st.setString(3, arrivalDate);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	// private
 	private void close() throws SQLException {
 		if (con != null) {

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>会員登録a</title>
+<title>会員登録 </title>
 </head>
 <body>
 

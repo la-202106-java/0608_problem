@@ -32,40 +32,38 @@ public class DeleteServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 
 			if ((session.getAttribute("user").equals("member")) || (session.getAttribute("user").equals("admin"))) {
-				if (request.getAttribute("seller_id").equals("id"))
+				//出品者とユーザが一致
+				//				if (request.getAttribute("seller_id").equals("id"))
 
-					//教科書削除チェック選択画面
-					if (action.equals("deleteCheck")) {
-						String id_item = request.getParameter("item_code");
-						int id = Integer.parseInt(id_item);
-						ListedItemBean bean = dao.findItem(id);
-						request.setAttribute("id_item", bean);
+				//教科書削除チェック選択画面
+				if (action.equals("deleteCheck")) {
+					String id_item = request.getParameter("item_code");
+					int id = Integer.parseInt(id_item);
+					ListedItemBean bean = dao.findItem(id);
+					request.setAttribute("id_item", bean);
 
-						gotoPage(request, response, "/listedItemDeleteCheck.jsp");
-					} else if (action.equals("delete")) {
-						//削除完了ページに行く
-						int id = Integer.parseInt(request.getParameter("id"));
-						dao.deleteItem(id);
-						gotoPage(request, response, "/listedItemDeleteDone.jsp");
-					}
-					//キャンセル　教科書詳細ページに行く
-					else if (action.equals("cancel")) {
-						gotoPage(request, response, "/ListedItemDetail.jsp");
-					}
+					gotoPage(request, response, "/listedItemDeleteCheck.jsp");
+				} else if (action.equals("delete")) {
+					//削除完了ページに行く
+					int id = Integer.parseInt(request.getParameter("id"));
+					dao.deleteItem(id);
+					gotoPage(request, response, "/listedItemDeleteDone.jsp");
+				}
+				//キャンセル　教科書詳細ページに行く
+				else if (action.equals("cancel")) {
+					gotoPage(request, response, "/ListedItemDetail.jsp");
+				}
 
-					//教科書削除完了後、トップページに戻る
-					else if (action.equals("topReturn")) {
-						gotoPage(request, response, "/top.jsp");
-					}
+				//教科書削除完了後、トップページに戻る
+				else if (action.equals("topReturn")) {
+					gotoPage(request, response, "/top.jsp");
+				}
 
 			}
 
 		} catch (
 
 		Exception e) {
-
-			////////////////////////////////////
-			//エラーメッセ‐ジ先のページ未完了
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました");
 			gotoPage(request, response, "/errInternal.jsp");

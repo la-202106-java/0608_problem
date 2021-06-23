@@ -125,7 +125,7 @@ public class NowUserDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM now_user WHERE id=?";
+			String sql = "SELECT * FROM now_user WHERE now_user_id_seq=?";
 			st = con.prepareStatement(sql);
 			st.setInt(1, key);
 			rs = st.executeQuery();
@@ -147,6 +147,39 @@ public class NowUserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
+	public int deleteByID(int id) throws DAOException {
+
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "DELETE FROM now_user WHERE now_user_id_seq==?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
 		} finally {
 			try {
 				if (rs != null)

@@ -59,6 +59,11 @@ public class UserSearchServlet extends HttpServlet {
 
 				gotoPage(request, response, "2_user/user_search_result.jsp");
 
+			} else if (action.equals("delete")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				dao.deleteByID(id);
+				gotoPage(request, response, "2_user/user_search.jsp");
+
 			}
 
 		} catch (DAOException e) {

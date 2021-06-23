@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import la.bean.PlanBean;
 import la.dao.AdminPlanDAO;
 import la.dao.DAOException;
 
@@ -46,6 +48,34 @@ public class AdminPlanServlet extends HttpServlet {
 				String imgUrl = request.getParameter("picture");
 				int row = dao.addPlan(innID, content, fee, roomMax, imgUrl);
 				request.setAttribute("message", row + "件追加しました。");
+				gotoPage(request, response, "/adminConfirm.jsp");
+			} else if (action.equals("search")) {
+				String name = request.getParameter("name");
+				String check = request.getParameter("ck01");
+				List<PlanBean> list = dao.searchPlan(name, check != null);
+				request.setAttribute("name", name);
+				request.setAttribute("Plans", list);
+				gotoPage(request, response, "/adminSearchPlan.jsp");
+			} else if (action.equals("edit")) {
+				int PlanID = Integer.parseInt(request.getParameter("planid"));
+				int innID = Integer.parseInt(request.getParameter("id"));
+				String content = request.getParameter("contents");
+				int fee = Integer.parseInt(request.getParameter("fee"));
+				int roomMax = Integer.parseInt(request.getParameter("room"));
+				String imgUrl = request.getParameter("picture");
+				PlanBean target = new PlanBean(innID, content, fee, roomMax, imgUrl);
+				target.setPlanId(PlanID);
+				request.setAttribute("planTarget", target);
+				gotoPage(request, response, "/adminUpdatePlan.jsp");
+			} else if (action.equals("update")) {
+				int PlanID = Integer.parseInt(request.getParameter("planid"));
+				int innID = Integer.parseInt(request.getParameter("id"));
+				String content = request.getParameter("contents");
+				int fee = Integer.parseInt(request.getParameter("fee"));
+				int roomMax = Integer.parseInt(request.getParameter("room"));
+				String imgUrl = request.getParameter("picture");
+				dao.updatePlan(PlanID, innID, content, fee, roomMax, imgUrl);
+				request.setAttribute("message", "プランID：" + PlanID + "を更新しました。");
 				gotoPage(request, response, "/adminConfirm.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");

@@ -1,9 +1,10 @@
 package la.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Member {
-	private int id = -1;
+	private int id;
 	private String name;
 	private String address;
 	private String tel;
@@ -56,10 +57,16 @@ public class Member {
 		this.eMail = eMail;
 	}
 
-	public Date getBirth() {
-		return birth;
+	public String getBirth() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		return df.format(birth);
 	}
 
+	/*
+		public Date getBirth() {
+			return birth;
+		}
+	*/
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
@@ -91,6 +98,30 @@ public class Member {
 		this.birth = birth;
 		this.joinDate = joinDate;
 		this.withdrawalDate = withdrawalDate;
+	}
+
+	public Member(int id, String name, String address, String tel, String eMail, Date birth) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.tel = tel;
+		this.eMail = eMail;
+		this.birth = birth;
+		this.joinDate = joinDate;
+		this.withdrawalDate = withdrawalDate;
+	}
+
+	public Member(String name, String address, String tel, String eMail, Date birth) {
+		super();
+		//		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.tel = tel;
+		this.eMail = eMail;
+		this.birth = birth;
+		//		this.joinDate = joinDate;
+		//		this.withdrawalDate = withdrawalDate;
 	}
 
 	@Override

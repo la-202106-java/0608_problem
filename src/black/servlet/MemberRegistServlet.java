@@ -19,7 +19,7 @@ import black.dao.MemberDAO;
  * Servlet implementation class KaiinServlet
  */
 @WebServlet("/MemberFormServlet")
-public class MemberFormServlet extends HttpServlet {
+public class MemberRegistServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

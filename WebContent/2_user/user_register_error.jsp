@@ -21,7 +21,7 @@
 
 
 <h2>会員登録</h2>
-<h4>新規会員情報を入力してください</h4>
+<h4>会員情報をすべて入力してください</h4>
 <form action = "/0608_problem/UserRegisterServlet" method = "post">
 氏名：<input type ="text" name = "name"><br>
 住所：<input type ="text" name = "address"><br>

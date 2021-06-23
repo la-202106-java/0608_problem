@@ -1,6 +1,8 @@
 package black.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +40,8 @@ public class DeleteServlet extends HttpServlet {
 					if (action.equals("deleteCheck")) {
 						String id_item = request.getParameter("item_code");
 						int id = Integer.parseInt(id_item);
-						ListedItemBean bean = dao.findItem(id);
+						List<ListedItemBean> bean = new ArrayList<ListedItemBean>();
+						bean = (List<ListedItemBean>) dao.findItem(id);
 						request.setAttribute("id_item", bean);
 
 						gotoPage(request, response, "/listedItemDeleteCheck.jsp");

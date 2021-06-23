@@ -71,7 +71,7 @@ public class MemberDAO {
 			getConnection();
 		}
 
-		String sql = "SELECT * FROM member WHERE name LIKE ? AND adress LIKE ?"
+		String sql = "SELECT * FROM member WHERE name LIKE ? AND address LIKE ?"
 				+ " AND tel LIKE ? AND email LIKE ?";
 		String sql2 = "";
 
@@ -86,8 +86,7 @@ public class MemberDAO {
 			st.setString(3, "%" + tel + "%");
 			st.setString(4, "%" + email + "%");
 			if (birthday != null) {
-				st.setDate(5, birthday);//aあとで直す
-
+				st.setDate(5, birthday);
 			}
 
 			// SQLの実行
@@ -102,7 +101,7 @@ public class MemberDAO {
 				String _tel = rs.getString("tel");
 				String _email = rs.getString("email");
 				Date _birthday = rs.getDate("birthday");
-				Date joinDate = rs.getDate("joinDate");
+				Date joinDate = rs.getDate("join_date");
 				String pass = rs.getString("pass");
 
 				MemberBean bean = new MemberBean(id, _name, _address, _tel, _email, _birthday, joinDate, pass);

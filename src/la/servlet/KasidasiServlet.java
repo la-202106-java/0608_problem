@@ -38,32 +38,68 @@ public class KasidasiServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		LendingLedgerDAO ld = new LendingLedgerDAO();
 		RequestDispatcher rd;
-		if (action == null || action.trim().length() == 0 || action.equals("kensaku")) {
+		if (action == null || action.trim().length() == 0 || action.equals("search")) {
 			kensaku(request, response, ld);
 		} else if (action.equals("add")) {
+
 			add(request, response, ld);
+		} else if (action.equals("return")) {
+			returnMaterial(request, response, ld);
 		}
 	}
 
-	private void add(HttpServletRequest request, HttpServletResponse response, LendingLedgerDAO ld) {
-		int mid = Integer.parseInt(request.getParameter("mid"));
-		int sid = Integer.parseInt(request.getParameter("sid"));
-		int rows = ld.addLendingRecord(mid, sid);
+	private void returnMaterial(HttpServletRequest request, HttpServletResponse response, LendingLedgerDAO ld) {
+		int lendingID = Integer.parseInt(request.getParameter("lid"));
+		int rows = ld.returnMaterial(lendingID);
 		if (rows == 1) {
 			try {
-				response.sendRedirect("/KasidasiServlet");
+				response.sendRedirect("KasidasiServlet");
 			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 		} else {
 			try {
 				response.sendRedirect("error.jsp");
 			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void add(HttpServletRequest request, HttpServletResponse response, LendingLedgerDAO ld) {
+		int mid = Integer.parseInt(request.getParameter("mid4add"));
+		int sid = Integer.parseInt(request.getParameter("sid4add"));
+		int lendingNum = ld.findUnreturn(mid).size();
+		if (lendingNum < 5) {
+			int rows = ld.addLendingRecord(mid, sid);
+
+			if (rows == 1) {
+				try {
+					response.sendRedirect("KasidasiServlet");
+				} catch (IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					response.sendRedirect("error.jsp");
+				} catch (IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+			}
+		} else {
+
+			RequestDispatcher rd = request.getRequestDispatcher("KasidasiServlet?action=search");
+			request.setAttribute("msg", "すでに５冊の資料が貸出されています。新規の貸出が出来ません。");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException | IOException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 	private void kensaku(HttpServletRequest request, HttpServletResponse response, LendingLedgerDAO ld) {

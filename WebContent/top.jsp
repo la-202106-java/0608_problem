@@ -54,7 +54,8 @@
               </tr>
               <tr>
                 <td>
-                  <button type="submit" class="btn btn-outline-dark btn-lg">会員登録 <i class="fas fa-plus-circle"></i></button>
+                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/UserRegisterServlet" role="button">
+                  会員登録 <i class="fas fa-plus-circle" ></i></a>
                 </td>
                 <td>
                   <button type="submit" class="btn btn-danger btn-lg">資料貸出</button>

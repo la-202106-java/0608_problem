@@ -139,6 +139,35 @@ public class CatalogDAO {
 		}
 	}
 
+	public boolean checkIsbn(String isbn) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM catalog WHERE isbn = ?";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			rs = st.executeQuery();
+
+			return rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	// private
 	private void close() throws SQLException {
 		if (con != null) {

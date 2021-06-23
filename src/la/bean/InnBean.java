@@ -11,7 +11,7 @@ public class InnBean implements Serializable {
 	private String address;
 	private String inTime;
 	private String outTime;
-	private LocalDate date;
+	private LocalDate deleteDate;
 	private String note;
 
 	public InnBean() {
@@ -30,7 +30,7 @@ public class InnBean implements Serializable {
 	}
 
 	public InnBean(int id, String name, int classCode, String postalCode, String address, String inTime, String outTime,
-			LocalDate date, String note) {
+			LocalDate deleteDate, String note) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,7 +39,7 @@ public class InnBean implements Serializable {
 		this.address = address;
 		this.inTime = inTime;
 		this.outTime = outTime;
-		this.date = date;
+		this.deleteDate = deleteDate;
 		this.note = note;
 	}
 
@@ -99,12 +99,12 @@ public class InnBean implements Serializable {
 		this.outTime = outTime;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getDeleteDate() {
+		return deleteDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDeleteDate(LocalDate deleteDate) {
+		this.deleteDate = deleteDate;
 	}
 
 	public String getNote() {

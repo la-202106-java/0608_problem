@@ -30,7 +30,7 @@ email：${bean.email}<br>
 
 <input type="submit" value = 更新>
 
-<a href="/0608_problem/UserDeleteServlet?&id=${bean.id}" role="button">退会</a>
+<a href="/0608_problem/2_user/user_leave_confirm.jsp" role="button">退会</a>
 
 </body>
 </html>

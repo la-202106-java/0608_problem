@@ -40,12 +40,12 @@ public class ListedItemRegistServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
 			//会員ログインしていなければフォームへ
-			gotoPage(request, response, "/memberLogin.jsp");
+			gotoPage(request, response, "/LoginServlet");
 		}
 		String userType = (String) session.getAttribute("user");
 		if (!userType.equals("member")) {
 			//会員ログインしていなければフォームへ
-			gotoPage(request, response, "/memberLogin.jsp");
+			gotoPage(request, response, "/LoginServlet");
 		} else {
 			gotoPage(request, response, "/listedItemRegistForm.jsp");
 		}

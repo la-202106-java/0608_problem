@@ -108,10 +108,13 @@ public class BookRegistServlet extends HttpServlet {
 				CatalogDAO catalogdao = new CatalogDAO();
 
 				catalogdao.addBooktoCatalog(title, isbn, code, author, publisher, publicationDate);
-				bookdao.addBook(title, isbn, arrivalDate);
+				int id = bookdao.addBook(title, isbn, arrivalDate);
 
-				request.setAttribute("message", "資料を登録しました");
-				gotoPage(request, response, "/3_book/book_register.jsp");
+				request.setAttribute("id", id);
+				request.setAttribute("title", title);
+				request.setAttribute("isbn", isbn);
+				request.setAttribute("arrivalDate", arrivalDate);
+				gotoPage(request, response, "/3_book/book_register_confirmed.jsp");
 			} else if (action.equals("bookBack")) {
 				String title = request.getParameter("title");
 				String isbn = request.getParameter("isbn");

@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import la.bean.PlanBean;
+import la.dao.AdminPlanDAO;
 import la.dao.DAOException;
 import la.dao.MembersDAO;
 
@@ -32,53 +36,74 @@ public class AdminDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("action");
-		try {
-			if (action == null || action.length() == 0) {
-				gotoPage(request, response, "/adminTop.jsp");
-			} else if (action.equals("kakunin")) {
-				String id = request.getParameter("id");
-				String from = request.getParameter("from");
-				request.setAttribute("id", id);
-				request.setAttribute("from", from);
-				gotoPage(request, response, "/adminDelete.jsp");
-			} else if (action.equals("delete")) {
-				String from = request.getParameter("from");
-				if (from == null || from.length() == 0) {
+		HttpSession session = request.getSession(false);
+		if ("true".equals(session.getAttribute("isAdminLogin"))) {
+			request.setCharacterEncoding("UTF-8");
+			String action = request.getParameter("action");
+			try {
+				if (action == null || action.length() == 0) {
 					gotoPage(request, response, "/adminTop.jsp");
-				} else if (from.equals("member")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					MembersDAO dao = new MembersDAO();
-					dao.quit(id);
-					request.setAttribute("message", "会員番号：" + id + "を削除しました。");
-					gotoPage(request, response, "/adminConfirm.jsp");
+				} else if (action.equals("kakunin")) {
+					String id = request.getParameter("id");
+					String from = request.getParameter("from");
+					request.setAttribute("id", id);
+					request.setAttribute("from", from);
+					gotoPage(request, response, "/adminDelete.jsp");
+				} else if (action.equals("delete")) {
+					String from = request.getParameter("from");
+					if (from == null || from.length() == 0) {
+						gotoPage(request, response, "/adminTop.jsp");
+					} else if (from.equals("member")) {
+						int id = Integer.parseInt(request.getParameter("id"));
+						MembersDAO dao = new MembersDAO();
+						dao.quit(id);
+						request.setAttribute("message", "会員番号：" + id + "を削除しました。");
+						gotoPage(request, response, "/adminConfirm.jsp");
+					} else if (from.equals("inn")) {
+						AdminPlanDAO pdao = new AdminPlanDAO();
+						String name = request.getParameter("id");
+						List<PlanBean> list = pdao.searchPlan(name, false);
+						request.setAttribute("Plans", list);
+						gotoPage(request, response, "/adminSearchPlan.jsp");
+						//					request.setAttribute("message", "宿名：" + name + "を削除しました。");
+						//					gotoPage(request, response, "/adminConfirm.jsp");
+					} else if (from.equals("plan")) {
+						int planID = Integer.parseInt(request.getParameter("id"));
+						request.setAttribute("message", "プランID：" + planID + "を削除しました。");
+						gotoPage(request, response, "/adminConfirm.jsp");
+					} else {
+						request.setAttribute("message", "正しく操作してください。");
+						gotoPage(request, response, "/errInternal.jsp");
+					}
 
-				} else {
+				} else if (action.equals("cancel")) {
+					String from = request.getParameter("from");
+					if (from == null || from.length() == 0) {
+						gotoPage(request, response, "/adminTop.jsp");
+					} else if (from.equals("member")) {
+						gotoPage(request, response, "/adminMember.jsp");
+					} else if (from.equals("inn")) {
+						gotoPage(request, response, "/adminSearchInn.jsp");
+					} else if (from.equals("plan")) {
+						gotoPage(request, response, "/adminSearchPlan.jsp");
+					} else {
+						gotoPage(request, response, "/adminTop.jsp");
+					}
+
+				}
+
+				else {
 					request.setAttribute("message", "正しく操作してください。");
 					gotoPage(request, response, "/errInternal.jsp");
 				}
-
-			} else if (action.equals("cancel")) {
-				String from = request.getParameter("from");
-				if (from == null || from.length() == 0) {
-					gotoPage(request, response, "/adminTop.jsp");
-				} else if (from.equals("member")) {
-					gotoPage(request, response, "/adminMember.jsp");
-				} else {
-					gotoPage(request, response, "/adminTop.jsp");
-				}
-
-			}
-
-			else {
-				request.setAttribute("message", "正しく操作してください。");
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "内部エラーが発生しました。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
-		} catch (DAOException e) {
-			e.printStackTrace();
-			request.setAttribute("message", "内部エラーが発生しました。");
-			gotoPage(request, response, "/errInternal.jsp");
+		} else {
+			request.setAttribute("error", "ログインしていません");
+			gotoPage(request, response, "/adminLogin.jsp");
 		}
 
 	}

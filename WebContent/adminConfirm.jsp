@@ -7,7 +7,7 @@
 <title>確認画面</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/adminMenu.html" />
+<jsp:include page="/WEB-INF/adminMenu.jsp" />
 
 <h1>${message}</h1>
 </body>

@@ -8,7 +8,7 @@
 <title>警告</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/adminMenu.html" />
+<jsp:include page="/WEB-INF/adminMenu.jsp" />
 <h1>削除しますか。</h1>
 <form action="/0608_problem/AdminDeleteServlet" method="post">
 <input type="submit" value="はい">

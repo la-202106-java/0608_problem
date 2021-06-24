@@ -77,6 +77,7 @@ public class BookLendingServlet extends HttpServlet {
 				request.setAttribute("userID", userID);
 				request.setAttribute("bookID", bookID);
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
+				request.setAttribute("lendings", lendings);
 
 				if (lendings.size() >= 5) {
 					request.setAttribute("message", "貸出上限に達しています");
@@ -149,6 +150,7 @@ public class BookLendingServlet extends HttpServlet {
 				request.setAttribute("userID", userID);
 				request.setAttribute("bookID", bookID);
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
+				request.setAttribute("lendings", lendings);
 
 				if (lendings.size() >= 5) {
 					request.setAttribute("message", "貸出上限に達しています");

@@ -20,8 +20,8 @@
 
 	<h1>会員情報確認</h1>
 	<h3>こちらでお間違えないですか？</h3>
-		
-		<form action="/0608_problem/MemberFormServlet?action=add" method="post">
+
+		<form action="/0608_problem/MemberRegistServlet?action=add" method="post">
 		<table>
 		<tr><td>名前</td><td>${member.name}</td></tr>
 		<tr><td>住所</td><td>${member.address}</td></tr>

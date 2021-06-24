@@ -10,6 +10,7 @@
 <body>
 
     <h1>ログイン</h1>
+    <h2>${message}</h2>
     <form action =/0608_problem/LoginServlet method ="post">
         <p>メールアドレス:<br>
         <input type = "text" name = "email"></p>

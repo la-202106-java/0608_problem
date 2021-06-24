@@ -26,12 +26,19 @@ public class Shiryou_kensakuServlet extends HttpServlet {
 			String action = request.getParameter("action");
 
 			MaterialDAO dao = new MaterialDAO();
-			if (action.equals("search")) {
+			if (action.equals("top")) {//検索をはじめて開いたときの処理
+				List<Material> list = new ArrayList<Material>();
+				list = dao.findAll();
+				request.setAttribute("items", list);
+				gotoPage(request, response, "/shiryou_kensaku.jsp");
+
+			} else if (action.equals("search")) {//検索ボタンが押された後の処理
 				String radio = request.getParameter("radio");
 				List<Material> list = new ArrayList<Material>();
 
 				String str_id = null;
 				String title = null;
+				String stock_date = null;
 
 				if (radio.equals("id")) {//資料ID検索だったら
 					str_id = request.getParameter("id");//資料ID
@@ -47,6 +54,12 @@ public class Shiryou_kensakuServlet extends HttpServlet {
 					if (title != null && title.length() != 0) {
 						list = dao.findByName(title);
 					}
+				} else if (radio.equals("stock_date")) {//入荷日検索だったら
+					stock_date = request.getParameter("stock_date");//入荷日
+					//入力値があったら検索、なかったらlistはnullのまま
+					if (stock_date != null && stock_date.length() != 0) {
+						list = dao.findByStockDate(stock_date);
+					}
 				}
 
 				//検索件数
@@ -56,6 +69,7 @@ public class Shiryou_kensakuServlet extends HttpServlet {
 				//入力値の保持
 				request.setAttribute("id", str_id);
 				request.setAttribute("title", title);
+				request.setAttribute("stock_date", stock_date);
 
 				if (list.isEmpty()) {//資料IDでも、資料名でも結果が拾えなかったら
 					gotoPage(request, response, "/shiryou_kensaku.jsp");

@@ -6,6 +6,7 @@ public class Material {
 	private String material_id;
 	private String isbn;
 	private Date stockDate;
+	private Date disposalDate;
 	private String title;
 
 	public String getMaterial_id() {
@@ -32,6 +33,14 @@ public class Material {
 		this.stockDate = stockDate;
 	}
 
+	public Date getDisposalDate() {
+		return disposalDate;
+	}
+
+	public void setDisposalDate(Date disposalDate) {
+		this.disposalDate = disposalDate;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -40,11 +49,12 @@ public class Material {
 		this.title = title;
 	}
 
-	public Material(String material_id, String isbn, Date stockDate, String title) {
+	public Material(String material_id, String isbn, Date stockDate, Date disposalDate, String title) {
 		super();
 		this.material_id = material_id;
 		this.isbn = isbn;
 		this.stockDate = stockDate;
+		this.disposalDate = disposalDate;
 		this.title = title;
 	}
 

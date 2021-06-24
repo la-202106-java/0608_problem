@@ -11,7 +11,7 @@
 <h2>
 <ul>
 <li><a href="/0608_problem/shiryou_touroku.jsp">資料の新規登録</a></li>
-<li><a href="/0608_problem/shiryou_kensaku.jsp">資料の検索</a></li>
+<li><a href="/0608_problem/Shiryou_kensakuServlet?action=top">資料の検索</a></li>
 </ul>
 </h2>
 </body>

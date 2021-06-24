@@ -34,10 +34,17 @@ ${result.size()}件の資料が検索されました<br>
 	      <td>${item.isbn}</td>
 	      <td>在庫${item.stockCount}</td>
 	      <c:if test="${item.stockCount eq 0}">
-		      <td><input type="submit" value = 予約></td>
+		      <td>
+		        <form action="/0608_problem/CatalogReserveServlet" method="post">
+		          <input type="submit" value ="予約">
+		          <input type="hidden" name="isbn" value="${item.isbn}">
+		          <input type="hidden" name="title" value="${item.title}">
+		          <input type="hidden" name="action" value="reserve">
+		        </form>
+		      </td>
 	      </c:if>
 	      <c:if test="${item.stockCount ne 0}">
-		      <td><input type="submit" value = 取置></td>
+		      <td><input type="submit" value ="取置"></td>
 	      </c:if>
 	    </tr>
 	</c:forEach>

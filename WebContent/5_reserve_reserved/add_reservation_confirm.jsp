@@ -12,10 +12,10 @@
 
 以下の情報で予約します<br>
 よろしいですか？<br>
-会員番号：<br>
-氏名：<br>
-ISBN：<br>
-資料名：<br>
+会員番号：${userBean.id}<br>
+氏名：${userBean.name}<br>
+ISBN：${isbn}<br>
+資料名：${title}<br>
 
 <input type="submit" value = 戻る>
 <input type="submit" value = 予約>

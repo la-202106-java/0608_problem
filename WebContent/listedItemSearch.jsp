@@ -46,9 +46,14 @@ ISBN：<br>
 状態：<br>
 <select name="condition">
 	<option value="">----</option>
-	<option>新品</option>
-	<option>未使用</option>
-	<option>中古</option>
+	<c:forEach items="${conditions}" var="condition">
+		<c:if test="${condition==search_condition}">
+			<option selected="selected">${condition}</option>
+		</c:if>
+		<c:if test="${empty search_condition or condition!=search_condition}">
+			<option>${condition}</option>
+		</c:if>
+	</c:forEach>
 </select>
 <br><br>
 <c:if test="${search_stock == 'true'}">

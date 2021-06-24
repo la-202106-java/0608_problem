@@ -9,6 +9,7 @@ public class CatalogBean {
 	private String auther;
 	private String publisher;
 	private Date publicationDate;
+	private int stockCount; //在庫数
 
 	public CatalogBean() {
 	}
@@ -69,6 +70,14 @@ public class CatalogBean {
 
 	public void setPublicationDate(Date publicationDate) {
 		this.publicationDate = publicationDate;
+	}
+
+	public int getStockCount() {
+		return stockCount;
+	}
+
+	public void setStockCount(int stockCount) {
+		this.stockCount = stockCount;
 	}
 
 }

@@ -35,7 +35,7 @@
               <tr>
                 <td>
                   <a class="btn btn-outline-dark btn-lg" href="/0608_problem/UserSearchServlet" role="button">
-                    会員検索 <i class="fas fa-plus-circle" ></i></a>
+                    会員検索 <i class="fas fa-search" ></i></a>
                 </td>
                 <td>
                   <a class="btn btn-secondary btn-lg" href="/0608_problem/BookSearchServlet" role="button">
@@ -65,7 +65,7 @@
                   <button type="submit" class="btn btn-secondary btn-lg">貸出履歴 <i class="fas fa-search"></i></button>
                 </td>
                 <td>
-                  <a class="btn btn-secondary btn-lg" href="/0608_problem/CatalogRegistServlet" role="button">
+                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/CatalogRegistServlet" role="button">
                   	目録登録 <i class="fas fa-plus-circle"></i>
                   </a>
                 </td>

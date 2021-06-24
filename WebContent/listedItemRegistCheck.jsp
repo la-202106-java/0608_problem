@@ -38,7 +38,7 @@
 
 <input type="hidden" name="isbn" value="${regist_item.isbn}">
 <input type="hidden" name="title" value="${regist_item.title}">
-<input type="hidden" name="title" value="${regist_item.departmentCode}">
+<input type="hidden" name="department_code" value="${regist_item.departmentCode}">
 <input type="hidden" name="author" value="${regist_item.author}">
 <input type="hidden" name="price" value="${regist_item.price}">
 <input type="hidden" name="price" value="${regist_item.condition}">

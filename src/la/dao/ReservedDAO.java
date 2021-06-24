@@ -60,6 +60,45 @@ public class ReservedDAO {
 
 	}
 
+	// UserIDから取り置きを検索して、true or false
+	public boolean reservedExists(int id) throws DAOException {
+
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM reserved WHERE user_id=?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	// UserIDとBookIDと日付を指定して取り置きを追加する
 	public int addReserved(int userID, int bookID, java.util.Date reservedDate) throws DAOException {
 

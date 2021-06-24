@@ -176,4 +176,39 @@ public class CatalogDAO {
 		}
 	}
 
+	public Date getPublicationDate(String isbn) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM catalog WHERE isbn = ?";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				java.util.Date publicationDate = rs.getDate("publication_date");
+				return publicationDate;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 }

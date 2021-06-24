@@ -2,7 +2,6 @@ package la.servlet.user;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,14 +18,14 @@ import la.dao.NowUserDAO;
 /**
  * Servlet implementation class UserRegisterServlet
  */
-@WebServlet("/UserRegisterServlet")
-public class UserRegisterServlet extends HttpServlet {
+@WebServlet("/UserSearchServlet")
+public class UserSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserRegisterServlet() {
+	public UserSearchServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,48 +43,65 @@ public class UserRegisterServlet extends HttpServlet {
 			//セッション領域の取得
 			HttpSession session = request.getSession();
 			NowUserDAO dao = new NowUserDAO();
+
 			if (action == null || action.length() == 0) {
-				gotoPage(request, response, "2_user/user_register.jsp");
+				gotoPage(request, response, "2_user/user_search.jsp");
 			}
 
-			else if (action.equals("register1")) {
-
-				String name = request.getParameter("name");
-				String BirthDate = request.getParameter("birthDate");
-
-				LocalDate todaysDate = LocalDate.now();
-				Date joinDate = java.sql.Date.valueOf(todaysDate);
-				String address = request.getParameter("address");
-				String tel = request.getParameter("tel");
+			else if (action.equals("search")) {
 				String email = request.getParameter("email");
-				if (name.isEmpty() || BirthDate.isEmpty() || address.isEmpty() || tel.isEmpty() || email.isEmpty()) {
-					gotoPage(request, response, "2_user/user_register_error.jsp");
+				if (email.isEmpty()) {
+					gotoPage(request, response, "2_user/user_search.jsp");
 				}
-
-				Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
-				NowUserBean bean = new NowUserBean(name, birthDate, joinDate, address, tel, email);
+				NowUserBean bean = new NowUserBean();
+				bean = dao.findbyEmail(email);
+				if (bean == null) {
+					gotoPage(request, response, "2_user/user_search_error.jsp");
+				}
 				request.setAttribute("bean", bean);
 				session.setAttribute("bean", bean);
 
-				gotoPage(request, response, "2_user/user_register_confirm.jsp");
+				gotoPage(request, response, "2_user/user_search_result.jsp");
+
+			} else if (action.equals("delete1")) {
+				gotoPage(request, response, "2_user/user_leave_confirm.jsp");
 
 			}
 
-			else if (action.equals("return_register1")) {
-				gotoPage(request, response, "2_user/user_register_return.jsp");
+			else if (action.equals("delete2")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				int rows = dao.deleteByID(id);
+				System.out.println(rows);
+				gotoPage(request, response, "2_user/user_search.jsp");
 
-			} else if (action.equals("register2")) {
+			} else if (action.equals("renew1")) {
+				gotoPage(request, response, "2_user/user_renew.jsp");
 
-				NowUserBean bean = (NowUserBean) session.getAttribute("bean");
-				//登録済み
-				NowUserBean r_bean = new NowUserBean();
-				r_bean = dao.register(bean.getName(), bean.getBirthDate(), bean.getJoinDate(), bean.getAddress(),
-						bean.getTel(), bean.getEmail());
-				session.setAttribute("r_bean", r_bean);
-				gotoPage(request, response, "2_user/user_register_confirmed.jsp");
+			} else if (action.equals("renew2")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String email = request.getParameter("email");
+				Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
+				Date joinDate = java.sql.Date.valueOf(request.getParameter("joinDate"));
+				NowUserBean bean = new NowUserBean(id, name, birthDate, joinDate, address, tel, email);
+				//bean = bean.NowUserBean(id, name, address, tel, email);
+				request.setAttribute("bean", bean);
 
-			} else if (action.equals("top")) {
-				gotoPage(request, response, "/TopServlet");
+				gotoPage(request, response, "2_user/user_renew_confirm.jsp");
+
+			}
+
+			else if (action.equals("renew3")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String email = request.getParameter("email");
+				dao.updateByID(id, name, address, tel, email);
+
+				gotoPage(request, response, "2_user/user_search.jsp");
 
 			}
 

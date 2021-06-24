@@ -20,12 +20,12 @@ email：${bean.email}<br>
 生年月日：${bean.birthDate}<br>
 入会年月日：${bean.joinDate}
 <br>
-<form action = "/0608_problem/UserRegisterServlet" method = "get">
+<form action = "/0608_problem/UserRegisterServlet" method = "get" style="display:inline;">
 
 <input type="submit" value = 戻る>
 <input type="hidden" name = "action" value = "return_register1" >
 </form>
-<form action = "/0608_problem/UserRegisterServlet" method = "get">
+<form action = "/0608_problem/UserRegisterServlet" method = "get" style="display:inline;">
 <input type="submit" value = 登録>
 <input type="hidden" name = "action" value = "register2" >
 </form>

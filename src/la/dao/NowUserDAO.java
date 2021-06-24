@@ -192,6 +192,42 @@ public class NowUserDAO {
 
 	}
 
+	public int updateByID(int id, String name, String address, String tel, String email) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+
+		try {
+
+			String sql = "UPDATE now_user SET name = ? , address = ? , tel = ? , email = ? WHERE id =?";
+			st = con.prepareStatement(sql);
+			st.setString(1, name);
+			st.setString(2, address);
+			st.setString(3, tel);
+			st.setString(4, email);
+			st.setInt(5, id);
+			//SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		} finally {
+			try {
+
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 	// private
 	private void close() throws SQLException {
 		if (con != null) {

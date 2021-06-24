@@ -1,6 +1,7 @@
 package la.servlet.user;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,6 +43,7 @@ public class UserSearchServlet extends HttpServlet {
 			//セッション領域の取得
 			HttpSession session = request.getSession();
 			NowUserDAO dao = new NowUserDAO();
+
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "2_user/user_search.jsp");
 			}
@@ -51,7 +53,6 @@ public class UserSearchServlet extends HttpServlet {
 				if (email.isEmpty()) {
 					gotoPage(request, response, "2_user/user_search.jsp");
 				}
-
 				NowUserBean bean = new NowUserBean();
 				bean = dao.findbyEmail(email);
 				request.setAttribute("bean", bean);
@@ -59,10 +60,44 @@ public class UserSearchServlet extends HttpServlet {
 
 				gotoPage(request, response, "2_user/user_search_result.jsp");
 
-			} else if (action.equals("delete")) {
+			} else if (action.equals("delete1")) {
+				gotoPage(request, response, "2_user/user_leave_confirm.jsp");
+
+			}
+
+			else if (action.equals("delete2")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				int rows = dao.deleteByID(id);
 				System.out.println(rows);
+				gotoPage(request, response, "2_user/user_search.jsp");
+
+			} else if (action.equals("renew1")) {
+				gotoPage(request, response, "2_user/user_renew.jsp");
+
+			} else if (action.equals("renew2")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String email = request.getParameter("email");
+				Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
+				Date joinDate = java.sql.Date.valueOf(request.getParameter("joinDate"));
+				NowUserBean bean = new NowUserBean(id, name, birthDate, joinDate, address, tel, email);
+				//bean = bean.NowUserBean(id, name, address, tel, email);
+				request.setAttribute("bean", bean);
+
+				gotoPage(request, response, "2_user/user_renew_confirm.jsp");
+
+			}
+
+			else if (action.equals("renew3")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String email = request.getParameter("email");
+				dao.updateByID(id, name, address, tel, email);
+
 				gotoPage(request, response, "2_user/user_search.jsp");
 
 			}

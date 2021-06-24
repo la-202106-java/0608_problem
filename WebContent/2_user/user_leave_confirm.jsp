@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ page import = "la.bean.NowUserBean" %>
 <% NowUserBean bean = (NowUserBean)session.getAttribute("bean");%>
 <!DOCTYPE html>
@@ -23,8 +22,11 @@ email：${bean.email}<br>
 <br>
 
 
-<a href="/0608_problem/UserDeleteServlet?&id=${bean.id}" role="button">退会</a>
-
+<form action = "/0608_problem/UserSearchServlet" method = "post">
+<input type="submit" value = 退会>
+<input type="hidden" name ="action" value = "delete2">
+<input type="hidden" name ="id" value = "${bean.id}">
+</form>
 
 </body>
 </html>

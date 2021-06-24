@@ -34,9 +34,8 @@
               </tr>
               <tr>
                 <td>
-                  <button type="submit" class="btn btn-outline-dark btn-lg">
-                    会員検索 <i class="fas fa-search"></i>
-                  </button>
+                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/UserSearchServlet" role="button">
+                    会員検索 <i class="fas fa-plus-circle" ></i></a>
                 </td>
                 <td>
                   <a class="btn btn-secondary btn-lg" href="/0608_problem/BookSearchServlet" role="button">

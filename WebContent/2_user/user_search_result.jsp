@@ -28,14 +28,16 @@ email：${bean.email}<br>
 入会年月日：${bean.joinDate}<br>
 
 
-<form action = "/0608_problem/UserSearchServlet" method = "get">
+
+<form action = "/0608_problem/UserSearchServlet" method = "get" style="display:inline;">
 <input type="submit" value = 更新>
 <input type="hidden" name ="action" value = "renew1">
 </form>
 
-<form action = "/0608_problem/UserSearchServlet" method = "get">
+<form action = "/0608_problem/UserSearchServlet" method = "get" style="display:inline;">
 <input type="submit" value = 退会>
 <input type="hidden" name ="action" value = "delete1">
 </form>
+
 </body>
 </html>

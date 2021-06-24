@@ -22,12 +22,12 @@ email：${r_bean.email}<br>
 <br>
 
 
-<form action = "/0608_problem/UserRegisterServlet" method = "get">
+<form action = "/0608_problem/UserRegisterServlet" method = "get" style="display:inline;">
 <input type="submit" value = 登録を続行>
 <input type="hidden" name = "action" value = "return_register1" >
 </form>
 
-<form action = "/0608_problem/TopServlet" method = "get">
+<form action = "/0608_problem/TopServlet" method = "get" style="display:inline;">
 <input type="submit" value = 終了>
 </form>
 

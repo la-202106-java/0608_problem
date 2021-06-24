@@ -55,6 +55,9 @@ public class UserSearchServlet extends HttpServlet {
 				}
 				NowUserBean bean = new NowUserBean();
 				bean = dao.findbyEmail(email);
+				if (bean == null) {
+					gotoPage(request, response, "2_user/user_search_error.jsp");
+				}
 				request.setAttribute("bean", bean);
 				session.setAttribute("bean", bean);
 

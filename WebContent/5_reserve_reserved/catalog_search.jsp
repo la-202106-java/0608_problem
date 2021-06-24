@@ -32,7 +32,7 @@ ${result.size()}件の資料が検索されました<br>
 	    <tr>
 	      <td>${item.title}</td>
 	      <td>${item.isbn}</td>
-	      <td>${item.stockCount}</td>
+	      <td>在庫${item.stockCount}</td>
 	      <td><input type="submit" value = 予約></td>
 	    </tr>
 	</c:forEach>

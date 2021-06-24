@@ -24,6 +24,12 @@ public class CatalogBean {
 		this.publicationDate = publicationDate;
 	}
 
+	public CatalogBean(String isbn, String title, int stockCount) {
+		this.isbn = isbn;
+		this.title = title;
+		this.stockCount = stockCount;
+	}
+
 	public String getIsbn() {
 		return isbn;
 	}

@@ -220,7 +220,18 @@ public class CatalogDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM catalog WHERE title like ?";
+			String sql = " SELECT "
+					+ " c.isbn, c.title,"
+					+ " count(b.isbn) as all_count," //  --本ごとの資料数
+					+ " count(l.book_id) as lending_count," // --貸出数
+					+ " count(r.book_id) as reserved_count," // --取り置き数
+					+ " count(b.isbn) - count(l.book_id) - count(r.book_id) as stock_count" // -- 在庫数
+					+ " FROM catalog c"
+					+ " LEFT OUTER JOIN book b on c.isbn = b.isbn"
+					+ " LEFT OUTER JOIN lending l on b.id = l.book_id"
+					+ " LEFT OUTER JOIN reserved r on b.id = r.book_id"
+					+ " WHERE c.title LIKE ?"
+					+ " GROUP BY c.isbn";
 			st = con.prepareStatement(sql);
 			st.setString(1, "%" + name + "%");
 			rs = st.executeQuery();
@@ -229,11 +240,8 @@ public class CatalogDAO {
 			while (rs.next()) {
 				String isbn = rs.getString("isbn");
 				String title = rs.getString("title");
-				int code = rs.getInt("code");
-				String auther = rs.getString("auther");
-				String publisher = rs.getString("publisher");
-				Date publicationDate = rs.getDate("publication_date");
-				CatalogBean bean = new CatalogBean(isbn, title, code, auther, publisher, publicationDate);
+				int stockCount = rs.getInt("stock_count");
+				CatalogBean bean = new CatalogBean(isbn, title, stockCount);
 				list.add(bean);
 			}
 			return list;

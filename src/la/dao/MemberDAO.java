@@ -11,7 +11,7 @@ import la.bean.Member;
 
 public class MemberDAO {
 
-	public int updateMember(int id, String name, String address, String tel, String mail) {
+	public int updateMember(int id, String name, String address, String tel, String mail) throws DAOException {
 		String sql = "UPDATE member SET member_name = ?,member_address = ?,tel = ? , email = ? where member_id =?";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);) {
@@ -28,7 +28,7 @@ public class MemberDAO {
 	}
 
 	//退会日
-	public int updateMember(int id) {
+	public int updateMember(int id) throws DAOException {
 		String sql = "UPDATE member SET withdrawal_date=current_date where member_id =?";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);) {
@@ -40,7 +40,8 @@ public class MemberDAO {
 		}
 	}
 
-	public int addMember(String name, String address, String tel, String mail, java.sql.Date birth) {
+	public int addMember(String name, String address, String tel, String mail, java.sql.Date birth)
+			throws DAOException {
 		String sql = " INSERT INTO member(member_name,member_address,tel,email,birth,join_date) VALUES(?,?,?,?,?,current_date)";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);) {
@@ -56,7 +57,7 @@ public class MemberDAO {
 		}
 	}
 
-	public Member findByName2(String name) {
+	public Member findByName2(String name) throws DAOException {
 		//		String sql = "SELECT * FROM member where member_name = ?";
 		//idでソートしてidが大きいものをとってくる
 		String sql = "SELECT * FROM member order by member_id desc limit 1";
@@ -114,7 +115,7 @@ public class MemberDAO {
 			}
 		}
 		*/
-	public Member findByEmail(String email) {
+	public Member findByEmail(String email) throws DAOException {
 		String sql = "SELECT * FROM member where email = ?";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);) {
@@ -142,7 +143,7 @@ public class MemberDAO {
 		}
 	}
 
-	public Member findById(int id) {
+	public Member findById(int id) throws DAOException {
 		String sql = "SELECT * FROM member where member_id = ?";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);) {
@@ -170,7 +171,7 @@ public class MemberDAO {
 		}
 	}
 
-	public List<Member> findAll() {
+	public List<Member> findAll() throws DAOException {
 		String sql = "SELECT * FROM member";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);

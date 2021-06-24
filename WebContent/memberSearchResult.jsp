@@ -29,8 +29,8 @@
       			<th></th><td><c:if test="${person.quitDate!=null}">退会</c:if></td>
       		</tr>
       		<tr>
-      			<td><form action ="update"><input type="submit" value="詳細"></form></td>
-      			<td><form action ="delete"><input type="submit" value="削除"></form></td>
+      			<td><form action="/0608_problem/MyPageServlet?action=detail" method = "post"><input type="submit" value="詳細"></form></td>
+      			<td><form action="/0608_problem/MyPageServlet?action=delete" method = "post"><input type="submit" value="削除"></form></td>
       		</tr>
       	</table>
       </c:forEach>

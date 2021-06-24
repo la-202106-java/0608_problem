@@ -10,7 +10,7 @@
 <body>
 
     <h1>会員登録</h1>
-    <form action =/0608_problem/MemberFormServlet method ="post">
+    <form action =/0608_problem/MemberRegistServlet method ="post">
         <p>名前:<br>
         <input type = "text" name = "name"></p>
         <p>住所:<br>

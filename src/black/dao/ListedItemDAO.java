@@ -16,6 +16,66 @@ public class ListedItemDAO {
 
 	public ListedItemDAO() throws DAOException {
 		getConnection();
+
+		//idのシーケンスがなぜか常に1から始まってしまうので、
+		//シーケンスの開始の値を現在のレコード数+1に設定
+		//addの際のエラー回避
+
+		String sql = "SELECT SETVAL('listed_item_id_seq', ? , false)";
+
+		try (PreparedStatement st = con.prepareStatement(sql);
+				ResultSet rs = st.executeQuery();) {
+
+			if (rs.next()) {
+				int i = rs.getInt(1);
+				st.setInt(1, i + 1);
+				try (ResultSet rs2 = st.executeQuery()) {
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new DAOException("レコードの取得に失敗しました。");
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	//レコード数取得
+	public int recordCount() throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "SELECT COUNT(*) FROM listed_item";
+
+		try (PreparedStatement st = con.prepareStatement(sql);
+				ResultSet rs = st.executeQuery();) {
+			if (rs.next()) {
+				int i = rs.getInt(1);
+				return i;
+			}
+			return -1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 	//検索

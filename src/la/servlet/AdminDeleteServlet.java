@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import la.bean.PlanBean;
+import la.bean.ReservationBean;
+import la.dao.AdminInnDAO;
 import la.dao.AdminPlanDAO;
+import la.dao.AdminReservationDAO;
 import la.dao.DAOException;
 import la.dao.MembersDAO;
 
@@ -60,17 +64,33 @@ public class AdminDeleteServlet extends HttpServlet {
 						request.setAttribute("message", "会員番号：" + id + "を削除しました。");
 						gotoPage(request, response, "/adminConfirm.jsp");
 					} else if (from.equals("inn")) {
-						AdminPlanDAO pdao = new AdminPlanDAO();
 						String name = request.getParameter("id");
+						AdminInnDAO idao = new AdminInnDAO();
+						AdminPlanDAO pdao = new AdminPlanDAO();
+						AdminReservationDAO rdao = new AdminReservationDAO();
 						List<PlanBean> list = pdao.searchPlan(name, false);
-						request.setAttribute("Plans", list);
-						gotoPage(request, response, "/adminSearchPlan.jsp");
-						//					request.setAttribute("message", "宿名：" + name + "を削除しました。");
-						//					gotoPage(request, response, "/adminConfirm.jsp");
+						idao.quitInn(name);
+						String message = "宿名：" + name;
+						List<ReservationBean> rlist = new ArrayList<ReservationBean>();
+						for (int i = 0; i < list.size(); i++) {
+							int pid = list.get(i).getPlanId();
+							message = message + "とプランID:" + pid;
+							pdao.quitPlan(pid);
+							rlist.addAll(rdao.searchReservation(pid));
+						}
+						message += "を削除しました";
+						request.setAttribute("message", message);
+						session.setAttribute("Reservations", rlist);
+						gotoPage(request, response, "/adminConfirmReservation.jsp");
 					} else if (from.equals("plan")) {
 						int planID = Integer.parseInt(request.getParameter("id"));
+						AdminPlanDAO dao = new AdminPlanDAO();
+						dao.quitPlan(planID);
+						AdminReservationDAO rdao = new AdminReservationDAO();
+						List<ReservationBean> list = rdao.searchReservation(planID);
 						request.setAttribute("message", "プランID：" + planID + "を削除しました。");
-						gotoPage(request, response, "/adminConfirm.jsp");
+						session.setAttribute("Reservations", list);
+						gotoPage(request, response, "/adminConfirmReservation.jsp");
 					} else {
 						request.setAttribute("message", "正しく操作してください。");
 						gotoPage(request, response, "/errInternal.jsp");
@@ -90,9 +110,18 @@ public class AdminDeleteServlet extends HttpServlet {
 						gotoPage(request, response, "/adminTop.jsp");
 					}
 
-				}
-
-				else {
+				} else if (action.equals("yoyakuok") || action.equals("yoyakucancel")) {
+					List<ReservationBean> list = (List<ReservationBean>) session.getAttribute("Reservations");
+					int yoyakuID = Integer.parseInt(request.getParameter("id"));
+					int no = Integer.parseInt(request.getParameter("no"));
+					list.remove(no - 1);
+					if (action.equals("yoyakucancel")) {
+						AdminReservationDAO rdao = new AdminReservationDAO();
+						rdao.quitReservation(yoyakuID);
+					}
+					request.setAttribute("Reservations", list);
+					gotoPage(request, response, "/adminConfirmReservation.jsp");
+				} else {
 					request.setAttribute("message", "正しく操作してください。");
 					gotoPage(request, response, "/errInternal.jsp");
 				}

@@ -13,6 +13,8 @@ public class ReservationBean implements Serializable {
 	private int room;
 	private boolean cancelCheck;
 	private String note;
+	private MemberBean member;
+	private PlanBean plan;
 
 	public ReservationBean() {
 
@@ -30,6 +32,21 @@ public class ReservationBean implements Serializable {
 		this.room = room;
 		this.cancelCheck = cancelCheck;
 		this.note = note;
+	}
+
+	public ReservationBean(int id, int memberId, int planId, LocalDate date, String inDate, String outDate, int room,
+			boolean cancelCheck, String note, MemberBean member, PlanBean plan) {
+		this.id = id;
+		this.memberId = memberId;
+		this.planId = planId;
+		this.date = date;
+		this.inDate = inDate;
+		this.outDate = outDate;
+		this.room = room;
+		this.cancelCheck = cancelCheck;
+		this.note = note;
+		this.member = member;
+		this.plan = plan;
 	}
 
 	public int getId() {
@@ -102,6 +119,22 @@ public class ReservationBean implements Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public MemberBean getMember() {
+		return member;
+	}
+
+	public void setMember(MemberBean member) {
+		this.member = member;
+	}
+
+	public PlanBean getPlan() {
+		return plan;
+	}
+
+	public void setPlan(PlanBean plan) {
+		this.plan = plan;
 	}
 
 }

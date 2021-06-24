@@ -10,7 +10,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-<h2>会員の退会</h2>
+<h2>会員の退会確認</h2>
 <form action="/0608_problem/MemberServlet" method="post">
 <h3>正しい情報が入力されていれば、『退会』ボタンを押してください。</h3>
   <input type="submit" value="退会">

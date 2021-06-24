@@ -38,6 +38,10 @@ public class ListedItemRegistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		if (session == null) {
+			//会員ログインしていなければフォームへ
+			gotoPage(request, response, "/memberLogin.jsp");
+		}
 		String userType = (String) session.getAttribute("user");
 		if (!userType.equals("member")) {
 			//会員ログインしていなければフォームへ
@@ -55,30 +59,22 @@ public class ListedItemRegistServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 
+		String regist = request.getParameter("regist");
+		String cancel = request.getParameter("cancel");
+
 		if (action == null || action.length() == 0) {
 			//actionが指定されていなければフォームへ
-			gotoPage(request, response, "/listedItemRegistForm.jsp");
-
-		} else if (action.equals("cancel")) {
-			//確認画面からキャンセル→フォームへもどる
-
-			//入力内容取得
-			String isbn = request.getParameter("isbn");
-			String title = request.getParameter("title");
-			int departmentCode = Integer.parseInt(request.getParameter("department_code"));
-			String author = request.getParameter("author");
-			int price = Integer.parseInt(request.getParameter("price"));
-			String condition = request.getParameter("condition");
-
-			//入力内容をスコープに入れる
-			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
-			request.setAttribute("regist_item", bean);
-
 			gotoPage(request, response, "/listedItemRegistForm.jsp");
 
 		} else if (action.equals("regist_check")) {
 			//教科書登録確認画面へ
 			HttpSession session = request.getSession(false);
+			if (session == null) {
+				//会員ログインしていなければフォームへ
+				gotoPage(request, response, "/listedItemRegistForm.jsp");
+				return;
+			}
+
 			String userType = (String) session.getAttribute("user");
 
 			if (!userType.equals("member")) {
@@ -108,10 +104,33 @@ public class ListedItemRegistServlet extends HttpServlet {
 
 			gotoPage(request, response, "/listedItemRegistCheck.jsp");
 
-		} else if (action.equals("regist")) {
+		} else if (cancel != null) {
+			//確認画面からキャンセル→フォームへもどる
+
+			//入力内容取得
+			String isbn = request.getParameter("isbn");
+			String title = request.getParameter("title");
+			int departmentCode = Integer.parseInt(request.getParameter("department_code"));
+			String author = request.getParameter("author");
+			int price = Integer.parseInt(request.getParameter("price"));
+			String condition = request.getParameter("condition");
+
+			//入力内容をスコープに入れる
+			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
+			request.setAttribute("regist_item", bean);
+
+			gotoPage(request, response, "/listedItemRegistForm.jsp");
+
+		} else if (regist != null) {
 			//教科書登録処理→教科書詳細画面
 
 			HttpSession session = request.getSession(false);
+			if (session == null) {
+				//会員ログインしていなければフォームへ
+				gotoPage(request, response, "/listedItemRegistForm.jsp");
+				return;
+			}
+
 			String userType = (String) session.getAttribute("user");
 
 			if (!userType.equals("member")) {
@@ -132,7 +151,13 @@ public class ListedItemRegistServlet extends HttpServlet {
 
 			try {
 				ListedItemDAO dao = new ListedItemDAO();
-				dao.addItem(isbn, title, departmentCode, author, price, condition, member.getId());
+				int id = dao.addItem(isbn, title, departmentCode, author, price,
+						condition, member.getId());
+
+				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
+						author, price, condition, member.getId());
+				request.setAttribute("item", bean);
+				gotoPage(request, response, "listedItemDetail.jsp");
 
 			} catch (DAOException e) {
 				e.printStackTrace();

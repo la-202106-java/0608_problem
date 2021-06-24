@@ -262,7 +262,8 @@ public class ListedItemDAO {
 	}
 
 	//教科書登録
-	public void addItem(String isbn, String title, int departmentCode,
+	//登録したidを返す
+	public int addItem(String isbn, String title, int departmentCode,
 			String author, int price, String condition, int sellerId) throws DAOException {
 		if (con == null) {
 			getConnection();
@@ -270,8 +271,11 @@ public class ListedItemDAO {
 
 		String sql = "INSERT INTO listed_item(isbn, title, department_code, author,"
 				+ " price, condition, seller_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
+		String sql2 = "SELECT currval('listed_item_id_seq')";
 
-		try (PreparedStatement st = con.prepareStatement(sql)) {
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql);
+				PreparedStatement st2 = con.prepareStatement(sql2)) {
 			st.setString(1, isbn);
 			st.setString(2, title);
 			st.setInt(3, departmentCode);
@@ -282,6 +286,12 @@ public class ListedItemDAO {
 
 			//SQL実行
 			st.executeUpdate();
+
+			rs = st2.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
 
 		} catch (Exception e) {
 			e.printStackTrace();

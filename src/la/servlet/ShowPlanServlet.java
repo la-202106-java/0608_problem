@@ -103,8 +103,13 @@ public class ShowPlanServlet extends HttpServlet {
 				PlansDAOSub dao = new PlansDAOSub();
 				List<PlanBean> plans = new ArrayList<PlanBean>();
 
-				plans = dao.find(checkIn, checkOut);
-				request.setAttribute("plans", plans);
+				// plans = dao.find(checkIn, checkOut);
+				// 動作確認用、上の処理に置き換える
+				PlanBean p1 = dao.find(1);
+				PlanBean p2 = dao.find(2);
+				plans.add(p1);
+				plans.add(p2);
+				session.setAttribute("plans", plans);
 
 				gotoPage(request, response, "/top.jsp");
 			} else {
@@ -115,7 +120,6 @@ public class ShowPlanServlet extends HttpServlet {
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
-
 		}
 	}
 

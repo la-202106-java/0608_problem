@@ -5,12 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import la.bean.InnBean;
-import la.bean.MemberBean;
 import la.bean.PlanBean;
 
 public class PlansDAOSub {
@@ -29,38 +27,31 @@ public class PlansDAOSub {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM reservations WHERE ここどうしよ";
+			String sql = "SELECT * FROM reservations WHERE NOT(? < in_date OR out_date < ?)";
 
 			st = con.prepareStatement(sql);
-			st.setString(1, email);
+			st.setString(1, checkOut);
+			st.setString(2, checkIn);
 
 			rs = st.executeQuery();
 
-			MemberBean member = null;
+			List<PlanBean> plans = new ArrayList<PlanBean>();
+			PlanBean plan = new PlanBean();
+			InnBean inn = new InnBean();
+
+			List<Integer> planIds = new ArrayList<Integer>();
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String password = rs.getString("pass");
-				String name = rs.getString("name");
-				String postalCode = rs.getString("postal_code");
-				String address = rs.getString("address");
-				String tel = rs.getString("tel");
-				String emailAddress = rs.getString("email_address");
-				String birthDate = (rs.getDate("birth_date")).toString();
-				LocalDate joinDate = (rs.getDate("join_date")).toLocalDate();
-
-				LocalDate quiteDate;
-				if (rs.getDate("quit_date") != null) {
-					quiteDate = (rs.getDate("quit_date")).toLocalDate();
-				} else {
-					quiteDate = null;
-				}
-
-				member = new MemberBean(id, password, name, postalCode, address, tel, emailAddress, birthDate, joinDate,
-						quiteDate);
+				planIds.add(rs.getInt("plan_id"));
 			}
 
-			return member;
+			// 予約一覧テーブルから条件指定してとってきたplan_idの数数える
+			// 同じplan_idの合計数がプラン一覧テーブルの最大部屋数になっている場合に表示しない
+			// 使用可能部屋数が1部屋の場合は予約時に問題ないが、複数ある場合、予約時に可能な数まで予約部屋数を選べる機能をどうやって実現するのか
+			// 無理や...
+			plans.add(plan);
+
+			return plans;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");
@@ -75,19 +66,9 @@ public class PlansDAOSub {
 				throw new DAOException("リソースの開放に失敗しました。");
 			}
 		}
-
-		PreparedStatement st = null;
-		ResultSet rs = null;
-
-		List<PlanBean> plans = new ArrayList<PlanBean>();
-		PlanBean plan = new PlanBean();
-		InnBean inn = new InnBean();
-
-		plans.add(plan);
-
-		return plans;
 	}
 
+	// このメソッド多分使わん、動作確認で使用
 	public PlanBean find(int planId) {
 		PlanBean plan = new PlanBean();
 		InnBean inn = new InnBean();

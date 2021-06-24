@@ -8,7 +8,7 @@ public class PlanBean implements Serializable {
 	private int innId;
 	private String content;
 	private int fee;
-	private int roomMax;
+	private int roomMax; // 予約が開いている部屋数（このPlanBeanを使用するときは、プラン情報のデータベース内のroom_maxの値ではなく、チェックイン・アウトで検索した結果の空室数になる）
 	private String imgUrl;
 	private LocalDate deleteDate;
 	private String note;

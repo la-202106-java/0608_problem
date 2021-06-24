@@ -17,8 +17,12 @@
 ISBN：${isbn}<br>
 資料名：${title}<br>
 
-<input type="submit" value = 戻る>
-<input type="submit" value = 予約>
-
+<form method="post">
+<input type="submit" value ="戻る" formaction="/0608_problem/CatalogSearchServlet">
+<input type="submit" value = 予約 formaction="/0608_problem/CatalogReserveServlet">
+<input type="hidden" name="action" value="reserve_confirm_execute">
+<input type="hidden" name="isbn" value="${isbn}">
+<input type="hidden" name="user_id" value="${userBean.id}">
+</form>
 </body>
 </html>

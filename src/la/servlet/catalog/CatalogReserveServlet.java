@@ -1,6 +1,7 @@
 package la.servlet.catalog;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import la.bean.NowUserBean;
 import la.dao.DAOException;
 import la.dao.NowUserDAO;
+import la.dao.ReservationDAO;
 
 /**
  * Servlet implementation class CatalogReserveServlet
@@ -54,6 +56,28 @@ public class CatalogReserveServlet extends HttpServlet {
 				request.setAttribute("title", request.getParameter("title"));
 				request.setAttribute("userBean", bean);
 				gotoPage(request, response, "/5_reserve_reserved/add_reservation_confirm.jsp");
+				return;
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+		}
+
+		if ("reserve_confirm_execute".equals(action)) {
+			// 予約確定
+			String userId = request.getParameter("user_id");
+			String isbn = request.getParameter("isbn");
+			if (userId == null || userId.isBlank() || isbn == null || isbn.isBlank()) {
+				// TODO: 不正な遷移なのでエラーページへ
+				return;
+			}
+			try {
+				ReservationDAO dao = new ReservationDAO();
+				dao.addReservation(isbn, Integer.parseInt(userId), LocalDateTime.now());
+				// 予約できたので目録検索画面へ
+				request.setAttribute("message", "予約が完了しました");
+				gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");
 				return;
 			} catch (DAOException e) {
 				e.printStackTrace();

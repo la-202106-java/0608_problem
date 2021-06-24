@@ -35,7 +35,7 @@ public class CatalogSearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String titles = request.getParameter("titles");
 		if (Objects.isNull(titles) || titles.isBlank()) {
-			request.setAttribute("error", "資料名を入力してください");
+			request.setAttribute("message", "資料名を入力してください");
 			gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");
 			return;
 		}

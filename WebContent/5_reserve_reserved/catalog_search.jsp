@@ -10,8 +10,8 @@
 <body>
 
 <h2>目録検索</h2>
-<c:if test="${not empty error}">
-<p class="">${error}</p>
+<c:if test="${not empty message}">
+<p class="">${message}</p>
 </c:if>
 <form action="/0608_problem/CatalogSearchServlet" method="post">
 資料名 <input type ="text" name = "titles" value="${titles}"><input type="submit" value = 検索>

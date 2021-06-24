@@ -29,7 +29,7 @@ public class ReservedDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM reserved WHERE user_id=?";
+			String sql = "SELECT * FROM reserved WHERE user_id=? AND lending_date is NULL";
 			st = con.prepareStatement(sql);
 			st.setInt(1, id);
 			rs = st.executeQuery();
@@ -71,7 +71,7 @@ public class ReservedDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM reserved WHERE user_id=?";
+			String sql = "SELECT * FROM reserved WHERE user_id=? AND lending_date is NULL";
 			st = con.prepareStatement(sql);
 			st.setInt(1, id);
 			rs = st.executeQuery();
@@ -130,6 +130,30 @@ public class ReservedDAO {
 		if (con != null) {
 			con.close();
 			con = null;
+		}
+	}
+
+	// 貸出日付を入れて更新
+	public int updatebyUserIDAndBookID(int userID, int bookID) throws DAOException {
+
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		// utilとsqlの変換
+		java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+
+		String sql = "UPDATE reserved SET lending_date=? WHERE user_id=? AND book_id=? AND lending_date is NULL";
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setDate(1, date);
+			st.setInt(2, userID);
+			st.setInt(3, bookID);
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
 		}
 	}
 }

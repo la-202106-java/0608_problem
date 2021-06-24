@@ -204,6 +204,64 @@ public class MembersDAO {
 
 	}
 
+	//名前とemailで検索
+	public List<MemberBean> searchMember(String Name, String email) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM members WHERE name LIKE ? AND email_address LIKE ?";
+		try {
+			st = con.prepareStatement(sql);
+			st.setString(1, "%" + Name + "%");
+			st.setString(2, "%" + email + "%");
+			rs = st.executeQuery();
+			List<MemberBean> list = new ArrayList<MemberBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String pass = rs.getString("pass");
+				String name = rs.getString("name");
+				String postal_code = rs.getString("postal_code");
+				String address = rs.getString("address");
+				String tel = rs.getString("tel");
+				String email_address = rs.getString("email_address");
+				String birth_date = String.valueOf(rs.getDate("birth_date"));
+				Date tmp_jdate = rs.getDate("join_date");
+				Date tmp_qdate = rs.getDate("quit_date");
+				LocalDate join_date;
+				LocalDate quit_date;
+				if (tmp_jdate == null) {
+					join_date = null;
+				} else {
+					join_date = rs.getDate("join_date").toLocalDate();
+				}
+				if (tmp_qdate == null) {
+					quit_date = null;
+				} else {
+					quit_date = rs.getDate("quit_date").toLocalDate();
+				}
+				MemberBean bean = new MemberBean(id, pass, name, postal_code, address, tel,
+						email_address, birth_date, join_date, quit_date);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	private void getConnection() throws DAOException {
 		try {
 			Class.forName("org.postgresql.Driver");

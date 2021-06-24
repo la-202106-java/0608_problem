@@ -8,7 +8,7 @@
 <title>会員情報一覧</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/adminMenu.html" />
+<jsp:include page="/WEB-INF/adminMenu.jsp" />
 
 <form action="/0608_problem/admin/member" method="post">
 <h1>会員情報の検索</h1>

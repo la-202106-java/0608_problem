@@ -7,7 +7,7 @@
 <title>会員情報更新</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/adminMenu.html" />
+<jsp:include page="/WEB-INF/adminMenu.jsp" />
 <h1>会員の更新</h1>
 <form action="/0608_problem/admin/member" method="get">
 

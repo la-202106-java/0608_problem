@@ -7,7 +7,7 @@
 <title>プラン情報更新</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/adminMenu.html" />
+<jsp:include page="/WEB-INF/adminMenu.jsp" />
 	<h1>プランの更新</h1>
 	<form action="/0608_problem/admin/plan" method="get">
 		プランID：${planTarget.planId}<br> 宿ID：<input type="number" name="id"

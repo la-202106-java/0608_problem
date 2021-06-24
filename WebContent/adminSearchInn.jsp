@@ -8,7 +8,7 @@
 <title>宿情報一覧</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/adminMenu.html" />
+	<jsp:include page="/WEB-INF/adminMenu.jsp" />
 
 	<form action="/0608_problem/admin/inn" method="post">
 		<h1>宿情報の検索</h1>
@@ -58,9 +58,12 @@
 					</form>
 				</td>
 				<td>
-					<form action="/0608_problem/AdminInnServlet?action=delete"
+					<form action="/0608_problem/AdminDeleteServlet"
 						method="post">
-						<input type="hidden" name="name" value="${inn.name}"> <input
+						<input type="hidden" name="id" value="${inn.name}">
+						<input type="hidden" name="from" value="inn">
+						<input type="hidden" name="action" value="kakunin">
+						<input
 							type="submit" value="削除">
 					</form>
 				</td>

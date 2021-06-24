@@ -54,14 +54,18 @@ public class AdminLoginServlet extends HttpServlet {
 				}
 				if (dao.isAdmin(email, password)) {
 					HttpSession session = request.getSession();
-					session.setAttribute("isAdminLogin", true);
+					session.setAttribute("isAdminLogin", "true");
 					gotoPage(request, response, "/adminTop.jsp");
 				} else {
 					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");
 					gotoPage(request, response, "/adminLogin.jsp");
 				}
 			} else if (action.equals("logout")) {
-
+				HttpSession session = request.getSession(false);
+				if (session != null) {
+					session.invalidate();
+				}
+				gotoPage(request, response, "/adminLogin.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

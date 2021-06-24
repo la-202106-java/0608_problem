@@ -71,8 +71,10 @@ public class Member {
 		this.birth = birth;
 	}
 
-	public Date getJoinDate() {
-		return joinDate;
+	public String getJoinDate() {
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		return df.format(joinDate);
 	}
 
 	public void setJoinDate(Date joinDate) {

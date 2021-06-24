@@ -7,6 +7,22 @@
 <meta charset="UTF-8">
 <title>図書管理システム | 会員の検索</title>
 </head>
+<script>
+function validateForm()
+{
+var emeiru = document.forms["form1"]["email"].value;
+var kaiinid = document.forms["form1"]["id"].value;
+if (emeiru == ""&& kaiinid=="")
+{
+alert("E-Mailか会員IDを入力してください。");
+return false;
+}
+return true;
+}
+
+</script>
+
+
 <body>
 
 <jsp:include page="/menu.jsp" />
@@ -17,7 +33,7 @@ E-Mailもしくは会員ID、どちらか検索できます。<br>
 ボタン選択して、検索値を入力してください。
 </p>
 
-<form action="/0608_problem/MemberServlet" method="post">
+<form name="form1" onsubmit="return validateForm()" action="/0608_problem/MemberServlet" method="post">
  	 <input type ="hidden" name ="action" value ="search">
  	 	 <input type="radio" name="radio" value="email" checked>
 	E-Mail：<input type="text" name="email" min = "0" max="255" value=${eMail }><br>
@@ -38,8 +54,8 @@ E-Mailもしくは会員ID、どちらか検索できます。<br>
 <tr><td>E-Mail</td><td>${imember.eMail}</td></tr>
 <tr><td>生年月日</td><td>${imember.birth}</td></tr>
 <tr><td>入会年月日</td><td>${imember.joinDate}</td></tr>
-</table>
-<c:if test = "${imember ne null}" >
+</table><c:if test = "${imember ne null}" >
+
 <form action="/0608_problem/MemberServlet" method="post">
   <input type="submit" value="変更">
     	 <input type ="hidden" name ="action" value ="confirmhenkou">

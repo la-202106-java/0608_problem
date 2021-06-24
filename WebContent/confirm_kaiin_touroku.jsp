@@ -18,7 +18,10 @@
   <input type="submit" value="登録">
   <input type="hidden" name="action" value="addmember">
   </form>
-
+	  <form action="/0608_problem/MemberServlet"method="post">
+  <input type="submit" value="キャンセル">
+    <input type="hidden" name="action" value="cancel">
+</form>
 <br>
 <table border="1">
 
@@ -28,10 +31,7 @@
 <tr><td>E-Mail</td><td>${ member.eMail}</td></tr>
 <tr><td>生年月日</td><td>${member.birth }</td></tr>
 	</table>
-	  <form action="/0608_problem/MemberServlet"method="post">
-  <input type="submit" value="キャンセル">
-    <input type="hidden" name="action" value="cancel">
-</form>
+
 
 </body>
 </html>

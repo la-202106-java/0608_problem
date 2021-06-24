@@ -12,6 +12,10 @@
 <jsp:include page="/menu.jsp" />
 <h2>資料の新規登録</h2>
 
+<c:if test ="${Inputcheck eq 'True' }">
+<h3><font color="red">入力された資料名と同名の資料が既に目録に登録されていました。</font></h3>
+</c:if>
+
 <form action="/0608_problem/Shiryou_tourokuServlet" method="post">
 <h3>正しい情報が入力されていれば、『登録』ボタンを押してください。</h3>
 <input type ="hidden" name ="action" value ="add">

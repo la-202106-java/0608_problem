@@ -67,7 +67,7 @@ public class Shiryou_tourokuServlet extends HttpServlet {
 				}
 			}
 
-			else if (action.equals("regist2")) { //資料番号が入力されてきたら
+			else if (action.equals("confirm")) { //資料番号が入力されてきたら
 				//台帳と目録に記帳する
 				String isbn = (String) session.getAttribute("isbn");
 				String title = request.getParameter("title");
@@ -76,7 +76,13 @@ public class Shiryou_tourokuServlet extends HttpServlet {
 				String publisher_date = request.getParameter("publisher_date");
 
 				int categoryCode = Integer.parseInt(request.getParameter("choice"));
-				if (title != null && title.length() != 0 &&
+
+				MaterialCatalog bean4 = dao.findByName(title);
+				if (bean4 != null) { //入力した資料名が既に目録に登録されている場合
+					session.setAttribute("beans", bean4);
+					request.setAttribute("Inputcheck", "True");
+					gotoPage(request, response, "/confirm_siryou_touroku.jsp");
+				} else if (title != null && title.length() != 0 &&
 						author != null && author.length() != 0 &&
 						publisher != null && publisher.length() != 0 &&
 						publisher_date != null && publisher_date.length() != 0) {

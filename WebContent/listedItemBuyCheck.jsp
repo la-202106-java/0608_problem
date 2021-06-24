@@ -22,22 +22,22 @@
 <h1>この教科書を購入しますか？</h1>
 
 <table border="1">
-<tr><td>ID</td><td>1</td></tr>
-<tr><td>ISBN</td><td>12345678</td></tr>
-<tr><td>タイトル</td><td>ドラえもん</td></tr>
-<tr><td>分類</td><td>文学部系</td></tr>
-<tr><td>著者名</td><td>藤子不二雄</td></tr>
-<tr><td>売値</td><td>1000円</td></tr>
+<tr><td>ID</td><td>${item.id}</td></tr>
+<tr><td>ISBN</td><td>${item.isbn}</td></tr>
+<tr><td>タイトル</td><td>${item.title}</td></tr>
+<tr><td>分類</td><td>${departments.get(item.departmentCode)}</td></tr>
+<tr><td>著者名</td><td>${item.author}</td></tr>
+<tr><td>売値</td><td>${item.price}</td></tr>
 
 
 </table>
 <br>
-
+<form action =/0608_problem/ListedItemBuyServlet method ="post">
 <input type="hidden" name="action" value="cancel">
 	<input type="submit" value="キャンセル">
 <input type="hidden" name="action" value="dobuy">
 
 	<input type="submit" value="購入する">
-
+</form>
 </body>
 </html>

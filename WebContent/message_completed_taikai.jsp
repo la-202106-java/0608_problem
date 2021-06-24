@@ -11,7 +11,7 @@
 <body>
 
 <jsp:include page="/menu.jsp" />
-<h2>会員の新規登録</h2>
+<h2>会員の退会</h2>
 <h3>退会完了しました。</h3>
 <br>
 

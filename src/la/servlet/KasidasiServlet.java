@@ -113,6 +113,7 @@ public class KasidasiServlet extends HttpServlet {
 
 	private void kensaku(HttpServletRequest request, HttpServletResponse response, LendingLedgerDAO ld) {
 		Member member = new Member();
+		member.setId(-1);
 		boolean isFindALl = true;
 		String mid = request.getParameter("mid");
 		String mname = request.getParameter("mname");

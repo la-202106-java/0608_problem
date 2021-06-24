@@ -12,6 +12,8 @@
 
 function validateForm()
 {
+var testStr=/^[0-9]+$/;
+
 var  mid4add= document.forms["form1"]["mid4add"].value;
 if (mid4add == "")
 {
@@ -19,11 +21,24 @@ alert("会員IDを入力してください。");
 return false;
 }
 
+if(mid4add.match(testStr)==null){
+	alert("会員IDに数値を入力してください。");
+	return false;
+
+}
+
 var sid4add = document.forms["form1"]["sid4add"].value;
 if (sid4add == "")
 {
 alert("資料IDを入力してください。");
 return false;
+}
+
+
+if(sid4add.match(testStr)==null){
+	alert("資料IDに数値を入力してください。");
+	return false;
+
 }
 return true;
 }

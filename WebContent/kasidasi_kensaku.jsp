@@ -15,6 +15,20 @@ function returnM(id,name,title,chkDate){
 
 
 }
+
+function validateForm()
+{
+var testStr=/^[0-9]+$/;
+var  mid4search= document.forms["form1"]["mid"].value;
+if(mid4search.length>0 && mid4search.match(testStr)==null){
+	alert("会員IDに数値を入力してください。");
+	return false;
+
+}
+return true;
+
+}
+
 </script>
 <meta charset="UTF-8">
 <title>図書管理システム | 貸出情報の検索</title>
@@ -23,7 +37,7 @@ function returnM(id,name,title,chkDate){
 
 <jsp:include page="/menu.jsp" />
 <h2>貸出情報の検索</h2>
-<form action="/0608_problem/KasidasiServlet" method="post">
+<form onsubmit="return validateForm()" name="form1" action="/0608_problem/KasidasiServlet" method="post">
 	 <input type ="hidden" name ="action" value ="search">
   会員ID：<input type="text" name="mid" value="${mid }">&nbsp;<br>
   会員名：<input type="text" name="mname" value="${mname }">&nbsp;<br>

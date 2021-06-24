@@ -24,12 +24,13 @@
 <br>
 	 <input type="radio" name="radio" value="title" >
 資料名：<input type="text" name="part_of_title" value=${title }><br>
+<input type="submit" value="検索">
 <br>
 <!--
 	 <input type="radio" name="radio" value="stock_date" >
 入荷年月日：<input type="date" name="stock_date" value=${stock_date }><br>
   <input type="submit" value="検索">
- -->
+-->
  </form>
 
 <c:if test="${count >= 0 }">

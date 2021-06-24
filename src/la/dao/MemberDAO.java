@@ -29,6 +29,7 @@ public class MemberDAO {
 
 	//退会日
 	public int updateMember(int id) throws DAOException {
+
 		String sql = "UPDATE member SET withdrawal_date=current_date where member_id =?";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);) {

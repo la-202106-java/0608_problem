@@ -100,9 +100,10 @@ INSERT INTO material_ledger (material_id,isbn,stock_date,remark) VALUES(0,'97800
 INSERT INTO material_ledger (material_id,isbn,stock_date,remark) VALUES(1,  '9784061795792','2021-06-24','second' );
 INSERT INTO member VALUES(0,'鈴木','関東地方','000-0000-0000','abc@cba.mail.com','2021-06-21','2021-06-22');
 INSERT INTO member VALUES(1,'佐々木','関東地方','000-0000-0000','qer@req.mail.com','2021-06-22','2021-06-23');
-INSERT INTO lending_ledger VALUES(0,0,0,'2021-06-22','2021-07-02');
-INSERT INTO lending_ledger VALUES(1,0,0,'2021-06-22','2021-06-02');
-INSERT INTO lending_ledger VALUES(2,0,1,'2021-06-22','2021-06-02','2021-06-01');
+INSERT INTO lending_ledger VALUES(0,0,0,'2021-05-21','2021-07-02');
+INSERT INTO lending_ledger VALUES(1,0,0,'2021-05-22','2021-06-02');
+INSERT INTO lending_ledger VALUES(2,0,1,'2021-05-23','2021-06-02','2021-06-01');
+INSERT INTO lending_ledger VALUES(3,0,1,'2021-05-24','2021-06-02','2021-06-01');
 
 
 

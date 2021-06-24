@@ -10,18 +10,19 @@
 <body>
 	<a href="/0608_problem/MenuServlet?action=top">TOP</a> |
 	<a href="/0608_problem/MenuServlet?action=serch">教科書検索</a> |
-	<a href="/0608_problem/MenuServlet?action=regist">教科書登録</a> |
+
 	<c:if test="${!empty logined}">
 	こんにちは、${logined.name}さん|
 	</c:if>
 
 		<!-- サーブレットまだ -->
 	<c:if test="${!empty logined}">
+	<a href="/0608_problem/MenuServlet?action=regist">教科書登録</a> |
 	<a href="/0608_problem/LogoutServlet?action=logout">ログアウト</a>|
 	<a href="/0608_problem/MenuServlet?action=mypage">マイページ</a> |
 	</c:if>
 	<c:if test="${empty logined}">
-	<a href="/0608_problem/LoginServlet?action=login">ログイン</a>|
+	<a href="/0608_problem/LoginServlet">ログイン</a>|
 	<a href="/0608_problem/MemberRegistServlet">会員登録</a> |
 	</c:if>
 

@@ -17,9 +17,9 @@
 資料名 <input type ="text" name = "titles" value="${titles}"><input type="submit" value = 検索>
 </form>
 
-<c:if test="${not empty list} }">
+<c:if test="${result.size() > 0}">
 
-${list.size}件の資料が検索されました<br>
+${result.size()}件の資料が検索されました<br>
 
 <table border="1">
     <tr>
@@ -28,18 +28,14 @@ ${list.size}件の資料が検索されました<br>
       <th>状態</th>
       <th>予約/取置</th>
     </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><input type="submit" value = 予約></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><input type="submit" value = 取置></td>
-    </tr>
+    <c:forEach items="${result}" var="item">
+	    <tr>
+	      <td>${item.title}</td>
+	      <td>${item.isbn}</td>
+	      <td>${item.stockCount}</td>
+	      <td><input type="submit" value = 予約></td>
+	    </tr>
+	</c:forEach>
   </table>
 </c:if>
 

@@ -211,4 +211,45 @@ public class CatalogDAO {
 
 	}
 
+	public List<CatalogBean> getCatalogListWithStockByName(String name) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM catalog WHERE title like ?";
+			st = con.prepareStatement(sql);
+			st.setString(1, "%" + name + "%");
+			rs = st.executeQuery();
+
+			List<CatalogBean> list = new ArrayList<CatalogBean>();
+			while (rs.next()) {
+				String isbn = rs.getString("isbn");
+				String title = rs.getString("title");
+				int code = rs.getInt("code");
+				String auther = rs.getString("auther");
+				String publisher = rs.getString("publisher");
+				Date publicationDate = rs.getDate("publication_date");
+				CatalogBean bean = new CatalogBean(isbn, title, code, auther, publisher, publicationDate);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 }

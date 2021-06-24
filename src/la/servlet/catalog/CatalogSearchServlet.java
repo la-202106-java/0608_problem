@@ -1,7 +1,6 @@
 package la.servlet.catalog;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import la.bean.CatalogBean;
+import la.dao.CatalogDAO;
+import la.dao.DAOException;
 
 @WebServlet("/CatalogSearchServlet")
 public class CatalogSearchServlet extends HttpServlet {
@@ -38,20 +39,27 @@ public class CatalogSearchServlet extends HttpServlet {
 			gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");
 			return;
 		}
-		System.out.println(titles);
 		// 取得した資料名で目録（catalog）資料名でをあいまい検索する
-		// 目録のISBNと資料(book)を結合して資料一覧を取得する
-		// 資料IDで貸出テーブルを結合して貸出数を取得する
-		// 資料IDで取置テーブルを結合して貸出数を取得する
-		// ISBNでGroupingした数ー貸出数の数＝在庫数
+		try {
+			CatalogDAO dao = new CatalogDAO();
+			List<CatalogBean> list = dao.getCatalogListWithStockByName(titles);
 
-		// 結果をJSPへ出力する
-		List<CatalogBean> list = new ArrayList<>();
-		request.setAttribute("result", list);
-		request.setAttribute("titles", titles);
-		gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");
-		return;
+			// 目録のISBNと資料(book)を結合して資料一覧を取得する
+			// 資料IDで貸出テーブルを結合して貸出数を取得する
+			// 資料IDで取置テーブルを結合して貸出数を取得する
+			// ISBNでGroupingした数ー貸出数の数＝在庫数
 
+			// 結果をJSPへ出力する
+			//			List<CatalogBean> list = new ArrayList<>();
+			request.setAttribute("result", list);
+			request.setAttribute("titles", titles);
+			gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
+			gotoPage(request, response, "/errInternal.jsp");
+		}
 	}
 
 	private void gotoPage(HttpServletRequest request,

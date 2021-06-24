@@ -125,7 +125,7 @@ public class NowUserDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM now_user WHERE now_user_id_seq=?";
+			String sql = "SELECT * FROM now_user WHERE id=?";
 			st = con.prepareStatement(sql);
 			st.setInt(1, key);
 			rs = st.executeQuery();

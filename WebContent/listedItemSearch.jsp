@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 
@@ -21,33 +21,50 @@
 
 <h1>教科書検索</h1>
 
-<form>
-&nbsp;&nbsp;ISBN&nbsp;&nbsp;：<input type="text" name="isbn" size="15"><br><br>
-タイトル：<input type="text" name="title" size="15"><br><br>
-&nbsp;&nbsp;分類&nbsp;&nbsp;：<select name="select1">
-	  <option>----------</option>
-      <option>0:文学部系</option>
-      <option>1:教育学部系</option>
-      <option>2:法学部系</option>
-      <option>3:社会学部系</option>
-      <option>4:経済学部系</option>
-      <option>5:理学部系</option>
-      <option>6:医学部系</option>
-      <option>7:歯学部系</option>
-      <option>8:薬学部系</option>
-      <option>9:工学部系</option>
-      <option>10:農学部系</option>
+<form action="/0608_problem/ListedItemSearchServlet" method="post">
+ISBN：<br>
+<input type="text" name="isbn"value="${search_isbn}"><br>
+タイトル：<br>
+<input type="text" name="title"value="${search_title}"><br>
+分類：<br>
+<select name="department_code">
+	<option value="-1">----------</option>
+	<c:forEach var="i" begin="0" end="${departments_size -1}" step="1">
+		<c:if test="${search_department_code==i}">
+			<option value="${i}" selected="selected">${i} : ${departments.get(i)}</option>
+		</c:if>
+		<c:if test="${empty search_department or search_department_code!=i}">
+			<option value="${i}">${i} : ${departments.get(i)}</option>
+		</c:if>
+	</c:forEach>
       </select><br><br>
-&nbsp;著者名：<input type="text" name="author" size="15"><br><br>
-&nbsp;&nbsp;&nbsp;売値&nbsp;&nbsp;：<input type="text" name="payment" size="15">円以上|<input type="text" name="payment" size="15">円以下<br><br>
-&nbsp;&nbsp;状態&nbsp;&nbsp;：<select name="select1">
-	  <option>----</option>
-      <option>新品</option>
-      <option>中古(未使用)</option>
-      <option>中古</option>
-      </select><br><br>
-<input type="checkbox" name="stock" value="stock">在庫有のみ表示<br>
-<input type="checkbox" name="stock" value="stock">自分が出品した商品のみ表示<br>
+著者名：<br>
+<input type="text" name="author" value="${search_author}"><br><br>
+売値：<br>
+<input type="text" name="price_min" size="15" value="${search_price_min}">円以上 |
+<input type="text" name="price_max" size="15" value="${search_price_max}">円以下<br>
+状態：<br>
+<select name="condition">
+	<option value="">----</option>
+	<option>新品</option>
+	<option>未使用</option>
+	<option>中古</option>
+</select>
+<br><br>
+<c:if test="${search_stock == 'true'}">
+	<input type="checkbox" name="stock" value="true" checked="checked">在庫有のみ表示<br>
+</c:if>
+<c:if test="${empty search_stock}">
+	<input type="checkbox" name="stock" value="true">在庫有のみ表示<br>
+</c:if>
+<c:if test="${search_my_item == 'true'}">
+	<input type="checkbox" name="my_item" value="true" checked="checked">自分が出品した商品のみ表示<br>
+</c:if>
+<c:if test="${empty search_my_item}">
+	<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
+</c:if>
+
+<input type="hidden" name="action" value="search">
 <input type="submit" value="検索">
 </form>
 

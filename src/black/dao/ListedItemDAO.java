@@ -21,30 +21,55 @@ public class ListedItemDAO {
 	//検索
 	//金額が空欄の場合は、サーブレット側で下限ゼロ/上限intのmax値を入れる
 	public List<ListedItemBean> findItem(String isbn, String title, int departmentCode,
-			String author, int priceMin, int priceMax, String condition) throws DAOException {
+			String author, int priceMin, int priceMax, String condition,
+			boolean onlyInStock, int sellerId) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
 		String sql = "SELECT * FROM listed_item WHERE isbn LIKE ? AND title LIKE ?"
-				+ " AND author=? AND price>=? AND price<=? AND conditon=?";
+				+ " AND author LIKE ? AND price>=? AND price<=?";
 
-		//departmentCodeが0～10の場合のみ検索条件に追加
+		//conditionが空でない場合のみ追加
 		String sql2 = "";
-		if (0 <= departmentCode && departmentCode <= 10) {
-			sql2 = " AND department_code=?";
+		if (condition.length() != 0) {
+			sql2 = " AND condition=?";
 		}
 
+		//departmentCodeが0～10の場合のみ検索条件に追加
+		String sql3 = "";
+		if (0 <= departmentCode && departmentCode <= 10) {
+			sql3 = " AND department_code=?";
+		}
+
+		//sellerIdが0以上の場合のみ条件に追加
+		String sql4 = "";
+		if (0 <= sellerId) {
+			sql4 = " AND seller_id=?";
+		}
+
+		//新しい順
+		String sqlOrder = " ORDER BY id DESC";
+
 		ResultSet rs = null;
-		try (PreparedStatement st = con.prepareStatement(sql + sql2)) {
+		try (PreparedStatement st = con.prepareStatement(sql + sql2 + sql3 + sql4 + sqlOrder)) {
 			st.setString(1, "%" + isbn + "%");
 			st.setString(2, "%" + title + "%");
 			st.setString(3, "%" + author + "%");
 			st.setInt(4, priceMin);
 			st.setInt(5, priceMax);
-			st.setString(6, condition);
+			int i = 6;
+			if (condition.length() != 0) {
+				st.setString(i, condition);
+				i++;
+			}
 			if (0 <= departmentCode && departmentCode <= 10) {
-				st.setInt(7, priceMax);
+				st.setInt(i, departmentCode);
+				i++;
+			}
+			if (0 <= sellerId) {
+				st.setInt(i, sellerId);
+				i++;
 			}
 
 			// SQLの実行
@@ -64,8 +89,24 @@ public class ListedItemDAO {
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
 						_author, price, _condition, seller_id);
-				list.add(bean);
+				bean.setOrderdDate(rs.getDate("orderd_date"));
+
+				String byerIdStr = rs.getString("byer_id");
+				if (byerIdStr != null && byerIdStr.length() != 0) {
+					bean.setByerId(Integer.parseInt(byerIdStr));
+				}
+
+				if (onlyInStock) {
+					//在庫ありのみ指定の場合
+					if (bean.isInStock()) {
+						//beanのメソッドで在庫をチェック
+						list.add(bean);
+					}
+				} else {
+					list.add(bean);
+				}
 			}
+
 			//教科書情報一覧リストを返す
 			return list;
 
@@ -260,8 +301,8 @@ public class ListedItemDAO {
 			// JDBCドライバの登録
 			Class.forName("org.postgresql.Driver");
 			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:postgresql:sample";
-			String user = "student";
+			String url = "jdbc:postgresql:webtext";
+			String user = "webtextuser";
 			String pass = "himitu";
 			// データベースへの接続
 			con = DriverManager.getConnection(url, user, pass);

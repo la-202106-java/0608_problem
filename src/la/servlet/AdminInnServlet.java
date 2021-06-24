@@ -57,7 +57,8 @@ public class AdminInnServlet extends HttpServlet {
 					gotoPage(request, response, "/adminConfirm.jsp");
 				} else if (action.equals("search")) {
 					String name = request.getParameter("name");
-					List<InnBean> list = dao.searchInn(name);
+					String check = request.getParameter("ck01");
+					List<InnBean> list = dao.searchInn(name, check != null);
 					request.setAttribute("name", name);
 					request.setAttribute("Inns", list);
 					gotoPage(request, response, "/adminSearchInn.jsp");

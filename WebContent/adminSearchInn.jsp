@@ -12,7 +12,8 @@
 
 	<form action="/0608_problem/admin/inn" method="post">
 		<h1>宿情報の検索</h1>
-		宿名:<input type="text" name="name" value="${name}"> <input
+		宿名:<input type="text" name="name" value="${name}">
+		削除された項目を含める：<input type="checkbox" name="ck01" value= checked> <input
 			type="submit" value="検索"> <input type="hidden" name="action"
 			value="search"> <br>
 	</form>

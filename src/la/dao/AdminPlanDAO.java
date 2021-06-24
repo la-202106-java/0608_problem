@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +131,42 @@ public class AdminPlanDAO {
 				throw new DAOException("リソースの開放に失敗しました");
 			}
 		}
+	}
+
+	public int quitPlan(int id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+
+		LocalDate now = LocalDate.now();
+		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
+
+		try {
+			if (id == -1) {
+				//id入力なしの場合intの「-1」を受けてリターン
+				return 0;
+			}
+			String sql = "UPDATE stay_plans SET delete_date = ? WHERE plan_id = ?";
+			st = con.prepareStatement(sql);
+			st.setDate(1, sqlDate);
+			st.setInt(2, id);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				if (st != null) {
+					st.close();
+				}
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました。");
+			}
+		}
+
 	}
 
 	private void getConnection() throws DAOException {

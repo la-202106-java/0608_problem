@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,13 +89,18 @@ public class AdminInnDAO {
 		}
 	}
 
-	public List<InnBean> searchInn(String name) throws DAOException {
+	public List<InnBean> searchInn(String name, boolean sakujyoiri) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM inns WHERE name LIKE ?";
+		String sql;
+		if (sakujyoiri) {
+			sql = "SELECT * FROM inns WHERE name LIKE ?";
+		} else {
+			sql = "SELECT * FROM inns WHERE name LIKE ? AND delete_date is null";
+		}
 		try {
 			st = con.prepareStatement(sql);
 			st.setString(1, "%" + name + "%");
@@ -128,6 +134,38 @@ public class AdminInnDAO {
 				throw new DAOException("リソースの開放に失敗しました");
 			}
 		}
+	}
+
+	public int quitInn(String name) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+
+		LocalDate now = LocalDate.now();
+		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
+
+		try {
+			String sql = "UPDATE inns SET delete_date = ? WHERE name = ?";
+			st = con.prepareStatement(sql);
+			st.setDate(1, sqlDate);
+			st.setString(2, name);
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				if (st != null) {
+					st.close();
+				}
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの解放に失敗しました。");
+			}
+		}
+
 	}
 
 	private void getConnection() throws DAOException {

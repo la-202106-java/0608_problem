@@ -40,8 +40,9 @@
 </form>
 
 <form action="/0608_problem/ReservationServlet" method="post">
-<c:forEach items="${plans}" var="plan">
-	<input type="hidden" name="planId" value="${plan.planId}">
+<c:forEach items="${plans}" var="plan" varStatus="stat">
+	<input type="hidden" name="action" value="reservation">
+	<input type="hidden" name="i" value="${stat.count}">
 	<hr>
 	<table>
 	<tr><td><img src="${plan.imgUrl}" alt="" width="300" height="200"></td>

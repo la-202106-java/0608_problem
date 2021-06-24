@@ -1,6 +1,8 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import la.bean.MemberBean;
 import la.bean.PlanBean;
 import la.bean.ReservationBean;
-import la.dao.PlansDAOSub;
+import la.dao.DAOException;
 import la.dao.ReservationsDAOSub;
 
 @WebServlet("/ReservationServlet")
@@ -25,33 +27,54 @@ public class ReservationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		String planId = request.getParameter("planId");
+		String action = request.getParameter("action");
 
-		String isLogin = (String) session.getAttribute("isLogin");
-		MemberBean member = (MemberBean) session.getAttribute("member");
-		String checkIn = (String) session.getAttribute("checkIn");
-		String checkOut = (String) session.getAttribute("checkOut");
+		try {
+			if (action.equals("reservation")) { // トップページで予約ボタンをクリックしたとき
+				int i = Integer.parseInt(request.getParameter("i")) - 1; // セッションスコープ
+				PlanBean plan = new PlanBean();
+				List<PlanBean> plans = (ArrayList<PlanBean>) session.getAttribute("plans"); // 型変換の前のチェック未実装
+				plan = plans.get(i);
 
-		if (isLogin.equals("true")) {
-			ReservationBean reservation = new ReservationBean();
-			reservation.setMemberId(member.getId());
-			reservation.setPlanId(Integer.parseInt(planId));
-			reservation.setInDate(checkIn);
-			reservation.setOutDate(checkOut);
-			reservation.setRoom(1); // ここどう処理する？
+				session.setAttribute("plan", plan);
 
-			ReservationsDAOSub dao = new ReservationsDAOSub();
-			dao.add(reservation);
+				gotoPage(request, response, "reservation.jsp");
+			} else if (action.equals("confirm")) { // 予約画面で確定ボタンをクリックしたとき
+				String isLogin = (String) session.getAttribute("isLogin");
+				PlanBean plan = (PlanBean) session.getAttribute("plan");
 
-			gotoPage(request, response, "/complete.jsp");
-		} else {
-			PlanBean plan = new PlanBean();
-			PlansDAOSub dao = new PlansDAOSub();
-			plan = dao.find(Integer.parseInt(planId));
+				if (isLogin.equals("true")) { // ログイン状態のとき
+					int roomNum = Integer.parseInt(request.getParameter("roomNum"));
 
-			session.setAttribute("plan", plan); // セッションに保存されたplanがnullじゃない場合、ログイン後、予約確定画面へ行く処理をするため
+					MemberBean member = (MemberBean) session.getAttribute("member");
+					String checkIn = (String) session.getAttribute("checkIn");
+					String checkOut = (String) session.getAttribute("checkOut");
 
-			gotoPage(request, response, "/login.jsp");
+					ReservationBean reservation = new ReservationBean();
+					reservation.setMemberId(member.getId());
+					reservation.setPlanId(plan.getPlanId());
+					reservation.setInDate(checkIn);
+					reservation.setOutDate(checkOut);
+					reservation.setRoom(roomNum);
+
+					ReservationsDAOSub dao = new ReservationsDAOSub();
+					dao.add(reservation);
+
+					request.setAttribute("reservation", reservation);
+
+					gotoPage(request, response, "/complete.jsp");
+				} else {
+					// 後で考える。セッションに保存されたplanがnullじゃない場合、ログイン後、予約確定画面へ行く処理をするため
+					gotoPage(request, response, "/login.jsp");
+				}
+			} else {
+				request.setAttribute("message", "正しく操作してください。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
 		}
 	}
 

@@ -19,7 +19,7 @@
 	<c:if test="${!empty logined}">
 	<a href="/0608_problem/MenuServlet?action=regist">教科書登録</a> |
 	<a href="/0608_problem/LogoutServlet?action=logout">ログアウト</a>|
-	<a href="/0608_problem/MenuServlet?action=mypage">マイページ</a> |
+	<a href="/0608_problem/MemberDetailServlet">マイページ</a> |
 	</c:if>
 	<c:if test="${empty logined}">
 	<a href="/0608_problem/LoginServlet">ログイン</a>|

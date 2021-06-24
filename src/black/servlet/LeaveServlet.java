@@ -21,6 +21,24 @@ import black.dao.MemberDAO;
 public class LeaveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+		//退会チェック選択画面
+		if (session.getAttribute("user").equals("member")) {
+			gotoPage(request, response, "/memberLeaveCheck.jsp");
+		} else if (session.getAttribute("user").equals("admin")) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			request.setAttribute("id_member", id);
+			gotoPage(request, response, "/memberLeaveCheck.jsp");
+		} else {
+			request.setAttribute("message", "正しく操作してください。");
+			gotoPage(request, response, "/errInternal.jsp");
+		}
+
+	}
+
 	private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)
 			throws ServletException, IOException {
 		// TODO 自動生成されたメソッド・スタブ
@@ -36,20 +54,7 @@ public class LeaveServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession(false);
-		//退会チェック選択画面
-		if (action.equals("leave")) {
-			if (session.getAttribute("user").equals("member")) {
-				gotoPage(request, response, "/memberLeaveCheck.jsp");
-			} else if (session.getAttribute("user").equals("admin")) {
-				int id = Integer.parseInt(request.getParameter("id"));
-				request.setAttribute("id_member", id);
-				gotoPage(request, response, "/memberLeaveCheck.jsp");
-			} else {
-				request.setAttribute("message", "正しく操作してください。");
-				gotoPage(request, response, "/errInternal.jsp");
-			}
-
-		} else if (action.equals("doleave")) {
+		if (action.equals("doleave")) {
 			MemberDAO dao = null;
 			try {
 				if (session.getAttribute("user").equals("member")) {

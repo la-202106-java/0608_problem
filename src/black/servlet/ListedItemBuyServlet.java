@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import black.bean.MemberBean;
 import black.dao.ListedItemDAO;
+import black.dao.MemberDAO;
 
 /**
  * Servlet implementation class ListedItemBuy
@@ -26,15 +29,26 @@ public class ListedItemBuyServlet extends HttpServlet {
 			ListedItemDAO dao = new ListedItemDAO();
 
 			//教科書購入チェック選択画面
-			if (action.equals("Check")) {
-				gotoPage(request, response, "/.jsp");
-			} else if (action.equals("")) {
+			if (action.equals("buy")) {
+				HttpSession session = request.getSession(false);
+				MemberBean bean = (MemberBean) session.getAttribute("member");
+				if (bean == null) {
+					gotoPage(request, response, "/memberLogin.jsp");
+				}
+				gotoPage(request, response, "/listedItemBuyCheck.jsp");
+			} else if (action.equals("dobuy")) {
 				//購入完了ページに行く
 				int id = Integer.parseInt(request.getParameter("id"));
 				int sales = Integer.parseInt(request.getParameter("sales"));
 				int seller_id = Integer.parseInt(request.getParameter("seller_id"));
+				MemberDAO dao2 = new MemberDAO();
+				MemberBean bean = dao2.findMember(seller_id);
+				sales += bean.getSales();
+				dao2.plusSales(sales, seller_id);
 				dao.deleteItem(id);
-				gotoPage(request, response, "/.jsp");
+				//setterの追加
+
+				gotoPage(request, response, "/listedItemBuyDone.jsp");
 			}
 			//キャンセル　教科書詳細ページに行く
 			else if (action.equals("cancel")) {

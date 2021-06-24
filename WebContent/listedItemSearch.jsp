@@ -23,9 +23,9 @@
 
 <form action="/0608_problem/ListedItemSearchServlet" method="post">
 ISBN：<br>
-<input type="text" name="isbn"><br>
+<input type="text" name="isbn"value="${search_isbn}"><br>
 タイトル：<br>
-<input type="text" name="title"><br>
+<input type="text" name="title"value="${search_title}"><br>
 分類：<br>
 <select name="department_code">
 	  <option value="-1">----------</option>
@@ -42,10 +42,10 @@ ISBN：<br>
       <option value="10">10:農学部系</option>
       </select><br><br>
 著者名：<br>
-<input type="text" name="author"><br><br>
+<input type="text" name="author" value="${search_author}"><br><br>
 売値：<br>
-<input type="text" name="price_min" size="15">円以上 |
-<input type="text" name="price_max" size="15">円以下<br>
+<input type="text" name="price_min" size="15" value="${search_price_min}">円以上 |
+<input type="text" name="price_max" size="15" value="${search_price_min}">円以下<br>
 状態：<br>
 <select name="condition">
 	<option value="">----</option>
@@ -54,8 +54,19 @@ ISBN：<br>
 	<option>中古</option>
 </select>
 <br><br>
-<input type="checkbox" name="stock" value="true">在庫有のみ表示<br>
-<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
+<c:if test="${search_stock == 'true'}">
+	<input type="checkbox" name="stock" value="true" checked="checked">在庫有のみ表示<br>
+</c:if>
+<c:if test="${search_stock == ''}">
+	<input type="checkbox" name="stock" value="true">在庫有のみ表示<br>
+</c:if>
+<c:if test="${search_my_item == 'true'}">
+	<input type="checkbox" name="my_item" value="true" checked="checked">自分が出品した商品のみ表示<br>
+</c:if>
+<c:if test="${search_my_item == ''}">
+	<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
+</c:if>
+
 <input type="hidden" name="action" value="search">
 <input type="submit" value="検索">
 </form>

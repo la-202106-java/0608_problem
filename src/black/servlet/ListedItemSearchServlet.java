@@ -96,8 +96,22 @@ public class ListedItemSearchServlet extends HttpServlet {
 
 				List<ListedItemBean> list = dao.findItem(isbn, title, departmentCode, author,
 						priceMin, priceMax, condition, onlyInStock, sellerId);
+
+				//結果と件数をスコープに入れる
 				request.setAttribute("listed_items", list);
 				request.setAttribute("result_num", list.size());
+
+				//検索条件をスコープに入れる
+				request.setAttribute("search_isbn", list);
+				request.setAttribute("search_title", title);
+				request.setAttribute("search_department_code", departmentCode);
+				request.setAttribute("search_author", author);
+				request.setAttribute("search_price_min", pMin);
+				request.setAttribute("search_price_max", pMax);
+				request.setAttribute("search_condition", condition);
+				request.setAttribute("search_stock", stock);
+				request.setAttribute("search_my_item", myItem);
+
 				gotoPage(request, response, "/listedItemSearch.jsp");
 
 			} catch (DAOException e) {

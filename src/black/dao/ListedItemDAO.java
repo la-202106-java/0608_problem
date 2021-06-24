@@ -92,8 +92,6 @@ public class ListedItemDAO {
 					bean.setByerId(Integer.parseInt(byerIdStr));
 				}
 
-				boolean aa = bean.isInStock();
-
 				if (onlyInStock) {
 					//在庫ありのみ指定の場合
 					if (bean.isInStock()) {
@@ -104,6 +102,7 @@ public class ListedItemDAO {
 					list.add(bean);
 				}
 			}
+
 			//教科書情報一覧リストを返す
 			return list;
 

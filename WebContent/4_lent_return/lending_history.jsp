@@ -64,7 +64,7 @@
            <td>${book.bookId}</td>
            <td>${book.lendingDate}</td>
            <td>${book.deadline}</td>
-           <td>${returnDate}</td>
+           <td>${book.returnDate}</td>
            <td>${book.note}</td>
         </tr>
      </c:forEach>

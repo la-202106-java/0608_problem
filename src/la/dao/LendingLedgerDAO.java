@@ -53,7 +53,13 @@ public class LendingLedgerDAO {
 			e1.printStackTrace();
 		}
 		MemberDAO memDAO = new MemberDAO();
-		Member member = memDAO.findById(mid);
+		Member member = null;
+		try {
+			member = memDAO.findById(mid);
+		} catch (DAOException e2) {
+			// TODO 自動生成された catch ブロック
+			e2.printStackTrace();
+		}
 
 		if (ml == null || member == null) {
 			return -1;

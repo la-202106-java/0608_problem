@@ -19,6 +19,54 @@ public class MemberDAO {
 
 	}
 
+	public List<MemberBean> findAll() throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+
+			String sql = "SELECT * FROM member";
+
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery();
+			// 結果の取得および表示
+			List<MemberBean> list = new ArrayList<MemberBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String address = rs.getString("address");
+				String tel = rs.getString("tel");
+				String email = rs.getString("email");
+				Date birthday = rs.getDate("birthday");
+				Date join_date = rs.getDate("join_date");
+				String pass = rs.getString("pass");
+				bean = new MemberBean(id, name, address, tel, email, birthday,
+						join_date, pass);
+				list.add(bean);
+			}
+			// カテゴリ一覧をListとして返す
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public MemberBean findByEmailAndPassword(String mail, String passwd) throws DAOException {
 		if (con == null)
 			getConnection();
@@ -40,9 +88,13 @@ public class MemberDAO {
 			// 結果の取得および表示
 			while (rs.next()) {
 				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String address = rs.getString("address");
+				String tel = rs.getString("tel");
 				String email = rs.getString("email");
+				Date birthday = rs.getDate("birthday");
 				String pass = rs.getString("pass");
-				bean = new MemberBean(id, email, pass);
+				bean = new MemberBean(id, name, address, tel, email, birthday, pass);
 			}
 			// カテゴリ一覧をListとして返す
 			return bean;
@@ -208,13 +260,13 @@ public class MemberDAO {
 	}
 
 	//会員情報更新
-	public void updateMenber(int id, String name, String address,
+	public void updateMember(int id, String name, String address,
 			String tel, String email, Date birthday, String pass) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
-		String sql = "UPDATE member SET name=? address=? tel=? email=? birthday=? pass=?"
+		String sql = "UPDATE member SET name=?, address=?, tel=?, email=?, birthday=?, pass=?"
 				+ " WHERE id=?";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {

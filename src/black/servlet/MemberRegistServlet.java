@@ -60,7 +60,9 @@ public class MemberRegistServlet extends HttpServlet {
 					String pass = member.getPass();
 					dao.addMember(name, address, tel, email, birthday, pass);
 					request.setAttribute("message", "会員登録が完了しました");
-					gotoPage(request, response, "/memberLogin.jsp");
+					MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
+					session.setAttribute("logined", bean);
+					gotoPage(request, response, "/top.jsp");
 				}
 
 			} else {

@@ -13,9 +13,54 @@ import black.bean.MemberBean;
 
 public class MemberDAO {
 	private Connection con;
+	private MemberBean bean;
 
 	public MemberDAO() throws DAOException {
 
+	}
+
+	public MemberBean findByEmailAndPassword(String mail, String passwd) throws DAOException {
+		if (con == null)
+			getConnection();
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			// SQL文の作成
+
+			String sql = "SELECT * FROM member where email = ? AND pass = ?";
+
+			// PreparedStatementオブジェクトの取得
+			st = con.prepareStatement(sql);
+			// カテゴリの設定
+			st.setString(1, mail);
+			st.setString(2, passwd);
+			// SQLの実行
+			rs = st.executeQuery();
+			// 結果の取得および表示
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String email = rs.getString("email");
+				String pass = rs.getString("pass");
+				bean = new MemberBean(id, email, pass);
+			}
+			// カテゴリ一覧をListとして返す
+			return bean;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
 	}
 
 	//会員検索（ID）

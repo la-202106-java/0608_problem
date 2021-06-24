@@ -22,9 +22,9 @@ public class MenuServlet extends HttpServlet {
 		if (action.equals("top")) {
 			//トップページに移動
 			gotoPage(request, response, "/top.jsp");
-		} else if (action.equals("myPage")) {
+		} else if (action.equals("mypage")) {
 			//マイページに移動
-			gotoPage(request, response, "/myPage.jsp");
+			gotoPage(request, response, "/mypage.jsp");
 		} else if (action.equals("serch")) {
 			//教書検索ページに移動
 			//遷移先ページ未完了

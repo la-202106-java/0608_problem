@@ -24,34 +24,21 @@ public class MemberRegistChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
 
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/memberRegistForm.jsp");
-			} else if (action.equals("create")) {
-				String name = request.getParameter("name");
-				String address = request.getParameter("address");
-				String tel = request.getParameter("tel");
-				String email = request.getParameter("email");
-				//DateをStringで受け取る方法,年月日をそれぞれ受け取って、結合して生年月日としてデータベースに挿入する
-				String date = request.getParameter("date");
-				//生年月日をString型からDate型に変更する処理
-				Date birthday = Date.valueOf(date);
-				String pass = request.getParameter("pass");
-
-				MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
-				session.setAttribute("member", bean);
-				gotoPage(request, response, "/memberRegistCheck.jsp");
-			} else if (action.equals("add")) {
-				MemberBean member = (MemberBean) session.getAttribute("member");
+			} else if (action.equals("change")) {
+				MemberBean member = (MemberBean) session.getAttribute("logined");
 				if (member == null) {
 					request.setAttribute("message", "会員情報を入力してください");
 					gotoPage(request, response, "/errInternal.jsp");
 				} else {
 					MemberDAO dao = new MemberDAO();
+					int id = member.getId();
 					String name = member.getName();
 					String address = member.getAddress();
 					String tel = member.getTel();
@@ -59,8 +46,44 @@ public class MemberRegistChangeServlet extends HttpServlet {
 					Date birthday = member.getBirthday();
 					String pass = member.getPass();
 					dao.addMember(name, address, tel, email, birthday, pass);
-					request.setAttribute("message", "会員登録が完了しました");
-					gotoPage(request, response, "/memberLogin.jsp");
+
+					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+					session.setAttribute("member", bean);
+					gotoPage(request, response, "/memberRegistChange.jsp");
+				}
+			} else if (action.equals("check")) {
+				MemberBean member = (MemberBean) session.getAttribute("logined");
+				int id = member.getId();
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String email = request.getParameter("email");
+				//Date birthday = Date.valueOf(request.getParameter("birthday"));
+				Date birthday = member.getBirthday();
+				String pass = request.getParameter("pass");
+				MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+				session.setAttribute("member", bean);
+				gotoPage(request, response, "/memberChangeCheck.jsp");
+			} else if (action.equals("add")) {
+				MemberBean member = (MemberBean) session.getAttribute("logined");
+				MemberBean memberchanged = (MemberBean) session.getAttribute("member");
+				if (member == null) {
+					request.setAttribute("message", "会員情報を入力してください");
+					gotoPage(request, response, "/errInternal.jsp");
+				} else {
+					MemberDAO dao = new MemberDAO();
+					int id = member.getId();
+					String name = memberchanged.getName();
+					String address = memberchanged.getAddress();
+					String tel = memberchanged.getTel();
+					String email = memberchanged.getEmail();
+					Date birthday = memberchanged.getBirthday();
+					String pass = memberchanged.getPass();
+					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+					dao.updateMember(id, name, address, tel, email, birthday, pass);
+					request.setAttribute("message", "会員情報変更が完了しました");
+					session.setAttribute("logined", bean);
+					gotoPage(request, response, "/top.jsp");
 				}
 
 			} else {

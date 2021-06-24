@@ -21,15 +21,15 @@
 	<h1>会員情報確認</h1>
 	<h3>こちらでお間違えないですか？</h3>
 
-		<form action="/0608_problem/MemberRegistServlet?action=add" method="post">
+		<form action="/0608_problem/MemberRegistChangeServlet?action=add" method="post">
 		<table>
-		<tr><td>名前</td><td>${logined.name}</td></tr>
-		<tr><td>住所</td><td>${logiend.address}</td></tr>
-		<tr><td>電話番号</td><td>${logiend.tel}</td></tr>
-		<tr><td>メールアドレス</td><td>${logiend.email}</td></tr>
-		<tr><td>生年月日</td><td>${logiend.birthday}</td></tr>
+		<tr><td>名前</td><td>${member.name}</td></tr>
+		<tr><td>住所</td><td>${member.address}</td></tr>
+		<tr><td>電話番号</td><td>${member.tel}</td></tr>
+		<tr><td>メールアドレス</td><td>${member.email}</td></tr>
+		<tr><td>生年月日</td><td>${member.birthday}</td></tr>
 		</table><br>
-		<input type="submit" value="登録">
+		<input type="submit" value="変更">
 	</form>
 </body>
 </html>

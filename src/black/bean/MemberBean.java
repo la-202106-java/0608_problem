@@ -38,6 +38,17 @@ public class MemberBean implements Serializable {
 		this.pass = pass;
 	}
 
+	public MemberBean(int id, String name, String address, String tel, String email, Date birthday, String pass) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.tel = tel;
+		this.email = email;
+		this.birthday = birthday;
+		this.pass = pass;
+	}
+
 	public MemberBean() {
 
 	}

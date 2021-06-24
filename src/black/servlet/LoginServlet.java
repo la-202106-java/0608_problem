@@ -32,18 +32,17 @@ public class LoginServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			MemberDAO dao = new MemberDAO();
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/memberLogin.jsp");
 			} else if (action.equals("login")) {
+				dao = new MemberDAO();
 				String mail = request.getParameter("email");
 				String password = request.getParameter("pass");
-				dao = new MemberDAO();
 				MemberBean bean = dao.findByEmailAndPassword(mail, password);
 				if (bean != null) {
 					session.setAttribute("logined", bean);
-					session.setAttribute("user", "member");
 					gotoPage(request, response, "/top.jsp");
 				} else {
 					String message = "メールアドレスとパスワードが一致しません";

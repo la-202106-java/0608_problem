@@ -24,6 +24,7 @@
 <br>
 	 <input type="radio" name="radio" value="title" >
 資料名：<input type="text" name="part_of_title" value=${title }><br>
+<input type="submit" value="検索">
 <br>
 <!--
 	 <input type="radio" name="radio" value="stock_date" >

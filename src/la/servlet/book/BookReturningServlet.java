@@ -93,9 +93,9 @@ public class BookReturningServlet extends HttpServlet {
 				ReservedDAO reserveddao = new ReservedDAO();
 				reserveddao.addReserved(userID, bookID, Calendar.getInstance().getTime());
 
-				// 予約を削除
+				// 予約に取り置き日を追加
 				BookBean book = bookdao.findByPrimaryKey(bookID);
-				reservationdao.deleteReservation(userID, book.getIsbn());
+				reservationdao.updateReservation(userID, book.getIsbn(), Calendar.getInstance().getTime());
 
 				gotoPage(request, response, "/4_lent_return/returning_book.jsp");
 

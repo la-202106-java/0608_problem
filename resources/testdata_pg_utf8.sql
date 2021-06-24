@@ -1,5 +1,6 @@
 --テーブル内削除
 
+TRUNCATE TABLE reservation_details CASCADE;
 TRUNCATE TABLE reservations CASCADE;
 TRUNCATE TABLE stay_plans CASCADE;
 TRUNCATE TABLE members  CASCADE;
@@ -71,3 +72,38 @@ INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
 VALUES (3, 4, '2019-07-12', '2019-11-12', '2019-11-13', 1);
 INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
 VALUES (2, 6, '2020-06-07', '2020-09-01', '2019-09-05', 1);
+INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
+VALUES (3, 6, '2020-06-07', '2020-09-01', '2019-09-03', 2);
+INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
+VALUES (4, 6, '2020-06-07', '2020-09-01', '2019-09-03', 2);
+INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
+VALUES (1, 5, '2020-06-07', '2020-09-01', '2019-09-03', 2);
+
+--予約詳細テーブルサンプル
+
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (1, '2019-08-01', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (1, '2019-08-02', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (3, '2019-11-12', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (4, '2020-09-01', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (4, '2020-09-02', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (4, '2020-09-03', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (4, '2020-09-04', 1);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (5, '2020-09-01', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (5, '2020-09-02', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (6, '2020-09-01', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (6, '2020-09-02', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (7, '2020-09-01', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (7, '2020-09-02', 2);

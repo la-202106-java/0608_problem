@@ -58,9 +58,17 @@ CREATE TABLE reservations (
 	note TEXT
 );
 
+CREATE TABLE reservation_details (
+	id SERIAL PRIMARY KEY,
+	reservations_id INTEGER REFERENCES reservations(id),
+	reserve_date DATE NOT NULL,
+	room INTEGER NOT NULL
+);
+
 
 ALTER TABLE members OWNER TO adminuser;
 ALTER TABLE admin OWNER TO adminuser;
 ALTER TABLE inns OWNER TO adminuser;
 ALTER TABLE stay_plans OWNER TO adminuser;
 ALTER TABLE reservations OWNER TO adminuser;
+ALTER TABLE reservation_details OWNER TO adminuser;

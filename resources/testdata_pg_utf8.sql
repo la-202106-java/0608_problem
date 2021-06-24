@@ -74,6 +74,10 @@ INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
 VALUES (2, 6, '2020-06-07', '2020-09-01', '2019-09-05', 1);
 INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
 VALUES (3, 6, '2020-06-07', '2020-09-01', '2019-09-03', 2);
+INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
+VALUES (4, 6, '2020-06-07', '2020-09-01', '2019-09-03', 2);
+INSERT INTO reservations (member_id, plan_id, date, in_date, out_date, room)
+VALUES (1, 5, '2020-06-07', '2020-09-01', '2019-09-03', 2);
 
 --予約詳細テーブルサンプル
 
@@ -95,3 +99,11 @@ INSERT INTO reservation_details (reservations_id, reserve_date, room)
 VALUES (5, '2020-09-01', 2);
 INSERT INTO reservation_details (reservations_id, reserve_date, room)
 VALUES (5, '2020-09-02', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (6, '2020-09-01', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (6, '2020-09-02', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (7, '2020-09-01', 2);
+INSERT INTO reservation_details (reservations_id, reserve_date, room)
+VALUES (7, '2020-09-02', 2);

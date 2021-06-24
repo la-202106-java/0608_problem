@@ -168,6 +168,62 @@ public class ListedItemDAO {
 		}
 	}
 
+	//新規n件取得
+	public List<ListedItemBean> findNewItems(int num) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "SELECT * FROM listed_item ORDER BY id DESC LIMIT ?";
+
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, num);
+			// SQLの実行
+			rs = st.executeQuery();
+
+			//検索結果をひとつずつ取り出してリストに入れる
+			List<ListedItemBean> list = new ArrayList<ListedItemBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String _isbn = rs.getString("isbn");
+				String _title = rs.getString("title");
+				int _departmentCode = rs.getInt("department_code");
+				String _author = rs.getString("author");
+				int price = rs.getInt("price");
+				String _condition = rs.getString("condition");
+				int seller_id = rs.getInt("seller_id");
+
+				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
+						_author, price, _condition, seller_id);
+				bean.setOrderdDate(rs.getDate("orderd_date"));
+
+				String byerIdStr = rs.getString("byer_id");
+				if (byerIdStr != null && byerIdStr.length() != 0) {
+					bean.setByerId(Integer.parseInt(byerIdStr));
+				}
+
+				list.add(bean);
+
+			}
+			//教科書情報一覧リストを返す
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				if (rs != null)
+					rs.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	//教科書登録
 	public void addItem(String isbn, String title, int departmentCode,
 			String author, int price, String condition) throws DAOException {

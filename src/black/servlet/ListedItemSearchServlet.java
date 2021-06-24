@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import black.bean.ListedItemBean;
 import black.bean.MemberBean;
 import black.dao.DAOException;
+import black.dao.DepartmentDAO;
 import black.dao.ListedItemDAO;
 
 /**
@@ -102,7 +103,7 @@ public class ListedItemSearchServlet extends HttpServlet {
 				request.setAttribute("result_num", list.size());
 
 				//検索条件をスコープに入れる
-				request.setAttribute("search_isbn", list);
+				request.setAttribute("search_isbn", isbn);
 				request.setAttribute("search_title", title);
 				request.setAttribute("search_department_code", departmentCode);
 				request.setAttribute("search_author", author);
@@ -119,6 +120,19 @@ public class ListedItemSearchServlet extends HttpServlet {
 				request.setAttribute("messgae", "内部エラーが発生しました。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
+		}
+	}
+
+	public void init() throws ServletException {
+		try {
+			// 分類コード一覧は最初にアプリケーションスコープへ入れる
+			DepartmentDAO dao = new DepartmentDAO();
+			List<String> departments = dao.allDepartment();
+			getServletContext().setAttribute("departments", departments);
+			getServletContext().setAttribute("departments_size", departments.size());
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServletException();
 		}
 	}
 

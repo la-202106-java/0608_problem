@@ -58,14 +58,18 @@ public class ListedItemDAO {
 			st.setString(3, "%" + author + "%");
 			st.setInt(4, priceMin);
 			st.setInt(5, priceMax);
+			int i = 6;
 			if (condition.length() != 0) {
-				st.setString(6, condition);
+				st.setString(i, condition);
+				i++;
 			}
 			if (0 <= departmentCode && departmentCode <= 10) {
-				st.setInt(7, priceMax);
+				st.setInt(i, departmentCode);
+				i++;
 			}
 			if (0 <= sellerId) {
-				st.setInt(8, sellerId);
+				st.setInt(i, sellerId);
+				i++;
 			}
 
 			// SQLの実行

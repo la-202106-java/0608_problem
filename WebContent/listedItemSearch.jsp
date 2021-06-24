@@ -28,24 +28,21 @@ ISBN：<br>
 <input type="text" name="title"value="${search_title}"><br>
 分類：<br>
 <select name="department_code">
-	  <option value="-1">----------</option>
-      <option value="0">0:文学部系</option>
-      <option value="1">1:教育学部系</option>
-      <option value="2">2:法学部系</option>
-      <option value="3">3:社会学部系</option>
-      <option value="4">4:経済学部系</option>
-      <option value="5">5:理学部系</option>
-      <option value="6">6:医学部系</option>
-      <option value="7">7:歯学部系</option>
-      <option value="8">8:薬学部系</option>
-      <option value="9">9:工学部系</option>
-      <option value="10">10:農学部系</option>
+	<option value="-1">----------</option>
+	<c:forEach var="i" begin="0" end="${departments_size -1}" step="1">
+		<c:if test="${search_department_code==i}">
+			<option value="${i}" selected="selected">${i} : ${departments.get(i)}</option>
+		</c:if>
+		<c:if test="${empty search_department or search_department_code!=i}">
+			<option value="${i}">${i} : ${departments.get(i)}</option>
+		</c:if>
+	</c:forEach>
       </select><br><br>
 著者名：<br>
 <input type="text" name="author" value="${search_author}"><br><br>
 売値：<br>
 <input type="text" name="price_min" size="15" value="${search_price_min}">円以上 |
-<input type="text" name="price_max" size="15" value="${search_price_min}">円以下<br>
+<input type="text" name="price_max" size="15" value="${search_price_max}">円以下<br>
 状態：<br>
 <select name="condition">
 	<option value="">----</option>
@@ -57,13 +54,13 @@ ISBN：<br>
 <c:if test="${search_stock == 'true'}">
 	<input type="checkbox" name="stock" value="true" checked="checked">在庫有のみ表示<br>
 </c:if>
-<c:if test="${search_stock == ''}">
+<c:if test="${empty search_stock}">
 	<input type="checkbox" name="stock" value="true">在庫有のみ表示<br>
 </c:if>
 <c:if test="${search_my_item == 'true'}">
 	<input type="checkbox" name="my_item" value="true" checked="checked">自分が出品した商品のみ表示<br>
 </c:if>
-<c:if test="${search_my_item == ''}">
+<c:if test="${empty search_my_item}">
 	<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
 </c:if>
 

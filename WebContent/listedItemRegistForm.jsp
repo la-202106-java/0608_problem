@@ -19,28 +19,32 @@
 </c:if>
 <br>
 
-&nbsp;&nbsp;ISBN&nbsp;&nbsp;：<input type="text" name="isbn" size="15"><br><br>
-タイトル：<input type="text" name="title" size="15"><br><br>
-&nbsp;&nbsp;分類&nbsp;&nbsp;：<select name="select1">
-      <option>0:文学部系</option>
-      <option>1:教育学部系</option>
-      <option>2:法学部系</option>
-      <option>3:社会学部系</option>
-      <option>4:経済学部系</option>
-      <option>5:理学部系</option>
-      <option>6:医学部系</option>
-      <option>7:歯学部系</option>
-      <option>8:薬学部系</option>
-      <option>9:工学部系</option>
-      <option>10:農学部系</option>
-      </select><br><br>
-&nbsp;著者名：<input type="text" name="author" size="15"><br><br>
-&nbsp;&nbsp;&nbsp;売値&nbsp;&nbsp;：<input type="text" name="payment" size="15"><br><br>
-&nbsp;&nbsp;状態&nbsp;&nbsp;：<select name="select1">
-      <option>新品</option>
-      <option>中古(未使用)</option>
-      <option>中古</option>
-      </select><br>
+
+<form action="/0608_problem/ListedItemRegistServlet" method="post">
+ISBN：<br>
+<input type="text" name="isbn" size="15"><br>
+タイトル：<br>
+<input type="text" name="title" size="15"><br>
+分類：<br>
+<select name="department_code">
+	<%-- 選択肢は「0:文学部系」のような表示だが、送信されるのはintのコードのみ --%>
+	<c:forEach var="i" begin="0" end="${departments_size -1}" step="1">
+		<option value="${i}">${i} : ${departments.get(i)}</option>
+	</c:forEach>
+</select><br><br>
+著者名：<br>
+<input type="text" name="author" size="15"><br>
+売値：<br>
+<input type="text" name="payment" size="15"><br>
+状態：<br>
+<select name="condition">
+	<c:forEach items="${conditions}" var="condition">
+		<option>${condition}</option>
+	</c:forEach>
+</select>
+<br>
 <input type="submit" value="登録">
+</form>
+
 </body>
 </html>

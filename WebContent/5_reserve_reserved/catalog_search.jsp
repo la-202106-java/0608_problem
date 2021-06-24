@@ -33,7 +33,12 @@ ${result.size()}件の資料が検索されました<br>
 	      <td>${item.title}</td>
 	      <td>${item.isbn}</td>
 	      <td>在庫${item.stockCount}</td>
-	      <td><input type="submit" value = 予約></td>
+	      <c:if test="${item.stockCount eq 0}">
+		      <td><input type="submit" value = 予約></td>
+	      </c:if>
+	      <c:if test="${item.stockCount ne 0}">
+		      <td><input type="submit" value = 取置></td>
+	      </c:if>
 	    </tr>
 	</c:forEach>
   </table>

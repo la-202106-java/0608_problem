@@ -220,6 +220,10 @@ public class CatalogDAO {
 		ResultSet rs = null;
 
 		try {
+			// 目録のISBNと資料(book)を結合して資料一覧を取得する
+			// 資料IDで貸出テーブルを結合して貸出数を取得する
+			// 資料IDで取置テーブルを結合して貸出数を取得する
+			// ISBNでGroupingした数ー貸出数の数＝在庫数
 			String sql = " SELECT "
 					+ " c.isbn, c.title,"
 					+ " count(b.isbn) as all_count," //  --本ごとの資料数

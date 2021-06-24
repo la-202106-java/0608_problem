@@ -44,13 +44,7 @@ public class CatalogSearchServlet extends HttpServlet {
 			CatalogDAO dao = new CatalogDAO();
 			List<CatalogBean> list = dao.getCatalogListWithStockByName(titles);
 
-			// 目録のISBNと資料(book)を結合して資料一覧を取得する
-			// 資料IDで貸出テーブルを結合して貸出数を取得する
-			// 資料IDで取置テーブルを結合して貸出数を取得する
-			// ISBNでGroupingした数ー貸出数の数＝在庫数
-
 			// 結果をJSPへ出力する
-			//			List<CatalogBean> list = new ArrayList<>();
 			request.setAttribute("result", list);
 			request.setAttribute("titles", titles);
 			gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");

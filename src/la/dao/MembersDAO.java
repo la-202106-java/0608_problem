@@ -1,6 +1,7 @@
 package la.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,9 +39,21 @@ public class MembersDAO {
 				String address = rs.getString("address");
 				String tel = rs.getString("tel");
 				String email_address = rs.getString("email_address");
-				java.sql.Date birth_date = rs.getDate("birth_date");
-				java.sql.Date join_date = rs.getDate("join_date");
-				java.sql.Date quit_date = rs.getDate("quit_date");
+				String birth_date = String.valueOf(rs.getDate("birth_date"));
+				Date tmp_jdate = rs.getDate("join_date");
+				Date tmp_qdate = rs.getDate("quit_date");
+				LocalDate join_date;
+				LocalDate quit_date;
+				if (tmp_jdate == null) {
+					join_date = null;
+				} else {
+					join_date = rs.getDate("join_date").toLocalDate();
+				}
+				if (tmp_qdate == null) {
+					quit_date = null;
+				} else {
+					quit_date = rs.getDate("quit_date").toLocalDate();
+				}
 				MemberBean bean = new MemberBean(id, pass, name, postal_code, address, tel,
 						email_address, birth_date, join_date, quit_date);
 				list.add(bean);

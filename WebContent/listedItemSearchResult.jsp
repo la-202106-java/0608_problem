@@ -22,7 +22,7 @@
       			<td><b>${item.title}</b><br>
       				<small>${departments.get(item.departmentCode)}</small></td>
       			<td>${item.price}円</td>
-      			<td>在庫　
+      			<td>在庫：
       				<c:if test="${item.inStock}">〇</c:if>
       				<c:if test="${!item.inStock}">×</c:if>
       			</td>

@@ -1,6 +1,7 @@
 package black.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import black.bean.ListedItemBean;
 import black.dao.DAOException;
+import black.dao.DepartmentDAO;
 import black.dao.ListedItemDAO;
 
 /**
@@ -25,11 +27,21 @@ public class ListedItemChangeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		gotoPage(request, response, "/listedItemChangeForm.jsp");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getParameter("action");
 
-		//教科書変更画面
-		if (action.equals("change")) {
+		if (action == null || action.length() == 0) {
+			//actionが指定されていなければフォームへ
+			gotoPage(request, response, "/listedItemRegistForm.jsp");
+		} else if (action.equals("change")) {
+			//教科書変更画面
 			int id = Integer.parseInt(request.getParameter("id"));
 			ListedItemDAO dao = null;
 			try {
@@ -56,7 +68,24 @@ public class ListedItemChangeServlet extends HttpServlet {
 			}
 			gotoPage(request, response, "/listedItemRegistCheck.jsp");
 		}
+	}
 
+	public void init() throws ServletException {
+		try {
+			// 分類コード一覧は最初にアプリケーションスコープへ入れる
+			DepartmentDAO dao = new DepartmentDAO();
+			List<String> departments = dao.allDepartment();
+			getServletContext().setAttribute("departments", departments);
+			getServletContext().setAttribute("departments_size", departments.size());
+
+			//状態（新品・未使用・中古）もアプリケーションスコープへ
+			String[] conditions = { "新品", "未使用", "中古" };
+			getServletContext().setAttribute("conditions", conditions);
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServletException();
+		}
 	}
 
 	private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)
@@ -65,14 +94,4 @@ public class ListedItemChangeServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

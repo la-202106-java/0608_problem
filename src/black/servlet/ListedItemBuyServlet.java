@@ -27,15 +27,18 @@ public class ListedItemBuyServlet extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
 			ListedItemDAO dao = new ListedItemDAO();
+			HttpSession session = request.getSession(false);
 
 			//教科書購入チェック選択画面
 			if (action.equals("buy")) {
-				HttpSession session = request.getSession(false);
-				MemberBean bean = (MemberBean) session.getAttribute("member");
+
+				MemberBean bean = (MemberBean) session.getAttribute("logined");
 				if (bean == null) {
+
 					gotoPage(request, response, "/memberLogin.jsp");
+				} else {
+					gotoPage(request, response, "/listedItemBuyCheck.jsp");
 				}
-				gotoPage(request, response, "/listedItemBuyCheck.jsp");
 			} else if (action.equals("dobuy")) {
 				//購入完了ページに行く
 				int id = Integer.parseInt(request.getParameter("id"));

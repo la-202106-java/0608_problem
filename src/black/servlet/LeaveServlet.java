@@ -41,13 +41,8 @@ public class LeaveServlet extends HttpServlet {
 			if (session.getAttribute("user").equals("member")) {
 				gotoPage(request, response, "/memberLeaveCheck.jsp");
 			} else if (session.getAttribute("user").equals("admin")) {
-				MemberBean beannew = new MemberBean();
-				beannew.setId(Integer.parseInt(request.getParameter("id")));
-				beannew.setName(request.getParameter("name"));
-				//				beannew.setAddress(request.getParameter("address"));
-				//				beannew.setTel(request.getParameter("tel"));
-				//				beannew.setEmail(request.getParameter("email"));
-				request.setAttribute("member", beannew);
+				int id = Integer.parseInt(request.getParameter("id"));
+				request.setAttribute("id_member", id);
 				gotoPage(request, response, "/memberLeaveCheck.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
@@ -57,8 +52,22 @@ public class LeaveServlet extends HttpServlet {
 		} else if (action.equals("doleave")) {
 			MemberDAO dao = null;
 			try {
-				dao = new MemberDAO();
-				dao.memberQuit(Integer.parseInt(request.getParameter("id")));
+				if (session.getAttribute("user").equals("member")) {
+					MemberBean member = (MemberBean) session.getAttribute("logined");
+					int id = member.getId();
+					dao = new MemberDAO();
+					dao.memberQuit(id);
+					session.removeAttribute("logined");
+					session.removeAttribute("user");
+					gotoPage(request, response, "/memberLeaveDone.jsp");
+				} else if (session.getAttribute("user").equals("admin")) {
+					int id = (int) session.getAttribute("id_member");
+					dao = new MemberDAO();
+					dao.memberQuit(id);
+					gotoPage(request, response, "/memberLeaveDone.jsp");
+					session.removeAttribute("id_member");
+				}
+
 			} catch (NumberFormatException | DAOException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();

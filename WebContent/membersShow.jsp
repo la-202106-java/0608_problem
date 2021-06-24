@@ -8,6 +8,10 @@
 <title>会員情報検索</title>
 </head>
 <body>
+	<jsp:include page="/membersSearch.jsp" />
+	<hr>
+	<jsp:include page="/membersQuit.jsp" />
+	<hr>
 
 	<table border="1">
 		<tr>
@@ -34,7 +38,7 @@
 				<td>${member.emailAddress}</td>
 				<td>${member.birthDate}</td>
 				<td>${member.joinDate}</td>
-				<td>${member.quitDate}</td>
+				<td>${member.quiteDate}</td>
 			</tr>
 		</c:forEach>
 

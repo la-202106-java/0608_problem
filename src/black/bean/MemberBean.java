@@ -42,6 +42,14 @@ public class MemberBean implements Serializable {
 
 	}
 
+	public MemberBean(int id, String email, String pass) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		super();
+		this.id = id;
+		this.email = email;
+		this.pass = pass;
+	}
+
 	public int getId() {
 		return id;
 	}

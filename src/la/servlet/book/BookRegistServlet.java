@@ -53,11 +53,22 @@ public class BookRegistServlet extends HttpServlet {
 				String isbn = request.getParameter("isbn");
 				String arrivalDate = request.getParameter("arrival_date");
 
-				dao.addBook(title, isbn, arrivalDate);
+				int id = dao.addBook(title, isbn, arrivalDate);
+				request.setAttribute("id", id);
 				request.setAttribute("title", title);
 				request.setAttribute("isbn", isbn);
 				request.setAttribute("arrivalDate", arrivalDate);
 				gotoPage(request, response, "/3_book/book_register_confirmed.jsp");
+			} else if (action.equals("back")) {
+				String title = request.getParameter("title");
+				String isbn = request.getParameter("isbn");
+				String arrivalDate = request.getParameter("arrival_date");
+
+				request.setAttribute("title", title);
+				request.setAttribute("isbn", isbn);
+				request.setAttribute("arrivalDate", arrivalDate);
+				gotoPage(request, response, "/3_book/book_register.jsp");
+
 			} else if (action.equals("catalog_regist")) {
 				String title = request.getParameter("title");
 				String isbn = request.getParameter("isbn");

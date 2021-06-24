@@ -110,15 +110,27 @@ public class BookDAO {
 		java.sql.Date arrival_date = java.sql.Date.valueOf(arrivalDate);
 
 		PreparedStatement st = null;
+		ResultSet rs = null;
 
 		try {
-			String sql = "INSERT INTO book(isbn,title,arrival_date) VALUES (?,?,?)";
+			int id = 0;
+			String id_sql = "SELECT nextval('book_id_seq')";
+			st = con.prepareStatement(id_sql);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+			}
+			rs.close();
+			st.close();
+
+			String sql = "INSERT INTO book VALUES (?,?,?,?)";
 			st = con.prepareStatement(sql);
-			st.setString(1, isbn);
-			st.setString(2, title);
-			st.setDate(3, arrival_date);
+			st.setInt(1, id);
+			st.setString(2, isbn);
+			st.setString(3, title);
+			st.setDate(4, arrival_date);
 			int rows = st.executeUpdate();
-			return rows;
+			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました");

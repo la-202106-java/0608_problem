@@ -25,6 +25,15 @@
       <div class="pr-3">
           <div class="form-group">
             <form method="get" action="/0608_problem/BookLendingServlet">
+              <input type="hidden" name="userID" value="${user.id}">
+              <input type="hidden" name="action" value="userSearch">
+              <button class="btn btn-secondary" type="submit">戻る</button>
+            </form>
+          </div>
+        </div>
+      <div class="pr-3">
+          <div class="form-group">
+            <form method="get" action="/0608_problem/BookLendingServlet">
               <input type="hidden" name="bookID" value="${book.id}">
               <input type="hidden" name="userID" value="${user.id}">
               <input type="hidden" name="action" value="finish">

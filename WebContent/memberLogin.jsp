@@ -17,7 +17,7 @@
         <p>パスワード:<br>
             <input type = "password" name = "pass"></p>
             <input type="hidden" name = "action" value = "login">
-            <p><input type = "submit" value = "ログイン"></p>
+            <input type = "submit" value = "ログイン">
     </form>
     </body>
     </html>

@@ -44,7 +44,9 @@
                   </a>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-secondary btn-lg">資料登録 <i class="fas fa-plus-circle"></i></button>
+                  <a class="btn btn-secondary btn-lg" href="/0608_problem/BookRegistServlet" role="button">
+	                  資料登録 <i class="fas fa-plus-circle"></i>
+                  </a>
                 </td>
                 <td>
                   <button type="submit" class="btn btn-outline-dark btn-lg">
@@ -64,7 +66,9 @@
                   <button type="submit" class="btn btn-secondary btn-lg">貸出履歴 <i class="fas fa-search"></i></button>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-outline-dark btn-lg">目録登録 <i class="fas fa-plus-circle"></i></button>
+                  <a class="btn btn-secondary btn-lg" href="/0608_problem/CatalogRegistServlet" role="button">
+                  	目録登録 <i class="fas fa-plus-circle"></i>
+                  </a>
                 </td>
               </tr>
               <tr>

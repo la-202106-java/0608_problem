@@ -59,7 +59,7 @@
                   会員登録 <i class="fas fa-plus-circle" ></i></a>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-danger btn-lg">資料貸出</button>
+                  <a class="btn btn-danger btn-lg"  href="/0608_problem/BookLendingServlet" role="button">資料貸出</a>
                 </td>
                 <td>
                   <button type="submit" class="btn btn-secondary btn-lg">貸出履歴 <i class="fas fa-search"></i></button>

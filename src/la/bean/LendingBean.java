@@ -9,6 +9,18 @@ public class LendingBean {
 	private Date lendingDate;
 	private Date deadline;
 	private String note;
+	private String bookTitle;
+
+	public LendingBean(int id, int bookId, int userId, Date lendingDate, Date deadline, String note, String bookTitle) {
+		super();
+		this.id = id;
+		this.bookId = bookId;
+		this.userId = userId;
+		this.lendingDate = lendingDate;
+		this.deadline = deadline;
+		this.note = note;
+		this.bookTitle = bookTitle;
+	}
 
 	public LendingBean() {
 	}
@@ -69,6 +81,14 @@ public class LendingBean {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
 	}
 
 }

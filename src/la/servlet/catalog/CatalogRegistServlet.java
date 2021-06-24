@@ -64,6 +64,21 @@ public class CatalogRegistServlet extends HttpServlet {
 
 				dao.addBooktoCatalog(title, isbn, code, author, publisher, publicationDate);
 				gotoPage(request, response, "/3_book/catalog_register.jsp");
+			} else if (action.equals("back")) {
+				String title = request.getParameter("title");
+				String isbn = request.getParameter("isbn");
+				int code = Integer.parseInt(request.getParameter("code"));
+				String author = request.getParameter("author");
+				String publisher = request.getParameter("publisher");
+				String publicationDate = request.getParameter("publicationDate");
+
+				request.setAttribute("title", title);
+				request.setAttribute("isbn", isbn);
+				request.setAttribute("code", code);
+				request.setAttribute("author", author);
+				request.setAttribute("publisher", publisher);
+				request.setAttribute("publicationDate", publicationDate);
+				gotoPage(request, response, "/3_book/catalog_register.jsp");
 			}
 
 		} catch (DAOException e) {

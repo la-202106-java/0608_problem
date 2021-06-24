@@ -17,7 +17,7 @@
 ISBN番号：${isbn}<br>
 入荷年月日：${arrivalDate}<br>
 <br>
-<a href="/0608_problem/3_book/book_register.jsp">戻る</a>
+<a href="/0608_problem/BookRegistServlet?action=back&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}">戻る</a>
 <input type="submit" value = 登録>
 </form>
 

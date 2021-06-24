@@ -17,7 +17,7 @@
 
 
 <form action="/0608_problem/Shiryou_tourokuServlet" method="post">
-ISBN番号：<input type="text" name="isbn">
+ISBN番号：<input type="text" name="isbn" maxlength="13">
  <input type ="hidden" name ="action" value ="regist">
   <input type="submit" value="登録">
 </form>

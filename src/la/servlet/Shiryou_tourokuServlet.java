@@ -40,6 +40,9 @@ public class Shiryou_tourokuServlet extends HttpServlet {
 					MaterialCatalog bean = dao.findByISBNkey(ISBN);
 					if (bean != null) { //資料が既に目録に登録されていたら
 						session.setAttribute("beans", bean);
+						MaterialCategoryDAO dao2 = new MaterialCategoryDAO();//カテゴリコードに対応したカテゴリネームを取得
+						MaterialCategory bean1 = dao2.findName(bean.getCategoryCode());
+						request.setAttribute("beans1", bean1);
 						gotoPage(request, response, "/confirm_siryou_touroku.jsp");
 					} else {
 						session.setAttribute("isbn", ISBN);
@@ -77,10 +80,14 @@ public class Shiryou_tourokuServlet extends HttpServlet {
 
 				int categoryCode = Integer.parseInt(request.getParameter("choice"));
 
-				MaterialCatalog bean4 = dao.findByName(title);
-				if (bean4 != null) { //入力した資料名が既に目録に登録されている場合
-					session.setAttribute("beans", bean4);
+				//MaterialCatalog bean4 = dao.findByName(title);//既存
+				MaterialCatalog bean5 = dao.findBySelect(title, author, publisher, publisher_date, categoryCode);
+				if (bean5 != null) { //入力した資料名が既に目録に登録されている場合
+					session.setAttribute("beans", bean5);
 					request.setAttribute("Inputcheck", "True");
+					MaterialCategoryDAO dao2 = new MaterialCategoryDAO();//カテゴリコードに対応したカテゴリネームを取得
+					MaterialCategory bean1 = dao2.findName(bean5.getCategoryCode());
+					request.setAttribute("beans1", bean1);
 					gotoPage(request, response, "/confirm_siryou_touroku.jsp");
 				} else if (title != null && title.length() != 0 &&
 						author != null && author.length() != 0 &&

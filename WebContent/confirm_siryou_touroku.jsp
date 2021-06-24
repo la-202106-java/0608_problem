@@ -13,7 +13,7 @@
 <h2>資料の新規登録</h2>
 
 <c:if test ="${Inputcheck eq 'True' }">
-<h3><font color="red">入力された資料名と同名の資料が既に目録に登録されていました。</font></h3>
+<h3><font color="red">入力された資料の情報が既に目録に登録されていました。</font></h3>
 </c:if>
 
 <form action="/0608_problem/Shiryou_tourokuServlet" method="post">
@@ -30,7 +30,7 @@
 <table border="1">
 <tr><td>ISBN番号</td><td>${beans.isbn}</td></tr>
 <tr><td>資料名</td><td>${beans.title}</td></tr>
-<tr><td>カテゴリコード</td><td>${beans.categoryCode}</td></tr>
+<tr><td>カテゴリコード</td><td>${beans1.name}</td></tr>
 <tr><td>出版名	</td><td>${beans.authur}</td></tr>
 <tr><td>出版社	</td><td>${beans.publisher}</td></tr>
 <tr><td>出版日</td><td>${beans.publicationDate}</td></tr>

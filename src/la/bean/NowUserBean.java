@@ -15,6 +15,14 @@ public class NowUserBean {
 	public NowUserBean() {
 	}
 
+	public NowUserBean(String name, String address, String tel, String email) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.tel = tel;
+		this.email = email;
+	}
+
 	public NowUserBean(String name, Date birthDate, Date joinDate, String address, String tel, String email) {
 		super();
 		this.name = name;

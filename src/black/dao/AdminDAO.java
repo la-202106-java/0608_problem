@@ -14,55 +14,32 @@ public class AdminDAO {
 
 	public AdminDAO() throws DAOException {
 		getConnection();
+		setSeq();
+	}
 
+	private void setSeq() throws DAOException {
 		//idのシーケンスがなぜか常に1から始まってしまうので、
 		//シーケンスの開始の値を現在のレコード数+1に設定
 		//addの際のエラー回避
 
-		String sql = "SELECT SETVAL('admin_id_seq', ? , false)";
+		String sql = "SELECT COUNT(*) FROM member";
+		String sql2 = "SELECT SETVAL('member_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);
-				ResultSet rs = st.executeQuery();) {
-
+				ResultSet rs = st.executeQuery()) {
 			if (rs.next()) {
+				//レコード数取得
 				int i = rs.getInt(1);
-				st.setInt(1, i + 1);
-				try (ResultSet rs2 = st.executeQuery()) {
 
+				try (PreparedStatement st2 = con.prepareStatement(sql2)) {
+					st2.setInt(1, i + 1);
+					st2.executeQuery();
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new DAOException("レコードの取得に失敗しました。");
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
-		} finally {
-			try {
-				// リソースの開放
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの開放に失敗しました。");
-			}
-		}
-	}
-
-	//レコード数取得
-	public int recordCount() throws DAOException {
-		if (con == null) {
-			getConnection();
-		}
-
-		String sql = "SELECT COUNT(*) FROM admin";
-
-		try (PreparedStatement st = con.prepareStatement(sql);
-				ResultSet rs = st.executeQuery();) {
-			if (rs.next()) {
-				int i = rs.getInt(1);
-				return i;
-			}
-			return -1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");

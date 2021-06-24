@@ -13,59 +13,35 @@ import black.bean.MemberBean;
 
 public class MemberDAO {
 	private Connection con;
-	private MemberBean bean;
 
 	public MemberDAO() throws DAOException {
 		getConnection();
+		setSeq();
+	}
 
+	private void setSeq() throws DAOException {
 		//idのシーケンスがなぜか常に1から始まってしまうので、
 		//シーケンスの開始の値を現在のレコード数+1に設定
 		//addの際のエラー回避
 
-		String sql = "SELECT SETVAL('member_id_seq', ? , false)";
+		String sql = "SELECT COUNT(*) FROM member";
+		String sql2 = "SELECT SETVAL('member_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);
-				ResultSet rs = st.executeQuery();) {
-
+				ResultSet rs = st.executeQuery()) {
 			if (rs.next()) {
+				//レコード数取得
 				int i = rs.getInt(1);
-				st.setInt(1, i + 1);
-				try (ResultSet rs2 = st.executeQuery()) {
 
+				try (PreparedStatement st2 = con.prepareStatement(sql2)) {
+					st2.setInt(1, i + 1);
+					st2.executeQuery();
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new DAOException("レコードの取得に失敗しました。");
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
-		} finally {
-			try {
-				// リソースの開放
-				close();
-			} catch (Exception e) {
-				throw new DAOException("リソースの開放に失敗しました。");
-			}
-		}
-	}
-
-	//レコード数取得
-	public int recordCount() throws DAOException {
-		if (con == null) {
-			getConnection();
-		}
-
-		String sql = "SELECT COUNT(*) FROM member";
-
-		try (PreparedStatement st = con.prepareStatement(sql);
-				ResultSet rs = st.executeQuery();) {
-			if (rs.next()) {
-				int i = rs.getInt(1);
-				return i;
-			}
-			return -1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");
@@ -104,11 +80,10 @@ public class MemberDAO {
 				Date birthday = rs.getDate("birthday");
 				Date join_date = rs.getDate("join_date");
 				String pass = rs.getString("pass");
-				bean = new MemberBean(id, name, address, tel, email, birthday,
+				MemberBean bean = new MemberBean(id, name, address, tel, email, birthday,
 						join_date, pass);
 				list.add(bean);
 			}
-			// カテゴリ一覧をListとして返す
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -135,12 +110,11 @@ public class MemberDAO {
 		ResultSet rs = null;
 		try {
 			// SQL文の作成
-
 			String sql = "SELECT * FROM member where email = ? AND pass = ?";
 
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
-			// カテゴリの設定
+
 			st.setString(1, mail);
 			st.setString(2, passwd);
 			// SQLの実行
@@ -154,10 +128,10 @@ public class MemberDAO {
 				String email = rs.getString("email");
 				Date birthday = rs.getDate("birthday");
 				String pass = rs.getString("pass");
-				bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+				MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+				return bean;
 			}
-			// カテゴリ一覧をListとして返す
-			return bean;
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");

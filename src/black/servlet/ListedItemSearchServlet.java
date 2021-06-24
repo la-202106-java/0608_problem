@@ -130,6 +130,11 @@ public class ListedItemSearchServlet extends HttpServlet {
 			List<String> departments = dao.allDepartment();
 			getServletContext().setAttribute("departments", departments);
 			getServletContext().setAttribute("departments_size", departments.size());
+
+			//状態（新品・未使用・中古）もアプリケーションスコープへ
+			String[] conditions = { "新品", "未使用", "中古" };
+			getServletContext().setAttribute("conditions", conditions);
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServletException();

@@ -94,16 +94,19 @@ public class ReservationDAO {
 		}
 	}
 
-	public int deleteReservation(int userID, String isbn) throws DAOException {
+	public int updateReservation(int userID, String isbn, java.util.Date reservedDate) throws DAOException {
 		if (con == null) {
 			con = dao.getConnection();
 		}
 
-		String sql = "DELETE FROM reservation WHERE user_id=? AND isbn=?";
+		String sql = "UPDATE reservation SET reserved_date=? WHERE user_id=? AND isbn=?";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
-			st.setInt(1, userID);
-			st.setString(2, isbn);
+			// utilとsqlの変換
+			java.sql.Date date = new java.sql.Date(reservedDate.getTime());
+			st.setDate(1, date);
+			st.setInt(2, userID);
+			st.setString(3, isbn);
 
 			int rows = st.executeUpdate();
 			return rows;

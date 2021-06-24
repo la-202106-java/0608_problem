@@ -5,14 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>会員情報検索</title>
+<title>会員情報管理</title>
 </head>
 <body>
-	<jsp:include page="/membersSearch.jsp" />
+	<jsp:include page="/membersUpdate.jsp" />
 	<hr>
 	<jsp:include page="/membersQuit.jsp" />
 	<hr>
 
+	<!--
 	<table border="1">
 		<tr>
 			<td>会員ID</td>
@@ -43,6 +44,7 @@
 		</c:forEach>
 
 	</table>
+	-->
 
 </body>
 </html>

@@ -178,10 +178,6 @@ public class MembersDAO {
 		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
 
 		try {
-			if (id == -1) {
-				//id入力なしの場合intの「-1」を受けてリターン
-				return 0;
-			}
 			String sql = "UPDATE members SET quit_date = ? WHERE id = ?";
 			st = con.prepareStatement(sql);
 			st.setDate(1, sqlDate);

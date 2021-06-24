@@ -39,8 +39,8 @@ public class MembersServlet extends HttpServlet {
 				List<MemberBean> list = dao.findAll();
 				request.setAttribute("members", list);
 				gotoPage(request, response, "/membersShow.jsp");
-				//検索処理
-			} else if (action.equals("search")) {
+				//更新処理
+			} else if (action.equals("update")) {
 				//idが空欄であった場合intの「-1」とする
 				String tmp_id = request.getParameter("id");
 				if (tmp_id == "") {

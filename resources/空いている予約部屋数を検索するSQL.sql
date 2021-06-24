@@ -34,11 +34,11 @@ FROM
   SUM(d.room) AS reserved_room_count
 FROM reservation_details d
 INNER JOIN reservations r on r.id = d.reservations_id
+WHERE reserve_date BETWEEN '2020-09-01' and  '2020-09-03'  -- ここにチェックインの日付とチェックアウト-1の日付を指定する
 GROUP BY r.plan_id, reserve_date
 ) AS r
 RIGHT OUTER JOIN stay_plans p
 on p.plan_id = r.plan_id
-and r.reserve_date BETWEEN '2020-09-01' and  '2020-09-03'  -- ここにチェックインの日付とチェックアウト-1の日付を指定する
 ) as r
 WHERE can_reserve_room_count = 0
 GROUP BY plan_id

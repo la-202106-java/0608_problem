@@ -74,6 +74,9 @@ public class UserRegisterServlet extends HttpServlet {
 			else if (action.equals("return_register1")) {
 				gotoPage(request, response, "2_user/user_register_return.jsp");
 
+			} else if (action.equals("return_register")) {
+				gotoPage(request, response, "2_user/user_register.jsp");
+
 			} else if (action.equals("register2")) {
 
 				NowUserBean bean = (NowUserBean) session.getAttribute("bean");

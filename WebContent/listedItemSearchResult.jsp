@@ -11,11 +11,6 @@
 </head>
 <body>
 
-<h1>教科書検索結果</h1>
-<p><c:if test="${!empty result_num}">
-	${result_num}件見つかりました。
-</c:if></p>
-
 <c:forEach items="${listed_items}" var="item">
 	<table>
       		<tr>
@@ -27,7 +22,8 @@
       				<c:if test="${!item.inStock}">×</c:if>
       			</td>
       			<td>
-      				<form action="/0608_problem/ListedItemChengeServlet?action=detail" method="post">
+      				<form action="/0608_problem/ListedItemDetailServlet" method="post">
+      					<input type="hidden" value="detail">
       					<input type="hidden" value="${item.id}">
       					<input type="submit" value="詳細">
       				</form>

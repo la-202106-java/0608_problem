@@ -74,6 +74,10 @@ ISBN：<br>
 </form>
 
 <hr>
+<c:if test="${!empty result_num}">
+	<h1>教科書検索結果</h1>
+	<p>${result_num}件見つかりました。</p>
+</c:if>
 
 <jsp:include page="/listedItemSearchResult.jsp" />
 

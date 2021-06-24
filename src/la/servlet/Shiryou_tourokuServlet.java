@@ -81,31 +81,33 @@ public class Shiryou_tourokuServlet extends HttpServlet {
 				int categoryCode = Integer.parseInt(request.getParameter("choice"));
 
 				//MaterialCatalog bean4 = dao.findByName(title);//既存
-				MaterialCatalog bean5 = dao.findBySelect(title, author, publisher, publisher_date, categoryCode);
-				if (bean5 != null) { //入力した資料名が既に目録に登録されている場合
-					session.setAttribute("beans", bean5);
-					request.setAttribute("Inputcheck", "True");
-					MaterialCategoryDAO dao2 = new MaterialCategoryDAO();//カテゴリコードに対応したカテゴリネームを取得
-					MaterialCategory bean1 = dao2.findName(bean5.getCategoryCode());
-					request.setAttribute("beans1", bean1);
-					gotoPage(request, response, "/confirm_siryou_touroku.jsp");
-				} else if (title != null && title.length() != 0 &&
+				if (title != null && title.length() != 0 &&
 						author != null && author.length() != 0 &&
 						publisher != null && publisher.length() != 0 &&
 						publisher_date != null && publisher_date.length() != 0) {
-					//台帳と目録に記帳する
-					java.sql.Date d3 = java.sql.Date.valueOf(publisher_date);
-					MaterialCatalogDAO dao1 = new MaterialCatalogDAO(); //目録
-					dao1.add(title, author, publisher, d3, categoryCode, isbn);//目録に追加
-					java.sql.Timestamp d4 = java.sql.Timestamp.valueOf(java.time.LocalDateTime.now());
-					MaterialLedgerDAO dao2 = new MaterialLedgerDAO(); //台帳
-					dao2.add(isbn, d4); //台帳に追加
-					//追加したDAOをbeanに格納する
-					MaterialLedger bean1 = dao2.findBynewID();
-					request.setAttribute("bbean", bean1);
-					MaterialCatalog bean = dao.findByISBNkey((String) session.getAttribute("isbn"));
-					request.setAttribute("beans", bean);
-					gotoPage(request, response, "/message_completed_shiryou_touroku.jsp");//ここにもアウトプットの処理が必要
+					MaterialCatalog bean5 = dao.findBySelect(title, author, publisher, publisher_date, categoryCode);
+					if (bean5 != null) { //入力した資料名が既に目録に登録されている場合
+						session.setAttribute("beans", bean5);
+						request.setAttribute("Inputcheck", "True");
+						MaterialCategoryDAO dao2 = new MaterialCategoryDAO();//カテゴリコードに対応したカテゴリネームを取得
+						MaterialCategory bean1 = dao2.findName(bean5.getCategoryCode());
+						request.setAttribute("beans1", bean1);
+						gotoPage(request, response, "/confirm_siryou_touroku.jsp");
+					} else {
+						//台帳と目録に記帳する
+						java.sql.Date d3 = java.sql.Date.valueOf(publisher_date);
+						MaterialCatalogDAO dao1 = new MaterialCatalogDAO(); //目録
+						dao1.add(title, author, publisher, d3, categoryCode, isbn);//目録に追加
+						java.sql.Timestamp d4 = java.sql.Timestamp.valueOf(java.time.LocalDateTime.now());
+						MaterialLedgerDAO dao2 = new MaterialLedgerDAO(); //台帳
+						dao2.add(isbn, d4); //台帳に追加
+						//追加したDAOをbeanに格納する
+						MaterialLedger bean1 = dao2.findBynewID();
+						request.setAttribute("bbean", bean1);
+						MaterialCatalog bean = dao.findByISBNkey((String) session.getAttribute("isbn"));
+						request.setAttribute("beans", bean);
+						gotoPage(request, response, "/message_completed_shiryou_touroku.jsp");//ここにもアウトプットの処理が必要
+					}
 				} else {
 					request.setAttribute("title", title);
 					request.setAttribute("author", author);

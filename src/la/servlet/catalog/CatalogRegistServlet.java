@@ -25,7 +25,9 @@ public class CatalogRegistServlet extends HttpServlet {
 			String action = request.getParameter("action");
 			CatalogDAO dao = new CatalogDAO();
 
-			if (action.equals("regist")) {
+			if (action == null || action.length() == 0) {
+				gotoPage(request, response, "3_book/catalog_register.jsp");
+			} else if (action.equals("regist")) {
 				String title = request.getParameter("title");
 				String isbn = request.getParameter("isbn");
 				String code = request.getParameter("code");

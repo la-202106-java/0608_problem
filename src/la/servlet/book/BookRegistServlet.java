@@ -23,7 +23,9 @@ public class BookRegistServlet extends HttpServlet {
 			BookDAO dao = new BookDAO();
 			CatalogDAO dao2 = new CatalogDAO();
 
-			if (action.equals("regist")) {
+			if (action == null || action.length() == 0) {
+				gotoPage(request, response, "3_book/book_register.jsp");
+			} else if (action.equals("regist")) {
 				String title = request.getParameter("title");
 				String isbn = request.getParameter("isbn");
 				String arrivalDate = request.getParameter("arrival_date");

@@ -7,6 +7,7 @@
 <title>宿情報更新</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/adminMenu.html" />
 <h1>宿の更新</h1>
 <form action="/0608_problem/admin/inn" method="get">
 宿ID：${innTarget.id}<br>

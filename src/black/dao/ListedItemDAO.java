@@ -226,13 +226,13 @@ public class ListedItemDAO {
 
 	//教科書登録
 	public void addItem(String isbn, String title, int departmentCode,
-			String author, int price, String condition) throws DAOException {
+			String author, int price, String condition, int sellerId) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
 		String sql = "INSERT INTO listed_item(isbn, title, department_code, author,"
-				+ " price, condition) VALUES(?, ?, ?, ?, ?, ?)";
+				+ " price, condition, seller_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, isbn);
@@ -241,6 +241,7 @@ public class ListedItemDAO {
 			st.setString(4, author);
 			st.setInt(5, price);
 			st.setString(6, condition);
+			st.setInt(7, sellerId);
 
 			//SQL実行
 			st.executeUpdate();

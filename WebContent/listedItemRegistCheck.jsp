@@ -19,24 +19,33 @@
 </c:if>
 
 
-<h1>この情報で登録しますか？</h1>
+<h1>教科書登録</h1>
+<h3>この情報で登録しますか？</h3>
 
-<table border="1">
-<tr><td>ID</td><td>1</td></tr>
-<tr><td>ISBN</td><td>12345678</td></tr>
-<tr><td>タイトル</td><td>ドラえもん</td></tr>
-<tr><td>分類</td><td>文学部系</td></tr>
-<tr><td>著者名</td><td>藤子不二雄</td></tr>
-<tr><td>売値</td><td>1000円</td></tr>
+<table>
+<tr><td>ISBN</td><td>${regist_item.isbn}</td></tr>
+<tr><td>タイトル</td><td>${regist_item.title}</td></tr>
+<tr><td>分類</td><td>${departments.get(regist_item.departmentCode)}</td></tr>
+<tr><td>著者名</td><td>${regist_item.author}</td></tr>
+<tr><td>売値</td><td>${regist_item.price}</td></tr>
+<tr><td>状態</td><td>${regist_item.condition}</td></tr>
 
 
 </table>
 <br>
 
 <form action="/0608_problem/ListedItemRegistServlet" method="post">
-<input type="hidden" name="item_code" value="${item.value.code}">
+
+<input type="hidden" name="isbn" value="${regist_item.isbn}">
+<input type="hidden" name="title" value="${regist_item.title}">
+<input type="hidden" name="title" value="${regist_item.departmentCode}">
+<input type="hidden" name="author" value="${regist_item.author}">
+<input type="hidden" name="price" value="${regist_item.price}">
+<input type="hidden" name="price" value="${regist_item.condition}">
+
+<input type="hidden" name="action" value="cancel">
 	<input type="submit" value="キャンセル">
-<input type="hidden" name="item_code" value="${item.value.code}">
+<input type="hidden" name="action" value="regist">
 	<input type="submit" value="登録する">
 </form>
 </body>

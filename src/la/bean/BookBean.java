@@ -22,6 +22,13 @@ public class BookBean {
 		this.note = note;
 	}
 
+	public BookBean(String isbn, String title, Date arrivalDate) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.arrivalDate = arrivalDate;
+	}
+
 	public int getId() {
 		return id;
 	}

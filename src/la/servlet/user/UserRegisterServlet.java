@@ -72,7 +72,7 @@ public class UserRegisterServlet extends HttpServlet {
 			}
 
 			else if (action.equals("return_register1")) {
-				gotoPage(request, response, "2_user/user_register.jsp");
+				gotoPage(request, response, "2_user/user_register_return.jsp");
 
 			} else if (action.equals("register2")) {
 

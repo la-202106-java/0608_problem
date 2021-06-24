@@ -25,6 +25,18 @@ if (sid4add == "")
 alert("資料IDを入力してください。");
 return false;
 }
+
+if(mid4add.match(/^[0-9]+$/)==null){
+
+	alert("会員IDに数値を入力してください。");
+	return false;
+}
+if(sid4add.match(/^[0-9]+$/)==null){
+
+	alert("資料IDに数値を入力してください。");
+	return false;
+}
+
 return true;
 }
 

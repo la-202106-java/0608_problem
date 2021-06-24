@@ -58,7 +58,7 @@ function returnM(id,name,title,chkDate){
 
 <c:choose>
   <c:when test="${empty ll.returnDate }">
-   <td><input type="button" value="返却"
+   <td align="center"><input type="button" value="返却"
 onClick="returnM(${ll.id},'${ ll.member.name}','${ ll.materialCatalog.title}','${ ll.checkoutDate}')" >
 </td>
   </c:when>

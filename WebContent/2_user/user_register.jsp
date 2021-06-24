@@ -51,7 +51,7 @@ email：<input type ="email" name = "email">
 <div class="form-group">
 入会年月日：<%out.println(datestr);%>
 </div>
-<input type="submit" value = 登録>
+<button class="btn btn-primary" type="submit">登録</button>
 <input type="hidden" name = "action" value = "register1" >
 </div>
 </form>

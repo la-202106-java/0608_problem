@@ -19,6 +19,7 @@
 </c:if>
 <br>
 
+<h1>教科書登録</h1>
 
 <form action="/0608_problem/ListedItemRegistServlet" method="post">
 ISBN：<br>

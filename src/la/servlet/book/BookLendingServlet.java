@@ -54,6 +54,7 @@ public class BookLendingServlet extends HttpServlet {
 						break;
 					}
 				}
+
 				if (entai) {
 					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
 				} else if (lendings.size() >= 5) {
@@ -61,17 +62,12 @@ public class BookLendingServlet extends HttpServlet {
 					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
 				} else if (reserveddao.reservedExists(userID)) {
 					// 取り置きを確認してあったら取り置き画面へ
+					NowUserBean user = userdao.findByPrimaryKey(userID);
 					List<BookBean> books = reserveddao.findByUserID(userID);
+					request.setAttribute("user", user);
 					request.setAttribute("books", books);
 					gotoPage(request, response, "/4_lent_return/reserved_book_lending.jsp");
 				} else {
-					// 貸出ボタン押したら貸出処理
-					// 貸出 or 別の資料の貸出
-					// (ここまで取り置き貸出確認画面)
-
-					// 取り置きは貸出日付をいれて更新、新たな貸し出しを増やす
-
-					// なかったら資料ID入力へ画面遷移
 					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
 				}
 
@@ -109,21 +105,98 @@ public class BookLendingServlet extends HttpServlet {
 				lendingdao.addLending(book, userID);
 
 				if (action.equals("finish")) {
+					// 取り置きだったら日付を入れる
+					reserveddao.updatebyUserIDAndBookID(userID, bookID);
 					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
 				} else if (action.equals("continue")) {
+					// 取り置きだったら日付を入れる
+					reserveddao.updatebyUserIDAndBookID(userID, bookID);
+
 					request.setAttribute("userID", userID);
 					List<LendingBean> lendings = lendingdao.findByUserId(userID);
 					request.setAttribute("lendings", lendings);
 					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
 				}
 
-			}
+			} else if (action.equals("userSearch2")) {
+				int userID = Integer.parseInt(request.getParameter("userID"));
+				request.setAttribute("userID", userID);
+				List<LendingBean> lendings = lendingdao.findByUserId(userID);
+				request.setAttribute("lendings", lendings);
 
-			else {
-				request.setAttribute("message", "正しく操作してください。");
-				gotoPage(request, response, "/errInternal.jsp");
+				boolean entai = false;
+				for (LendingBean lending : lendings) {
+					java.util.Date Date = new Date();
+					if (lending.getDeadline().before(Date)) {
+						request.setAttribute("message", "返却期限の過ぎた本があります");
+						entai = true;
+						break;
+					}
+				}
+
+				if (entai) {
+					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
+				} else if (lendings.size() >= 5) {
+					request.setAttribute("message", "貸出上限に達しています");
+					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
+				} else {
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+				}
+
+			} else if (action.equals("bookSearch2")) {
+				int bookID = Integer.parseInt(request.getParameter("bookID"));
+				int userID = Integer.parseInt(request.getParameter("userID"));
+				request.setAttribute("userID", userID);
+				request.setAttribute("bookID", bookID);
+				List<LendingBean> lendings = lendingdao.findByUserId(userID);
+
+				if (lendings.size() >= 5) {
+					request.setAttribute("message", "貸出上限に達しています");
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+				} else if (lendingdao.findByBookId(bookID) != null) {
+					request.setAttribute("message", "貸出中です");
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+				} else if (bookdao.findByPrimaryKey(bookID) == null) {
+					request.setAttribute("message", "存在しない資料です");
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+
+				} else {
+					BookBean book = bookdao.findByPrimaryKey(bookID);
+					NowUserBean user = userdao.findByPrimaryKey(userID);
+					request.setAttribute("book", book);
+					request.setAttribute("user", user);
+
+					gotoPage(request, response, "/4_lent_return/lending_book_confirm2.jsp");
+				}
+			} else if (action.equals("reservedFinish") || action.equals("reservedContinue")) {
+				int bookID = Integer.parseInt(request.getParameter("bookID"));
+				int userID = Integer.parseInt(request.getParameter("userID"));
+				BookBean book = bookdao.findByPrimaryKey(bookID);
+
+				// 貸出
+				lendingdao.addLending(book, userID);
+
+				if (action.equals("reservedFinish")) {
+					// 取り置きだったら日付を入れる
+					reserveddao.updatebyUserIDAndBookID(userID, bookID);
+					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
+				} else if (action.equals("reservedContinue")) {
+					// 取り置きだったら日付を入れる
+					reserveddao.updatebyUserIDAndBookID(userID, bookID);
+
+					request.setAttribute("userID", userID);
+					List<LendingBean> lendings = lendingdao.findByUserId(userID);
+					request.setAttribute("lendings", lendings);
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+				}
+
+				else {
+					request.setAttribute("message", "正しく操作してください。");
+					gotoPage(request, response, "/errInternal.jsp");
+				}
 			}
 		} catch (DAOException e) {
+			request.setAttribute("message", "内部エラーが発生しました。");
 			e.printStackTrace();
 		}
 

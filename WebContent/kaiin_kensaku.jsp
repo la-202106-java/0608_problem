@@ -12,11 +12,19 @@
 <jsp:include page="/menu.jsp" />
 <h2>会員の検索</h2>
 
+<p>
+E-Mailもしくは会員ID、どちらか検索できます。<br>
+ボタン選択して、検索値を入力してください。
+</p>
+
 <form action="/0608_problem/MemberServlet" method="post">
-	E-Mail：<input type="text" name="email"><br>
-会員ID：<input type="text" name="id"><br>
+ 	 <input type ="hidden" name ="action" value ="search">
+ 	 	 <input type="radio" name="radio" value="email" checked>
+	E-Mail：<input type="text" name="email" min = "0" max="255" value=${eMail }><br>
+<br>
+	 <input type="radio" name="radio" value="id" >
+会員ID：<input type="text" name="id" value = ${id }><br>
   <input type="submit" value="検索">
-  	 <input type ="hidden" name ="action" value ="searchmember">
 </form>
 
 <h3>該当する会員の情報は以下の通りです。</h3>
@@ -34,11 +42,11 @@
 <c:if test = "${imember ne null}" >
 <form action="/0608_problem/MemberServlet" method="post">
   <input type="submit" value="変更">
-    	 <input type ="hidden" name ="action" value ="fix">
+    	 <input type ="hidden" name ="action" value ="confirmhenkou">
     	 </form>
     	 <form action="/0608_problem/MemberServlet" method="post">
   <input type="submit" value="退会">
-    	 <input type ="hidden" name ="action" value ="delete">
+    	 <input type ="hidden" name ="action" value ="confirmtaikai">
 </form>
 </c:if>
 </body>

@@ -74,14 +74,45 @@ public class MemberServlet extends HttpServlet {
 		} else if (action.equals("cancel")) { //cancel
 			session.invalidate();
 			gotoPage(request, response, "/kaiin_touroku.jsp");
-		} else if (action.equals("searchmember")) { //検索
-			int id = Integer.parseInt(request.getParameter("id"));
-			Member idbean = dao.findById(id);
-			session.setAttribute("imember", idbean);
+			//		} else if (action.equals("searchid")) { //検索
+			//			int id = Integer.parseInt(request.getParameter("id"));
+			//			Member idbean = dao.findById(id);
+			//			session.setAttribute("imember", idbean);
+			//			gotoPage(request, response, "/kaiin_kensaku.jsp");
+			/*******************/
+		} else if (action.equals("search")) { //検索
+			String radio = request.getParameter("radio");
+			Member sbean = new Member();
+
+			String email = null;
+			String str_id = null;
+
+			if (radio.equals("email")) {//email検索
+				email = request.getParameter("email");
+				//入力値があれば検索無ければそのまま
+				if (email != null && email.length() != 0) {
+					sbean = dao.findByEmail(email);
+				}
+			} else if (radio.equals("id")) {
+				str_id = request.getParameter("id");
+				if (str_id != null && str_id.length() != 0) {
+					int id = Integer.parseInt(str_id);
+					sbean = dao.findById(id);
+				}
+			}
+
+			request.setAttribute("id", str_id);
+			request.setAttribute("title", email);
+
+			session.setAttribute("imember", sbean);
 			gotoPage(request, response, "/kaiin_kensaku.jsp");
-		} else if (action.equals("fix")) { //変更
+			/*******************************/
+		} else if (action.equals("confirmhenkou")) { //変更
 
 			gotoPage(request, response, "/kaiin_henkou.jsp");
+		} else if (action.equals("confirmtaikai")) { //退会
+
+			gotoPage(request, response, "/confirm_taikai.jsp");
 		} else if (action.equals("update")) { //変更
 			Member bean = (Member) session.getAttribute("imember");
 			int id = bean.getId();
@@ -91,14 +122,23 @@ public class MemberServlet extends HttpServlet {
 			String mail = request.getParameter("email");
 
 			int update = dao.updateMember(id, name, address, tel, mail);
+			Member memberbean2 = dao.findById(id);
+			request.setAttribute("upmember", memberbean2);
 
-			gotoPage(request, response, "/message_completed.jsp");
+			gotoPage(request, response, "/message_completed_henkou.jsp");
+
 		} else if (action.equals("delete")) { //退会
 			Member bean = (Member) session.getAttribute("imember");
 			int id = bean.getId();
 			int delete = dao.updateMember(id);
 
-			gotoPage(request, response, "/message_completed.jsp");
+			Member memberbean3 = dao.findById(id);
+			request.setAttribute("imembers", memberbean3);
+
+			gotoPage(request, response, "/message_completed_taikai.jsp");
+		} else if (action.equals("canceltaikai")) { //退会
+
+			gotoPage(request, response, "/kaiin_kensaku.jsp");
 
 		} else {
 			request.setAttribute("message", "正しく操作してください。");

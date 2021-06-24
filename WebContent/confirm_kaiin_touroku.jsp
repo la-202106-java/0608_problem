@@ -17,9 +17,8 @@
 <h3>正しい情報が入力されていれば、『登録』ボタンを押してください。</h3>
   <input type="submit" value="登録">
   <input type="hidden" name="action" value="addmember">
-  <input type="submit" value="キャンセル">
-    <input type="hidden" name="action" value="cancel">
-</form>
+  </form>
+
 <br>
 <table border="1">
 
@@ -28,8 +27,11 @@
 <tr><td>電話番号</td><td>${member.tel}</td></tr>
 <tr><td>E-Mail</td><td>${ member.eMail}</td></tr>
 <tr><td>生年月日</td><td>${member.birth }</td></tr>
-
 	</table>
+	  <form action="/0608_problem/MemberServlet"method="post">
+  <input type="submit" value="キャンセル">
+    <input type="hidden" name="action" value="cancel">
+</form>
 
 </body>
 </html>

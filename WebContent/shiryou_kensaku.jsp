@@ -24,8 +24,13 @@
 <br>
 	 <input type="radio" name="radio" value="title" >
 資料名：<input type="text" name="part_of_title" value=${title }><br>
+<br>
+<!--
+	 <input type="radio" name="radio" value="stock_date" >
+入荷年月日：<input type="date" name="stock_date" value=${stock_date }><br>
   <input type="submit" value="検索">
-</form>
+ -->
+ </form>
 
 <c:if test="${count >= 0 }">
 <p><font color="red">ヒットした件数は${count }件です。</font></p>
@@ -40,7 +45,16 @@
 <td>${item.isbn }<input type="hidden" name="isbn" value=${item.isbn }></td>
 <td>${item.stockDate }<input type="hidden" name="stockDate" value=${item.stockDate }></td>
 <td>${item.title }<input type="hidden" name="title" value=${item.title }></td>
-<td><input type="submit" value="廃棄"><input type ="hidden" name ="action" value ="dispose_confirm"></form></td></tr>
+
+<c:if test="${item.disposalDate eq null}">
+<td><input type="submit" value="廃棄"><input type ="hidden" name ="action" value ="dispose_confirm"></td></tr>
+</c:if>
+
+<c:if test="${item.disposalDate ne null }">
+<td>廃棄済み</td></tr>
+</c:if>
+
+</form>
 </c:forEach>
 </table>
 

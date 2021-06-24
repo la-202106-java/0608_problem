@@ -80,6 +80,15 @@ public class KasidasiServlet extends HttpServlet {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
 				}
+			} else if (rows == -1) {
+				RequestDispatcher rd = request.getRequestDispatcher("KasidasiServlet?action=search");
+				request.setAttribute("msg", "入力した会員IDもしくは資料IDは存在しません。");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
 			} else {
 				try {
 					response.sendRedirect("error.jsp");

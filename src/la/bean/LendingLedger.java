@@ -78,8 +78,16 @@ public class LendingLedger {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public Date getReturnDeadline() {
-		return returnDeadline;
+	public String getReturnDeadline() {
+		if (returnDeadline.compareTo(new Date()) < 0 && returnDate == null) {
+			System.out.println(returnDeadline);
+			System.out.println(new Date());
+			System.out.println(returnDeadline.compareTo(new Date()) >= 0);
+			return "<div style='color:red;'>" + returnDeadline.toString() + "</div>";
+		} else {
+
+			return "<div>" + returnDeadline.toString() + "</div>";
+		}
 	}
 
 	public void setReturnDeadline(Date returnDeadline) {

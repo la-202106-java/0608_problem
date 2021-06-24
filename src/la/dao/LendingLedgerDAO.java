@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import la.bean.LendingLedger;
+import la.bean.MaterialCatalog;
+import la.bean.MaterialLedger;
 import la.bean.Member;
 
 public class LendingLedgerDAO {
@@ -28,10 +32,55 @@ public class LendingLedgerDAO {
 		return result;
 	}
 
+	public static Timestamp addDays(Timestamp date, int days) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);// w ww.  j ava  2  s  .co m
+		cal.add(Calendar.DATE, days); //minus number would decrement the days
+		return new Timestamp(cal.getTime().getTime());
+
+	}
+
 	public int addLendingRecord(int mid, int sid) {
 		//		MaterialLedger ml=new MaterialLedger();
 		//		ml.setId(null);
 		//		LendingLedger ll=this.findAll()
+		MaterialLedgerDAO mlDAO = new MaterialLedgerDAO();
+		MaterialLedger ml = null;
+		try {
+			ml = mlDAO.findById(sid);
+		} catch (DAOException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+		MemberDAO memDAO = new MemberDAO();
+		Member member = memDAO.findById(mid);
+
+		if (ml == null || member == null) {
+			return -1;
+		}
+
+		MaterialCatalogDAO mcDAO = new MaterialCatalogDAO();
+		MaterialCatalog mc = null;
+		try {
+			mc = mcDAO.findByISBNkey(ml.getIsbn());
+		} catch (DAOException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+
+		if (mc == null) {
+			return -2;
+		}
+		Date shiryoDate = mc.getPublicationDate();
+		long diff = new Date().getTime() - shiryoDate.getTime();
+		long duration = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		Timestamp returnDeadline = new Timestamp(System.currentTimeMillis());
+
+		if (duration <= 90) {
+			returnDeadline = addDays(returnDeadline, 10);
+		} else {
+			returnDeadline = addDays(returnDeadline, 15);
+		}
 
 		String sql = "INSERT INTO lending_ledger "
 				+ "(member_id,material_id,checkout_date,return_deadline)"
@@ -41,7 +90,7 @@ public class LendingLedgerDAO {
 			st.setInt(1, mid);
 			st.setInt(2, sid);
 			st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-			st.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+			st.setTimestamp(4, returnDeadline);
 			int rows = st.executeUpdate();
 			return rows;
 		} catch (SQLException e) {

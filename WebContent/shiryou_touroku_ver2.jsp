@@ -6,6 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>図書管理システム | 資料の新規登録</title>
+<script>
+
+
+function validateForm()
+{
+return confirm('登録してもよろしいでしょうか');
+}
+
+</script>
 </head>
 <body>
 
@@ -18,7 +27,7 @@ ISBN番号『${isbn}』に該当する資料が見つからなかったため、
 <h3><font color="red">全フォームに情報を入力してください。</font></h3>
 </c:if>
 <br>
-<form action="/0608_problem/Shiryou_tourokuServlet" method="post">
+<form  onsubmit="return validateForm()" action="/0608_problem/Shiryou_tourokuServlet" method="post">
 資料名：<input type="text" name="title" value="${title}"><br>
 著者：<input type="text" name="author" value="${author}"><br>
 出版社：<input type="text" name="publisher" value="${publisher}"><br>
@@ -30,7 +39,7 @@ ISBN番号『${isbn}』に該当する資料が見つからなかったため、
 </c:forEach>
 </select>
 <br>
-<input type ="hidden" name ="action" value ="regist2">
+<input type ="hidden" name ="action" value ="confirm">
   <input type="submit" value="登録">
 </form>
 </body>

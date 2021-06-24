@@ -27,6 +27,7 @@ public class MemberDAO {
 		}
 	}
 
+	//退会日
 	public int updateMember(int id) {
 		String sql = "UPDATE member SET withdrawal_date=current_date where member_id =?";
 		try (Connection con = ConnectionFactory.createConnection();
@@ -38,24 +39,6 @@ public class MemberDAO {
 			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
 		}
 	}
-
-	/*****会員登録 by ishida********
-	//	 */
-	//	public int confirmMember(String name, String address, String tel, String mail, String birth) {
-	//		String sql = " INSERT INTO member(member_name,member_address,tel,email,birth) VALUES(?,?,?,?,?)";
-	//		try (Connection con = ConnectionFactory.createConnection();
-	//				PreparedStatement st = con.prepareStatement(sql);) {
-	//			st.setString(1, name);
-	//			st.setString(2, address);
-	//			st.setString(3, tel);
-	//			st.setString(4, mail);
-	//			st.setString(5, birth);
-	//			int rows = st.executeUpdate();
-	//			return rows;
-	//		} catch (SQLException e) {
-	//			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
-	//		}
-	//	}
 
 	public int addMember(String name, String address, String tel, String mail, java.sql.Date birth) {
 		String sql = " INSERT INTO member(member_name,member_address,tel,email,birth,join_date) VALUES(?,?,?,?,?,current_date)";
@@ -96,6 +79,64 @@ public class MemberDAO {
 					return null;
 				}
 			}
+		} catch (SQLException e) {
+			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
+		}
+	}
+
+	/*
+		public Member findByName3(int id) {
+			String sql = "SELECT * FROM member where member_id = ?";
+			//idでソートしてidが大きいものをとってくる
+			//		String sql = "SELECT * FROM member order by member_id desc limit 1";
+			try (Connection con = ConnectionFactory.createConnection();
+					PreparedStatement st = con.prepareStatement(sql);) {
+				st.setInt(1, id);
+				try (ResultSet rs = st.executeQuery()) {
+	
+					if (rs.next()) {
+						Member bean = new Member();
+						bean.setId(rs.getInt("member_id"));
+						bean.setName(rs.getString("member_name"));
+						bean.setAddress(rs.getString("member_address"));
+						bean.setTel(rs.getString("tel"));
+						bean.seteMail(rs.getString("email"));
+						bean.setBirth(rs.getDate("birth"));
+						bean.setJoinDate(rs.getTimestamp("join_date"));
+						bean.setWithdrawalDate(rs.getTimestamp("withdrawal_date"));
+						return bean;
+					} else {
+						return null;
+					}
+				}
+			} catch (SQLException e) {
+				throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
+			}
+		}
+		*/
+	public Member findByEmail(String email) {
+		String sql = "SELECT * FROM member where email = ?";
+		try (Connection con = ConnectionFactory.createConnection();
+				PreparedStatement st = con.prepareStatement(sql);) {
+			st.setString(1, email);
+			try (ResultSet rs = st.executeQuery()) {
+
+				if (rs.next()) {
+					Member bean = new Member();
+					bean.setId(rs.getInt("member_id"));
+					bean.setName(rs.getString("member_name"));
+					bean.setAddress(rs.getString("member_address"));
+					bean.setTel(rs.getString("tel"));
+					bean.seteMail(rs.getString("email"));
+					bean.setBirth(rs.getDate("birth"));
+					bean.setJoinDate(rs.getTimestamp("join_date"));
+					bean.setWithdrawalDate(rs.getTimestamp("withdrawal_date"));
+					return bean;
+				} else {
+					return null;
+				}
+			}
+
 		} catch (SQLException e) {
 			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
 		}

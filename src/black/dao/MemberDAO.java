@@ -137,10 +137,8 @@ public class MemberDAO {
 				String tel = rs.getString("tel");
 				String email = rs.getString("email");
 				Date birthday = rs.getDate("birthday");
-				Date joinDate = rs.getDate("join_date");
-				String pass = rs.getString("pass");
-
-				MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, joinDate, pass);
+				int sales = rs.getInt("sales");
+				MemberBean bean = new MemberBean(name, address, tel, email, birthday, sales);
 				return bean;
 			}
 			return null;

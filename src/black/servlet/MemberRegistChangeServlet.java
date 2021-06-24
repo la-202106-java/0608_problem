@@ -37,7 +37,6 @@ public class MemberRegistChangeServlet extends HttpServlet {
 					request.setAttribute("message", "会員情報を入力してください");
 					gotoPage(request, response, "/errInternal.jsp");
 				} else {
-					MemberDAO dao = new MemberDAO();
 					int id = member.getId();
 					String name = member.getName();
 					String address = member.getAddress();
@@ -45,7 +44,6 @@ public class MemberRegistChangeServlet extends HttpServlet {
 					String email = member.getEmail();
 					Date birthday = member.getBirthday();
 					String pass = member.getPass();
-					dao.addMember(name, address, tel, email, birthday, pass);
 
 					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
 					session.setAttribute("member", bean);

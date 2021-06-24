@@ -33,10 +33,11 @@
 </table>
 <br>
 
+<form action="/0608_problem/ListedItemRegistServlet" method="post">
 <input type="hidden" name="item_code" value="${item.value.code}">
 	<input type="submit" value="キャンセル">
 <input type="hidden" name="item_code" value="${item.value.code}">
 	<input type="submit" value="登録する">
-
+</form>
 </body>
 </html>

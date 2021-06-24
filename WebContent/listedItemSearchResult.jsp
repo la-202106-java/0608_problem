@@ -27,7 +27,7 @@
       				<c:if test="${!item.inStock}">×</c:if>
       			</td>
       			<td>
-      				<form>
+      				<form action="/0608_problem/ListedItemChengeServlet?action=detail" method="post">
       					<input type="hidden" value="${item.id}">
       					<input type="submit" value="詳細">
       				</form>

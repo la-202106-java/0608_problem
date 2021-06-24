@@ -43,6 +43,8 @@
       <option>中古(未使用)</option>
       <option>中古</option>
       </select><br>
+<form action="/0608_problem/ListedItemChangeServlet?action=change" method = "post">
 <input type="submit" value="変更">
+</form>
 </body>
 </html>

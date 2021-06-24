@@ -13,8 +13,19 @@ public class ListedItemBean implements Serializable {
 	private String condition;
 
 	private int sellerId;
-	private Date orderdDate;
-	private int byerId;
+	private Date orderdDate = null;
+	private int byerId = -1;
+
+	private boolean inStock = true;
+
+	public boolean isInStock() {
+		if (orderdDate == null && byerId < 0) {
+			inStock = true;
+		} else {
+			inStock = false;
+		}
+		return inStock;
+	}
 
 	public ListedItemBean(int id, String isbn, String title, int departmentCode, String author, int price,
 			String condition, int sellerId) {

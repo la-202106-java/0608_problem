@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 
@@ -21,33 +21,42 @@
 
 <h1>教科書検索</h1>
 
-<form>
-&nbsp;&nbsp;ISBN&nbsp;&nbsp;：<input type="text" name="isbn" size="15"><br><br>
-タイトル：<input type="text" name="title" size="15"><br><br>
-&nbsp;&nbsp;分類&nbsp;&nbsp;：<select name="select1">
-	  <option>----------</option>
-      <option>0:文学部系</option>
-      <option>1:教育学部系</option>
-      <option>2:法学部系</option>
-      <option>3:社会学部系</option>
-      <option>4:経済学部系</option>
-      <option>5:理学部系</option>
-      <option>6:医学部系</option>
-      <option>7:歯学部系</option>
-      <option>8:薬学部系</option>
-      <option>9:工学部系</option>
-      <option>10:農学部系</option>
+<form action="/0608_problem/ListedItemSearchServlet" method="post">
+ISBN：<br>
+<input type="text" name="isbn"><br>
+タイトル：<br>
+<input type="text" name="title"><br>
+分類：<br>
+<select name="department_code">
+	  <option value="-1">----------</option>
+      <option value="0">0:文学部系</option>
+      <option value="1">1:教育学部系</option>
+      <option value="2">2:法学部系</option>
+      <option value="3">3:社会学部系</option>
+      <option value="4">4:経済学部系</option>
+      <option value="5">5:理学部系</option>
+      <option value="6">6:医学部系</option>
+      <option value="7">7:歯学部系</option>
+      <option value="8">8:薬学部系</option>
+      <option value="9">9:工学部系</option>
+      <option value="10">10:農学部系</option>
       </select><br><br>
-&nbsp;著者名：<input type="text" name="author" size="15"><br><br>
-&nbsp;&nbsp;&nbsp;売値&nbsp;&nbsp;：<input type="text" name="payment" size="15">円以上|<input type="text" name="payment" size="15">円以下<br><br>
-&nbsp;&nbsp;状態&nbsp;&nbsp;：<select name="select1">
-	  <option>----</option>
-      <option>新品</option>
-      <option>中古(未使用)</option>
-      <option>中古</option>
-      </select><br><br>
-<input type="checkbox" name="stock" value="stock">在庫有のみ表示<br>
-<input type="checkbox" name="stock" value="stock">自分が出品した商品のみ表示<br>
+著者名：<br>
+<input type="text" name="author"><br><br>
+売値：<br>
+<input type="text" name="price_min" size="15">円以上 |
+<input type="text" name="price_max" size="15">円以下<br>
+状態：<br>
+<select name="condition">
+	<option value="">----</option>
+	<option>新品</option>
+	<option>未使用</option>
+	<option>中古</option>
+</select>
+<br><br>
+<input type="checkbox" name="stock" value="true">在庫有のみ表示<br>
+<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
+<input type="hidden" name="action" value="search">
 <input type="submit" value="検索">
 </form>
 

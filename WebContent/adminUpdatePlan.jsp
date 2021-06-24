@@ -7,10 +7,11 @@
 <title>プラン情報更新</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/adminMenu.html" />
 	<h1>プランの更新</h1>
 	<form action="/0608_problem/admin/plan" method="get">
 		プランID：${planTarget.planId}<br> 宿ID：<input type="number" name="id"
-			value="${planTarget.inn.id}"><br> プラン内容：<input
+			value="${planTarget.innId}"><br> プラン内容：<input
 			type="text" name="contents" value="${planTarget.content}"><br>
 		金額：<input type="number" name="fee" value="${planTarget.fee}">円<br>
 		部屋数：<input type="number" name="room" value="${planTarget.roomMax}"><br>

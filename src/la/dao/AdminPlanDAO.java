@@ -55,9 +55,11 @@ public class AdminPlanDAO {
 		ResultSet rs = null;
 		String sql;
 		if (sakujyoiri) {
-			sql = "select * from inns a inner join stay_plans b on a.id = b.inn_id WHERE name LIKE ?";
+			//			sql = "select * from inns a inner join stay_plans b on a.id = b.inn_id WHERE name LIKE ?";
+			sql = "select plan_id, id, name, contents, fee, room_max, img_url, b.delete_date as stay_plans_delete_date from inns a inner join stay_plans b on a.id = b.inn_id WHERE name LIKE ?";
 		} else {
-			sql = "select * from inns a inner join stay_plans b on a.id = b.inn_id WHERE name LIKE ? AND stay_plans_delete_date is null";
+			//			sql = "select * from inns a inner join stay_plans b on a.id = b.inn_id WHERE name LIKE ? AND stay_plans_delete_date is null";
+			sql = "select plan_id, id, name, contents, fee, room_max, img_url, b.delete_date as stay_plans_delete_date from inns a inner join stay_plans b on a.id = b.inn_id WHERE name LIKE ? AND b.delete_date is null";
 		}
 		try {
 			st = con.prepareStatement(sql);

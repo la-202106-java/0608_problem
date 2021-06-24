@@ -88,9 +88,21 @@ public class MembersDAO {
 		PreparedStatement st3 = null;
 		PreparedStatement st4 = null;
 		try {
+			if (id == -1) {
+				//id入力なしの場合intの「-1」を受けてリターン
+				return 0;
+			}
 			String sql = null;
 			int rows = 0;
 			int tmprows;
+			if (name == "")
+				name = null;
+			if (pCode == "")
+				pCode = null;
+			if (addr == "")
+				addr = null;
+			if (eAddr == "")
+				eAddr = null;
 			if (name != null) {
 				sql = "UPDATE members SET name = ? WHERE id = ?";
 				st1 = con.prepareStatement(sql);
@@ -166,6 +178,10 @@ public class MembersDAO {
 		java.sql.Date sqlDate = java.sql.Date.valueOf(now);
 
 		try {
+			if (id == -1) {
+				//id入力なしの場合intの「-1」を受けてリターン
+				return 0;
+			}
 			String sql = "UPDATE members SET quit_date = ? WHERE id = ?";
 			st = con.prepareStatement(sql);
 			st.setDate(1, sqlDate);

@@ -18,7 +18,7 @@
 		<form class="form-inline" action = "/0608_problem/UserSearchServlet" method = "post">
 		email：
 		<input type ="email" name = "email">
-		<button class="btn btn-primary" type="submit">検索</button>
+		<input type="submit" value = 検索>
 		<input type="hidden" name = "action" value = "search">
 		<br>
 		<font color="red">

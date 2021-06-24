@@ -18,7 +18,7 @@
 </c:if>
 
 <h1>退会が確定しました</h1>
-<form action="">
+<form action="/MenuServlet">
 <input type="submit" value="TOPに戻る">
 <input type="hidden" name = "action" value="serch">
 </form>

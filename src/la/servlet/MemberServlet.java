@@ -131,12 +131,19 @@ public class MemberServlet extends HttpServlet {
 			} else if (action.equals("delete")) { //退会
 				Member bean = (Member) session.getAttribute("imember");
 				int id = bean.getId();
-				int delete = dao.updateMember(id);
+				Member beans = dao.findById(id);
+				if (beans.getWithdrawalDate() == null) {
 
-				Member memberbean3 = dao.findById(id);
-				request.setAttribute("imembers", memberbean3);
+					int delete = dao.updateMember(id);
 
-				gotoPage(request, response, "/message_completed_taikai.jsp");
+					Member memberbean3 = dao.findById(id);
+					request.setAttribute("imembers", memberbean3);
+					gotoPage(request, response, "/message_completed_taikai.jsp");
+				} else {
+					request.setAttribute("notmember", beans);
+					gotoPage(request, response, "/message_notcompleted_taikai.jsp");
+				}
+
 			} else if (action.equals("canceltaikai")) { //退会
 
 				gotoPage(request, response, "/kaiin_kensaku.jsp");

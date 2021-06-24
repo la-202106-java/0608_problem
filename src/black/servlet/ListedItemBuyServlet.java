@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import black.bean.ListedItemBean;
 import black.bean.MemberBean;
 import black.dao.ListedItemDAO;
 import black.dao.MemberDAO;
@@ -37,6 +38,10 @@ public class ListedItemBuyServlet extends HttpServlet {
 
 					gotoPage(request, response, "/memberLogin.jsp");
 				} else {
+					int id = Integer.parseInt(request.getParameter("item_id"));
+					ListedItemBean item = dao.findItem(id);
+					request.setAttribute("item", item);
+
 					gotoPage(request, response, "/listedItemBuyCheck.jsp");
 				}
 			} else if (action.equals("dobuy")) {

@@ -81,10 +81,20 @@ public class Member {
 		this.joinDate = joinDate;
 	}
 
-	public Date getWithdrawalDate() {
-		return withdrawalDate;
+	public String getWithdrawalDate() {
+		if (withdrawalDate != null) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			return df.format(withdrawalDate);
+		} else {
+			return null;
+		}
 	}
 
+	/*
+		public Date getWithdrawalDate() {
+			return withdrawalDate;
+		}
+	*/
 	public void setWithdrawalDate(Date withdrawalDate) {
 		this.withdrawalDate = withdrawalDate;
 	}

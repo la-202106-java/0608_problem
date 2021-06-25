@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
   crossorigin="anonymous">
@@ -62,7 +62,7 @@
                   <a class="btn btn-danger btn-lg"  href="/0608_problem/BookLendingServlet" role="button">資料貸出</a>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-secondary btn-lg">貸出履歴 <i class="fas fa-search"></i></button>
+                  <a class="btn btn-secondary btn-lg" href="/0608_problem/LendingSearchServlet">貸出履歴 <i class="fas fa-search"></i></a>
                 </td>
                 <td>
                   <a class="btn btn-outline-dark btn-lg" href="/0608_problem/CatalogRegistServlet" role="button">
@@ -86,7 +86,7 @@
             <table class="table table-borderless">
               <tbody>
               <tr>
-                <td bgcolor="#1995ad"><h3><b>延滞者一覧</b></h3></td>
+                <td bgcolor="#1995ad"><h3><b>延滞資料一覧</b></h3></td>
               </tr>
               </tbody>
             </table>
@@ -95,25 +95,30 @@
           <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">会員番号</th>
-                  <th scope="col">返却日</th>
-                  <th scope="col">超過日数</th>
+                  <th scope="col">貸出ID</th>
+                  <th scope="col">会員ID</th>
+                  <th scope="col">資料ID</th>
+                  <th scope="col">貸出年月日</th>
+                  <th scope="col">返却期限（年月日）</th>
+                  <th scope="col">超過日</th>
                 </tr>
               </thead>
               <tbody>
+              <c:forEach items="${books}" var="book">
                 <tr>
-                  <th scope="row">1</th>
-                  <td>12345</td>
-                  <td>2021/06/02</td>
-                  <td><font color="red">20</font></td>
+                  <th scope="row">${book.id}</th>
+                  <td>${book.userId}</td>
+                  <td>${book.bookId}</td>
+           		  <td>${book.lendingDate}</td>
+           		  <td>${book.deadline}</td>
+           		  <c:if test="${book.overDays ge 30}">
+           		  <td class="text-danger">${book.overDays}</td>
+           		  </c:if>
+           		  <c:if test="${book.overDays lt 30}">
+           		  <td >${book.overDays}</td>
+           		  </c:if>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>12444</td>
-                  <td>2021/06/15</td>
-                  <td>7</td>
-                </tr>
+ 			  </c:forEach>
               </tbody>
             </table>
           </div>

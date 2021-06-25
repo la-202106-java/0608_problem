@@ -17,7 +17,7 @@ public class ListedItemDAO {
 
 	public ListedItemDAO() throws DAOException {
 		getConnection();
-		//setSeq();
+		setSeq();
 	}
 
 	private void setSeq() throws DAOException {

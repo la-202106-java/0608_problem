@@ -16,7 +16,7 @@ public class MemberDAO {
 
 	public MemberDAO() throws DAOException {
 		getConnection();
-		//setSeq();
+		setSeq();
 	}
 
 	private void setSeq() throws DAOException {

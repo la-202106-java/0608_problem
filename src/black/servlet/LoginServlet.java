@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("logined", bean);
 					session.setAttribute("user", "member");
 					String page = (String) session.getAttribute("page");
-					if (page != null && page.equals("textbuy")) {
+					if (page != null && page.equals("itembuy")) {
 						gotoPage(request, response, "/listedItemBuyCheck.jsp");
 					} else {
 						gotoPage(request, response, "/top");

@@ -34,26 +34,29 @@ public class ListedItemBuyServlet extends HttpServlet {
 			if (action.equals("buy")) {
 
 				MemberBean bean = (MemberBean) session.getAttribute("logined");
+				int id = Integer.parseInt(request.getParameter("item_id"));
+				ListedItemBean item = dao.findItem(id);
+				session.setAttribute("item", item);
 				if (bean == null) {
-
+					session.setAttribute("page", "itembuy");
 					gotoPage(request, response, "/memberLogin.jsp");
 				} else {
-					int id = Integer.parseInt(request.getParameter("item_id"));
-					ListedItemBean item = dao.findItem(id);
-					request.setAttribute("item", item);
-
 					gotoPage(request, response, "/listedItemBuyCheck.jsp");
 				}
 			} else if (action.equals("dobuy")) {
 				//購入完了ページに行く
-				int id = Integer.parseInt(request.getParameter("id"));
-				int sales = Integer.parseInt(request.getParameter("sales"));
-				int seller_id = Integer.parseInt(request.getParameter("seller_id"));
+				ListedItemBean item = (ListedItemBean) session.getAttribute("item");
+				MemberBean member = (MemberBean) session.getAttribute("logined");
+				int id = item.getId();
+				int sales = member.getSales();
+				int seller_id = item.getSellerId();
 				MemberDAO dao2 = new MemberDAO();
 				MemberBean bean = dao2.findMember(seller_id);
 				sales += bean.getSales();
 				dao2.plusSales(sales, seller_id);
 				dao.deleteItem(id);
+				session.removeAttribute("item");
+				session.removeAttribute("page");
 				//setterの追加
 
 				gotoPage(request, response, "/listedItemBuyDone.jsp");

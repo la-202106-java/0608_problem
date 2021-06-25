@@ -43,6 +43,10 @@ public class BookReturningServlet extends HttpServlet {
 				gotoPage(request, response, "/4_lent_return/returning_book.jsp");
 
 			} else if (action.equals("search")) {
+				String input = request.getParameter("bookID");
+				if (input == null || input.length() == 0) {
+					gotoPage(request, response, "/4_lent_return/returning_book.jsp");
+				}
 				int bookID = Integer.parseInt(request.getParameter("bookID"));
 
 				// 返却情報取得

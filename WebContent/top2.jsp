@@ -33,6 +33,11 @@
         </header>
 
         <main>
+            <c:if test="${not empty error}">
+              <div class="alert alert-danger" role="alert">
+                ${error}
+              </div>
+            </c:if>
             <div class="pb-3">
                 <form class="row g-3" action="/0608_problem/ShowPlanServlet2" method="post">
                     <div class="col-md-3">
@@ -49,10 +54,6 @@
                     </div>
                 </form>
             </div>
-
-            <c:if test="${not empty error}">
-                ${error}
-            </c:if>
 
             <hr class="">
 

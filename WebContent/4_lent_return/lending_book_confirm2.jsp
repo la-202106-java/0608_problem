@@ -19,7 +19,8 @@
     <div class="col-9">
 
       <h2>資料貸出確認</h2>
-      以下の情報で貸し出します<br> よろしいですか？<br> 会員番号：${user.id}<br> 氏名：${user.name}<br> 資料ID:${book.id}<br> 資料名：${book.title}<br>
+      <h4>以下の情報で貸し出します。よろしいですか？</h4>
+      <br>会員番号：${user.id}<br> 氏名：${user.name}<br> 資料ID:${book.id}<br> 資料名：${book.title}<br>
 
       <div class="btn-toolbar">
       <div class="pr-3">

@@ -75,7 +75,19 @@
             <td>${book.isbn}</td>
             <td>${book.title}</td>
             <td>${book.arrivalDate}</td>
-            <td><span class="badge badge-pill badge-info">在庫</span></td>
+            <td>
+
+            <c:if test="${book.status=='在庫'}">
+            <span class="badge badge-pill badge-info">在庫</span>
+            </c:if>
+            <c:if test="${book.status=='貸出'}">
+            <span class="badge badge-pill badge-danger">貸出</span>
+            </c:if>
+            <c:if test="${book.status=='取置'}">
+            <span class="badge badge-pill badge-secondary">取置</span>
+            </c:if>
+
+            </td>
             <td>${book.note}</td>
             <td>
               <a class="btn btn-danger" href="/0608_problem/BookDeleteServlet?&id=${book.id}" role="button">削除</a>

@@ -15,11 +15,12 @@ public class ListedItemBean implements Serializable {
 	private int sellerId;
 	private Date orderdDate = null;
 	private int buyerId = -1;
+	private String image;
 
 	private boolean inStock = true;
 
 	public ListedItemBean(int id, String isbn, String title, int departmentCode, String author, int price,
-			String condition, int sellerId) {
+			String condition, int sellerId, String image) {
 		this.id = id;
 		this.isbn = isbn;
 		this.title = title;
@@ -28,10 +29,11 @@ public class ListedItemBean implements Serializable {
 		this.price = price;
 		this.condition = condition;
 		this.sellerId = sellerId;
+		this.image = image;
 	}
 
 	public ListedItemBean(int id, String isbn, String title, int departmentCode, String author, int price,
-			String condition, int sellerId, Date orderdDate, int buyerId) {
+			String condition, int sellerId, Date orderdDate, int buyerId, String image) {
 		super();
 		this.id = id;
 		this.isbn = isbn;
@@ -43,6 +45,7 @@ public class ListedItemBean implements Serializable {
 		this.sellerId = sellerId;
 		this.orderdDate = orderdDate;
 		this.buyerId = buyerId;
+		this.image = image;
 	}
 
 	public ListedItemBean() {

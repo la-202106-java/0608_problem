@@ -29,9 +29,11 @@
 <tr><td>著者名</td><td>${regist_item.author}</td></tr>
 <tr><td>売値</td><td>${regist_item.price}</td></tr>
 <tr><td>状態</td><td>${regist_item.condition}</td></tr>
-
+<tr><td>画像URL</td><td>${regist_item.image}</td></tr>
 
 </table>
+<br>
+<img src="${regist_item.image}">
 <br>
 
 <form action="/0608_problem/ListedItemRegistServlet" method="post">

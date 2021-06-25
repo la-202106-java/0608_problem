@@ -90,9 +90,11 @@ public class ListedItemRegistServlet extends HttpServlet {
 			String author = request.getParameter("author");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String condition = request.getParameter("condition");
+			String image = request.getParameter("image");
 
 			//入力内容をスコープに入れる
-			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
+			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1,
+					image);
 			request.setAttribute("regist_item", bean);
 
 			gotoPage(request, response, "/listedItemRegistCheck.jsp");
@@ -107,9 +109,11 @@ public class ListedItemRegistServlet extends HttpServlet {
 			String author = request.getParameter("author");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String condition = request.getParameter("condition");
+			String image = request.getParameter("image");
 
 			//入力内容をスコープに入れる
-			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
+			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1,
+					image);
 			request.setAttribute("regist_item", bean);
 
 			gotoPage(request, response, "/listedItemRegistForm.jsp");
@@ -141,14 +145,15 @@ public class ListedItemRegistServlet extends HttpServlet {
 			String author = request.getParameter("author");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String condition = request.getParameter("condition");
+			String image = request.getParameter("image");
 
 			try {
 				ListedItemDAO dao = new ListedItemDAO();
 				int id = dao.addItem(isbn, title, departmentCode, author, price,
-						condition, member.getId());
+						condition, member.getId(), image);
 
 				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
-						author, price, condition, member.getId());
+						author, price, condition, member.getId(), image);
 				request.setAttribute("item_id", bean);
 				gotoPage(request, response, "ListedItemDetailServlet");
 

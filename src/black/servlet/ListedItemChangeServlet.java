@@ -91,9 +91,11 @@ public class ListedItemChangeServlet extends HttpServlet {
 			String author = request.getParameter("author");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String condition = request.getParameter("condition");
+			String image = request.getParameter("image");
 
 			//入力内容をスコープに入れる
-			ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode, author, price, condition, -1);
+			ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode, author, price, condition, -1,
+					image);
 			request.setAttribute("textbook", bean);
 
 			gotoPage(request, response, "/listedItemChangeCheck.jsp");
@@ -108,13 +110,14 @@ public class ListedItemChangeServlet extends HttpServlet {
 			String author = request.getParameter("author");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String condition = request.getParameter("condition");
+			String image = request.getParameter("image");
 
 			try {
 				ListedItemDAO dao = new ListedItemDAO();
-				dao.updateItem(id, isbn, title, departmentCode, author, price, condition);
+				dao.updateItem(id, isbn, title, departmentCode, author, price, condition, image);
 
 				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
-						author, price, condition, -1);
+						author, price, condition, -1, image);
 				//request.setAttribute("item", bean);
 				request.setAttribute("item_id", bean);
 				gotoPage(request, response, "ListedItemDetailServlet");
@@ -134,9 +137,11 @@ public class ListedItemChangeServlet extends HttpServlet {
 			String author = request.getParameter("author");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String condition = request.getParameter("condition");
+			String image = request.getParameter("image");
 
 			//入力内容をスコープに入れる
-			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
+			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1,
+					image);
 			request.setAttribute("textbook", bean);
 
 			gotoPage(request, response, "/listedItemChangeForm.jsp");

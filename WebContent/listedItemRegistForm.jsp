@@ -54,6 +54,9 @@ ISBN：<br>
 	</c:forEach>
 </select>
 <br>
+画像URL：<br>
+<input type="text" name="image" value="${regist_item.image}">
+<br>
 <input type="hidden" name="action" value="regist_check">
 <input type="submit" value="登録">
 </form>

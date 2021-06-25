@@ -71,7 +71,7 @@ public class ShowPlanServlet2 extends HttpServlet {
 				MemberBean member = new MemberBean();
 				member = dao.find(email);
 
-				if (password.equals(member.getPassword()) && member.getQuiteDate() == null) {
+				if (member != null && password.equals(member.getPassword()) && member.getQuiteDate() == null) {
 					session.setAttribute("isLogin", "true");
 					session.setAttribute("member", member);
 
@@ -106,8 +106,16 @@ public class ShowPlanServlet2 extends HttpServlet {
 				MembersDAOSub dao = new MembersDAOSub();
 				dao.registration(member);
 
+				// idとかとってきたいからデータベースから情報とってきなおす
+				member = dao.find(email);
+
 				session.setAttribute("isLogin", "true");
 				session.setAttribute("member", member);
+
+				if (session.getAttribute("plan") != null) {
+					gotoPage(request, response, "/reservation.jsp");
+					return;
+				}
 
 				gotoPage(request, response, "/top2.jsp");
 			} else if (action.equals("plan")) { // 検索ボタンクリック時（チェックイン・アウト）
@@ -119,6 +127,8 @@ public class ShowPlanServlet2 extends HttpServlet {
 
 				if (checkIn == null || checkOut == null || checkIn.length() == 0 || checkOut.length() == 0) {
 					request.setAttribute("error", "チェックイン日とチェックアウト日を入力してください");
+					session.setAttribute("plans", null);
+					session.setAttribute("plan", null);
 					gotoPage(request, response, "/top2.jsp");
 					return;
 				}

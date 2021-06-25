@@ -70,7 +70,7 @@ public class MembersServlet extends HttpServlet {
 					int id = member.getId();
 					dao.quit(id);
 					session.invalidate();
-					gotoPage(request, response, "/top.jsp");
+					gotoPage(request, response, "/top2.jsp");
 				} else if (action.equals("log")) {
 					UserReservationDAO udao = new UserReservationDAO();
 					MemberBean member = (MemberBean) session.getAttribute("member");
@@ -97,7 +97,7 @@ public class MembersServlet extends HttpServlet {
 				gotoPage(request, response, "/errInternal.jsp");
 			}
 		} else {
-			gotoPage(request, response, "/top.jsp");
+			gotoPage(request, response, "/top2.jsp");
 		}
 
 	}

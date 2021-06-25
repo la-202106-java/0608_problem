@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>会員登録</h1>
-<form action="/0608_problem/ShowPlanServlet" method="post">
+<form action="/0608_problem/ShowPlanServlet2" method="post">
 氏名：<input type="text" name="name"><br>
 郵便番号：<input type="text" name="postalCode"><br>
 住所：<input type="text" name="address"><br>

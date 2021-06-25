@@ -45,7 +45,7 @@ public class UserReservationDAO {
 				+ "	reservations r "
 				+ "ON "
 				+ "	s.plan_id = r.plan_id WHERE member_id = ?"
-				+ "AND cansel_check = FALSE";
+				+ "AND cancel_check = FALSE";
 		try {
 			st = con.prepareStatement(sql);
 			st.setInt(1, memberID);

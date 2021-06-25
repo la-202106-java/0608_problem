@@ -8,6 +8,7 @@
 <title>会員情報更新ページ</title>
 </head>
 <body>
+<h1>会員情報更新</h1>
 <a href="/0608_problem/membersUpdate.jsp">会員情報の更新</a>
 </body>
 </html>

@@ -27,6 +27,8 @@
 
 <c:if test="${item.id>0 and item != null}">
 
+	<img src="${item.image}">
+
 	<table>
 	<tr><td>ID</td><td>${item.id}</td></tr>
 	<tr><td>ISBN</td><td>${item.isbn}</td></tr>

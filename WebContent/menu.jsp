@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -63,9 +64,25 @@
 
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 								<ul class="nav navbar-nav">
-									<li class="active"><a href="/0608_problem/kaiin_menu.jsp">会員管理 <span class="sr-only">(current)</span></a></li>
-									<li><a href="/0608_problem/siryou_kanri.jsp">資料管理</a></li>
-									<li><a href="/0608_problem/siryou_kasidasi.jsp">貸出管理</a>	</li>
+									<li
+									<c:if test="${basyo == 1 }">
+									class="active"
+									</c:if>
+
+									><a href="/0608_problem/kaiin_menu.jsp">会員管理
+									<span class="sr-only">(current)</span>
+									</a></li>
+									<li
+									<c:if test="${basyo == 2 }">
+									class="active"
+									</c:if>
+									><a href="/0608_problem/siryou_kanri.jsp">資料管理</a></li>
+									<li
+									<c:if test="${basyo == 3 }">
+									class="active"
+									</c:if>
+									><a href="/0608_problem/siryou_kasidasi.jsp">
+									貸出管理</a>	</li>
 								</ul>
 							</div>
 						</div>

@@ -15,6 +15,7 @@
 <body>
   <jsp:include page="/navbar.jsp" />
   <div class="m-3 p-3">
+  <div class="col-9">
     <div class="row">
       <h2>貸出検索</h2>
       </div>
@@ -61,7 +62,7 @@
         </tbody>
       </table>
     </div>
-
+</div>
   </div>
 
 </body>

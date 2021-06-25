@@ -53,6 +53,42 @@ public class CatalogLendingServlet extends HttpServlet {
 				gotoPage(request, response, "/errInternal.jsp");
 			}
 		}
+		if ("confirm".equals(action)) {
+			// 取置画面へ遷移
+			request.setAttribute("book_id", request.getParameter("book_id"));
+			request.setAttribute("title", request.getParameter("title"));
+			gotoPage(request, response, "/5_reserve_reserved/reserved.jsp");
+			return;
+		}
+		if ("lending_confirm".equals(action)) {
+			// 取置画面で取置ボタンを押されたので取置確認画面へ
+			// 会員IDを取得して検索
+			String userId = request.getParameter("user_id");
+			if (userId == null || userId.isBlank()) {
+				request.setAttribute("error", "会員IDを入力してください");
+				gotoPage(request, response, "/5_reserve_reserved/reserved.jsp");
+				return;
+			}
+			try {
+				NowUserDAO dao = new NowUserDAO();
+				NowUserBean bean = dao.findByPrimaryKey(Integer.parseInt(userId));
+				if (bean == null) {
+					// 会員IDを間違えているので再度入力を促す
+					request.setAttribute("error", "入力された会員IDは見つかりませんでした");
+					gotoPage(request, response, "/5_reserve_reserved/reserved.jsp");
+					return;
+				}
+				request.setAttribute("isbn", request.getParameter("isbn"));
+				request.setAttribute("title", request.getParameter("title"));
+				request.setAttribute("userBean", bean);
+				gotoPage(request, response, "/5_reserve_reserved/reserved_confirm.jsp");
+				return;
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+		}
 
 		// TODO 以下は参考コード
 		if ("reserve_confirm".equals(action)) {

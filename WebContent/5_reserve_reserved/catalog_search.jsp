@@ -17,8 +17,15 @@
 <div class="m-3 p-3">
     <div class="col-9">
 		<h2>目録検索</h2>
+		<c:if test="${not empty error}">
+			<div class="alert alert-danger" role="alert">
+			  ${error}
+			</div>
+		</c:if>
 		<c:if test="${not empty message}">
-		<p class="">${message}</p>
+			<div class="alert alert-primary" role="alert">
+			  ${message}
+			</div>
 		</c:if>
 		<form action="/0608_problem/CatalogSearchServlet" method="post">
 		資料名 <input type ="text" name = "titles" value="${titles}"><input type="submit" value = 検索>

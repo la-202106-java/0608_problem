@@ -15,6 +15,11 @@
 <div class="m-3 p-3">
     <div class="col-9">
 		<h2>予約追加</h2>
+		<c:if test="${not empty error}">
+			<div class="alert alert-danger" role="alert">
+			  ${error}
+			</div>
+		</c:if>
 		以下の資料を予約します<br>
 		会員IDを入力してください<br>
 		<br>ISBN：${isbn}<br>

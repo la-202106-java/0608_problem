@@ -47,7 +47,8 @@
 			      <td>
 			        <form action="/0608_problem/CatalogLendingServlet" method="post">
 			          <button type="submit" class="btn btn-secondary">取置</button>
-			          <input type="hidden" name="isbn" value="${book.id}">
+			          <input type="hidden" name="book_id" value="${book.id}">
+			          <input type="hidden" name="title" value="${book.title}">
 			          <input type="hidden" name="action" value="confirm">
 			        </form>
 			      </td>

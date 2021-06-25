@@ -57,6 +57,11 @@ public class ListedItemGetNewServlet extends HttpServlet {
 
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
 	public void init() throws ServletException {
 		try {
 			// 分類コード一覧は最初にアプリケーションスコープへ入れる

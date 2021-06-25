@@ -22,7 +22,14 @@ public class MemberDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		String userType = (String) session.getAttribute("user");
+
+		if (userType == null || userType.length() == 0) {
+			gotoPage(request, response, "/LoginServlet");
+		} else if (userType.equals("member")) {
+			doPost(request, response);
+		}
 
 	}
 

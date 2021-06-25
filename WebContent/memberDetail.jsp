@@ -36,7 +36,7 @@
 	</table>
 	<br>
 
-	<form action="/0608_problem/LeaveServlet" method="post">
+	<form action="/0608_problem/LeaveServlet">
 		<c:if test="${person.quitDate==null}">
 			<input type="submit" value="退会">
 		</c:if>

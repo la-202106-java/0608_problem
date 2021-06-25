@@ -75,6 +75,10 @@ public class MemberSearchServlet extends HttpServlet {
 					List<MemberBean> list = dao.findMember(name, address, tel, email, birthday);
 					request.setAttribute("member", list);
 					request.setAttribute("result_num", list.size());
+
+					MemberBean searchBean = new MemberBean(-1, name, address, tel, email, birthday, "");
+					request.setAttribute("search_member", searchBean);
+
 					gotoPage(request, response, "/memberSearch.jsp");
 
 				} else {
@@ -85,6 +89,8 @@ public class MemberSearchServlet extends HttpServlet {
 					list.add(bean);
 					request.setAttribute("member", list);
 					request.setAttribute("result_num", list.size());
+
+					request.setAttribute("search_member_id", id);
 					gotoPage(request, response, "/memberSearch.jsp");
 
 				}

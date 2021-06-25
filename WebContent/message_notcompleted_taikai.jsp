@@ -16,6 +16,7 @@
 <table border="1">
 <tr><td>ID</td><td>${ notmember.id}</td></tr>
 <tr><td>氏名</td><td>${notmember.name}</td></tr>
+<tr><td>退会年月日</td><td>${notmember.withdrawalDate}</td></tr>
 </table>
 </body>
 </html>

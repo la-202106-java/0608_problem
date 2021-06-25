@@ -1,6 +1,8 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,8 +54,9 @@ public class MemberServlet extends HttpServlet {
 
 				Member bean = new Member(name, address, tel, mail, b1);
 				session.setAttribute("member", bean);
-				RequestDispatcher rd = request.getRequestDispatcher("/confirm_kaiin_touroku.jsp");
-				rd.forward(request, response);
+				//			RequestDispatcher rd = request.getRequestDispatcher("/confirm_kaiin_touroku.jsp");
+				//		rd.forward(request, response);
+				gotoPage(request, response, "/confirm_kaiin_touroku.jsp");
 			} else if (action.equals("addmember")) { //会員登録
 				Member bean = (Member) session.getAttribute("member");
 
@@ -72,16 +75,29 @@ public class MemberServlet extends HttpServlet {
 				request.setAttribute("members", memberbean);
 
 				gotoPage(request, response, "/confirm_ok.jsp");
-
-			} else if (action.equals("cancel")) { //cancel
 				session.invalidate();
+			} else if (action.equals("cancel")) { //cancel
+				/*			Member bean = (Member) session.getAttribute("member");
+							String name = bean.getName();
+							String address = bean.getAddress();
+							String tel = bean.getTel();
+							String mail = bean.geteMail();
+							String birth = bean.getBirth();
+				
+							Member memberbean2 = dao.findByName2(name);
+							session.setAttribute("members2", memberbean2);
+				*/
 				gotoPage(request, response, "/kaiin_touroku.jsp");
-				//		} else if (action.equals("searchid")) { //検索
-				//			int id = Integer.parseInt(request.getParameter("id"));
-				//			Member idbean = dao.findById(id);
-				//			session.setAttribute("imember", idbean);
-				//			gotoPage(request, response, "/kaiin_kensaku.jsp");
-				/*******************/
+				session.invalidate();
+			} else if (action.equals("memberlist")) {
+				Member listbean = null;
+				List<Member> list = new ArrayList<Member>();
+				list = dao.findAll();
+				request.setAttribute("menlist", list);
+
+				request.setAttribute("Ismenberlist", "true");
+
+				gotoPage(request, response, "/kaiin_kensaku.jsp");
 			} else if (action.equals("search")) { //検索
 				String radio = request.getParameter("radio");
 				Member sbean = null;
@@ -105,7 +121,7 @@ public class MemberServlet extends HttpServlet {
 				request.setAttribute("id", str_id);
 				request.setAttribute("title", email);
 
-				session.setAttribute("imember", sbean);
+				session.setAttribute("imember", sbean); ///sessionからrequest
 				gotoPage(request, response, "/kaiin_kensaku.jsp");
 				/*******************************/
 			} else if (action.equals("confirmhenkou")) { //変更
@@ -127,6 +143,10 @@ public class MemberServlet extends HttpServlet {
 				request.setAttribute("upmember", memberbean2);
 
 				gotoPage(request, response, "/message_completed_henkou.jsp");
+			} else if (action.equals("return")) { //退会
+				session.invalidate();
+
+				gotoPage(request, response, "/kaiin_kensaku.jsp");
 
 			} else if (action.equals("delete")) { //退会
 				Member bean = (Member) session.getAttribute("imember");
@@ -138,21 +158,27 @@ public class MemberServlet extends HttpServlet {
 
 					Member memberbean3 = dao.findById(id);
 					request.setAttribute("imembers", memberbean3);
+
 					gotoPage(request, response, "/message_completed_taikai.jsp");
+					session.invalidate();
 				} else {
 					request.setAttribute("notmember", beans);
 					gotoPage(request, response, "/message_notcompleted_taikai.jsp");
+					session.invalidate();
 				}
 
 			} else if (action.equals("canceltaikai")) { //退会
+				session.invalidate();
 
 				gotoPage(request, response, "/kaiin_kensaku.jsp");
 
 			} else {
+				session.invalidate();
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
 		} catch (DAOException | NumberFormatException e) {
+
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました。");
 			gotoPage(request, response, "/kaiin_kensaku.jsp");

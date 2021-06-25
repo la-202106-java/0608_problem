@@ -173,7 +173,7 @@ public class MemberDAO {
 	}
 
 	public List<Member> findAll() throws DAOException {
-		String sql = "SELECT * FROM member";
+		String sql = "SELECT * FROM member order By member_id";
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery()) {

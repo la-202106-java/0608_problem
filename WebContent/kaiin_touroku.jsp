@@ -55,11 +55,11 @@ return true;
 <form name="form1" onsubmit="return validateForm()" action="/0608_problem/MemberServlet"method="post">
 <input type="hidden" name="action" value="confirm">
 
-  氏名：<input type="text" name="name"><br>
-  住所：<input type="text" name="address"><br>
-  電話番号：<input type="text" name="tel"><br>
-  E-Mail：<input type="text" name="mail"><br>
-  生年月日：<input type="date" value="1990-01-01"  name="birth"><br>
+  氏名：<input type="text" name="name"value = "${member.name }"><br>
+  住所：<input type="text" name="address"value = "${member.address }"><br>
+  電話番号：<input type="text" name="tel"value = "${member.tel }"><br>
+  E-Mail：<input type="text" name="mail"value = "${member.eMail }"><br>
+  生年月日：<input type="date"  name="birth"value = "${member.birth }"><br>
   <input type="submit" value="登録確認">
 </form>
 </body>

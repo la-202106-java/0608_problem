@@ -62,6 +62,7 @@
           <td>ISBN番号</td>
           <td>資料名</td>
           <td>入荷日</td>
+          <td>状態</td>
           <td>備考</td>
           <td>削除</td>
         </tr>
@@ -74,6 +75,7 @@
             <td>${book.isbn}</td>
             <td>${book.title}</td>
             <td>${book.arrivalDate}</td>
+            <td><span class="badge badge-pill badge-info">在庫</span></td>
             <td>${book.note}</td>
             <td>
               <a class="btn btn-danger" href="/0608_problem/BookDeleteServlet?&id=${book.id}" role="button">削除</a>

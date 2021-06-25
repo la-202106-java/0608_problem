@@ -58,13 +58,15 @@ public class MemberDetailServlet extends HttpServlet {
 				gotoPage(request, response, "/memberDetail.jsp");
 
 			} else if (userType.equals("admin")) {
-				String idStr = (String) session.getAttribute("member_id");
+				String idStr = (String) request.getParameter("member_id");
 				if (idStr == null || idStr.length() == 0) {
 					gotoPage(request, response, "/top");
 				} else {
 					int memberId = Integer.parseInt(idStr);
-
 					MemberBean member = dao.findMember(memberId);
+
+					request.setAttribute("member_info", member);
+					gotoPage(request, response, "/memberDetail.jsp");
 				}
 			}
 		} catch (Exception e) {

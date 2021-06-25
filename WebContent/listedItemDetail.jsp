@@ -72,7 +72,7 @@
 		</form>
 		<%-- 削除 DeleteServletに移動 --%>
 		<form action="/0608_problem/DeleteServlet" method="post">
-		<input type="hidden" name="action" value="deleteCheck">
+		<input type="hidden" name="action" value="delete">
 		<input type="hidden" name="item_id" value="${item.id}">
 		<input type="submit" value="削除">
 		</form>

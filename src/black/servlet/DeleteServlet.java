@@ -1,8 +1,6 @@
 package black.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,18 +36,25 @@ public class DeleteServlet extends HttpServlet {
 				if (request.getAttribute("seller_id").equals("id"))
 
 					//教科書削除チェック選択画面
-					if (action.equals("deleteCheck")) {
-						String id_item = request.getParameter("item_code");
-						int id = Integer.parseInt(id_item);
-						List<ListedItemBean> bean = new ArrayList<ListedItemBean>();
-						bean = (List<ListedItemBean>) dao.findItem(id);
-						request.setAttribute("id_item", bean);
-
+					if (action.equals("delete")) {
+						ListedItemBean item = (ListedItemBean) session.getAttribute("item");
+						String isbn = item.getIsbn();
+						request.setAttribute("setIsbn", isbn);
+						String title = item.getAuthor();
+						request.setAttribute("setTitle", title);
+						int department_code = item.getDepartmentCode();
+						request.setAttribute("SetDepartment_code", department_code);
+						String author = item.getAuthor();
+						request.setAttribute("setAuthor", author);
+						int price = item.getPrice();
+						request.setAttribute("SetPrice", price);
 						gotoPage(request, response, "/listedItemDeleteCheck.jsp");
-					} else if (action.equals("delete")) {
+					} else if (action.equals("dodelete")) {
 						//削除完了ページに行く
-						int id = Integer.parseInt(request.getParameter("id"));
+						ListedItemBean item = (ListedItemBean) session.getAttribute("item");
+						int id = item.getId();
 						dao.deleteItem(id);
+						session.removeAttribute("item");
 						gotoPage(request, response, "/listedItemDeleteDone.jsp");
 					}
 					//キャンセル　教科書詳細ページに行く
@@ -59,7 +64,7 @@ public class DeleteServlet extends HttpServlet {
 
 					//教科書削除完了後、トップページに戻る
 					else if (action.equals("topReturn")) {
-						gotoPage(request, response, "/top.jsp");
+						gotoPage(request, response, "/top");
 					}
 
 			}

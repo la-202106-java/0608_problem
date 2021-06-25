@@ -32,7 +32,13 @@ public class MemberRegistChangeServlet extends HttpServlet {
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/memberRegistForm.jsp");
 			} else if (action.equals("change")) {
-				MemberBean member = (MemberBean) session.getAttribute("logined");
+				String user = (String) session.getAttribute("user");
+				MemberBean member = new MemberBean();
+				if (user.equals("member")) {
+					member = (MemberBean) session.getAttribute("logined");
+				} else if (user.equals("admin")) {
+					member = (MemberBean) session.getAttribute("member_info_se");
+				}
 				if (member == null) {
 					request.setAttribute("message", "会員情報を入力してください");
 					gotoPage(request, response, "/errInternal.jsp");
@@ -50,7 +56,13 @@ public class MemberRegistChangeServlet extends HttpServlet {
 					gotoPage(request, response, "/memberRegistChange.jsp");
 				}
 			} else if (action.equals("check")) {
-				MemberBean member = (MemberBean) session.getAttribute("logined");
+				String user = (String) session.getAttribute("user");
+				MemberBean member = new MemberBean();
+				if (user.equals("member")) {
+					member = (MemberBean) session.getAttribute("logined");
+				} else if (user.equals("admin")) {
+					member = (MemberBean) session.getAttribute("member_info_se");
+				}
 				int id = member.getId();
 				String name = request.getParameter("name");
 				String address = request.getParameter("address");
@@ -63,7 +75,13 @@ public class MemberRegistChangeServlet extends HttpServlet {
 				session.setAttribute("member", bean);
 				gotoPage(request, response, "/memberChangeCheck.jsp");
 			} else if (action.equals("add")) {
-				MemberBean member = (MemberBean) session.getAttribute("logined");
+				String user = (String) session.getAttribute("user");
+				MemberBean member = new MemberBean();
+				if (user.equals("member")) {
+					member = (MemberBean) session.getAttribute("logined");
+				} else if (user.equals("admin")) {
+					member = (MemberBean) session.getAttribute("member_info_se");
+				}
 				MemberBean memberchanged = (MemberBean) session.getAttribute("member");
 				if (member == null) {
 					request.setAttribute("message", "会員情報を入力してください");
@@ -80,8 +98,12 @@ public class MemberRegistChangeServlet extends HttpServlet {
 					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
 					dao.updateMember(id, name, address, tel, email, birthday, pass);
 					request.setAttribute("message", "会員情報変更が完了しました");
-					session.setAttribute("logined", bean);
-					gotoPage(request, response, "/top.jsp");
+					if (user.equals("member")) {
+						session.setAttribute("logined", bean);
+					} else if (user.equals("admin")) {
+
+					}
+					gotoPage(request, response, "/top");
 				}
 
 			} else {

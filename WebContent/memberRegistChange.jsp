@@ -12,17 +12,17 @@
     <h1>会員情報変更</h1>
     <form action =/0608_problem/MemberRegistChangeServlet method ="post">
         <p>名前:<br>
-        <input type = "text" name = "name" value="${logined.name}"></p>
+        <input type = "text" name = "name" value="${member.name}"></p>
         <p>住所:<br>
-            <input type = "text" name = "address" value="${logined.address}"></p>
+            <input type = "text" name = "address" value="${member.address}"></p>
         <p>電話番号:<br>
-            <input type = "text" name = "tel" value="${logined.tel}"></p>
+            <input type = "text" name = "tel" value="${member.tel}"></p>
         <p>生年月日:<br>
-            <input type = "date" name = "date" value="${logined.birthday}" ></p>
+            <input type = "date" name = "date" value="${member.birthday}" ></p>
         <p>E-mail:<br>
-            <input type = "text" name = "email" value="${logined.email}"></p>
+            <input type = "text" name = "email" value="${member.email}"></p>
         <p>パスワード:<br>
-            <input type = "password" name = "pass" value="${logined.pass}"></p>
+            <input type = "password" name = "pass" value="${member.pass}"></p>
             <input type="hidden" name = "action" value = "check">
             <p><input type = "submit" value = "変更"></p>
     </form>

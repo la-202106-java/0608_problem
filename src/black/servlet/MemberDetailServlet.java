@@ -73,6 +73,7 @@ public class MemberDetailServlet extends HttpServlet {
 					MemberBean member = dao.findMember(memberId);
 
 					request.setAttribute("member_info", member);
+					session.setAttribute("member_info_se", member);
 					gotoPage(request, response, "/memberDetail.jsp");
 				}
 			}

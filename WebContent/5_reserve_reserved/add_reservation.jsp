@@ -15,6 +15,11 @@
 <div class="m-3 p-3">
     <div class="col-9">
 		<h2>予約追加</h2>
+		<c:if test="${not empty error}">
+			<div class="alert alert-danger" role="alert">
+			  ${error}
+			</div>
+		</c:if>
 		以下の資料を予約します<br>
 		会員IDを入力してください<br>
 		<br>ISBN：${isbn}<br>
@@ -24,8 +29,7 @@
 
 		会員ID <input type ="text" name = "user_id"><br>
 
-
-		<button type="submit" class="btn btn-secondary" formaction="/0608_problem/CatalogSearchServlet">戻る</button>
+		<button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button>
 		<button type="submit" class="btn btn-primary" formaction="/0608_problem/CatalogReserveServlet">予約</button>
 		<input type="hidden" name="action" value="reserve_confirm">
 		<input type="hidden" name="isbn" value="${isbn}">

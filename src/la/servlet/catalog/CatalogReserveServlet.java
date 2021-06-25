@@ -40,7 +40,9 @@ public class CatalogReserveServlet extends HttpServlet {
 			// 会員IDを取得して検索
 			String userId = request.getParameter("user_id");
 			if (userId == null || userId.isBlank()) {
-				// TODO: 不正な遷移なのでエラーページへ
+				// 会員IDを間違えているので再度入力を促す
+				request.setAttribute("error", "入力された会員IDは見つかりませんでした");
+				gotoPage(request, response, "/5_reserve_reserved/add_reservation.jsp");
 				return;
 			}
 			try {
@@ -50,8 +52,6 @@ public class CatalogReserveServlet extends HttpServlet {
 					// TODO: 不正な遷移なのでエラーページへ
 					return;
 				}
-				String a = request.getParameter("isbn");
-				String b = request.getParameter("title");
 				request.setAttribute("isbn", request.getParameter("isbn"));
 				request.setAttribute("title", request.getParameter("title"));
 				request.setAttribute("userBean", bean);

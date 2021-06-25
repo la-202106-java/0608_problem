@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import la.bean.InnBean;
 import la.bean.PlanBean;
+import la.dao.AdminInnDAO;
 import la.dao.AdminPlanDAO;
 import la.dao.DAOException;
 
@@ -36,7 +38,7 @@ public class AdminPlanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if ("true".equals(session.getAttribute("isAdminLogin"))) {
+		if (session != null && "true".equals(session.getAttribute("isAdminLogin"))) {
 			try {
 				request.setCharacterEncoding("UTF-8");
 				String action = request.getParameter("action");
@@ -68,6 +70,9 @@ public class AdminPlanServlet extends HttpServlet {
 					String imgUrl = request.getParameter("picture");
 					PlanBean target = new PlanBean(innID, content, fee, roomMax, imgUrl);
 					target.setPlanId(PlanID);
+					AdminInnDAO idao = new AdminInnDAO();
+					List<InnBean> list = idao.searchInn("", false);
+					request.setAttribute("Inns", list);
 					request.setAttribute("planTarget", target);
 					gotoPage(request, response, "/adminUpdatePlan.jsp");
 				} else if (action.equals("update")) {

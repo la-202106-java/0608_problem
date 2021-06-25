@@ -36,7 +36,7 @@ public class AdminMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if ("true".equals(session.getAttribute("isAdminLogin"))) {
+		if (session != null && "true".equals(session.getAttribute("isAdminLogin"))) {
 			try {
 				request.setCharacterEncoding("UTF-8");
 				String action = request.getParameter("action");

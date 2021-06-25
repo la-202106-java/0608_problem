@@ -77,6 +77,11 @@ public class AdminLoginServlet extends HttpServlet {
 		}
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		gotoPage(request, response, "/adminLogin.jsp");
+	}
+
 	private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)
 			throws ServletException,
 			IOException {

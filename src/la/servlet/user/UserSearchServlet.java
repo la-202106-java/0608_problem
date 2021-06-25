@@ -103,6 +103,16 @@ public class UserSearchServlet extends HttpServlet {
 
 				gotoPage(request, response, "2_user/user_search.jsp");
 
+			} else if (action.equals("detail")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				NowUserBean bean = new NowUserBean();
+				bean = dao.findByPrimaryKey(id);
+
+				request.setAttribute("bean", bean);
+				session.setAttribute("bean", bean);
+
+				gotoPage(request, response, "/2_user/user_search_result.jsp");
+
 			}
 
 		} catch (DAOException e) {

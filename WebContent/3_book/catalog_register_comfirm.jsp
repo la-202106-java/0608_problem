@@ -33,7 +33,7 @@ ISBN番号：${isbn}<br>
 <br>
 <div class="btn-toolbar">
  <div class="pr-3">
-<a href="/0608_problem/CatalogRegistServlet?action=back&title=${title}&isbn=${isbn}&code=${code}&author=${author}&publisher=${publisher}&publicationDate=${publicationDate}">戻る</a>
+<a class="btn btn-secondary" href="/0608_problem/CatalogRegistServlet?action=back&title=${title}&isbn=${isbn}&code=${code}&author=${author}&publisher=${publisher}&publicationDate=${publicationDate}">戻る</a>
 </div>
 <div class="pr-3">
 <input class="btn btn-primary" type="submit" value = 登録>

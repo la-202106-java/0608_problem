@@ -1,7 +1,6 @@
 package black.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,34 +24,6 @@ public class MemberDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		try {
-			MemberDAO dao = new MemberDAO();
-			HttpSession session = request.getSession(false);
-
-			MemberBean member = (MemberBean) session.getAttribute("logined");
-			int id = member.getId();
-			String name = member.getName();
-			String address = member.getAddress();
-			String tel = member.getTel();
-			String email = member.getEmail();
-			Date birthday = member.getBirthday();
-
-			MemberBean bean_sales = dao.findMember(id);
-			Date joinDate = bean_sales.getJoinDate();
-			Date quitDate = bean_sales.getQuitDate();
-			int sales = bean_sales.getSales();
-			MemberBean bean = new MemberBean(id, name, address, tel, email,
-					birthday, joinDate, quitDate, sales);
-
-			request.setAttribute("loginedplusa", bean);
-			gotoPage(request, response, "/mypage.jsp");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("message", "内部エラー");
-			RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");
-			rd.forward(request, response);
-		}
 	}
 
 	private void gotoPage(HttpServletRequest request,
@@ -64,8 +35,45 @@ public class MemberDetailServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		HttpSession session = request.getSession(false);
+		String userType = (String) session.getAttribute("user");
+		try {
+			MemberDAO dao = new MemberDAO();
+			if (userType == null || userType.length() == 0) {
+				gotoPage(request, response, "/LoginServlet");
+			} else if (userType.equals("member")) {
+				MemberBean member = (MemberBean) session.getAttribute("logined");
+				//				int id = member.getId();
+				//				String name = member.getName();
+				//				String address = member.getAddress();
+				//				String tel = member.getTel();
+				//				String email = member.getEmail();
+				//				Date birthday = member.getBirthday();
+				//				MemberBean bean_sales = dao.findMember(id);
+				//				int sales = bean_sales.getSales();
+				//				MemberBean bean = new MemberBean(name, address, tel, email, birthday, sales);
+
+				request.setAttribute("member_info", member);
+				gotoPage(request, response, "/memberDetail.jsp");
+
+			} else if (userType.equals("admin")) {
+				String idStr = (String) session.getAttribute("member_id");
+				if (idStr == null || idStr.length() == 0) {
+					gotoPage(request, response, "/top");
+				} else {
+					int memberId = Integer.parseInt(idStr);
+
+					MemberBean member = dao.findMember(memberId);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラー");
+			RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");
+			rd.forward(request, response);
+		}
+
 	}
 
 }

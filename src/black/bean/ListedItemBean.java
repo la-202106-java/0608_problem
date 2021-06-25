@@ -18,15 +18,6 @@ public class ListedItemBean implements Serializable {
 
 	private boolean inStock = true;
 
-	public boolean isInStock() {
-		if (orderdDate == null && buyerId < 0) {
-			inStock = true;
-		} else {
-			inStock = false;
-		}
-		return inStock;
-	}
-
 	public ListedItemBean(int id, String isbn, String title, int departmentCode, String author, int price,
 			String condition, int sellerId) {
 		this.id = id;
@@ -198,4 +189,15 @@ public class ListedItemBean implements Serializable {
 		this.buyerId = buyerId;
 	}
 
+	public boolean isInStock() {
+		return inStock;
+	}
+
+	public void setInStock() {
+		if (orderdDate == null && buyerId <= 0) {
+			inStock = true;
+		} else {
+			inStock = false;
+		}
+	}
 }

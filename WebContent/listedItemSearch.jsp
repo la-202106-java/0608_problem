@@ -23,9 +23,9 @@
 
 <form action="/0608_problem/ListedItemSearchServlet" method="post">
 ISBN：<br>
-<input type="text" name="isbn"value="${search_isbn}"><br>
+<input type="text" name="isbn" value="${search_isbn}"><br>
 タイトル：<br>
-<input type="text" name="title"value="${search_title}"><br>
+<input type="text" name="title" value="${search_title}"><br>
 分類：<br>
 <select name="department_code">
 	<option value="-1">----------</option>

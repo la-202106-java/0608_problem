@@ -1,3 +1,4 @@
+
 package black.dao;
 
 import java.sql.Connection;
@@ -128,12 +129,13 @@ public class ListedItemDAO {
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
 						_author, price, _condition, seller_id, orderd_date, buyer_id);
-				bean.setOrderdDate(rs.getDate("orderd_date"));
+				bean.setInStock();
+				//bean.setOrderdDate(rs.getDate("orderd_date"));
 
-				String buyerIdStr = rs.getString("buyer_id");
-				if (buyerIdStr != null && buyerIdStr.length() != 0) {
-					bean.setBuyerId(Integer.parseInt(buyerIdStr));
-				}
+				//String buyerIdStr = rs.getString("buyer_id");
+				//if (buyerIdStr != null && buyerIdStr.length() != 0) {
+				//	bean.setBuyerId(Integer.parseInt(buyerIdStr));
+				//}
 
 				if (onlyInStock) {
 					//在庫ありのみ指定の場合
@@ -190,6 +192,7 @@ public class ListedItemDAO {
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
 						_author, price, _condition, seller_id, orderd_date, buyer_id);
+				bean.setInStock();
 				return bean;
 			}
 			return null;
@@ -238,7 +241,7 @@ public class ListedItemDAO {
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
 						_author, price, _condition, seller_id, orderd_date, buyer_id);
-
+				bean.setInStock();
 				list.add(bean);
 
 			}
@@ -348,9 +351,7 @@ public class ListedItemDAO {
 			getConnection();
 		}
 
-
-		String sql = "UPDATE listed_item SET orderd_date=? buyer_id=? WHERE id=?";
-
+		String sql = "UPDATE listed_item SET orderd_date=?, buyer_id=? WHERE id=?";
 
 		//今日の日付取得
 		Date today = new Date(System.currentTimeMillis());
@@ -359,7 +360,6 @@ public class ListedItemDAO {
 			st.setDate(1, today);
 			st.setInt(2, buyerId);
 			st.setInt(3, id);
-
 
 			//SQL実行
 			st.executeUpdate();

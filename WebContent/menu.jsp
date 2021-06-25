@@ -8,17 +8,17 @@
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
 </head>
 <body>
-	<a href="/0608_problem/MenuServlet?action=top">TOP</a> |
+	<a href="/0608_problem/top">TOP</a> |
 
 	<c:if test="${!empty logined}">
 		こんにちは、${logined.name}さん |
 	</c:if>
 
-	<a href="/0608_problem/MenuServlet?action=serch">教科書検索</a> |
+	<a href="/0608_problem/ListedItemSearchServlet">教科書検索</a> |
 
 		<!-- サーブレットまだ -->
 	<c:if test="${!empty logined}">
-	<a href="/0608_problem/MenuServlet?action=regist">教科書登録</a> |
+	<a href="/0608_problem/ListedItemRegistServlet">教科書登録</a> |
 	<a href="/0608_problem/LoginServlet?action=logout">ログアウト</a> |
 	<a href="/0608_problem/MemberDetailServlet">マイページ</a>
 	</c:if>

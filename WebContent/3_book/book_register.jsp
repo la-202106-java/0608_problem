@@ -26,6 +26,7 @@
 <h4>新規資料情報を入力してください</h4>
 
 ${message}
+<br>
 <form action="/0608_problem/BookRegistServlet?action=regist" method="post">
 <div class="form-group">
 資料名：<input type ="text" name = "title" value="${title}" placeholder="">

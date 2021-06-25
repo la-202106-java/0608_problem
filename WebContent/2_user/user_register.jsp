@@ -46,6 +46,7 @@
 	<div class="form-group">
 		入会年月日：<%out.println(datestr);%>
 	</div>
+	<br>
 	<button class="btn btn-primary" type="submit">登録</button>
 	<input type="hidden" name = "action" value = "register1" >
 	</form>

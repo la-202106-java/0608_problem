@@ -18,8 +18,8 @@ import la.dao.DAOException;
 import la.dao.MembersDAOSub;
 import la.dao.PlansDAOSub;
 
-@WebServlet("/ShowPlanServlet")
-public class ShowPlanServlet extends HttpServlet {
+@WebServlet("/ShowPlanServlet2")
+public class ShowPlanServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,11 +31,11 @@ public class ShowPlanServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		if (action == null) { // 最初のアクセス
-			gotoPage(request, response, "/top.jsp");
+			gotoPage(request, response, "/top2.jsp");
 		} else if (action.equals("logout")) { // ログアウトリンククリック時
 			// session.setAttribute("isLogin", "false");
 			session.invalidate(); // セッションスコープのデータをすべて削除
-			gotoPage(request, response, "top.jsp");
+			gotoPage(request, response, "top2.jsp");
 		} else if (action.equals("complete")) { // 予約完了画面でトップページが押された場合
 			// sessionに保存した情報のうち必要のない情報、planなど？をnullとする
 			session.setAttribute("checkIn", null);
@@ -46,7 +46,7 @@ public class ShowPlanServlet extends HttpServlet {
 			session.setAttribute("place", null);
 			session.setAttribute("lower", null);
 			session.setAttribute("upper", null);
-			gotoPage(request, response, "top.jsp");
+			gotoPage(request, response, "top2.jsp");
 		} else {
 			request.setAttribute("message", "正しく操作してください。");
 			gotoPage(request, response, "/errInternal.jsp");
@@ -73,11 +73,9 @@ public class ShowPlanServlet extends HttpServlet {
 				if (password.equals(member.getPassword()) && member.getQuiteDate() == null) {
 					session.setAttribute("isLogin", "true");
 					session.setAttribute("member", member);
-					gotoPage(request, response, "/top.jsp");
+					gotoPage(request, response, "/top2.jsp");
 				} else {
 					// ログイン失敗時の処理書く
-					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");
-					gotoPage(request, response, "/login.jsp");
 				}
 			} else if (action.equals("registration")) { // 会員登録ボタンクリック時
 				String password = request.getParameter("password");
@@ -103,7 +101,7 @@ public class ShowPlanServlet extends HttpServlet {
 				session.setAttribute("isLogin", "true");
 				session.setAttribute("member", member);
 
-				gotoPage(request, response, "/top.jsp");
+				gotoPage(request, response, "/top2.jsp");
 			} else if (action.equals("plan")) { // 検索ボタンクリック時（チェックイン・アウト）
 				String checkIn = request.getParameter("checkIn");
 				String checkOut = request.getParameter("checkOut");
@@ -115,62 +113,25 @@ public class ShowPlanServlet extends HttpServlet {
 				List<PlanBean> plans = new ArrayList<PlanBean>();
 
 				plans = dao.find(checkIn, checkOut);
-				// 動作確認用、上の処理に置き換える
-				// plans = dao.findFake(checkIn, checkOut);
 
 				session.setAttribute("plans", plans);
 
-				gotoPage(request, response, "/top.jsp");
-			} else if (action.equals("innName")) {
+				gotoPage(request, response, "/top2.jsp");
+			} else if (action.equals("narrow")) {
 				String innName = request.getParameter("innName");
-
-				session.setAttribute("innName", innName);
-
-				PlansDAOSub dao = new PlansDAOSub();
-				List<PlanBean> plans = new ArrayList<PlanBean>();
-
-				String checkIn = (String) session.getAttribute("checkIn");
-				String checkOut = (String) session.getAttribute("checkOut");
-
-				plans = dao.findInnName(innName, checkIn, checkOut);
-
-				session.setAttribute("plans", plans);
-
-				gotoPage(request, response, "/top.jsp");
-			} else if (action.equals("place")) {
 				String place = request.getParameter("place");
-
-				session.setAttribute("place", place);
-
-				PlansDAOSub dao = new PlansDAOSub();
-				List<PlanBean> plans = new ArrayList<PlanBean>();
-
-				String checkIn = (String) session.getAttribute("checkIn");
-				String checkOut = (String) session.getAttribute("checkOut");
-
-				plans = dao.findPlace(place, checkIn, checkOut);
-
-				session.setAttribute("plans", plans);
-
-				gotoPage(request, response, "/top.jsp");
-			} else if (action.equals("fee")) {
 				int lower = Integer.parseInt(request.getParameter("lower"));
 				int upper = Integer.parseInt(request.getParameter("upper"));
 
-				session.setAttribute("lower", lower);
-				session.setAttribute("upper", upper);
+				String checkIn = (String) session.getAttribute("checkIn");
+				String checkOut = (String) session.getAttribute("checkOut");
 
 				PlansDAOSub dao = new PlansDAOSub();
 				List<PlanBean> plans = new ArrayList<PlanBean>();
 
-				String checkIn = (String) session.getAttribute("checkIn");
-				String checkOut = (String) session.getAttribute("checkOut");
-
-				plans = dao.findFee(lower, upper, checkIn, checkOut);
+				plans = dao.find(checkIn, checkOut, innName, place, lower, upper);
 
 				session.setAttribute("plans", plans);
-
-				gotoPage(request, response, "/top.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

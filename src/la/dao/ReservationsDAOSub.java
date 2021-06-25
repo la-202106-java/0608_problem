@@ -36,6 +36,9 @@ public class ReservationsDAOSub {
 
 			int rows = st.executeUpdate();
 
+			// このタイミングで、reservation_detailを作らないといけない
+			//sql = "INSERT INTO reservation_details(reservations_id, reserve_date, room))"
+
 			return rows;
 		} catch (Exception e) {
 			e.printStackTrace();

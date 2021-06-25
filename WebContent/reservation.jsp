@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>予約</h1>
-<img src="ikoi.jpg" width="300" height="200">
+<img src="${plan.imgUrl}" alt="${plan.imgUrl}" width="300" height="200">
 <form action="/0608_problem/ReservationServlet" method="post">
 	宿名：${plan.inn.name}<br>
 	宿の場所：〒${plan.inn.postalCode} ${plan.inn.address}<br>
@@ -19,7 +19,7 @@
 	チェックアウト：${checkOut} ${plan.inn.inTime}<br>
 	申込部屋数：
 	<select name="roomNum">
-	<c:forEach var="i" begin="1" end="2" step="1"> <!-- endに予約できる部屋数の最大数を入れるように変更する -->
+	<c:forEach var="i" begin="1" end="${plan.roomMax}" step="1"> <!-- endに予約できる部屋数の最大数を入れるように変更する -->
 		<option value="${i}">${i}</option>
 	</c:forEach>
 	</select>

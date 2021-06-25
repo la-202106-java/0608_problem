@@ -13,14 +13,14 @@
 
 <c:choose>
 	<c:when test = "${isLogin eq 'true'}">
-		<a href="/0608_problem/ShowPlanServlet?action=logout">ログアウト</a>
+		<a href="/0608_problem/ShowPlanServlet2?action=logout">ログアウト</a>
 		<a href="/0608_problem/membersShow.jsp">会員メニュー</a> <!-- jsp適当なので要変更 -->
 	</c:when>
 	<c:otherwise><a href="/0608_problem/login.jsp">ログイン</a></c:otherwise>
 </c:choose>
 <!--  |<a href="">会員メニュー</a> -->
 
-<form action="/0608_problem/ShowPlanServlet" method="post">
+<form action="/0608_problem/ShowPlanServlet2" method="post">
 チェックイン<input type="date"  name="checkIn" value="${checkIn}">
 チェックアウト<input type="date" name="checkOut" value="${checkOut}">
 <input type="hidden" name="action" value="plan">
@@ -28,28 +28,22 @@
 </form>
 <hr>
 
-<form action="/0608_problem/ShowPlanServlet" method="post">
+<form action="/0608_problem/ShowPlanServlet2" method="post">
 宿名で絞り込む：<input type="text" name="innName" value="${innName}">
-<input type="hidden" name="action" value="innName">
-<input type="submit" value="検索">
-</form>
-
-<form action="/0608_problem/ShowPlanServlet" method="post">
+<br>
 宿の場所で絞り込む：<input type="text" name="place" value="${place}">
 <input type="hidden" name="action" value="place">
-<input type="submit" value="検索">
-</form>
-
-<form action="/0608_problem/ShowPlanServlet" method="post">
+<br>
 金額で絞り込む：
 下限<input type="number" name="lower" value="${lower}">
 上限<input type="number" name="upper" value="${upper}">
-<input type="hidden" name="action" value="fee">
+<br>
+<input type="hidden" name="action" value="narrow">
 <input type="submit" value="検索">
 </form>
 
 <c:forEach items="${plans}" var="plan" varStatus="stat">
-	<form action="/0608_problem/ReservationServlet" method="post">
+	<form action="/0608_problem/ReservationServlet2" method="post">
 	<input type="hidden" name="action" value="reservation">
 	<input type="hidden" name="planCount" value="${stat.count}">
 	<hr>

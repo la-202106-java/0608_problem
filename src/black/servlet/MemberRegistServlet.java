@@ -42,7 +42,7 @@ public class MemberRegistServlet extends HttpServlet {
 				Date birthday = Date.valueOf(date);
 				String pass = request.getParameter("pass");
 
-				MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
+				MemberBean bean = new MemberBean(-1, name, address, tel, email, birthday, pass);
 				session.setAttribute("member", bean);
 				gotoPage(request, response, "/memberRegistCheck.jsp");
 			} else if (action.equals("add")) {
@@ -58,9 +58,9 @@ public class MemberRegistServlet extends HttpServlet {
 					String email = member.getEmail();
 					Date birthday = member.getBirthday();
 					String pass = member.getPass();
-					dao.addMember(name, address, tel, email, birthday, pass);
+					int id = dao.addMember(name, address, tel, email, birthday, pass);
 					request.setAttribute("message", "会員登録が完了しました");
-					MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
+					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
 					session.setAttribute("logined", bean);
 					gotoPage(request, response, "/top.jsp");
 				}

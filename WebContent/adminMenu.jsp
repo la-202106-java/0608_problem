@@ -8,10 +8,10 @@
 <title>教科書売買サイト</title>
 </head>
 <body>
-	<a href="">TOP</a> |
-	<a href="">教科書検索</a> |
-	<a href="">会員検索</a> |
+	<a href="/0608_problem/top">TOP</a> |
+	<a href="/0608_problem/ListedItemSearchServlet">教科書検索</a> |
+	<a href="/0608_problem/MemberSearchServlet">会員検索</a> |
 	管理者でログインしています |
-	<a href="">ログアウト</a>
+	<a href="AdminLoginServlet?action=logout">ログアウト</a>
 </body>
 </html>

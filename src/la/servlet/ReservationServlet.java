@@ -31,10 +31,10 @@ public class ReservationServlet extends HttpServlet {
 
 		try {
 			if (action.equals("reservation")) { // トップページで予約ボタンをクリックしたとき
-				int i = Integer.parseInt(request.getParameter("i")) - 1; // セッションスコープ
+				int planCount = Integer.parseInt(request.getParameter("planCount")) - 1; // jspのforEachのstatが1からスタートだから
 				PlanBean plan = new PlanBean();
 				List<PlanBean> plans = (ArrayList<PlanBean>) session.getAttribute("plans"); // 型変換の前のチェック未実装
-				plan = plans.get(i);
+				plan = plans.get(planCount);
 
 				session.setAttribute("plan", plan);
 

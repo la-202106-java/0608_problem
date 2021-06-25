@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import black.bean.ListedItemBean;
 import black.dao.DAOException;
@@ -27,7 +28,27 @@ public class ListedItemChangeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		gotoPage(request, response, "/listedItemChangeForm.jsp");
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			//ログインしていなければログインへ
+			gotoPage(request, response, "/LoginServlet");
+		} else {
+			//ログインしていればフォームへ
+			int id = Integer.parseInt(request.getParameter("item_id"));
+			try {
+				ListedItemDAO dao = new ListedItemDAO();
+
+				ListedItemBean bean = dao.findItem(id);
+				request.setAttribute("textbook", bean);
+				gotoPage(request, response, "/listedItemChangeForm.jsp");
+
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("messgae", "内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+
+		}
 	}
 
 	/**
@@ -35,38 +56,90 @@ public class ListedItemChangeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		String action = request.getParameter("action");
+		String regist = request.getParameter("regist");
+		String cancel = request.getParameter("cancel");
 
 		if (action == null || action.length() == 0) {
 			//actionが指定されていなければフォームへ
 			gotoPage(request, response, "/listedItemChangeForm.jsp");
 		} else if (action.equals("change")) {
-			//教科書変更画面
+			//教科書情報取得して教科書変更画面へ
 			int id = Integer.parseInt(request.getParameter("item_id"));
-			ListedItemDAO dao = null;
 			try {
-				dao = new ListedItemDAO();
+				ListedItemDAO dao = new ListedItemDAO();
+
 				ListedItemBean bean = dao.findItem(id);
 				request.setAttribute("textbook", bean);
+				gotoPage(request, response, "/listedItemChangeForm.jsp");
+
 			} catch (DAOException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
+				request.setAttribute("messgae", "内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
 			}
+		} else if (action.equals("check")) {
+			//変更確認ページに行く
+
+			//入力内容取得
+			int id = Integer.parseInt(request.getParameter("id"));
+			String isbn = request.getParameter("isbn");
+			String title = request.getParameter("title");
+			int departmentCode = Integer.parseInt(request.getParameter("department_code"));
+			String author = request.getParameter("author");
+			int price = Integer.parseInt(request.getParameter("price"));
+			String condition = request.getParameter("condition");
+
+			//入力内容をスコープに入れる
+			ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode, author, price, condition, -1);
+			request.setAttribute("textbook", bean);
+
+			gotoPage(request, response, "/listedItemChangeCheck.jsp");
+		} else if (action.equals("regist") && regist != null) {
+			//変更を登録→教科書詳細画面
+
+			//入力内容取得
+			int id = Integer.parseInt(request.getParameter("id"));
+			String isbn = request.getParameter("isbn");
+			String title = request.getParameter("title");
+			int departmentCode = Integer.parseInt(request.getParameter("department_code"));
+			String author = request.getParameter("author");
+			int price = Integer.parseInt(request.getParameter("price"));
+			String condition = request.getParameter("condition");
+
+			try {
+				ListedItemDAO dao = new ListedItemDAO();
+				dao.updateItem(id, isbn, title, departmentCode, author, price, condition);
+
+				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
+						author, price, condition, -1);
+				//request.setAttribute("item", bean);
+				request.setAttribute("item_id", bean);
+				gotoPage(request, response, "ListedItemDetailServlet");
+
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("messgae", "内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+		} else if (action.equals("regist") && cancel != null) {
+			//確認画面からキャンセル→フォームへもどる
+
+			//入力内容取得
+			String isbn = request.getParameter("isbn");
+			String title = request.getParameter("title");
+			int departmentCode = Integer.parseInt(request.getParameter("department_code"));
+			String author = request.getParameter("author");
+			int price = Integer.parseInt(request.getParameter("price"));
+			String condition = request.getParameter("condition");
+
+			//入力内容をスコープに入れる
+			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
+			request.setAttribute("textbook", bean);
 
 			gotoPage(request, response, "/listedItemChangeForm.jsp");
-		} else if (action.equals("dochange")) {
-			//変更確認ページに行く
-			int id = Integer.parseInt(request.getParameter("id"));
-			ListedItemDAO dao = null;
-			try {
-				dao = new ListedItemDAO();
-				ListedItemBean bean = dao.findItem(id);
-				request.setAttribute("textbook", bean);
-			} catch (DAOException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
-			gotoPage(request, response, "/listedItemRegistCheck.jsp");
 		}
 	}
 

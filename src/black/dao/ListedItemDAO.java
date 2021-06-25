@@ -317,8 +317,8 @@ public class ListedItemDAO {
 			getConnection();
 		}
 
-		String sql = "UPDATE listed_item SET isbn=? title=? department_code=?"
-				+ " author=? price=? condition=? WHERE id=?";
+		String sql = "UPDATE listed_item SET isbn=?, title=?, department_code=?,"
+				+ " author=?, price=?, condition=? WHERE id=?";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, isbn);

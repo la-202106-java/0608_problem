@@ -95,13 +95,6 @@ public class ListedItemRegistServlet extends HttpServlet {
 			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1);
 			request.setAttribute("regist_item", bean);
 
-			//			request.setAttribute("isbn", isbn);
-			//			request.setAttribute("title", title);
-			//			request.setAttribute("department_code", departmentCode);
-			//			request.setAttribute("author", author);
-			//			request.setAttribute("price", pMin);
-			//			request.setAttribute("condition", condition);
-
 			gotoPage(request, response, "/listedItemRegistCheck.jsp");
 
 		} else if (cancel != null) {

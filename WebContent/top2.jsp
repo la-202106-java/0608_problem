@@ -32,7 +32,7 @@
 宿名で絞り込む：<input type="text" name="innName" value="${innName}">
 <br>
 宿の場所で絞り込む：<input type="text" name="place" value="${place}">
-<input type="hidden" name="action" value="place">
+
 <br>
 金額で絞り込む：
 下限<input type="number" name="lower" value="${lower}">

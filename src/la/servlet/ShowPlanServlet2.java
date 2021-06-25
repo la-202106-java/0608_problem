@@ -120,8 +120,20 @@ public class ShowPlanServlet2 extends HttpServlet {
 			} else if (action.equals("narrow")) {
 				String innName = request.getParameter("innName");
 				String place = request.getParameter("place");
-				int lower = Integer.parseInt(request.getParameter("lower"));
-				int upper = Integer.parseInt(request.getParameter("upper"));
+				String StringLower = request.getParameter("lower");
+				request.setAttribute("innName", innName);
+				request.setAttribute("place", place);
+				request.setAttribute("lower", StringLower);
+				if (StringLower == null || StringLower.length() == 0) {
+					StringLower = "0";
+				}
+				String StringUpper = request.getParameter("upper");
+				request.setAttribute("upper", StringUpper);
+				if (StringUpper == null || StringUpper.length() == 0) {
+					StringUpper = "100000000";
+				}
+				int lower = Integer.parseInt(StringLower);
+				int upper = Integer.parseInt(StringUpper);
 
 				String checkIn = (String) session.getAttribute("checkIn");
 				String checkOut = (String) session.getAttribute("checkOut");
@@ -132,6 +144,7 @@ public class ShowPlanServlet2 extends HttpServlet {
 				plans = dao.find(checkIn, checkOut, innName, place, lower, upper);
 
 				session.setAttribute("plans", plans);
+				gotoPage(request, response, "/top2.jsp");
 			} else {
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");

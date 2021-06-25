@@ -43,10 +43,10 @@
 
 	</table>
 
-	<br><br>
+	<br>
 
 	<%--出品ユーザと管理者ではない--%>
-	<c:if test="${empty is_my_item or user != 'admin' and !is_my_item}">
+	<c:if test="${user != 'admin' and !is_my_item}">
 		<form action="/0608_problem/ListedItemBuyServlet" method="post">
 		<input type="hidden" name="action" value="buy">
 		<input type="hidden" name="item_id" value="${item.id}">
@@ -60,11 +60,8 @@
 		</form>
 	</c:if>
 
-	<br>
-	<br>
-
 	<%-- 出品者または管理者--%>
-	<c:if test="${user == 'admin' or is_my_item} ">
+	<c:if test="${user == 'admin' or is_my_item}">
 		<form action="/0608_problem/ListedItemChengeServlet" method="post">
 		<input type="hidden" name="action" value="change">
 		<input type="hidden" name="item_id" value="${item.id}">

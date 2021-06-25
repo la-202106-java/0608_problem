@@ -331,8 +331,8 @@ public class ListedItemDAO {
 			st.setString(4, author);
 			st.setInt(5, price);
 			st.setString(6, condition);
-			st.setInt(7, id);
-			st.setString(8, image);
+			st.setString(7, image);
+			st.setInt(8, id);
 
 			//SQL実行
 			st.executeUpdate();

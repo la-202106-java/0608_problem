@@ -32,15 +32,13 @@ public class ListedItemDetailServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 
 			String idStr = request.getParameter("item_id");
+			int id = -1;
 			if (idStr == null || idStr.length() == 0) {
-				idStr = (String) request.getAttribute("item_id");
-				if (idStr == null || idStr.length() == 0) {
-					idStr = "-1";
-
-				}
+				id = (Integer) request.getAttribute("item_id");
+			} else {
+				id = Integer.parseInt(idStr);
 			}
 
-			int id = Integer.parseInt(idStr);
 			ListedItemBean item = dao.findItem(id);
 			request.setAttribute("item", item);
 

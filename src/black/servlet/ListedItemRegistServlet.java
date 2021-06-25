@@ -152,9 +152,9 @@ public class ListedItemRegistServlet extends HttpServlet {
 				int id = dao.addItem(isbn, title, departmentCode, author, price,
 						condition, member.getId(), image);
 
-				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
-						author, price, condition, member.getId(), image);
-				request.setAttribute("item_id", bean);
+				//ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
+				//author, price, condition, member.getId(), image);
+				request.setAttribute("item_id", id);
 				gotoPage(request, response, "ListedItemDetailServlet");
 
 			} catch (DAOException e) {

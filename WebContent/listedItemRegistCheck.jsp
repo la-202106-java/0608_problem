@@ -44,6 +44,7 @@
 	<input type="hidden" name="author" value="${regist_item.author}">
 	<input type="hidden" name="price" value="${regist_item.price}">
 	<input type="hidden" name="condition" value="${regist_item.condition}">
+	<input type="hidden" name="image" value="${regist_item.image}">
 
 	<input type="hidden" name="action" value="regist">
 

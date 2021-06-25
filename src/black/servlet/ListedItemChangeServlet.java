@@ -116,10 +116,10 @@ public class ListedItemChangeServlet extends HttpServlet {
 				ListedItemDAO dao = new ListedItemDAO();
 				dao.updateItem(id, isbn, title, departmentCode, author, price, condition, image);
 
-				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
-						author, price, condition, -1, image);
+				//ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
+				//		author, price, condition, -1, image);
 				//request.setAttribute("item", bean);
-				request.setAttribute("item_id", bean);
+				request.setAttribute("item_id", id);
 				gotoPage(request, response, "ListedItemDetailServlet");
 
 			} catch (DAOException e) {
@@ -140,8 +140,8 @@ public class ListedItemChangeServlet extends HttpServlet {
 			String image = request.getParameter("image");
 
 			//入力内容をスコープに入れる
-			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode, author, price, condition, -1,
-					image);
+			ListedItemBean bean = new ListedItemBean(-1, isbn, title, departmentCode,
+					author, price, condition, -1, image);
 			request.setAttribute("textbook", bean);
 
 			gotoPage(request, response, "/listedItemChangeForm.jsp");

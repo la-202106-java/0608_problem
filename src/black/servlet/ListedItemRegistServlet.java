@@ -149,8 +149,8 @@ public class ListedItemRegistServlet extends HttpServlet {
 
 				ListedItemBean bean = new ListedItemBean(id, isbn, title, departmentCode,
 						author, price, condition, member.getId());
-				request.setAttribute("item", bean);
-				gotoPage(request, response, "listedItemDetail.jsp");
+				request.setAttribute("item_id", bean);
+				gotoPage(request, response, "ListedItemDetailServlet");
 
 			} catch (DAOException e) {
 				e.printStackTrace();

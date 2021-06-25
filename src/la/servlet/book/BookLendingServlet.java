@@ -44,8 +44,13 @@ public class BookLendingServlet extends HttpServlet {
 				if (input == null || input.length() == 0) {
 					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
 				}
-
 				int userID = Integer.parseInt(request.getParameter("userID"));
+				NowUserBean now = userdao.findByPrimaryKey(userID);
+				if (now == null) {
+					request.setAttribute("message", "会員が存在しません");
+					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
+				}
+
 				request.setAttribute("userID", userID);
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
 				request.setAttribute("lendings", lendings);

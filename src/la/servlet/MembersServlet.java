@@ -45,28 +45,32 @@ public class MembersServlet extends HttpServlet {
 					gotoPage(request, response, "/membersShow.jsp");
 					//更新処理
 				} else if (action.equals("update")) {
-					//idが空欄であった場合intの「-1」とする
-					String tmp_id = request.getParameter("id");
-					if (tmp_id == "") {
-						tmp_id = "-1";
-					}
-					int id = Integer.parseInt(tmp_id);
+					//					//idが空欄であった場合intの「-1」とする
+					//					String tmp_id = request.getParameter("id");
+					//					if (tmp_id == "") {
+					//						tmp_id = "-1";
+					//					}
+					//					int id = Integer.parseInt(tmp_id);
+					MemberBean member = (MemberBean) session.getAttribute("member");
+					//ログインしている会員のIDを入力
+					int id = member.getId();
 					String name = request.getParameter("name");
 					String postal_code = request.getParameter("postal_code");
 					String address = request.getParameter("address");
 					String email_address = request.getParameter("email_address");
-					dao.update(id, name, postal_code, address, email_address);
+					String tel = request.getParameter("tel");
+					dao.update(id, name, postal_code, address, email_address, tel);
+					member = dao.searchMemberByID(id);
+					session.setAttribute("member", member);
 					gotoPage(request, response, "/membersShow.jsp");
 					//退会処理
 				} else if (action.equals("quit")) {
-					//idが空欄であった場合intの「-1」とする
-					String tmp_id = request.getParameter("id");
-					if (tmp_id == "") {
-						tmp_id = "-1";
-					}
-					int id = Integer.parseInt(tmp_id);
+					MemberBean member = (MemberBean) session.getAttribute("member");
+					//ログインしている会員のIDを入力
+					int id = member.getId();
 					dao.quit(id);
-					gotoPage(request, response, "/membersShow.jsp");
+					session.invalidate();
+					gotoPage(request, response, "/top.jsp");
 				} else if (action.equals("log")) {
 					UserReservationDAO udao = new UserReservationDAO();
 					MemberBean member = (MemberBean) session.getAttribute("member");

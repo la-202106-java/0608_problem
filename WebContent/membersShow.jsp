@@ -7,10 +7,11 @@
 <meta charset="UTF-8">
 <title>会員情報管理</title>
 </head>
+<h3>ようこそ、${member.name}さん</h3>
 <body>
-	<jsp:include page="/membersUpdate.jsp" />
+	<jsp:include page="/memberUpdateLink.jsp" />
 	<hr>
-	<jsp:include page="/membersQuit.jsp" />
+	<jsp:include page="/memberQuitLink.jsp" />
 	<hr>
 	<jsp:include page="/memberReservationLog.jsp" />
 	<hr>

@@ -42,19 +42,26 @@ return true;
 <body>
 
 <jsp:include page="/menu.jsp" />
+
 <h2>会員情報の変更</h2>
 
-会員ID: ${imember.id }
 
+<h3>正しい情報が入力されていれば、『変更』ボタンを押してください。</h3>
+<table border ="0">
 <form name="form1" onsubmit="return validateForm()"action="/0608_problem/MemberServlet" method="post">
+会員ID: ${imember.id }<br>
   氏名：<input type="text" name="name" value = "${imember.name }"><br>
   住所：<input type="text" name="address"value = "${imember.address }"><br>
   電話番号：<input type="text" name="tel"value = "${imember.tel }"><br>
-  E-Mail：<input type="text" name="email"value = "${imember.eMail }"><br>
-
-  <input type="submit" value="変更">
+  E-Mail：<input type="text" name="email"value = "${ imember.eMail }"><br>
+  <br>
+   <input type="submit" value="変更">
      <input type ="hidden" name ="action" value ="update">
-
 </form>
+     <form action="/0608_problem/MemberServlet" method="post">
+ <input type="submit" value="キャンセル">
+     <input type ="hidden" name ="action" value ="return">
+     </form>
+</table>
 </body>
 </html>

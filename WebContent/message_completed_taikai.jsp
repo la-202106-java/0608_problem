@@ -23,7 +23,7 @@
 <tr><td>E-Mail</td><td>${ imembers.eMail}</td></tr>
 <tr><td>生年月日</td><td>${ imembers.birth}</td></tr>
 <tr><td>入会年月日</td><td>${ imembers.joinDate}</td></tr>
-<tr><td>退会年月日</td><td>${ imembers.withdrawalDate}</td></tr>
+<tr><td>退会年月日</td><td><font color="red">${ imembers.withdrawalDate}</font></td></tr>
 	</table>
 
 </body>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@ return true;
 E-Mailもしくは会員ID、どちらか検索できます。<br>
 ボタン選択して、検索値を入力してください。
 </p>
-
+<table>
 <form name="form1" onsubmit="return validateForm()" action="/0608_problem/MemberServlet" method="post">
  	 <input type ="hidden" name ="action" value ="search">
  	 	 <input type="radio" name="radio" value="email" checked>
@@ -43,27 +44,66 @@ E-Mailもしくは会員ID、どちらか検索できます。<br>
   <input type="submit" value="検索">
 </form>
 
-<h3>該当する会員の情報は以下の通りです。</h3>
-<br>
-<table border="1">
-
-<tr><td>ID</td><td>${ imember.id}</td></tr>
-<tr><td>氏名</td><td>${imember.name}</td></tr>
-<tr><td>住所</td><td>${imember.address}</td></tr>
-<tr><td>電話番号</td><td>${imember.tel}</td></tr>
-<tr><td>E-Mail</td><td>${imember.eMail}</td></tr>
-<tr><td>生年月日</td><td>${imember.birth}</td></tr>
-<tr><td>入会年月日</td><td>${imember.joinDate}</td></tr>
-</table><c:if test = "${imember ne null}" >
 
 <form action="/0608_problem/MemberServlet" method="post">
-  <input type="submit" value="変更">
-    	 <input type ="hidden" name ="action" value ="confirmhenkou">
-    	 </form>
-    	 <form action="/0608_problem/MemberServlet" method="post">
-  <input type="submit" value="退会">
-    	 <input type ="hidden" name ="action" value ="confirmtaikai">
+ <input type="submit" value="会員一覧">
+  	 <input type ="hidden" name ="action" value ="memberlist">
 </form>
+
+</table>
+<hr>
+<c:if test = "${menlist ne null }">
+<h3>該当する会員の情報は以下の通りです。</h3>
+<table border="1">
+<tr><td>ID</td><td>氏名</td><td>住所</td><td>電話番号</td><td>E-Mail</td><td>生年月日</td><td>入会年月日</td><td>退会年月日</td></tr>
+<c:forEach items="${menlist }" var="item">
+
+
+<tr><td>${item.id}</td>
+<td>${item.name}</td>
+<td>${item.address}</td>
+<td>${item.tel}</td>
+<td>${item.eMail}</td>
+<td>${item.birth}</td>
+<td>${item.joinDate}</td>
+<td>${item.withdrawalDate}</td></tr>
+</c:forEach>
+</c:if>
+
+
+
+<c:if test = "${imember ne null}" >
+<c:if test = "${Ismenberlist ne 'true'}" >
+
+<h3>該当する会員の情報は以下の通りです。</h3>
+<table border="1">
+
+<tr><td>ID</td><td>氏名</td><td>住所</td><td>電話番号</td><td>E-Mail</td><td>生年月日</td><td>入会年月日</td><td>退会年月日</td><td>変更</td><td>退会</td></tr>
+<tr><form action="/0608_problem/MemberServlet" method="post">
+
+<td>${imember.id}</td>
+<td>${imember.name}</td>
+<td>${imember.address}</td>
+<td>${imember.tel}</td>
+<td>${imember.eMail}</td>
+<td>${imember.birth}</td>
+<td>${imember.joinDate}</td>
+<td>${imember.withdrawalDate}</td>
+
+<td><input type="submit" value="変更">
+    	 <input type ="hidden" name ="action" value ="confirmhenkou"></td>
+    	 </form>
+<form action="/0608_problem/MemberServlet" method="post">
+<c:if test = "${imember.withdrawalDate eq null }">
+  <td><input type="submit" value="退会">
+    	 <input type ="hidden" name ="action" value ="confirmtaikai"></td></tr>
+    	 </c:if>
+<c:if test = "${imember.withdrawalDate ne null }">
+<td>退会済み</td></tr>
+</c:if>
+</form>
+</table>
+</c:if>
 </c:if>
 </body>
 </html>

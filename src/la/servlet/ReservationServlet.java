@@ -43,7 +43,10 @@ public class ReservationServlet extends HttpServlet {
 				String isLogin = (String) session.getAttribute("isLogin");
 				PlanBean plan = (PlanBean) session.getAttribute("plan");
 
-				if (isLogin.equals("true")) { // ログイン状態のとき
+				if (isLogin == null) {
+					// 後で考える。セッションに保存されたplanがnullじゃない場合、ログイン後、予約確定画面へ行く処理をするため
+					gotoPage(request, response, "/login.jsp");
+				} else {
 					int roomNum = Integer.parseInt(request.getParameter("roomNum"));
 
 					MemberBean member = (MemberBean) session.getAttribute("member");
@@ -63,9 +66,6 @@ public class ReservationServlet extends HttpServlet {
 					request.setAttribute("reservation", reservation);
 
 					gotoPage(request, response, "/complete.jsp");
-				} else {
-					// 後で考える。セッションに保存されたplanがnullじゃない場合、ログイン後、予約確定画面へ行く処理をするため
-					gotoPage(request, response, "/login.jsp");
 				}
 			} else {
 				request.setAttribute("message", "正しく操作してください。");

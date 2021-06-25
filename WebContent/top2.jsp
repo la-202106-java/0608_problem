@@ -43,7 +43,7 @@
 </form>
 
 <c:forEach items="${plans}" var="plan" varStatus="stat">
-	<form action="/0608_problem/ReservationServlet2" method="post">
+	<form action="/0608_problem/ReservationServlet" method="post">
 	<input type="hidden" name="action" value="reservation">
 	<input type="hidden" name="planCount" value="${stat.count}">
 	<hr>

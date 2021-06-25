@@ -211,4 +211,57 @@ public class CatalogDAO {
 
 	}
 
+	public List<CatalogBean> getCatalogListWithStockByName(String name) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			// 目録のISBNと資料(book)を結合して資料一覧を取得する
+			// 資料IDで貸出テーブルを結合して貸出数を取得する
+			// 資料IDで取置テーブルを結合して貸出数を取得する
+			// ISBNでGroupingした数ー貸出数の数＝在庫数
+			String sql = " SELECT "
+					+ " c.isbn, c.title,"
+					+ " count(b.isbn) as all_count," //  --本ごとの資料数
+					+ " count(l.book_id) as lending_count," // --貸出数
+					+ " count(r.book_id) as reserved_count," // --取り置き数
+					+ " count(b.isbn) - count(l.book_id) - count(r.book_id) as stock_count" // -- 在庫数
+					+ " FROM catalog c"
+					+ " LEFT OUTER JOIN book b on c.isbn = b.isbn"
+					+ " LEFT OUTER JOIN lending l on b.id = l.book_id"
+					+ " LEFT OUTER JOIN reserved r on b.id = r.book_id"
+					+ " WHERE c.title LIKE ?"
+					+ " GROUP BY c.isbn";
+			st = con.prepareStatement(sql);
+			st.setString(1, "%" + name + "%");
+			rs = st.executeQuery();
+
+			List<CatalogBean> list = new ArrayList<CatalogBean>();
+			while (rs.next()) {
+				String isbn = rs.getString("isbn");
+				String title = rs.getString("title");
+				int stockCount = rs.getInt("stock_count");
+				CatalogBean bean = new CatalogBean(isbn, title, stockCount);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
 }

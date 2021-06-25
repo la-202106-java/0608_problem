@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%request.setAttribute("basyo", 3); %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -47,13 +47,13 @@ return true;
               <div class="form-group">
                 <label for="inputEmail" class="col-lg-2 control-label">会員ID</label>
                 <div class="col-lg-10">
-                  <input type="text"  class="form-control" name="mid" value="${mid }">
+                  <input type="text"  class="form-control" name="mid" value="${mid }" maxlength="13">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputPassword" class="col-lg-2 control-label">会員名</label>
                 <div class="col-lg-10">
-                  <input type="text"  class="form-control" name="mname" value="${mname }">
+                  <input type="text"  class="form-control" name="mname" value="${mname }"  maxlength="20">
                   </div>
               </div>
               <div class="form-group">

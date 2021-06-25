@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%request.setAttribute("basyo", 2); %>
 <!DOCTYPE html>
 <html>
 <head>

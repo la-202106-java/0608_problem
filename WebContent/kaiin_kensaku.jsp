@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%request.setAttribute("basyo", 1); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +57,6 @@ return true;
               </div>
             </fieldset>
             	 <input type ="hidden" name ="action" value ="search">
-            	  <input type ="hidden" name ="action" value ="search">
           </form>
         </div>
 </div>

@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>予約履歴</title>
+<title>会員情報更新ページ</title>
 </head>
 <body>
-
-<h1>予約履歴</h1>
-
-<a href="/0608_problem/MembersServlet?action=log">予約履歴</a>
-
+<a href="/0608_problem/membersUpdate.jsp">会員情報の更新</a>
 </body>
 </html>

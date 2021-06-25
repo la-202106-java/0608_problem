@@ -15,7 +15,8 @@
 会員氏名：<input type="text" name="name" value="${memberTarget.name}"><br>
 郵便番号：〒<input type="text" name="postal_code" value="${memberTarget.postalCode}"><br>
 住所：<input type="text" name="address" value="${memberTarget.address}"><br>
-チェックイン時間：<input type="text"name ="email" value="${memberTarget.emailAddress}"><br>
+e-mail：<input type="text"name ="email" value="${memberTarget.emailAddress}"><br>
+e-mail：<input type="text"name ="tel" value="${memberTarget.tel}"><br>
 <input type="submit" value="更新">
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="id" value="${memberTarget.id}">

@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>予約履歴</title>
+<title>会員退会ページ</title>
 </head>
 <body>
 
-<h1>予約履歴</h1>
+<h1>会員退会受付</h1>
 
-<a href="/0608_problem/MembersServlet?action=log">予約履歴</a>
+<a href="/0608_problem/membersQuit.jsp">退会</a>
 
 </body>
 </html>

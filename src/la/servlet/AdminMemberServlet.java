@@ -58,11 +58,13 @@ public class AdminMemberServlet extends HttpServlet {
 					String postalCode = request.getParameter("postal_code");
 					String address = request.getParameter("address");
 					String email = request.getParameter("email");
+					String tel = request.getParameter("tel");
 					target.setId(id);
 					target.setName(name);
 					target.setPostalCode(postalCode);
 					target.setAddress(address);
 					target.setEmailAddress(email);
+					target.setTel(tel);
 					request.setAttribute("memberTarget", target);
 					gotoPage(request, response, "/adminUpdateMember.jsp");
 
@@ -72,7 +74,8 @@ public class AdminMemberServlet extends HttpServlet {
 					String postalCode = request.getParameter("postal_code");
 					String address = request.getParameter("address");
 					String email = request.getParameter("email");
-					dao.update(id, name, postalCode, address, email);
+					String tel = request.getParameter("tel");
+					dao.update(id, name, postalCode, address, email, tel);
 					request.setAttribute("message", name + "を更新しました。");
 					gotoPage(request, response, "/adminConfirm.jsp");
 				} else {

@@ -55,6 +55,7 @@ e-mail:<input type="text" name="email" value="${email}">
 						<input type="hidden" name="postal_code" value="${member.postalCode}">
 						<input type="hidden" name="address" value="${member.address}">
 						<input type="hidden" name="email" value="${member.emailAddress}">
+						<input type="hidden" name="tel" value="${member.tel}">
 						<input type="hidden" name="action" value="edit">
 						<input type="submit" value="変更">
 					</form>

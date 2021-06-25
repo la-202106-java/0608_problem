@@ -1,6 +1,7 @@
 package black.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import black.bean.ListedItemBean;
 import black.bean.MemberBean;
+import black.dao.DAOException;
+import black.dao.DepartmentDAO;
 import black.dao.ListedItemDAO;
 
 /**
@@ -25,34 +28,48 @@ public class ListedItemDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			String action = request.getParameter("action");
 			ListedItemDAO dao = new ListedItemDAO();
 			HttpSession session = request.getSession(false);
 
-			if (action == null || action.length() == 0) {
+			int id = Integer.parseInt(request.getParameter("item_id"));
+			ListedItemBean item = dao.findItem(id);
+			request.setAttribute("item", item);
 
-				RequestDispatcher rd = request.getRequestDispatcher("/top.jsp");
-				rd.forward(request, response);
-			} else if (action.equals("detail")) {
-
-				int id = Integer.parseInt(request.getParameter("item_code"));
-				ListedItemBean item = dao.findItem(id);
+			if (session != null) {
 				String userType = (String) session.getAttribute("user");
-				if (userType.equals("member")) {
+				if (userType != null && userType.equals("member")) {
 					MemberBean member = (MemberBean) session.getAttribute("logined");
-					if (item.getSellerId() == member.getId()) {
+					if (item != null && item.getSellerId() == member.getId()) {
 						request.setAttribute("is_my_item", true);
 					}
 				}
-
-				request.setAttribute("item", item);
-				gotoPage(request, response, "/listedItemDetail.jsp");
 			}
+
+			gotoPage(request, response, "/listedItemDetail.jsp");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラー");
 			RequestDispatcher rd = request.getRequestDispatcher("/errInternal.jsp");
 			rd.forward(request, response);
+		}
+	}
+
+	public void init() throws ServletException {
+		try {
+			// 分類コード一覧は最初にアプリケーションスコープへ入れる
+			DepartmentDAO dao = new DepartmentDAO();
+			List<String> departments = dao.allDepartment();
+			getServletContext().setAttribute("departments", departments);
+			getServletContext().setAttribute("departments_size", departments.size());
+
+			//状態（新品・未使用・中古）もアプリケーションスコープへ
+			String[] conditions = { "新品", "未使用", "中古" };
+			getServletContext().setAttribute("conditions", conditions);
+
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServletException();
 		}
 	}
 

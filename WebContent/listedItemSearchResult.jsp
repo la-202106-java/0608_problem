@@ -22,9 +22,8 @@
       				<c:if test="${!item.inStock}">×</c:if>
       			</td>
       			<td>
-      				<form action="/0608_problem/ListedItemDetailServlet" method="post">
-      					<input type="hidden" value="detail">
-      					<input type="hidden" value="${item.id}">
+      				<form action="/0608_problem/ListedItemDetailServlet">
+      					<input type="hidden" name="item_id" value="${item.id}">
       					<input type="submit" value="詳細">
       				</form>
       			</td>

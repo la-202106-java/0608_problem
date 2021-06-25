@@ -40,6 +40,11 @@ public class BookLendingServlet extends HttpServlet {
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
 			} else if (action.equals("userSearch")) {
+				String input = request.getParameter("userID");
+				if (input == null || input.length() == 0) {
+					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
+				}
+
 				int userID = Integer.parseInt(request.getParameter("userID"));
 				request.setAttribute("userID", userID);
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
@@ -72,12 +77,19 @@ public class BookLendingServlet extends HttpServlet {
 				}
 
 			} else if (action.equals("bookSearch")) {
-				int bookID = Integer.parseInt(request.getParameter("bookID"));
 				int userID = Integer.parseInt(request.getParameter("userID"));
 				request.setAttribute("userID", userID);
-				request.setAttribute("bookID", bookID);
+
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
 				request.setAttribute("lendings", lendings);
+
+				String input = request.getParameter("bookID");
+				if (input == null || input.length() == 0) {
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+				}
+
+				int bookID = Integer.parseInt(request.getParameter("bookID"));
+				request.setAttribute("bookID", bookID);
 
 				if (lendings.size() >= 5) {
 					request.setAttribute("message", "貸出上限に達しています");
@@ -120,6 +132,10 @@ public class BookLendingServlet extends HttpServlet {
 				}
 
 			} else if (action.equals("userSearch2")) {
+				String input = request.getParameter("userID");
+				if (input == null || input.length() == 0) {
+					gotoPage(request, response, "/4_lent_return/lending_book1.jsp");
+				}
 				int userID = Integer.parseInt(request.getParameter("userID"));
 				request.setAttribute("userID", userID);
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
@@ -145,12 +161,19 @@ public class BookLendingServlet extends HttpServlet {
 				}
 
 			} else if (action.equals("bookSearch2")) {
-				int bookID = Integer.parseInt(request.getParameter("bookID"));
 				int userID = Integer.parseInt(request.getParameter("userID"));
 				request.setAttribute("userID", userID);
-				request.setAttribute("bookID", bookID);
+
 				List<LendingBean> lendings = lendingdao.findByUserId(userID);
 				request.setAttribute("lendings", lendings);
+
+				String input = request.getParameter("bookID");
+				if (input == null || input.length() == 0) {
+					gotoPage(request, response, "/4_lent_return/lending_book2.jsp");
+				}
+
+				int bookID = Integer.parseInt(request.getParameter("bookID"));
+				request.setAttribute("bookID", bookID);
 
 				if (lendings.size() >= 5) {
 					request.setAttribute("message", "貸出上限に達しています");

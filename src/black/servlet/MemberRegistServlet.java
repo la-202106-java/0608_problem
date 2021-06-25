@@ -24,7 +24,7 @@ public class MemberRegistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String action = request.getParameter("action");
@@ -32,6 +32,7 @@ public class MemberRegistServlet extends HttpServlet {
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/memberRegistForm.jsp");
 			} else if (action.equals("create")) {
+
 				String name = request.getParameter("name");
 				String address = request.getParameter("address");
 				String tel = request.getParameter("tel");
@@ -46,7 +47,7 @@ public class MemberRegistServlet extends HttpServlet {
 				session.setAttribute("member", bean);
 				gotoPage(request, response, "/memberRegistCheck.jsp");
 			} else if (action.equals("add")) {
-				MemberBean member = (MemberBean) session.getAttribute("member");
+				MemberBean member = (MemberBean) session.getAttribute("tmp-logined");
 				if (member == null) {
 					request.setAttribute("message", "会員情報を入力してください");
 					gotoPage(request, response, "/errInternal.jsp");
@@ -61,15 +62,24 @@ public class MemberRegistServlet extends HttpServlet {
 					int id = dao.addMember(name, address, tel, email, birthday, pass);
 					request.setAttribute("message", "会員登録が完了しました");
 					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+
 					session.setAttribute("logined", bean);
-					gotoPage(request, response, "/top.jsp");
+					request.setAttribute("message", "会員登録が完了しました");
+					session.setAttribute("user", "member");
+					session.removeAttribute("logined-tmp");
+					gotoPage(request, response, "/top");
 				}
+
+			} else if (action.equals("cancel")) {
+				gotoPage(request, response, "/memberRegistForm.jsp");
 
 			} else {
 				request.setAttribute("message", "正しく操作してください");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
-		} catch (DAOException e) {
+		} catch (
+
+		DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("messgae", "内部エラーが発生しました。");
 			gotoPage(request, response, "/errInternal.jsp");

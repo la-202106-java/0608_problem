@@ -23,13 +23,16 @@
 
 		<form action="/0608_problem/MemberRegistServlet?action=add" method="post">
 		<table>
-		<tr><td>名前</td><td>${logined.name}</td></tr>
-		<tr><td>住所</td><td>${logiend.address}</td></tr>
-		<tr><td>電話番号</td><td>${logiend.tel}</td></tr>
-		<tr><td>メールアドレス</td><td>${logiend.email}</td></tr>
-		<tr><td>生年月日</td><td>${logiend.birthday}</td></tr>
+		<tr><td>名前</td><td>${logined-tmp.name}</td></tr>
+		<tr><td>住所</td><td>${logined-tmp.address}</td></tr>
+		<tr><td>電話番号</td><td>${logined-tmp.tel}</td></tr>
+		<tr><td>メールアドレス</td><td>${logined-tmp.email}</td></tr>
+		<tr><td>生年月日</td><td>${logined-tmp.birthday}</td></tr>
 		</table><br>
 		<input type="submit" value="登録">
+	</form>
+	<form action="/0608_problem/MemberRegistServlet?action=cancel" method="post">
+	<input type="submit" value="キャンセル">
 	</form>
 </body>
 </html>

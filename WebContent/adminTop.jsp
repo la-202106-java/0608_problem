@@ -8,11 +8,7 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/adminMenu.html" />
+<jsp:include page="/WEB-INF/adminMenu.jsp" />
 
-<form action="/0608_problem/admin/login" method="post">
-<input type="submit" value="ログアウト">
-<input type="hidden" name="action" value="logout">
-</form>
 </body>
 </html>

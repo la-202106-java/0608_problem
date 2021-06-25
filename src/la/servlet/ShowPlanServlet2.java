@@ -74,6 +74,12 @@ public class ShowPlanServlet2 extends HttpServlet {
 				if (password.equals(member.getPassword()) && member.getQuiteDate() == null) {
 					session.setAttribute("isLogin", "true");
 					session.setAttribute("member", member);
+
+					if (session.getAttribute("plan") != null) {
+						gotoPage(request, response, "/reservation.jsp");
+						return;
+					}
+
 					gotoPage(request, response, "/top2.jsp");
 				} else {
 					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");
@@ -110,6 +116,12 @@ public class ShowPlanServlet2 extends HttpServlet {
 
 				session.setAttribute("checkIn", checkIn);
 				session.setAttribute("checkOut", checkOut);
+
+				if (checkIn == null || checkOut == null || checkIn.length() == 0 || checkOut.length() == 0) {
+					request.setAttribute("error", "チェックイン日とチェックアウト日を入力してください");
+					gotoPage(request, response, "/top2.jsp");
+					return;
+				}
 
 				PlansDAOSub dao = new PlansDAOSub();
 				List<PlanBean> plans = new ArrayList<PlanBean>();

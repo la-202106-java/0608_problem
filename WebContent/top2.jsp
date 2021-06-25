@@ -26,6 +26,9 @@
 <input type="hidden" name="action" value="plan">
 <input type="submit" value="検索">
 </form>
+<c:if test="${not empty error}">
+${error}
+</c:if>
 <hr>
 
 <form action="/0608_problem/ShowPlanServlet2" method="post">

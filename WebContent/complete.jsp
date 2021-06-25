@@ -24,6 +24,6 @@ ReservationBean reservation = (ReservationBean)request.getAttribute("reservation
 int total = plan.getFee() * reservation.getRoom();
 %>
 合計：<%= total %>円<br>
-<a href="/0608_problem/ShowPlanServlet?action=complete">Topページへ</a>
+<a href="/0608_problem/ShowPlanServlet2?action=complete">Topページへ</a>
 </body>
 </html>

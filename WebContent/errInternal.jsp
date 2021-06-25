@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
 <title>Internal Error</title>
 </head>
 <body>
 
 <h1>${message}</h1>
 <br>
-<a href="0608_problem/top">TOP</a>
+<a href="/0608_problem/top">TOP</a>
 </body>
 </html>

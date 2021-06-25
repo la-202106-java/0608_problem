@@ -41,9 +41,9 @@ public class BookSearchServlet extends HttpServlet {
 					bookID = Integer.parseInt(request.getParameter("bookID"));
 					request.setAttribute("bookID", bookID);
 					list.clear();
-					BookBean book = dao.findByPrimaryKey(bookID);
+					BookBean book = dao.findByPrimaryKeyStatus(bookID);
 					if (!Objects.isNull(book)) {
-						list.add(dao.findByPrimaryKey(bookID));
+						list.add(dao.findByPrimaryKeyStatus(bookID));
 					}
 				} else {
 					list = dao.findAll();
@@ -57,7 +57,7 @@ public class BookSearchServlet extends HttpServlet {
 				if (request.getParameter("isbn") != null && request.getParameter("isbn").length() != 0) {
 					isbn = request.getParameter("isbn");
 					request.setAttribute("isbn", isbn);
-					list = dao.findByISBN(isbn);
+					list = dao.findByISBNStatus(isbn);
 				} else {
 					list = dao.findAll();
 				}

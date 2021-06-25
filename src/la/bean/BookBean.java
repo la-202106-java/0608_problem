@@ -9,6 +9,17 @@ public class BookBean {
 	private String title;
 	private Date arrivalDate;
 	private String note;
+	private String status; // 検索表示用のstatus
+
+	public BookBean(int id, String isbn, String title, Date arrivalDate, String note, String status) {
+		super();
+		this.id = id;
+		this.isbn = isbn;
+		this.title = title;
+		this.arrivalDate = arrivalDate;
+		this.note = note;
+		this.status = status;
+	}
 
 	public BookBean() {
 	}
@@ -67,6 +78,14 @@ public class BookBean {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

@@ -156,4 +156,41 @@ public class ReservedDAO {
 			throw new DAOException("レコードの操作に失敗しました");
 		}
 	}
+
+	// 本のIDから取り置きかどうか返す
+	public boolean isReserved(int id) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM reserved WHERE book_id=? AND lending_date is NULL";
+			st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
 }

@@ -38,7 +38,9 @@ public class BookDAO {
 				String title = rs.getString("title");
 				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
-				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note);
+				String status = getStatus(id);
+				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note, status);
+
 				list.add(bean);
 			}
 			return list;
@@ -186,6 +188,7 @@ public class BookDAO {
 		}
 	}
 
+	// status付きで返す
 	public List<BookBean> findByTitle(String title) throws DAOException {
 		if (con == null) {
 			con = dao.getConnection();
@@ -207,7 +210,8 @@ public class BookDAO {
 				String fullTitle = rs.getString("title");
 				java.util.Date arrivalDate = rs.getDate("arrival_date");
 				String note = rs.getString("note");
-				BookBean bean = new BookBean(id, isbn, fullTitle, arrivalDate, note);
+				String status = getStatus(id);
+				BookBean bean = new BookBean(id, isbn, fullTitle, arrivalDate, note, status);
 				list.add(bean);
 			}
 			return list;
@@ -253,6 +257,109 @@ public class BookDAO {
 				throw new DAOException("リソースの開放に失敗しました");
 			}
 		}
+
+	}
+
+	// status付きで返す
+	public BookBean findByPrimaryKeyStatus(int bookID) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM book WHERE id=?";
+			st = con.prepareStatement(sql);
+			st.setInt(1, bookID);
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String isbn = rs.getString("isbn");
+				String title = rs.getString("title");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
+				String note = rs.getString("note");
+				String status = getStatus(id);
+				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note, status);
+				return bean;
+			} else {
+				return null;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+
+	}
+
+	// status付きで返す
+	public List<BookBean> findByISBNStatus(String isbn) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM book WHERE isbn=?";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			rs = st.executeQuery();
+
+			List<BookBean> list = new ArrayList<BookBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				java.util.Date arrivalDate = rs.getDate("arrival_date");
+				String note = rs.getString("note");
+				String status = getStatus(id);
+				BookBean bean = new BookBean(id, isbn, title, arrivalDate, note, status);
+
+				list.add(bean);
+			}
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
+	// status取得用
+	private String getStatus(int id) throws DAOException {
+		ReservedDAO rdao = new ReservedDAO();
+		LendingDAO ldao = new LendingDAO();
+		if (rdao.isReserved(id)) {
+			return "取置";
+		}
+		if (ldao.isLending(id)) {
+			return "貸出";
+		}
+		return "在庫";
 
 	}
 

@@ -106,8 +106,10 @@
               <tbody>
               <c:forEach items="${books}" var="book">
                 <tr>
-                  <th scope="row">${book.id}</th>
-                  <td>${book.userId}</td>
+                  <td scope="row">${book.id}</td>
+                  <td>
+                  <a href="/0608_problem/UserSearchServlet?action=detail&id=${book.userId}">${book.userId}</a>
+                  </td>
                   <td>${book.bookId}</td>
            		  <td>${book.lendingDate}</td>
            		  <td>${book.deadline}</td>

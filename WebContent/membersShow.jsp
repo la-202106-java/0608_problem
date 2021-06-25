@@ -9,12 +9,14 @@
 </head>
 <h3>ようこそ、${member.name}さん</h3>
 <body>
+<a href="/0608_problem/top2.jsp">検索メニューへ</a>
 	<jsp:include page="/memberUpdateLink.jsp" />
 	<hr>
 	<jsp:include page="/memberQuitLink.jsp" />
 	<hr>
 	<jsp:include page="/memberReservationLog.jsp" />
 	<hr>
+
 
 	<!--
 	<table border="1">

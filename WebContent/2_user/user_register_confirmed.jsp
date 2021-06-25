@@ -29,7 +29,7 @@
 			<div class="pr-3">
 				<div class="form-group">
 					<form action = "/0608_problem/TopServlet" method = "get" style="display:inline;">
-					<button class="btn btn-secondary" type="submit">終了</button>
+					<button class="btn btn-danger" type="submit">終了</button>
 					</form>
 				</div>
 			</div>

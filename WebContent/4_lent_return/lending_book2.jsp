@@ -15,6 +15,7 @@
 <body>
   <jsp:include page="/navbar.jsp" />
   <div class="m-3 p-3">
+   <div class="col-9">
     <div class="row">
       <h2>資料貸出</h2>
     </div>
@@ -41,6 +42,7 @@
     <div class="row">
       <br> 現在貸し出している資料<br>
     </div>
+     </div>
     <div class="col-9 px-3">
 
 <table class="table table-striped">
@@ -64,6 +66,7 @@
         </tbody>
       </table>
     </div>
+
   </div>
 </body>
 </html>

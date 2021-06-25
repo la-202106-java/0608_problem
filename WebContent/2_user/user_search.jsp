@@ -16,8 +16,7 @@
     <div class="col-9">
 		<h2>会員検索</h2>
 		<form class="form-inline" action = "/0608_problem/UserSearchServlet" method = "post">
-		email：
-		<input type ="email" name = "email">
+		email&nbsp;<input type ="email" name = "email">
 		<input type="submit" value = 検索>
 		<input type="hidden" name = "action" value = "search">
 		</form>

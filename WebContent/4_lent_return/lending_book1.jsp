@@ -15,53 +15,52 @@
 <body>
   <jsp:include page="/navbar.jsp" />
   <div class="m-3 p-3">
-    <div class="row">
-      <h2>貸出検索</h2>
-      </div>
+    <div class="col-9">
       <div class="row">
-      貸出をする会員IDを入力してください
+        <h2>貸出検索</h2>
       </div>
+      <div class="row">貸出をする会員IDを入力してください</div>
       <div class="row">
-      <form class="form-inline" method="get" action="/0608_problem/BookLendingServlet">
-      <div class="form-group">
-        会員ID&nbsp;
-        <input type="text" name="userID">
-        <input type="hidden" name="action" value="userSearch">
-        <button type="submit" class="btn btn-primary">次へ</button>
-        </div>
-      </form>
-    </div>
+        <form class="form-inline" method="get" action="/0608_problem/BookLendingServlet">
+          <div class="form-group">
+            会員ID&nbsp;
+            <input type="text" name="userID">
+            <input type="hidden" name="action" value="userSearch">
+            <button type="submit" class="btn btn-primary">次へ</button>
+          </div>
+        </form>
+      </div>
       <c:if test="${!empty message}">
         <h5>
           <font color="red">${message}</font>
         </h5>
       </c:if>
-<div class="row">
-      <br> 現在貸し出している資料<br>
-</div>
-<div class="col-9 px-3">
-      <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>会員ID</th>
-          <th>資料ID</th>
-          <th>資料名</th>
-          <th>返却期限</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${lendings}" var="lending">
-          <tr>
-            <td>${lending.userId}</td>
-            <td>${lending.bookId}</td>
-            <td>${lending.bookTitle}</td>
-            <td>${lending.deadline}</td>
-          </tr>
-        </c:forEach>
-        </tbody>
-      </table>
+      <div class="row">
+        <br> 現在貸し出している資料<br>
+      </div>
+      <div class="col-9 px-3">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>会員ID</th>
+              <th>資料ID</th>
+              <th>資料名</th>
+              <th>返却期限</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach items="${lendings}" var="lending">
+              <tr>
+                <td>${lending.userId}</td>
+                <td>${lending.bookId}</td>
+                <td>${lending.bookTitle}</td>
+                <td>${lending.deadline}</td>
+              </tr>
+            </c:forEach>
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 
 </body>

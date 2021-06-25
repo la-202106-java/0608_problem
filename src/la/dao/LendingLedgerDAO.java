@@ -34,10 +34,31 @@ public class LendingLedgerDAO {
 
 	public static Timestamp addDays(Timestamp date, int days) {
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);// w ww.  j ava  2  s  .co m
-		cal.add(Calendar.DATE, days); //minus number would decrement the days
+		cal.setTime(date);
+		cal.add(Calendar.DATE, days);
 		return new Timestamp(cal.getTime().getTime());
 
+	}
+
+	public boolean isLending(int sid) {
+		String sql = "select COUNT( * ) cnt from lending_ledger where material_id=? and return_date is null";
+		System.out.println(sql);
+		try (Connection con = ConnectionFactory.createConnection();
+				PreparedStatement st = con.prepareStatement(sql);) {
+			st.setInt(1, sid);
+			try (ResultSet rs = st.executeQuery()) {
+				rs.next();
+				int count = rs.getInt("cnt");
+				if (count > 0) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+		} catch (SQLException e) {
+			throw new IllegalStateException("SQL実行時に例外が発生しました。", e);
+		}
 	}
 
 	public int addLendingRecord(int mid, int sid) {
@@ -62,9 +83,17 @@ public class LendingLedgerDAO {
 		}
 
 		if (ml == null || member == null) {
+			//会員もしくは資料は存在しません。
 			return -1;
 		}
-
+		if (ml.getDisposalDate() != null) {
+			//廃棄済みの資料
+			return -2;
+		}
+		if (member.getWithdrawalDate() != null) {
+			//退会済みの会員
+			return -3;
+		}
 		MaterialCatalogDAO mcDAO = new MaterialCatalogDAO();
 		MaterialCatalog mc = null;
 		try {
@@ -75,7 +104,12 @@ public class LendingLedgerDAO {
 		}
 
 		if (mc == null) {
-			return -2;
+			//　資料目録は存在しません。
+			return -4;
+		}
+		if (isLending(sid)) {
+			//　すでに貸出されている資料
+			return -5;
 		}
 		Date shiryoDate = mc.getPublicationDate();
 		long diff = new Date().getTime() - shiryoDate.getTime();
@@ -130,7 +164,7 @@ public class LendingLedgerDAO {
 				+ "left join member m  on l.member_id=m.member_id "
 				+ "left join material_ledger ml on l.material_id=ml.material_id"
 				+ " left join material_catalog mc on ml.isbn=mc.isbn ORDER BY l.checkout_date desc ;";
-		System.out.println(sql);
+
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery()) {
@@ -182,7 +216,7 @@ public class LendingLedgerDAO {
 		}
 		sql = sql + " ORDER BY l.checkout_date desc";
 
-		System.out.println(sql);
+		//		System.out.println(sql);
 		try (Connection con = ConnectionFactory.createConnection();
 				PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery()) {

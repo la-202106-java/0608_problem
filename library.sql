@@ -103,10 +103,10 @@ INSERT INTO material_ledger (isbn,stock_date,remark) VALUES(  '9784061795792','2
 INSERT INTO member (member_name,member_address,tel,email,birth,join_date) VALUES('鈴木','関東地方','000-0000-0000','abc@cba.mail.com','2021-06-21','2021-06-22');
 INSERT INTO member (member_name,member_address,tel,email,birth,join_date) VALUES('佐々木','関東地方','000-0000-0000','qer@req.mail.com','2021-06-22','2021-06-23');
 
-INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline) VALUES(1,1,'2021-05-21','2021-07-02');
-INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline) VALUES(1,1,'2021-05-22','2021-06-02');
+INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline) VALUES(1,1,'2021-05-24','2021-07-02');
+INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline) VALUES(1,2,'2021-05-23','2021-06-02');
 
-INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline,return_date)VALUES(1,2,'2021-05-23','2021-06-02','2021-06-01');
-INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline,return_date)VALUES(2,2,'2021-05-24','2021-06-02','2021-06-01');
+INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline,return_date)VALUES(1,1,'2021-05-22','2021-06-02','2021-06-01');
+INSERT INTO lending_ledger (member_id,material_id,checkout_date,return_deadline,return_date)VALUES(2,2,'2021-05-21','2021-06-02','2021-06-01');
 
 -- INSERT INTO material_catalog VALUES('123', '123',5,'123','123','1989-12-12' );

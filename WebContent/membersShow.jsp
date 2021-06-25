@@ -12,6 +12,8 @@
 	<hr>
 	<jsp:include page="/membersQuit.jsp" />
 	<hr>
+	<jsp:include page="/memberReservationLog.jsp" />
+	<hr>
 
 	<!--
 	<table border="1">

@@ -112,7 +112,7 @@ p{
 <ul>
   <li>
     <a href="#">
-      <span>重要</span>
+      <span style="background-color:#FF0000">重要</span>
       <time datetime="2019-01-01">[ 2021.06.23 ]</time>
       <p class="new">石田、パチンコをやめる</p>
     </a>
@@ -121,19 +121,12 @@ p{
     <a href="#">
       <span>周知</span>
       <time datetime="2019-01-01">[ 2019.01.01 ]</time>
-      <p class="new">ニュースニュースニュースニュースニュース</p>
+      <p class="new">近隣図書館司書一名にコロナ陽性反応</p>
     </a>
   </li>
   <li>
     <a href="#">
       <span>連絡</span>
-      <time datetime="2019-01-01">[ 2019.01.01 ]</time>
-      <p>ニュースニュースニュースニュースニュース</p>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <span>重要</span>
       <time datetime="2019-01-01">[ 2019.01.01 ]</time>
       <p>ニュースニュースニュースニュースニュース</p>
     </a>

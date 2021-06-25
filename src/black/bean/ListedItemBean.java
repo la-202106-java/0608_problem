@@ -14,12 +14,12 @@ public class ListedItemBean implements Serializable {
 
 	private int sellerId;
 	private Date orderdDate = null;
-	private int byerId = -1;
+	private int buyerId = -1;
 
 	private boolean inStock = true;
 
 	public boolean isInStock() {
-		if (orderdDate == null && byerId < 0) {
+		if (orderdDate == null && buyerId < 0) {
 			inStock = true;
 		} else {
 			inStock = false;
@@ -37,6 +37,21 @@ public class ListedItemBean implements Serializable {
 		this.price = price;
 		this.condition = condition;
 		this.sellerId = sellerId;
+	}
+
+	public ListedItemBean(int id, String isbn, String title, int departmentCode, String author, int price,
+			String condition, int sellerId, Date orderdDate, int buyerId) {
+		super();
+		this.id = id;
+		this.isbn = isbn;
+		this.title = title;
+		this.departmentCode = departmentCode;
+		this.author = author;
+		this.price = price;
+		this.condition = condition;
+		this.sellerId = sellerId;
+		this.orderdDate = orderdDate;
+		this.buyerId = buyerId;
 	}
 
 	public ListedItemBean() {
@@ -170,17 +185,17 @@ public class ListedItemBean implements Serializable {
 	}
 
 	/**
-	 * @return byerId
+	 * @return buyerId
 	 */
-	public int getByerId() {
-		return byerId;
+	public int getBuyerId() {
+		return buyerId;
 	}
 
 	/**
-	 * @param byerId セットする byerId
+	 * @param buyerId セットする buyerId
 	 */
-	public void setByerId(int byerId) {
-		this.byerId = byerId;
+	public void setBuyerId(int buyerId) {
+		this.buyerId = buyerId;
 	}
 
 }

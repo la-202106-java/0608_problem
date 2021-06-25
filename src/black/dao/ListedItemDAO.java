@@ -123,14 +123,16 @@ public class ListedItemDAO {
 				int price = rs.getInt("price");
 				String _condition = rs.getString("condition");
 				int seller_id = rs.getInt("seller_id");
+				Date orderd_date = rs.getDate("orderd_date");
+				int buyer_id = rs.getInt("buyer_id");
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
-						_author, price, _condition, seller_id);
+						_author, price, _condition, seller_id, orderd_date, buyer_id);
 				bean.setOrderdDate(rs.getDate("orderd_date"));
 
 				String byerIdStr = rs.getString("byer_id");
 				if (byerIdStr != null && byerIdStr.length() != 0) {
-					bean.setByerId(Integer.parseInt(byerIdStr));
+					bean.setBuyerId(Integer.parseInt(byerIdStr));
 				}
 
 				if (onlyInStock) {
@@ -176,7 +178,6 @@ public class ListedItemDAO {
 			rs = st.executeQuery();
 
 			if (rs.next()) {
-				//				int id = rs.getInt("id");
 				String _isbn = rs.getString("isbn");
 				String _title = rs.getString("title");
 				int _departmentCode = rs.getInt("department_code");
@@ -184,9 +185,11 @@ public class ListedItemDAO {
 				int price = rs.getInt("price");
 				String _condition = rs.getString("condition");
 				int seller_id = rs.getInt("seller_id");
+				Date orderd_date = rs.getDate("orderd_date");
+				int buyer_id = rs.getInt("buyer_id");
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
-						_author, price, _condition, seller_id);
+						_author, price, _condition, seller_id, orderd_date, buyer_id);
 				return bean;
 			}
 			return null;
@@ -230,15 +233,11 @@ public class ListedItemDAO {
 				int price = rs.getInt("price");
 				String _condition = rs.getString("condition");
 				int seller_id = rs.getInt("seller_id");
+				Date orderd_date = rs.getDate("orderd_date");
+				int buyer_id = rs.getInt("buyer_id");
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
-						_author, price, _condition, seller_id);
-				bean.setOrderdDate(rs.getDate("orderd_date"));
-
-				String byerIdStr = rs.getString("byer_id");
-				if (byerIdStr != null && byerIdStr.length() != 0) {
-					bean.setByerId(Integer.parseInt(byerIdStr));
-				}
+						_author, price, _condition, seller_id, orderd_date, buyer_id);
 
 				list.add(bean);
 

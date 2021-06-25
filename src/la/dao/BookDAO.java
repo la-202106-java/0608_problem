@@ -349,6 +349,57 @@ public class BookDAO {
 		}
 	}
 
+	public List<BookBean> getCanLendingBookListByIsbn(String isbn) throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			// 資料(book)をISBNで取得して資料一覧を取得する
+			// 資料IDで貸出テーブルを結合してマッチするものは省く
+			// 資料IDで取置テーブルを結合してマッチするものは省く
+			String sql = "  SELECT *"
+					+ "  FROM book b"
+					+ "  WHERE NOT EXISTS( "
+					+ "    SELECT  book_id"
+					+ "    FROM lending l"
+					+ "    WHERE b.id = l.book_id)"
+					+ "  AND NOT EXISTS( "
+					+ "    SELECT  book_id"
+					+ "    FROM reserved r"
+					+ "    WHERE b.id = r.book_id "
+					+ "    AND lending_date IS NULL)  "
+					+ "  AND isbn = ?";
+			st = con.prepareStatement(sql);
+			st.setString(1, isbn);
+			rs = st.executeQuery();
+
+			List<BookBean> list = new ArrayList<BookBean>();
+			while (rs.next()) {
+				BookBean bean = new BookBean();
+				bean.setId(rs.getInt("id"));
+				bean.setIsbn(rs.getString("isbn"));
+				bean.setTitle(rs.getString("title"));
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
 	// status取得用
 	private String getStatus(int id) throws DAOException {
 		ReservedDAO rdao = new ReservedDAO();

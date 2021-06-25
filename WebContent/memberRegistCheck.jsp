@@ -31,5 +31,8 @@
 		</table><br>
 		<input type="submit" value="登録">
 	</form>
+	<form action="/0608_problem/MemberRegistServlet?action=cancel" method="post">
+	<input type="submit" value="キャンセル">
+	</form>
 </body>
 </html>

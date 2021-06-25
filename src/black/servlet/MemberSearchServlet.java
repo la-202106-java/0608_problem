@@ -73,7 +73,7 @@ public class MemberSearchServlet extends HttpServlet {
 					}
 
 					List<MemberBean> list = dao.findMember(name, address, tel, email, birthday);
-					request.setAttribute("member", list);
+					request.setAttribute("member2", list);
 					request.setAttribute("result_num", list.size());
 
 					MemberBean searchBean = new MemberBean(-1, name, address, tel, email, birthday, "");
@@ -87,7 +87,7 @@ public class MemberSearchServlet extends HttpServlet {
 					MemberBean bean = dao.findMember(id);
 					List<MemberBean> list = new ArrayList<MemberBean>();
 					list.add(bean);
-					request.setAttribute("member", list);
+					request.setAttribute("member2", list);
 					request.setAttribute("result_num", list.size());
 
 					request.setAttribute("search_member_id", id);

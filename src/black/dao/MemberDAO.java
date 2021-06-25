@@ -16,7 +16,7 @@ public class MemberDAO {
 
 	public MemberDAO() throws DAOException {
 		getConnection();
-		setSeq();
+		//setSeq();
 	}
 
 	private void setSeq() throws DAOException {
@@ -24,7 +24,7 @@ public class MemberDAO {
 		//シーケンスの開始の値を現在のレコード数+1に設定
 		//addの際のエラー回避
 
-		String sql = "SELECT COUNT(*) FROM member";
+		String sql = "SELECT id FROM member ORDER BY id DESC LIMIT 1";
 		String sql2 = "SELECT SETVAL('member_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);

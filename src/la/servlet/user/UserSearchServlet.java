@@ -111,7 +111,7 @@ public class UserSearchServlet extends HttpServlet {
 				request.setAttribute("bean", bean);
 				session.setAttribute("bean", bean);
 
-				gotoPage(request, response, "2_user/user_search_result.jsp");
+				gotoPage(request, response, "/2_user/user_search_result.jsp");
 
 			}
 

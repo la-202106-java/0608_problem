@@ -108,7 +108,7 @@
                 <tr>
                   <td scope="row">${book.id}</td>
                   <td>
-                  <a href="/0608_problem/UserSearchServlet?action=detail?id=${book.userId}">${book.userId}</a>
+                  <a href="/0608_problem/UserSearchServlet?action=detail&id=${book.userId}">${book.userId}</a>
                   </td>
                   <td>${book.bookId}</td>
            		  <td>${book.lendingDate}</td>

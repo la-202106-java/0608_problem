@@ -36,7 +36,7 @@ public class AdminTopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if ("true".equals(session.getAttribute("isAdminLogin"))) {
+		if (session != null && "true".equals(session.getAttribute("isAdminLogin"))) {
 			request.setCharacterEncoding("UTF-8");
 			String link = request.getParameter("link");
 			if (link == null || link.length() == 0) {

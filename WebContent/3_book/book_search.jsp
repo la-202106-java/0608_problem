@@ -26,7 +26,7 @@
           資料ID&nbsp;
           <input type="text" name="bookID" class="form-control" id="InputID" placeholder="123">
           <input type="hidden" name="action" value="search_id">
-          <button type="submit" class="btn btn-primary">検索</button>
+          <input type="submit" value="検索">
         </div>
       </form>
       <form class="form-inline" action="/0608_problem/BookSearchServlet" method="get">
@@ -34,7 +34,7 @@
           &nbsp;ISBN番号&nbsp;
           <input type="text" name="isbn" class="form-control" id="InputISBN" placeholder="9784111111111">
           <input type="hidden" name="action" value="search_isbn">
-          <button type="submit" class="btn btn-primary">検索</button>
+          <input type="submit" value="検索">
         </div>
       </form>
       <form class="form-inline" action="/0608_problem/BookSearchServlet" method="get">
@@ -42,7 +42,7 @@
           &nbsp;資料名&nbsp;
           <input type="text" name="title" class="form-control" id="InputTitle" placeholder="よい子の">
           <input type="hidden" name="action" value="search_title">
-          <button type="submit" class="btn btn-primary">検索</button>
+          <input type="submit" value="検索">
         </div>
       </form>
     </div>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import la.bean.BookBean;
 import la.dao.BookDAO;
 import la.dao.DAOException;
+import la.dao.DiscardedBookDAO;
 
 /**
  * Servlet implementation class BookDeleteServlet
@@ -27,6 +28,7 @@ public class BookDeleteServlet extends HttpServlet {
 
 		try {
 			BookDAO dao = new BookDAO();
+			DiscardedBookDAO disdao = new DiscardedBookDAO();
 			if (action == null || action.length() == 0) {
 
 				BookBean book = dao.findByPrimaryKey(id);
@@ -34,6 +36,7 @@ public class BookDeleteServlet extends HttpServlet {
 				gotoPage(request, response, "/3_book/book_deleted_confirm.jsp");
 
 			} else if (action.equals("delete")) {
+				int disrow = disdao.addDiscardedBook(dao.findByPrimaryKey(id));
 				int row = dao.deleteByPrimaryKey(id);
 				request.setAttribute("message", row + "件削除しました。");
 				gotoPage(request, response, "/3_book/book_search.jsp");

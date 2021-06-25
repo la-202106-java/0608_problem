@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import la.bean.BookBean;
 import la.bean.DiscardedBookBean;
 
 public class DiscardedBookDAO {
@@ -66,6 +67,39 @@ public class DiscardedBookDAO {
 		if (con != null) {
 			con.close();
 			con = null;
+		}
+	}
+
+	public int addDiscardedBook(BookBean book) throws DAOException {
+		if (con == null)
+			con = dao.getConnection();
+		PreparedStatement st = null;
+
+		java.util.Date today = new java.util.Date();
+		try {
+			String sql = "INSERT INTO discarded_book(id, isbn, title, arrival_date, discard_date, note) VALUES(?,?,?,?,?,?)";
+			st = con.prepareStatement(sql);
+			st.setInt(1, book.getId());
+			st.setString(2, book.getIsbn());
+			st.setString(3, book.getTitle());
+			st.setDate(4, new java.sql.Date(book.getArrivalDate().getTime()));
+			st.setDate(5, new java.sql.Date(today.getTime()));
+			st.setString(6, book.getNote());
+
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 }

@@ -34,10 +34,11 @@
 <br>
 <form action =/0608_problem/ListedItemBuyServlet method ="post">
 <input type="hidden" name="action" value="cancel">
-	<input type="submit" value="キャンセル">
+<input type="submit" value="キャンセル">
+</form>
+<form action =/0608_problem/ListedItemBuyServlet method ="post">
 <input type="hidden" name="action" value="dobuy">
-
-	<input type="submit" value="購入する">
+<input type="submit" value="購入する">
 </form>
 </body>
 </html>

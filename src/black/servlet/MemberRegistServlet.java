@@ -34,14 +34,21 @@ public class MemberRegistServlet extends HttpServlet {
 			} else if (action.equals("create")) {
 
 				String name = request.getParameter("name");
+				request.setAttribute("setName", name);
 				String address = request.getParameter("address");
+				request.setAttribute("setAddress", address);
 				String tel = request.getParameter("tel");
+				request.setAttribute("setTel", tel);
 				String email = request.getParameter("email");
+				request.setAttribute("setEmail", email);
 				//DateをStringで受け取る方法,年月日をそれぞれ受け取って、結合して生年月日としてデータベースに挿入する
 				String date = request.getParameter("date");
+
 				//生年月日をString型からDate型に変更する処理
 				Date birthday = Date.valueOf(date);
+				request.setAttribute("setBirthday", birthday);
 				String pass = request.getParameter("pass");
+				request.setAttribute("setPass", pass);
 
 				MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
 				session.setAttribute("tmp-logined", bean);
@@ -54,11 +61,17 @@ public class MemberRegistServlet extends HttpServlet {
 				} else {
 					MemberDAO dao = new MemberDAO();
 					String name = member.getName();
+					request.setAttribute("setName", name);
 					String address = member.getAddress();
+					request.setAttribute("setAddress", address);
 					String tel = member.getTel();
+					request.setAttribute("setTel", tel);
 					String email = member.getEmail();
+					request.setAttribute("setEmail", email);
 					Date birthday = member.getBirthday();
+					request.setAttribute("setBirthday", birthday);
 					String pass = member.getPass();
+					request.setAttribute("setPass", pass);
 					dao.addMember(name, address, tel, email, birthday, pass);
 					MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
 					session.setAttribute("logined", bean);
@@ -69,6 +82,19 @@ public class MemberRegistServlet extends HttpServlet {
 				}
 
 			} else if (action.equals("cancel")) {
+				MemberBean member = (MemberBean) session.getAttribute("tmp-logined");
+				String name = member.getName();
+				request.setAttribute("setName", name);
+				String address = member.getAddress();
+				request.setAttribute("setAddress", address);
+				String tel = member.getTel();
+				request.setAttribute("setTel", tel);
+				String email = member.getEmail();
+				request.setAttribute("setEmail", email);
+				Date birthday = member.getBirthday();
+				request.setAttribute("setBirthday", birthday);
+				String pass = member.getPass();
+				request.setAttribute("setPass", pass);
 				gotoPage(request, response, "/memberRegistForm.jsp");
 
 			} else {

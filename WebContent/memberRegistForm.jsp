@@ -12,17 +12,17 @@
     <h1>会員登録</h1>
     <form action =/0608_problem/MemberRegistServlet method ="post">
         <p>名前:<br>
-        <input type = "text" name = "name" value="${logined-tmp.name}"></p>
+        <input type = "text" name = "name" value="${setName}"></p>
         <p>住所:<br>
-            <input type = "text" name = "address" value="${logined-tmp.address}"></p>
+            <input type = "text" name = "address" value="${setAddress}"></p>
         <p>電話番号:<br>
-            <input type = "text" name = "tel" value="${logined-tmp.tel}"></p>
+            <input type = "text" name = "tel" value="${setTel}"></p>
         <p>生年月日:<br>
-            <input type = "date" name = "date" value="${logined-tmp.birthday}"></p>
+            <input type = "date" name = "date" value="${setBirthday}"></p>
         <p>E-mail:<br>
-            <input type = "text" name = "email" value="${logined-tmp.email}"></p>
+            <input type = "text" name = "email" value="${setEmail}"></p>
         <p>パスワード:<br>
-            <input type = "password" name = "pass" value="${logined-tmp.pass}"></p>
+            <input type = "password" name = "pass" value="${setPass}"></p>
             <input type="hidden" name = "action" value = "create">
             <p><input type = "submit" value = "登録"></p>
     </form>

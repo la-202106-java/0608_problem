@@ -22,7 +22,7 @@ public class AdminDAO {
 		//シーケンスの開始の値を現在のレコード数+1に設定
 		//addの際のエラー回避
 
-		String sql = "SELECT COUNT(*) FROM member";
+		String sql = "SELECT COUNT(*) FROM admin";
 		String sql2 = "SELECT SETVAL('admin_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);

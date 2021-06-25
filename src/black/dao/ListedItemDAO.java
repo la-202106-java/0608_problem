@@ -25,7 +25,7 @@ public class ListedItemDAO {
 		//シーケンスの開始の値を現在のレコード数+1に設定
 		//addの際のエラー回避
 
-		String sql = "SELECT COUNT(*) FROM member";
+		String sql = "SELECT COUNT(*) FROM listed_item";
 		String sql2 = "SELECT SETVAL('listed_item_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);

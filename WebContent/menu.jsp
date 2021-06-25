@@ -57,9 +57,8 @@
 									<span class="sr-only">Toggle navigation</span>
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
 								</button>
-								<img src="/0608_problem/facebook_profile_image.png" width="80px">
+
 								<a class="navbar-brand" href="/0608_problem/index.jsp">TOP</a>
 							</div>
 
@@ -85,6 +84,10 @@
 									><a href="/0608_problem/siryou_kasidasi.jsp">
 									貸出管理</a>	</li>
 								</ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                 <li><div> <img src="/0608_problem/facebook_profile_image.png" width="80px"><a href="#" style="color:white">新宿図書館管理システム</a></div></li>
+                </ul>
 							</div>
 						</div>
 					</nav>

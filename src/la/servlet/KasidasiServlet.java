@@ -89,6 +89,42 @@ public class KasidasiServlet extends HttpServlet {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
 				}
+			} else if (rows == -2) {
+				RequestDispatcher rd = request.getRequestDispatcher("KasidasiServlet?action=search");
+				request.setAttribute("msg", "廃棄済みの資料は貸出できません。");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+			} else if (rows == -3) {
+				RequestDispatcher rd = request.getRequestDispatcher("KasidasiServlet?action=search");
+				request.setAttribute("msg", "退会済みの会員は貸出できません。");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+			} else if (rows == -4) {
+				RequestDispatcher rd = request.getRequestDispatcher("KasidasiServlet?action=search");
+				request.setAttribute("msg", "資料目録は存在しません。");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+			} else if (rows == -5) {
+				RequestDispatcher rd = request.getRequestDispatcher("KasidasiServlet?action=search");
+				request.setAttribute("msg", "すでに貸出されている資料は登録できません。");
+				try {
+					rd.forward(request, response);
+				} catch (ServletException | IOException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
 			} else {
 				try {
 					response.sendRedirect("error.jsp");

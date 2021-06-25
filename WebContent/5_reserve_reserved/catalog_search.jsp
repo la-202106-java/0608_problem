@@ -57,7 +57,14 @@
 				      </td>
 			      </c:if>
 			      <c:if test="${item.stockCount ne 0}">
-				      <td><input type="submit" value ="取置"></td>
+				      <td>
+				        <form action="/0608_problem/CatalogLendingServlet" method="post">
+				          <button type="submit" class="btn btn-secondary">取置</button>
+				          <input type="hidden" name="isbn" value="${item.isbn}">
+				          <input type="hidden" name="title" value="${item.title}">
+				          <input type="hidden" name="action" value="lending">
+				        </form>
+				      </td>
 			      </c:if>
 			    </tr>
 			</c:forEach>

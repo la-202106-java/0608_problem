@@ -62,7 +62,7 @@
 
 	<%-- 出品者または管理者--%>
 	<c:if test="${user == 'admin' or is_my_item}">
-		<form action="/0608_problem/ListedItemChengeServlet" method="post">
+		<form action="/0608_problem/ListedItemChangeServlet" method="post">
 		<input type="hidden" name="action" value="change">
 		<input type="hidden" name="item_id" value="${item.id}">
 		<input type="submit" value="変更">

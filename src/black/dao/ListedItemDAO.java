@@ -348,7 +348,9 @@ public class ListedItemDAO {
 			getConnection();
 		}
 
+
 		String sql = "UPDATE listed_item SET orderd_date=? buyer_id=? WHERE id=?";
+
 
 		//今日の日付取得
 		Date today = new Date(System.currentTimeMillis());
@@ -356,7 +358,8 @@ public class ListedItemDAO {
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setDate(1, today);
 			st.setInt(2, buyerId);
-			st.setInt(7, id);
+			st.setInt(3, id);
+
 
 			//SQL実行
 			st.executeUpdate();

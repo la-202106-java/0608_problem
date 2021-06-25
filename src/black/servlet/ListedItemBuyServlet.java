@@ -49,7 +49,7 @@ public class ListedItemBuyServlet extends HttpServlet {
 				ListedItemBean item = (ListedItemBean) session.getAttribute("item");
 				MemberBean member = (MemberBean) session.getAttribute("logined");
 				int id = item.getId();
-				int sales = member.getSales();
+				int sales = item.getPrice();
 				int seller_id = item.getSellerId();
 				int buyer_id = member.getId();
 				MemberDAO dao2 = new MemberDAO();
@@ -78,7 +78,7 @@ public class ListedItemBuyServlet extends HttpServlet {
 			//エラーメッセ‐ジ先のページ未完了
 			e.printStackTrace();
 			request.setAttribute("message", "内部エラーが発生しました");
-			gotoPage(request, response, "/.jsp");
+			gotoPage(request, response, "/errInternal.jsp");
 		}
 	}
 

@@ -25,7 +25,7 @@
 	<p>該当する商品がありません。</p>
 </c:if>
 
-<c:if test="${item.id>1 and item != null}">
+<c:if test="${item.id>0 and item != null}">
 
 	<table>
 	<tr><td>ID</td><td>${item.id}</td></tr>
@@ -50,7 +50,13 @@
 		<form action="/0608_problem/ListedItemBuyServlet" method="post">
 		<input type="hidden" name="action" value="buy">
 		<input type="hidden" name="item_id" value="${item.id}">
+		<c:if test="${item.inStock}">
 		<input type="submit" value="購入">
+		</c:if>
+		<%-- 在庫なしなら購入をグレーアウト --%>
+		<c:if test="${!item.inStock}">
+		<input type="submit" value="購入" disabled="disabled">
+		</c:if>
 		</form>
 	</c:if>
 

@@ -37,7 +37,12 @@
 	<br>
 
 	<form action="/0608_problem/LeaveServlet" method="post">
-		<input type="submit" value="退会">
+		<c:if test="${person.quitDate==null}">
+			<input type="submit" value="退会">
+		</c:if>
+		<c:if test="${person.quitDate!=null}">
+			<input type="submit" value="退会" disabled="disabled">
+		</c:if>
 	</form>
 
 	<form action="/0608_problem/MemberRegistChangeServlet" method="post">

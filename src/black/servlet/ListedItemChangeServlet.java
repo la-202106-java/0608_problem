@@ -39,10 +39,10 @@ public class ListedItemChangeServlet extends HttpServlet {
 
 		if (action == null || action.length() == 0) {
 			//actionが指定されていなければフォームへ
-			gotoPage(request, response, "/listedItemRegistForm.jsp");
+			gotoPage(request, response, "/listedItemChangeForm.jsp");
 		} else if (action.equals("change")) {
 			//教科書変更画面
-			int id = Integer.parseInt(request.getParameter("id"));
+			int id = Integer.parseInt(request.getParameter("item_id"));
 			ListedItemDAO dao = null;
 			try {
 				dao = new ListedItemDAO();
@@ -53,7 +53,7 @@ public class ListedItemChangeServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			gotoPage(request, response, "/listedItemRegistForm.jsp");
+			gotoPage(request, response, "/listedItemChangeForm.jsp");
 		} else if (action.equals("dochange")) {
 			//変更確認ページに行く
 			int id = Integer.parseInt(request.getParameter("id"));

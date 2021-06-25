@@ -52,7 +52,7 @@
     min-width: 100%;
 }
 
-li{
+#menu li{
   border-bottom:1px dotted #000;
   list-style:none;
   padding:10px;
@@ -98,9 +98,9 @@ p{
 
 
 <div class="slider">
-    <div class="slider__content"><img src="https://dubdesign.net/wp-content/uploads/2020/05/0515_illustrator_eyecatch2.jpg" alt="slider_image1" class="slider__img"></div>
-    <div class="slider__content"><img src="https://dubdesign.net/wp-content/uploads/2020/05/0514_inhouse_designereyecatch.jpg" alt="slider_image2" class="slider__img"></div>
-    <div class="slider__content"><img src="https://dubdesign.net/wp-content/uploads/2020/05/0510_personaeyecatch.jpg" alt="slider_image3" class="slider__img"></div>
+    <div class="slider__content"><img src="/0608_problem/library.jpg" alt="slider_image1" class="slider__img"></div>
+    <div class="slider__content"><img src="/0608_problem/library2.jpg" alt="slider_image2" class="slider__img"></div>
+    <div class="slider__content"><img src="/0608_problem/uwaa.PNG" alt="slider_image3" class="slider__img"></div>
 </div>
 <br>
 
@@ -109,7 +109,7 @@ p{
 <tr>
 <td>
 <center><h2><b>お知らせ</b></h2></center>
-<ul>
+<ul id="menu">
   <li>
     <a href="#">
       <span style="background-color:#FF0000">重要</span>
@@ -120,14 +120,14 @@ p{
   <li>
     <a href="#">
       <span>周知</span>
-      <time datetime="2019-01-01">[ 2019.01.01 ]</time>
+      <time datetime="2019-01-01">[ 2021.06.21 ]</time>
       <p class="new">近隣図書館司書一名にコロナ陽性反応</p>
     </a>
   </li>
   <li>
     <a href="#">
-      <span>連絡</span>
-      <time datetime="2019-01-01">[ 2019.01.01 ]</time>
+      <span style="background-color:#00d400">連絡</span>
+      <time datetime="2019-01-01">[ 2021.05.30 ]</time>
       <p>ニュースニュースニュースニュースニュース</p>
     </a>
   </li>

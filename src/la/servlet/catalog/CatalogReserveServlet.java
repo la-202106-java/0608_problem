@@ -50,8 +50,6 @@ public class CatalogReserveServlet extends HttpServlet {
 					// TODO: 不正な遷移なのでエラーページへ
 					return;
 				}
-				String a = request.getParameter("isbn");
-				String b = request.getParameter("title");
 				request.setAttribute("isbn", request.getParameter("isbn"));
 				request.setAttribute("title", request.getParameter("title"));
 				request.setAttribute("userBean", bean);

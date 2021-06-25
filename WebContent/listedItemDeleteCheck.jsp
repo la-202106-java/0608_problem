@@ -28,18 +28,21 @@
 
 </table>
 
-<!-- キャンセルするボタン(DeleteServlet)-->
-<div style="display:inline-flex">
-<form action="/0608_problem/DeleteServlet" method= "post">
-<input type="submit" value="キャンセル">
-<input type="hidden" name = "action" value="cancel">
-</form>
 
+<div style="display:inline-flex">
 <!-- 削除するボタン(DeleteServlet) -->
 <form action="/0608_problem/DeleteServlet" method= "post">
 <input type="submit" value="削除する">
 <input type="hidden" name = "action" value="dodelete">
 </form>
+
+<!-- キャンセルするボタン(DeleteServlet)-->
+<form action="/0608_problem/DeleteServlet" method= "post">
+<input type="submit" value="キャンセル">
+<input type="hidden" name = "action" value="cancel">
+</form>
+
+
 </div>
 
 

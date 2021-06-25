@@ -34,7 +34,7 @@
 </table>
 <br>
 
-<form method="post">
+<form action="/0608_problem/ListedItemDetail" method="post">
 
 	<input type="hidden" name="isbn" value="${regist_item.isbn}">
 	<input type="hidden" name="title" value="${regist_item.title}">

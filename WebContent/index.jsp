@@ -52,7 +52,7 @@
     min-width: 100%;
 }
 
-li{
+#menu li{
   border-bottom:1px dotted #000;
   list-style:none;
   padding:10px;
@@ -109,7 +109,7 @@ p{
 <tr>
 <td>
 <center><h2><b>お知らせ</b></h2></center>
-<ul>
+<ul id="menu">
   <li>
     <a href="#">
       <span style="background-color:#FF0000">重要</span>

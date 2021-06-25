@@ -28,7 +28,7 @@ public class AdminDAO {
 			while (rs.next()) {
 				pass = rs.getString("pass");
 			}
-			return (pass.equals(password));
+			return (password.equals(pass));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました");

@@ -36,7 +36,7 @@ ISBN番号：${isbn}<br>
 </div>
 <div class="btn-toolbar">
  <div class="pr-3">
-<a href="/0608_problem/BookRegistServlet?action=back&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}">戻る</a>
+<a  class="btn btn-secondary" href="/0608_problem/BookRegistServlet?action=back&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}">戻る</a>
 </div>
  <div class="pr-3">
 <input class="btn btn-primary" type="submit" value = 登録>

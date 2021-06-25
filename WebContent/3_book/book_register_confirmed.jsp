@@ -34,9 +34,9 @@ ISBN番号：${isbn}<br>
 <br>
 <div class="btn-toolbar">
 <div class="pr-3">
-<a href="/0608_problem/3_book/book_register.jsp">登録続行</a>
+<a class="btn btn-primary" href="/0608_problem/3_book/book_register.jsp">登録続行</a>
 </div>
-<a href="/0608_problem/TopServlet">終了</a>
+<a class="btn btn-danger" href="/0608_problem/TopServlet">終了</a>
 </div>
 </div>
 </div>

@@ -24,6 +24,7 @@
 <h4>新規資料情報、目録情報を入力してください</h4>
 
 ${message}
+<br>
 <c:if test="${empty code}" >
 <form action="/0608_problem/BookRegistServlet?action=bookConfirm" method="post">
 <div class="form-group">

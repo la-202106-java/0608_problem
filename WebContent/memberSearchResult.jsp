@@ -16,7 +16,7 @@
 	<p>${result_num}件見つかりました。</p>
 
 	<table>
-	<c:forEach items="${member}" var="person">
+	<c:forEach items="${member2}" var="person">
 
 		<tr>
 			<td><small>ID ${person.id}</small><br>
@@ -28,7 +28,7 @@
 				</form>
 			</td>
 			<td>
-				<form action="/0608_problem/MemberQuitServlet" method = "post">
+				<form action="/0608_problem/LeaveServlet">
 				<input type="hidden" name="member_id" value="${person.id}">
 				<c:if test="${person.quitDate==null}">
 					<input type="submit" value="退会">

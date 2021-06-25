@@ -79,7 +79,7 @@ public class MembersDAO {
 	}
 
 	//更新処理
-	public int update(int id, String name, String pCode, String addr, String eAddr) throws DAOException {
+	public int update(int id, String name, String pCode, String addr, String eAddr, String tel) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
@@ -87,6 +87,7 @@ public class MembersDAO {
 		PreparedStatement st2 = null;
 		PreparedStatement st3 = null;
 		PreparedStatement st4 = null;
+		PreparedStatement st5 = null;
 		try {
 			if (id == -1) {
 				//id入力なしの場合intの「-1」を受けてリターン
@@ -103,6 +104,8 @@ public class MembersDAO {
 				addr = null;
 			if (eAddr == "")
 				eAddr = null;
+			if (tel == "")
+				tel = null;
 			if (name != null) {
 				sql = "UPDATE members SET name = ? WHERE id = ?";
 				st1 = con.prepareStatement(sql);
@@ -146,6 +149,16 @@ public class MembersDAO {
 					rows = tmprows;
 				}
 			}
+			if (tel != null) {
+				sql = "UPDATE members SET tel = ? WHERE id = ?";
+				st5 = con.prepareStatement(sql);
+				st5.setString(1, tel);
+				st5.setInt(2, id);
+				tmprows = st5.executeUpdate();
+				if (rows < tmprows) {
+					rows = tmprows;
+				}
+			}
 			return rows;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,6 +173,8 @@ public class MembersDAO {
 					st3.close();
 				if (st4 != null)
 					st4.close();
+				if (st5 != null)
+					st5.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの解放に失敗しました。");
@@ -198,6 +213,70 @@ public class MembersDAO {
 			}
 		}
 
+	}
+
+	//IDで検索
+	public MemberBean searchMemberByID(int ID) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM members WHERE id = ?";
+		try {
+			st = con.prepareStatement(sql);
+			st.setInt(1, ID);
+			rs = st.executeQuery();
+			MemberBean member = new MemberBean();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String pass = rs.getString("pass");
+				String name = rs.getString("name");
+				String postal_code = rs.getString("postal_code");
+				String address = rs.getString("address");
+				String tel = rs.getString("tel");
+				String email_address = rs.getString("email_address");
+				String birth_date = String.valueOf(rs.getDate("birth_date"));
+				Date tmp_jdate = rs.getDate("join_date");
+				Date tmp_qdate = rs.getDate("quit_date");
+				LocalDate join_date;
+				LocalDate quit_date;
+				if (tmp_jdate == null) {
+					join_date = null;
+				} else {
+					join_date = rs.getDate("join_date").toLocalDate();
+				}
+				if (tmp_qdate == null) {
+					quit_date = null;
+				} else {
+					quit_date = rs.getDate("quit_date").toLocalDate();
+				}
+				member.setId(id);
+				member.setPassword(pass);
+				member.setName(name);
+				member.setPostalCode(postal_code);
+				member.setAddress(address);
+				member.setTel(tel);
+				member.setEmailAddress(email_address);
+				member.setBirthDate(birth_date);
+				member.setJoinDate(join_date);
+				member.setQuiteDate(quit_date);
+			}
+			return member;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
 	}
 
 	//名前とemailで検索

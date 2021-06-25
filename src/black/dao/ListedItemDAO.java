@@ -126,9 +126,10 @@ public class ListedItemDAO {
 				int seller_id = rs.getInt("seller_id");
 				Date orderd_date = rs.getDate("orderd_date");
 				int buyer_id = rs.getInt("buyer_id");
+				String image = rs.getString("image");
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
-						_author, price, _condition, seller_id, orderd_date, buyer_id);
+						_author, price, _condition, seller_id, orderd_date, buyer_id, image);
 				bean.setInStock();
 				//bean.setOrderdDate(rs.getDate("orderd_date"));
 
@@ -189,9 +190,10 @@ public class ListedItemDAO {
 				int seller_id = rs.getInt("seller_id");
 				Date orderd_date = rs.getDate("orderd_date");
 				int buyer_id = rs.getInt("buyer_id");
+				String image = rs.getString("image");
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
-						_author, price, _condition, seller_id, orderd_date, buyer_id);
+						_author, price, _condition, seller_id, orderd_date, buyer_id, image);
 				bean.setInStock();
 				return bean;
 			}
@@ -238,9 +240,10 @@ public class ListedItemDAO {
 				int seller_id = rs.getInt("seller_id");
 				Date orderd_date = rs.getDate("orderd_date");
 				int buyer_id = rs.getInt("buyer_id");
+				String image = rs.getString("image");
 
 				ListedItemBean bean = new ListedItemBean(id, _isbn, _title, _departmentCode,
-						_author, price, _condition, seller_id, orderd_date, buyer_id);
+						_author, price, _condition, seller_id, orderd_date, buyer_id, image);
 				bean.setInStock();
 				list.add(bean);
 
@@ -266,13 +269,13 @@ public class ListedItemDAO {
 	//教科書登録
 	//登録したidを返す
 	public int addItem(String isbn, String title, int departmentCode,
-			String author, int price, String condition, int sellerId) throws DAOException {
+			String author, int price, String condition, int sellerId, String image) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
 		String sql = "INSERT INTO listed_item(isbn, title, department_code, author,"
-				+ " price, condition, seller_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
+				+ " price, condition, seller_id, image) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		String sql2 = "SELECT currval('listed_item_id_seq')";
 
 		ResultSet rs = null;
@@ -285,6 +288,7 @@ public class ListedItemDAO {
 			st.setInt(5, price);
 			st.setString(6, condition);
 			st.setInt(7, sellerId);
+			st.setString(8, image);
 
 			//SQL実行
 			st.executeUpdate();
@@ -312,13 +316,13 @@ public class ListedItemDAO {
 
 	//教科書更新
 	public void updateItem(int id, String isbn, String title, int departmentCode,
-			String author, int price, String condition) throws DAOException {
+			String author, int price, String condition, String image) throws DAOException {
 		if (con == null) {
 			getConnection();
 		}
 
 		String sql = "UPDATE listed_item SET isbn=?, title=?, department_code=?,"
-				+ " author=?, price=?, condition=? WHERE id=?";
+				+ " author=?, price=?, condition=?, image=? WHERE id=?";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, isbn);
@@ -328,6 +332,7 @@ public class ListedItemDAO {
 			st.setInt(5, price);
 			st.setString(6, condition);
 			st.setInt(7, id);
+			st.setString(8, image);
 
 			//SQL実行
 			st.executeUpdate();

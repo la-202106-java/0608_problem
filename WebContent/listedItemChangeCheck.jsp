@@ -26,9 +26,11 @@
 <tr><td>著者名</td><td>${textbook.author}</td></tr>
 <tr><td>売値</td><td>${textbook.price}</td></tr>
 <tr><td>状態</td><td>${textbook.condition}</td></tr>
-
+<tr><td>画像URL</td><td>${textbook.image}</td></tr>
 
 </table>
+<br>
+<img src="${textbook.image}">
 <br>
 
 <form action="/0608_problem/ListedItemChangeServlet" method="post">

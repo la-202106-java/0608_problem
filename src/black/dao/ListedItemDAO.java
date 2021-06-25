@@ -25,7 +25,7 @@ public class ListedItemDAO {
 		//シーケンスの開始の値を現在のレコード数+1に設定
 		//addの際のエラー回避
 
-		String sql = "SELECT COUNT(*) FROM member";
+		String sql = "SELECT id FROM listed_item ORDER BY id DESC LIMIT 1";
 		String sql2 = "SELECT SETVAL('listed_item_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);
@@ -317,8 +317,8 @@ public class ListedItemDAO {
 			getConnection();
 		}
 
-		String sql = "UPDATE listed_item SET isbn=? title=? department_code=?"
-				+ " author=? price=? condition=? WHERE id=?";
+		String sql = "UPDATE listed_item SET isbn=?, title=?, department_code=?,"
+				+ " author=?, price=?, condition=? WHERE id=?";
 
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, isbn);

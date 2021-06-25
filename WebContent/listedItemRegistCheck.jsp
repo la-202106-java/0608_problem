@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
 </table>
 <br>
 
-<form action="/0608_problem/ListedItemDetail" method="post">
+<form action="/0608_problem/ListedItemRegistServlet" method="post">
 
 	<input type="hidden" name="isbn" value="${regist_item.isbn}">
 	<input type="hidden" name="title" value="${regist_item.title}">

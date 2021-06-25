@@ -11,6 +11,7 @@
 <c:if test="${not empty message}">
 ${message}
 </c:if>
+<a href="/0608_problem/top2.jsp">検索メニューへ</a>
 <h1>予約一覧</h1>
 
 <c:if test="${empty Reservations}">

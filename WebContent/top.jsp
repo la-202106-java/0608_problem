@@ -48,9 +48,9 @@
                   </a>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-outline-dark btn-lg">
+                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/CatalogSearchServlet" role="button">
                     目録検索 <i class="fas fa-search"></i>
-                  </button>
+                  </a>
                 </td>
               </tr>
               <tr>

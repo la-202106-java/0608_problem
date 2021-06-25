@@ -111,7 +111,7 @@ ALTER TABLE admin OWNER TO sd;
 DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation (
     id SERIAL NOT NULL PRIMARY KEY,
-    isbn CHAR NOT NULL,
+    isbn CHAR(13) NOT NULL,
     user_id INTEGER NOT NULL,
     reservation_time TIMESTAMP NOT NULL,
     reserved_date DATE

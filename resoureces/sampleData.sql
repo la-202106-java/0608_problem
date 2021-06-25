@@ -1,3 +1,12 @@
+TRUNCATE TABLE catalog CASCADE;
+TRUNCATE TABLE book CASCADE;
+TRUNCATE TABLE lending CASCADE;
+TRUNCATE TABLE returned_lending  CASCADE;
+TRUNCATE TABLE now_user CASCADE;
+TRUNCATE TABLE former_user CASCADE;
+TRUNCATE TABLE admin CASCADE;
+TRUNCATE TABLE reserved CASCADE;
+
 INSERT INTO catalog VALUES('4906638015','7つの習慣',3,'スティーブン・R・コビー','キングベアー出版','1996-12-25');
 INSERT INTO catalog VALUES('4480425993','よいこの君主論',1,'架神恭介/辰巳 一世','筑摩書房','2009-05-11');
 

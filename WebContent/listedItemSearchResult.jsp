@@ -10,26 +10,28 @@
 <title>教科書売買サイト</title>
 </head>
 <body>
-
+<table>
 <c:forEach items="${listed_items}" var="item">
-	<table>
-      		<tr>
-      			<td><b>${item.title}</b><br>
-      				<small>${departments.get(item.departmentCode)}</small></td>
-      			<td>${item.price}円</td>
-      			<td>在庫：
-      				<c:if test="${item.inStock}">〇</c:if>
-      				<c:if test="${!item.inStock}">×</c:if>
-      			</td>
-      			<td>
-      				<form action="/0608_problem/ListedItemDetailServlet">
-      					<input type="hidden" name="item_id" value="${item.id}">
-      					<input type="submit" value="詳細">
-      				</form>
-      			</td>
-    		</tr>
-    	</table>
+
+		<tr>
+			<td><b>${item.title}</b><br>
+				<small>${item.author}</small></td>
+			<td><small>${departments.get(item.departmentCode)}</small></td>
+			<td>${item.price}円</td>
+			<td>在庫：
+				<c:if test="${item.inStock}">〇</c:if>
+				<c:if test="${!item.inStock}">×</c:if>
+			</td>
+			<td>
+				<form action="/0608_problem/ListedItemDetailServlet">
+					<input type="hidden" name="item_id" value="${item.id}">
+					<input type="submit" value="詳細">
+				</form>
+			</td>
+		</tr>
+
 </c:forEach>
+</table>
 
 </body>
 </html>

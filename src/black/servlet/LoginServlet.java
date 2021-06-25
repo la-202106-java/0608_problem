@@ -26,7 +26,17 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		gotoPage(request, response, "/memberLogin.jsp");
+		//ログアウトはGETで処理
+		String action = request.getParameter("action");
+		if (action == null || action.length() == 0) {
+			gotoPage(request, response, "/memberLogin.jsp");
+		} else if (action.equals("logout")) {
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+			gotoPage(request, response, "/top");
+		} else {
+			gotoPage(request, response, "/memberLogin.jsp");
+		}
 	}
 
 	private void gotoPage(HttpServletRequest request,
@@ -65,9 +75,6 @@ public class LoginServlet extends HttpServlet {
 					request.setAttribute("message", message);
 					gotoPage(request, response, "/memberLogin.jsp");
 				}
-			} else if (action.equals("logout")) {
-				session.invalidate();
-				gotoPage(request, response, "/top");
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();

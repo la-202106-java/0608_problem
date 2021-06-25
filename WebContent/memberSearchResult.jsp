@@ -12,25 +12,23 @@
 <body>
 
 
-    <h1>会員検索結果</h1>
-    	<p>${result_num}件見つかりました。</p>
+	<h1>会員検索結果</h1>
+	<p>${result_num}件見つかりました。</p>
 
       <c:forEach items="${member}" var="person">
       	<table>
       		<tr>
-      			<th>ID</th><td>${person.id}</td>
-      			<th>名前</th><td>${person.name}</td>
-      			</tr>
-      			<tr>
-      			<th>メールアドレス</th><td>${person.email}</td>
-      			<th>入会年月日</th><td>${person.joinDate}</td>
+      			<td><small>ID ${person.id}</small><br>
+      				名前 ${person.name}</td>
+      			<td>${person.email}</td>
+      			<td>入会年月日 ${person.joinDate}</td>
       		</tr>
       		<tr>
       			<th></th><td><c:if test="${person.quitDate!=null}">退会</c:if></td>
       		</tr>
       		<tr>
-      			<td><form action="/0608_problem/MyPageServlet?action=detail" method = "post"><input type="submit" value="詳細"></form></td>
-      			<td><form action="/0608_problem/MyPageServlet?action=delete" method = "post"><input type="submit" value="削除"></form></td>
+      			<td><form action="/0608_problem/MemberDetailServlet?action=detail" method = "post"><input type="submit" value="詳細"></form></td>
+      			<td><form action="/0608_problem/MemberDetailServlet?action=delete" method = "post"><input type="submit" value="削除"></form></td>
       		</tr>
       	</table>
       </c:forEach>

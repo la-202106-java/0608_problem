@@ -50,8 +50,9 @@ public class MemberRegistServlet extends HttpServlet {
 				String pass = request.getParameter("pass");
 				request.setAttribute("setPass", pass);
 
-				MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
-				session.setAttribute("tmp-logined", bean);
+
+				MemberBean bean = new MemberBean(-1, name, address, tel, email, birthday, pass);
+				session.setAttribute("member", bean);
 				gotoPage(request, response, "/memberRegistCheck.jsp");
 			} else if (action.equals("add")) {
 				MemberBean member = (MemberBean) session.getAttribute("tmp-logined");
@@ -61,19 +62,15 @@ public class MemberRegistServlet extends HttpServlet {
 				} else {
 					MemberDAO dao = new MemberDAO();
 					String name = member.getName();
-					request.setAttribute("setName", name);
 					String address = member.getAddress();
-					request.setAttribute("setAddress", address);
 					String tel = member.getTel();
-					request.setAttribute("setTel", tel);
 					String email = member.getEmail();
-					request.setAttribute("setEmail", email);
 					Date birthday = member.getBirthday();
-					request.setAttribute("setBirthday", birthday);
 					String pass = member.getPass();
-					request.setAttribute("setPass", pass);
-					dao.addMember(name, address, tel, email, birthday, pass);
-					MemberBean bean = new MemberBean(name, address, tel, email, birthday, pass);
+					int id = dao.addMember(name, address, tel, email, birthday, pass);
+					request.setAttribute("message", "会員登録が完了しました");
+					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+
 					session.setAttribute("logined", bean);
 					request.setAttribute("message", "会員登録が完了しました");
 					session.setAttribute("user", "member");
@@ -124,3 +121,4 @@ public class MemberRegistServlet extends HttpServlet {
 	}
 
 }
+

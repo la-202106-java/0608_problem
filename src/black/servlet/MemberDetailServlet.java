@@ -36,9 +36,13 @@ public class MemberDetailServlet extends HttpServlet {
 			String tel = member.getTel();
 			String email = member.getEmail();
 			Date birthday = member.getBirthday();
+
 			MemberBean bean_sales = dao.findMember(id);
+			Date joinDate = bean_sales.getJoinDate();
+			Date quitDate = bean_sales.getQuitDate();
 			int sales = bean_sales.getSales();
-			MemberBean bean = new MemberBean(name, address, tel, email, birthday, sales);
+			MemberBean bean = new MemberBean(id, name, address, tel, email,
+					birthday, joinDate, quitDate, sales);
 
 			request.setAttribute("loginedplusa", bean);
 			gotoPage(request, response, "/mypage.jsp");

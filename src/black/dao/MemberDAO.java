@@ -78,10 +78,11 @@ public class MemberDAO {
 				String tel = rs.getString("tel");
 				String email = rs.getString("email");
 				Date birthday = rs.getDate("birthday");
-				Date join_date = rs.getDate("join_date");
-				String pass = rs.getString("pass");
-				MemberBean bean = new MemberBean(id, name, address, tel, email, birthday,
-						join_date, pass);
+				Date joinDate = rs.getDate("join_date");
+				Date quitDate = rs.getDate("quit_date");
+				int sales = rs.getInt("sales");
+				MemberBean bean = new MemberBean(id, name, address, tel, email,
+						birthday, joinDate, quitDate, sales);
 				list.add(bean);
 			}
 			return list;
@@ -127,8 +128,11 @@ public class MemberDAO {
 				String tel = rs.getString("tel");
 				String email = rs.getString("email");
 				Date birthday = rs.getDate("birthday");
-				String pass = rs.getString("pass");
-				MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
+				Date joinDate = rs.getDate("join_date");
+				Date quitDate = rs.getDate("quit_date");
+				int sales = rs.getInt("sales");
+				MemberBean bean = new MemberBean(id, name, address, tel, email,
+						birthday, joinDate, quitDate, sales);
 				return bean;
 			}
 			return null;
@@ -171,8 +175,11 @@ public class MemberDAO {
 				String tel = rs.getString("tel");
 				String email = rs.getString("email");
 				Date birthday = rs.getDate("birthday");
+				Date joinDate = rs.getDate("join_date");
+				Date quitDate = rs.getDate("quit_date");
 				int sales = rs.getInt("sales");
-				MemberBean bean = new MemberBean(name, address, tel, email, birthday, sales);
+				MemberBean bean = new MemberBean(id, name, address, tel, email,
+						birthday, joinDate, quitDate, sales);
 				return bean;
 			}
 			return null;
@@ -231,9 +238,10 @@ public class MemberDAO {
 				String _email = rs.getString("email");
 				Date _birthday = rs.getDate("birthday");
 				Date joinDate = rs.getDate("join_date");
-				String pass = rs.getString("pass");
-
-				MemberBean bean = new MemberBean(id, _name, _address, _tel, _email, _birthday, joinDate, pass);
+				Date quitDate = rs.getDate("quit_date");
+				int sales = rs.getInt("sales");
+				MemberBean bean = new MemberBean(id, _name, _address, _tel, _email, _birthday, joinDate, quitDate,
+						sales);
 				list.add(bean);
 			}
 			//会員一覧リストを返す
@@ -255,7 +263,7 @@ public class MemberDAO {
 	}
 
 	//会員登録（新規）
-	public void addMember(String name, String address,
+	public int addMember(String name, String address,
 			String tel, String email, Date birthday, String pass) throws DAOException {
 		if (con == null) {
 			getConnection();
@@ -264,9 +272,13 @@ public class MemberDAO {
 		String sql = "INSERT INTO member(name, address, tel, email, birthday, pass, join_date)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
 
+		String sql2 = "SELECT currval('member_id_seq')";
+
 		Date day = new Date(System.currentTimeMillis());
 
-		try (PreparedStatement st = con.prepareStatement(sql)) {
+		ResultSet rs = null;
+		try (PreparedStatement st = con.prepareStatement(sql);
+				PreparedStatement st2 = con.prepareStatement(sql)) {
 			st.setString(1, name);
 			st.setString(2, address);
 			st.setString(3, tel);
@@ -278,12 +290,20 @@ public class MemberDAO {
 			//SQL実行
 			st.executeUpdate();
 
+			rs = st2.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");
 		} finally {
 			try {
 				// リソースの開放
+				if (rs != null)
+					rs.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");

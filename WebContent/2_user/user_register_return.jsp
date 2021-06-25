@@ -26,42 +26,33 @@
   String datestr = format.format(cal.getTime());
 %>
 
- <div class="m-3 p-3">
+<div class="m-3 p-3">
     <div class="col-9">
-    <div class="row">
-<h2>会員登録</h2>
-    </div>
-    <div class="row">
-<h4>新規会員情報を入力してください</h4>
-    </div>
-<div class="row">
-<form action = "/0608_problem/UserRegisterServlet" method = "post">
-<div class="form-group">
-氏名：<input type ="text" name = "name" value="${bean.name}">
+	<h2>会員登録</h2>
+	<h4>新規会員情報を入力してください</h4>
+	<form action = "/0608_problem/UserRegisterServlet" method = "post">
+	<div class="form-group">
+		<br>氏名：<input type ="text" name = "name" value="${bean.name}">
+	</div>
+	<div class="form-group">
+	住所：<input type ="text" name = "address" value="${bean.address}">
+	</div>
+	<div class="form-group">
+	電話番号：<input type ="text" name = "tel" value="${bean.tel}">
+	</div>
+	<div class="form-group">
+	email <input type ="email" name = "email" value="${bean.email}">
+	</div>
+	<div class="form-group">
+	生年月日：<input type ="date" name = "birthDate" value="${bean.birthDate}">
+	</div>
+	<div class="form-group">
+	入会年月日：<%out.println(datestr);%>
+	</div>
+	<button class="btn btn-primary" type="submit">登録</button>
+	<input type="hidden" name = "action" value = "register1" >
+	</form>
 </div>
-<div class="form-group">
-住所：<input type ="text" name = "address" value="${bean.address}">
-</div>
-<div class="form-group">
-電話番号：<input type ="text" name = "tel" value="${bean.tel}">
-</div>
-<div class="form-group">
-email <input type ="email" name = "email" value="${bean.email}">
-</div>
-<div class="form-group">
-生年月日：<input type ="date" name = "birthDate" value="${bean.birthDate}">
-</div>
-<div class="form-group">
-入会年月日：<%out.println(datestr);%>
-</div>
-<input type="submit" value = 登録>
-<input type="hidden" name = "action" value = "register1" >
-</div>
-</form>
-</div>
-</div>
-</div>
-
 </body>
 </html>
 

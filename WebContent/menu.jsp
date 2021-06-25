@@ -59,6 +59,7 @@
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
 								</button>
+								<img src="/0608_problem/facebook_profile_image.png" width="80px">
 								<a class="navbar-brand" href="/0608_problem/index.jsp">TOP</a>
 							</div>
 

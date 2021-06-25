@@ -278,7 +278,7 @@ public class MemberDAO {
 
 		ResultSet rs = null;
 		try (PreparedStatement st = con.prepareStatement(sql);
-				PreparedStatement st2 = con.prepareStatement(sql)) {
+				PreparedStatement st2 = con.prepareStatement(sql2)) {
 			st.setString(1, name);
 			st.setString(2, address);
 			st.setString(3, tel);

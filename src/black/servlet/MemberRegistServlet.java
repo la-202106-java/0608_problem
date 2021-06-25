@@ -50,9 +50,8 @@ public class MemberRegistServlet extends HttpServlet {
 				String pass = request.getParameter("pass");
 				request.setAttribute("setPass", pass);
 
-
 				MemberBean bean = new MemberBean(-1, name, address, tel, email, birthday, pass);
-				session.setAttribute("member", bean);
+				session.setAttribute("tmp-logined", bean);
 				gotoPage(request, response, "/memberRegistCheck.jsp");
 			} else if (action.equals("add")) {
 				MemberBean member = (MemberBean) session.getAttribute("tmp-logined");
@@ -68,7 +67,6 @@ public class MemberRegistServlet extends HttpServlet {
 					Date birthday = member.getBirthday();
 					String pass = member.getPass();
 					int id = dao.addMember(name, address, tel, email, birthday, pass);
-					request.setAttribute("message", "会員登録が完了しました");
 					MemberBean bean = new MemberBean(id, name, address, tel, email, birthday, pass);
 
 					session.setAttribute("logined", bean);
@@ -121,4 +119,3 @@ public class MemberRegistServlet extends HttpServlet {
 	}
 
 }
-

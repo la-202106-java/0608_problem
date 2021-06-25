@@ -53,7 +53,12 @@ public class LoginServlet extends HttpServlet {
 				if (bean != null && bean.getQuitDate() == null) {
 					session.setAttribute("logined", bean);
 					session.setAttribute("user", "member");
-					gotoPage(request, response, "/top");
+					if (session.getAttribute("page").equals("textbuy")) {
+						gotoPage(request, response, "/listedItemBuyCheck.jsp");
+					} else {
+						gotoPage(request, response, "/top");
+					}
+
 				} else {
 					String message = "メールアドレスとパスワードが一致しません";
 					request.setAttribute("message", message);

@@ -36,33 +36,73 @@ return true;
 <body>
 
 <jsp:include page="/menu.jsp" />
-<h2>貸出情報の検索</h2>
-<form onsubmit="return validateForm()" name="form1" action="/0608_problem/KasidasiServlet" method="post">
-	 <input type ="hidden" name ="action" value ="search">
-  会員ID：<input type="text" name="mid" value="${mid }">&nbsp;<br>
-  会員名：<input type="text" name="mname" value="${mname }">&nbsp;<br>
-<input type="submit" value="検索">
+
+
+
+<div style="width:40%">
+        <div class="well bs-component">
+          <form class="form-horizontal" onsubmit="return validateForm()" name="form1" action="/0608_problem/KasidasiServlet" method="post">
+            <fieldset>
+              <legend>貸出情報の検索</legend>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">会員ID</label>
+                <div class="col-lg-10">
+                  <input type="text"  class="form-control" name="mid" value="${mid }">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">会員名</label>
+                <div class="col-lg-10">
+                  <input type="text"  class="form-control" name="mname" value="${mname }">
+                  </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                  <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+              </div>
+            </fieldset>
+            	 <input type ="hidden" name ="action" value ="search">
+          </form>
+        </div>
+</div>
+
+
 
   <hr>
 
   	<h2>検索結果</h2>
 
 
+<table class="table table-striped table-hover ">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>会員ID</th>
+								<th>会員名</th>
+								<th>資料名</th>
+								<th>貸出日</th>
+								<th>返却期日</th>
+								<th>返却日</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
 
-<table border="1">
+						<c:forEach items="${list }" var="ll">
+<tr
 
-
-<tr align="center">
-<td>会員ID</td>
-<td>会員名</td>
-<td>資料名</td>
-<td>貸出日</td>
-<td>返却期日</td>
-<td>返却日</td>
-<td>操作</td>
-</tr>
-<c:forEach items="${list }" var="ll">
-<tr>
+<c:if test="${ll.isOut }"> class="warning"</c:if>
+<c:choose>
+  <c:when test="${empty ll.returnDate }">
+	class="info"
+  </c:when>
+  <c:otherwise>
+	class="success"
+  </c:otherwise>
+</c:choose>
+>>
+<td></td>
 <td>${ll.member.id }</td>
 <td>${ll.member.name }</td>
 <td>${ll.materialCatalog.title }</td>
@@ -77,7 +117,7 @@ onClick="returnM(${ll.id},'${ ll.member.name}','${ ll.materialCatalog.title}','$
 </td>
   </c:when>
   <c:otherwise>
-  <td>
+  <td  align="center" >
   返却済み
   </td>
   </c:otherwise>
@@ -85,13 +125,14 @@ onClick="returnM(${ll.id},'${ ll.member.name}','${ ll.materialCatalog.title}','$
 <tr>
 </c:forEach>
 
-</table>
+						</tbody>
+					</table>
 
-</form>
 <script>
 <c:if test="${msg != null}">
 alert('${msg}');
 </c:if>
 </script>
+<BR><BR>
 </body>
 </html>

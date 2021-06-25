@@ -27,35 +27,64 @@ return true;
 <body>
 
 <jsp:include page="/menu.jsp" />
-<h2>会員の検索</h2>
 
-<p>
-E-Mailもしくは会員ID、どちらか検索できます。<br>
-ボタン選択して、検索値を入力してください。
-</p>
-<table>
-<form name="form1" onsubmit="return validateForm()" action="/0608_problem/MemberServlet" method="post">
- 	 <input type ="hidden" name ="action" value ="search">
- 	 	 <input type="radio" name="radio" value="email" checked>
-	E-Mail：<input type="text" name="email" min = "0" max="255" value=${eMail }><br>
-<br>
-	 <input type="radio" name="radio" value="id" >
-会員ID：<input type="text" name="id" value = ${id }><br>
-  <input type="submit" value="検索">
-</form>
-
+<div style="width:50%;text-align:center">
+        <div class="well bs-component">
+          <form class="form-horizontal"  name="form1" onsubmit="return validateForm()" action="/0608_problem/MemberServlet" method="post">
+            <fieldset>
+              <legend>会員の検索</legend>
+              <legend>
+<span style="font-size:16px;">E-Mailもしくは会員ID、どちらか検索できます。<br>
+ボタン選択して、検索値を入力してください。</span></legend>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-3 control-label"> <input type="radio" name="radio" value="email" checked>
+                E-Mail：</label>
+                <div class="col-lg-8">
+                  <input type="text" name="email" min = "0" max="255"  class="form-control" value=${eMail }>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-3 control-label"> <input type="radio" name="radio" value="id" >
+会員ID：</label>
+                <div class="col-lg-8">
+                  <input type="text" name="id" class="form-control" value = ${id }>
+                  </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                  <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+              </div>
+            </fieldset>
+            	 <input type ="hidden" name ="action" value ="search">
+            	  <input type ="hidden" name ="action" value ="search">
+          </form>
+        </div>
+</div>
 
 <form action="/0608_problem/MemberServlet" method="post">
  <input type="submit" value="会員一覧">
   	 <input type ="hidden" name ="action" value ="memberlist">
 </form>
 
-</table>
-<hr>
+
 <c:if test = "${menlist ne null }">
+
 <h3>該当する会員の情報は以下の通りです。</h3>
-<table border="1">
-<tr><td>ID</td><td>氏名</td><td>住所</td><td>電話番号</td><td>E-Mail</td><td>生年月日</td><td>入会年月日</td><td>退会年月日</td></tr>
+<table class="table table-striped table-hover ">
+						<thead>
+							<tr>
+							<th>ID</th>
+							<th>氏名</th>
+							<th>住所</th>
+							<th>電話番号</th>
+							<th>E-Mail</th>
+							<th>生年月日</th>
+							<th>入会年月日</th>
+							<th>退会年月日</th></tr>
+						</thead>
+						<tbody>
+
 <c:forEach items="${menlist }" var="item">
 
 
@@ -68,6 +97,11 @@ E-Mailもしくは会員ID、どちらか検索できます。<br>
 <td>${item.joinDate}</td>
 <td>${item.withdrawalDate}</td></tr>
 </c:forEach>
+
+						</tbody>
+					</table>
+
+
 </c:if>
 
 
@@ -76,10 +110,24 @@ E-Mailもしくは会員ID、どちらか検索できます。<br>
 <c:if test = "${Ismenberlist ne 'true'}" >
 
 <h3>該当する会員の情報は以下の通りです。</h3>
-<table border="1">
+<table class="table table-striped table-hover ">
+						<thead>
+							<tr>
+							<th>ID</th>
+							<th>氏名</th>
+							<th>住所</th>
+							<th>電話番号</th>
+							<th>E-Mail</th>
+							<th>生年月日</th>
+							<th>入会年月日</th>
+							<th>退会年月日</th>
+							<th>変更</th><th>退会</th>
+							</tr>
+						</thead>
+						<tbody>
 
-<tr><td>ID</td><td>氏名</td><td>住所</td><td>電話番号</td><td>E-Mail</td><td>生年月日</td><td>入会年月日</td><td>退会年月日</td><td>変更</td><td>退会</td></tr>
-<tr><form action="/0608_problem/MemberServlet" method="post">
+
+<tr>
 
 <td>${imember.id}</td>
 <td>${imember.name}</td>
@@ -90,20 +138,22 @@ E-Mailもしくは会員ID、どちらか検索できます。<br>
 <td>${imember.joinDate}</td>
 <td>${imember.withdrawalDate}</td>
 
-<td><input type="submit" value="変更">
-    	 <input type ="hidden" name ="action" value ="confirmhenkou"></td>
-    	 </form>
-<form action="/0608_problem/MemberServlet" method="post">
+<td><form action="/0608_problem/MemberServlet" method="post"><input type="submit" value="変更">
+    	 <input type ="hidden" name ="action" value ="confirmhenkou"></form></td>
+
+ <td>
 <c:if test = "${imember.withdrawalDate eq null }">
-  <td><input type="submit" value="退会">
-    	 <input type ="hidden" name ="action" value ="confirmtaikai"></td></tr>
-    	 </c:if>
+ <form action="/0608_problem/MemberServlet" method="post"><input type="submit" value="退会">
+    	 <input type ="hidden" name ="action" value ="confirmtaikai"></form>
+ </c:if>
 <c:if test = "${imember.withdrawalDate ne null }">
-<td>退会済み</td></tr>
+退会済み
 </c:if>
-</form>
+</td>
+</tr>
 </table>
 </c:if>
 </c:if>
+<br><br>
 </body>
 </html>

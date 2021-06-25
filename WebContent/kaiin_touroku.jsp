@@ -50,8 +50,56 @@ return true;
 <body>
 
 <jsp:include page="/menu.jsp" />
-<h2>会員の新規登録</h2>
 
+
+<div style="width:50%;text-align:center">
+        <div class="well bs-component">
+          <form class="form-horizontal" onsubmit="return validateForm()" name="form1" action="/0608_problem/KasidasiServlet" method="post">
+            <fieldset>
+              <legend>会員の新規登録</legend>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label"> 氏名：</label>
+                <div class="col-lg-10">
+                  <input type="text"class="form-control" name="name"value = "${member.name }">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label"> 住所：</label>
+                <div class="col-lg-10">
+                 <input type="email"class="form-control" name="address"value = "${member.address }">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label"> 電話番号：</label>
+                <div class="col-lg-10">
+               <input type="text"class="form-control" name="tel"value = "${member.tel }">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label"> E-Mail：</label>
+                <div class="col-lg-10">
+                 <input type="text"class="form-control" name="mail"value = "${member.eMail }">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">生年月日：</label>
+                <div class="col-lg-10">
+                 <input type="date" class="form-control" name="birth"value = "${member.birth }">
+                  </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                  <button type="submit" class="btn btn-primary">登録確認</button>
+                </div>
+              </div>
+            </fieldset>
+            	 <input type ="hidden" name ="action" value ="search">
+            	 <input type="hidden" name="action" value="confirm">
+          </form>
+        </div>
+</div>
+
+<!--
 <form name="form1" onsubmit="return validateForm()" action="/0608_problem/MemberServlet"method="post">
 <input type="hidden" name="action" value="confirm">
 
@@ -62,5 +110,6 @@ return true;
   生年月日：<input type="date"  name="birth"value = "${member.birth }"><br>
   <input type="submit" value="登録確認">
 </form>
+ -->
 </body>
 </html>

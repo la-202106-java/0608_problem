@@ -14,6 +14,8 @@ public class LendingLedger {
 	private Date returnDeadline;
 	private Date returnDate;
 
+	private boolean isOut = false;
+
 	public LendingLedger() {
 		super();
 		this.member = new Member();
@@ -88,6 +90,15 @@ public class LendingLedger {
 
 			return "<div>" + returnDeadline.toString() + "</div>";
 		}
+	}
+
+	public boolean getIsOut() {
+		if (returnDeadline.compareTo(new Date()) < 0 && returnDate == null) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public void setReturnDeadline(Date returnDeadline) {

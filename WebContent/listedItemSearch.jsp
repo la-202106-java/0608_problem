@@ -62,12 +62,15 @@ ISBN：<br>
 <c:if test="${empty search_stock}">
 	<input type="checkbox" name="stock" value="true">在庫有のみ表示<br>
 </c:if>
-<c:if test="${search_my_item == 'true'}">
-	<input type="checkbox" name="my_item" value="true" checked="checked">自分が出品した商品のみ表示<br>
+<c:if test="${user=='member'}">
+	<c:if test="${search_my_item == 'true'}">
+		<input type="checkbox" name="my_item" value="true" checked="checked">自分が出品した商品のみ表示<br>
+	</c:if>
+	<c:if test="${empty search_my_item}">
+		<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
+	</c:if>
 </c:if>
-<c:if test="${empty search_my_item}">
-	<input type="checkbox" name="my_item" value="true">自分が出品した商品のみ表示<br>
-</c:if>
+
 
 <input type="hidden" name="action" value="search">
 <input type="submit" value="検索">

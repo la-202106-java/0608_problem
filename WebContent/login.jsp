@@ -12,7 +12,7 @@
 ${error}
 </c:if>
 <h1>ログイン</h1>
-<form action="/0608_problem/ShowPlanServlet" method="post">
+<form action="/0608_problem/ShowPlanServlet2" method="post">
 メールアドレス：<input type="text" name="email"><br>
 パスワード：<input type="password" name="password"><br>
 <input type="hidden" name="action" value="login">

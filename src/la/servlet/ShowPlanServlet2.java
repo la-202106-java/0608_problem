@@ -38,6 +38,7 @@ public class ShowPlanServlet2 extends HttpServlet {
 			gotoPage(request, response, "top2.jsp");
 		} else if (action.equals("complete")) { // 予約完了画面でトップページが押された場合
 			// sessionに保存した情報のうち必要のない情報、planなど？をnullとする
+			// いらん処理してるかも？セッションに何が保存されているか要確認
 			session.setAttribute("checkIn", null);
 			session.setAttribute("checkOut", null);
 			session.setAttribute("plans", null);
@@ -75,7 +76,8 @@ public class ShowPlanServlet2 extends HttpServlet {
 					session.setAttribute("member", member);
 					gotoPage(request, response, "/top2.jsp");
 				} else {
-					// ログイン失敗時の処理書く
+					request.setAttribute("error", "メールアドレスとパスワードが一致しませんでした");
+					gotoPage(request, response, "/login.jsp");
 				}
 			} else if (action.equals("registration")) { // 会員登録ボタンクリック時
 				String password = request.getParameter("password");

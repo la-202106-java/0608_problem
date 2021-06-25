@@ -22,7 +22,14 @@ public class MemberDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		String userType = (String) session.getAttribute("user");
+
+		if (userType == null || userType.length() == 0) {
+			gotoPage(request, response, "/LoginServlet");
+		} else if (userType.equals("member")) {
+			doPost(request, response);
+		}
 
 	}
 
@@ -58,13 +65,15 @@ public class MemberDetailServlet extends HttpServlet {
 				gotoPage(request, response, "/memberDetail.jsp");
 
 			} else if (userType.equals("admin")) {
-				String idStr = (String) session.getAttribute("member_id");
+				String idStr = (String) request.getParameter("member_id");
 				if (idStr == null || idStr.length() == 0) {
 					gotoPage(request, response, "/top");
 				} else {
 					int memberId = Integer.parseInt(idStr);
-
 					MemberBean member = dao.findMember(memberId);
+
+					request.setAttribute("member_info", member);
+					gotoPage(request, response, "/memberDetail.jsp");
 				}
 			}
 		} catch (Exception e) {

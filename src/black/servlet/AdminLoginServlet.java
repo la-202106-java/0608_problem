@@ -64,7 +64,7 @@ public class AdminLoginServlet extends HttpServlet {
 				if (bean != null) {
 					session.setAttribute("logined", bean);
 					session.setAttribute("user", "admin");
-					gotoPage(request, response, "/top.jsp");
+					gotoPage(request, response, "/top");
 				} else {
 					String message = "メールアドレスとパスワードが一致しません";
 					request.setAttribute("message", message);
@@ -73,7 +73,7 @@ public class AdminLoginServlet extends HttpServlet {
 			} else if (action.equals("logout")) {
 				session = request.getSession();
 				session.setAttribute("items", "none");
-				gotoPage(request, response, "/top.jsp");
+				gotoPage(request, response, "/top");
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();

@@ -22,7 +22,7 @@
 	<h1>会員情報</h1>
 	<br>
 
-	<h3>${logined.name}</h3>
+	<h3>${member_info.name}</h3>
 	<table>
 		<tr><td>住所</td><td>${member_info.address}</td></tr>
 		<tr><td>電話番号</td><td>${member_info.tel}</td></tr>
@@ -34,6 +34,7 @@
 		</c:if>
 		<tr><td>売上金額</td><td>${member_info.sales}</td></tr>
 	</table>
+	<br>
 
 	<form action="/0608_problem/LeaveServlet" method="post">
 		<input type="submit" value="退会">

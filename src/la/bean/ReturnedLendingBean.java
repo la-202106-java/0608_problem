@@ -10,6 +10,7 @@ public class ReturnedLendingBean {
 	private Date deadline;
 	private Date returnDate;
 	private String note;
+	private int overDays;
 
 	public ReturnedLendingBean() {
 	}
@@ -24,6 +25,27 @@ public class ReturnedLendingBean {
 		this.deadline = deadline;
 		this.returnDate = returnDate;
 		this.note = note;
+	}
+
+	public ReturnedLendingBean(int id, int bookId, int userId, Date lendingDate, Date deadline, Date returnDate,
+			String note, int overDays) {
+		super();
+		this.id = id;
+		this.bookId = bookId;
+		this.userId = userId;
+		this.lendingDate = lendingDate;
+		this.deadline = deadline;
+		this.returnDate = returnDate;
+		this.note = note;
+		this.overDays = overDays;
+	}
+
+	public int getOverDays() {
+		return overDays;
+	}
+
+	public void setOverDays(int overDays) {
+		this.overDays = overDays;
 	}
 
 	public int getId() {

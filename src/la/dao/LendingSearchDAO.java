@@ -207,7 +207,7 @@ public class LendingSearchDAO {
 		java.sql.Date currentDate = java.sql.Date.valueOf(strDate);
 
 		try {
-			String sql = "SELECT * FROM lending where ? > deadline";
+			String sql = "SELECT * FROM lending where ? > deadline ORDER BY deadline";
 			st = con.prepareStatement(sql);
 			st.setDate(1, currentDate);
 			rs = st.executeQuery();
@@ -223,6 +223,97 @@ public class LendingSearchDAO {
 				ReturnedLendingBean bean = new ReturnedLendingBean(id, bookId, userId, lendingDate, deadline,
 						retrunDate, note);
 				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
+	public List<ReturnedLendingBean> findOverdueAndDays() throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		Date current_date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String strDate = dateFormat.format(current_date);
+		java.sql.Date currentDate = java.sql.Date.valueOf(strDate);
+
+		try {
+			String sql = "SELECT id,book_id,user_id,lending_date,deadline,note,(? - deadline) as overDays FROM lending where ? > deadline ORDER BY deadline";
+			st = con.prepareStatement(sql);
+			st.setDate(1, currentDate);
+			st.setDate(2, currentDate);
+			rs = st.executeQuery();
+			List<ReturnedLendingBean> list = new ArrayList<ReturnedLendingBean>();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int bookId = rs.getInt("book_id");
+				int userId = rs.getInt("user_id");
+				Date lendingDate = rs.getDate("lending_date");
+				Date deadline = rs.getDate("deadline");
+				Date retrunDate = null;
+				String note = rs.getString("note");
+				int overDays = rs.getInt("overDays");
+				ReturnedLendingBean bean = new ReturnedLendingBean(id, bookId, userId, lendingDate, deadline,
+						retrunDate, note, overDays);
+				list.add(bean);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+
+	public List<Integer> exceededDays() throws DAOException {
+		if (con == null) {
+			con = dao.getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		Date current_date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String strDate = dateFormat.format(current_date);
+		java.sql.Date currentDate = java.sql.Date.valueOf(strDate);
+
+		try {
+			String sql = "SELECT (? - deadline) as exceededDay FROM lending where ? > deadline ORDER BY deadline";
+			st = con.prepareStatement(sql);
+			st.setDate(1, currentDate);
+			st.setDate(2, currentDate);
+			rs = st.executeQuery();
+			List<Integer> list = new ArrayList<Integer>();
+			while (rs.next()) {
+				Integer exceededDay = rs.getInt("exceededDay");
+				list.add(exceededDay);
 			}
 			return list;
 		} catch (Exception e) {

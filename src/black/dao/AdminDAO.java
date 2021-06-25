@@ -23,7 +23,7 @@ public class AdminDAO {
 		//addの際のエラー回避
 
 		String sql = "SELECT COUNT(*) FROM member";
-		String sql2 = "SELECT SETVAL('member_id_seq', ? , false)";
+		String sql2 = "SELECT SETVAL('admin_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery()) {
@@ -61,12 +61,11 @@ public class AdminDAO {
 		ResultSet rs = null;
 		try {
 			// SQL文の作成
-
 			String sql = "SELECT * FROM admin where email = ? AND pass = ?";
 
 			// PreparedStatementオブジェクトの取得
 			st = con.prepareStatement(sql);
-			// カテゴリの設定
+			// 設定
 			st.setString(1, mail);
 			st.setString(2, passwd);
 			// SQLの実行
@@ -78,7 +77,7 @@ public class AdminDAO {
 				String pass = rs.getString("pass");
 				bean = new AdminBean(id, email, pass);
 			}
-			// カテゴリ一覧をListとして返す
+
 			return bean;
 		} catch (Exception e) {
 			e.printStackTrace();

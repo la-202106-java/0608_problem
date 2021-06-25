@@ -25,7 +25,7 @@ public class ListedItemDAO {
 		//addの際のエラー回避
 
 		String sql = "SELECT COUNT(*) FROM member";
-		String sql2 = "SELECT SETVAL('member_id_seq', ? , false)";
+		String sql2 = "SELECT SETVAL('listed_item_id_seq', ? , false)";
 
 		try (PreparedStatement st = con.prepareStatement(sql);
 				ResultSet rs = st.executeQuery()) {
@@ -299,6 +299,8 @@ public class ListedItemDAO {
 		} finally {
 			try {
 				// リソースの開放
+				if (rs != null)
+					rs.close();
 				close();
 			} catch (Exception e) {
 				throw new DAOException("リソースの開放に失敗しました。");

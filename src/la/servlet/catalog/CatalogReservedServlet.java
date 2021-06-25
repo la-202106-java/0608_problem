@@ -1,7 +1,9 @@
 package la.servlet.catalog;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,12 +19,13 @@ import la.dao.BookDAO;
 import la.dao.DAOException;
 import la.dao.NowUserDAO;
 import la.dao.ReservationDAO;
+import la.dao.ReservedDAO;
 
 /**
- * Servlet implementation class CatalogLendingServlet
+ * Servlet implementation class CatalogReservedServlet
  */
-@WebServlet("/CatalogLendingServlet")
-public class CatalogLendingServlet extends HttpServlet {
+@WebServlet("/CatalogReservedServlet")
+public class CatalogReservedServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -30,7 +33,7 @@ public class CatalogLendingServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		if ("lending".equals(action)) {
+		if ("reserved".equals(action)) {
 			// 目録検索から取置ボタンを押して遷移してきた
 			String isbn = request.getParameter("isbn");
 			if (isbn == null || isbn.isBlank()) {
@@ -60,7 +63,7 @@ public class CatalogLendingServlet extends HttpServlet {
 			gotoPage(request, response, "/5_reserve_reserved/reserved.jsp");
 			return;
 		}
-		if ("lending_confirm".equals(action)) {
+		if ("reserved_confirm".equals(action)) {
 			// 取置画面で取置ボタンを押されたので取置確認画面へ
 			// 会員IDを取得して検索
 			String userId = request.getParameter("user_id");
@@ -78,10 +81,32 @@ public class CatalogLendingServlet extends HttpServlet {
 					gotoPage(request, response, "/5_reserve_reserved/reserved.jsp");
 					return;
 				}
-				request.setAttribute("isbn", request.getParameter("isbn"));
+				request.setAttribute("book_id", request.getParameter("book_id"));
 				request.setAttribute("title", request.getParameter("title"));
 				request.setAttribute("userBean", bean);
 				gotoPage(request, response, "/5_reserve_reserved/reserved_confirm.jsp");
+				return;
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
+		}
+		if ("reserved_confirm_execute".equals(action)) {
+			// 取置確定
+			String userId = request.getParameter("user_id");
+			String bookId = request.getParameter("book_id");
+			if (userId == null || userId.isBlank() || bookId == null || bookId.isBlank()) {
+				// TODO: 不正な遷移なのでエラーページへ
+				return;
+			}
+			try {
+				ReservedDAO dao = new ReservedDAO();
+				dao.addReserved(Integer.parseInt(userId), Integer.parseInt(bookId),
+						java.util.Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				// 取置できたので目録検索画面へ
+				request.setAttribute("message", "取置が完了しました");
+				gotoPage(request, response, "/5_reserve_reserved/catalog_search.jsp");
 				return;
 			} catch (DAOException e) {
 				e.printStackTrace();

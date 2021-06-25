@@ -45,7 +45,7 @@
 			      <td>${book.id}</td>
 			      <td>${book.title}</td>
 			      <td>
-			        <form action="/0608_problem/CatalogLendingServlet" method="post">
+			        <form action="/0608_problem/CatalogReservedServlet" method="post">
 			          <button type="submit" class="btn btn-secondary">取置</button>
 			          <input type="hidden" name="book_id" value="${book.id}">
 			          <input type="hidden" name="title" value="${book.title}">

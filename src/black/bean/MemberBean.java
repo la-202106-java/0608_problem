@@ -15,8 +15,9 @@ public class MemberBean implements Serializable {
 	private String pass;
 	private int sales = 0;
 
-	public MemberBean(int id, String name, String address, String tel, String email,
-			Date birthday, Date joinDate, String pass) {
+	//検索後表示用（会員検索、マイページ）
+	public MemberBean(int id, String name, String address, String tel, String email, Date birthday, Date joinDate,
+			Date quitDate, int sales) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,29 +26,11 @@ public class MemberBean implements Serializable {
 		this.email = email;
 		this.birthday = birthday;
 		this.joinDate = joinDate;
-		this.pass = pass;
-	}
-
-	public MemberBean(String name, String address, String tel, String email, Date birthday, int sales) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.tel = tel;
-		this.email = email;
-		this.birthday = birthday;
+		this.quitDate = quitDate;
 		this.sales = sales;
 	}
 
-	public MemberBean(String name, String address, String tel, String email, Date birthday, String pass) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.tel = tel;
-		this.email = email;
-		this.birthday = birthday;
-		this.pass = pass;
-	}
-
+	//登録時の入力情報保持用
 	public MemberBean(int id, String name, String address, String tel, String email, Date birthday, String pass) {
 		super();
 		this.id = id;

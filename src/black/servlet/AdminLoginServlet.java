@@ -20,19 +20,39 @@ import black.dao.DAOException;
  */
 @WebServlet("/AdminLoginServlet")
 public class AdminLoginServlet extends HttpServlet {
-	//仮のログイン用のパスワードとメールアドレス
-	//private static final String MAIL = "xyz@abc@.com";
-	//private static final String PASS = "abc";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//ログアウトはGETで処理
+		String action = request.getParameter("action");
+		if (action == null || action.length() == 0) {
+			gotoPage(request, response, "/adminLogin.jsp");
+		} else if (action.equals("logout")) {
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+			gotoPage(request, response, "/top");
+		} else {
+			gotoPage(request, response, "/adminLogin.jsp");
+		}
+	}
+
+	private void gotoPage(HttpServletRequest request,
+			HttpServletResponse response, String page) throws ServletException,
+			IOException {
+		RequestDispatcher rd = request.getRequestDispatcher(page);
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+
 		try {
-			request.setCharacterEncoding("UTF-8");
-			String action = request.getParameter("action");
-			HttpSession session = request.getSession();
 			AdminDAO dao = new AdminDAO();
 			if (action == null || action.length() == 0) {
 				gotoPage(request, response, "/adminLogin.jsp");
@@ -60,18 +80,5 @@ public class AdminLoginServlet extends HttpServlet {
 			request.setAttribute("messgae", "内部エラーが発生しました。");
 			gotoPage(request, response, "/errInternal.jsp");
 		}
-	}
-
-	private void gotoPage(HttpServletRequest request,
-			HttpServletResponse response, String page) throws ServletException,
-			IOException {
-		RequestDispatcher rd = request.getRequestDispatcher(page);
-		rd.forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 }

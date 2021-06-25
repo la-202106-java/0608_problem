@@ -38,8 +38,8 @@
 </c:forEach>
 </select><br>
 プラン内容：<input type="text" name="contents"><br>
-金額：<input type="number" name="fee">円<br>
-部屋数：<input type="number" name="room"><br>
+金額：<input type="number" min="1" name="fee">円<br>
+部屋数：<input type="number" min="1" name="room"><br>
 画像：<input type="text"name ="picture"><br>
 <input type="submit" value="追加">
 <input type="hidden" name="action" value="add">

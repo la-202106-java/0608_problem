@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +25,14 @@
         </header>
 
 	<form action="/0608_problem/admin/plan" method="get">
-		プランID：${planTarget.planId}<br> 宿ID：<input type="number" name="id"
-			value="${planTarget.innId}"><br> プラン内容：<input
+		プランID：${planTarget.planId}<br>
+宿名：
+<select name="id">
+<option value="${planTarget.innId}">変更なし</option>
+<c:forEach items="${Inns}" var="inn">
+<option value="${inn.id}">${inn.name}</option>
+</c:forEach>
+</select><br>プラン内容：<input
 			type="text" name="contents" value="${planTarget.content}"><br>
 		金額：<input type="number" name="fee" value="${planTarget.fee}">円<br>
 		部屋数：<input type="number" name="room" value="${planTarget.roomMax}"><br>

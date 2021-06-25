@@ -22,12 +22,14 @@
 <!-- キャンセルするボタン(LeaveServlet)-->
 <div style="display:inline-flex">
 <form action="/0608_problem/LeaveServlet" method= "post">
+<input type="hidden" name="member_id" value="${leavemember.id}">
 <input type="submit" value="キャンセル">
 <input type="hidden" name = "action" value="cancel">
 </form>
 
 <!-- 退会するボタン(LeaveServlet) -->
 <form action="/0608_problem/LeaveServlet" method= "post">
+<input type="hidden" name="member_id" value="${leavemember.id}">
 <input type="submit" value="退会する">
 <input type="hidden" name = "action" value="doleave">
 </form>

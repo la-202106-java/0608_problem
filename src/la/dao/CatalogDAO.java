@@ -233,7 +233,7 @@ public class CatalogDAO {
 					+ " FROM catalog c"
 					+ " LEFT OUTER JOIN book b on c.isbn = b.isbn"
 					+ " LEFT OUTER JOIN lending l on b.id = l.book_id"
-					+ " LEFT OUTER JOIN reserved r on b.id = r.book_id"
+					+ " LEFT OUTER JOIN reserved r on b.id = r.book_id AND r.lending_date IS NULL"
 					+ " WHERE c.title LIKE ?"
 					+ " GROUP BY c.isbn";
 			st = con.prepareStatement(sql);

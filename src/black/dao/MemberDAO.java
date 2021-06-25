@@ -352,7 +352,7 @@ public class MemberDAO {
 			getConnection();
 		}
 
-		String sql = "UPDATE member SET quit_date=? WHERE id=?";
+		String sql = "UPDATE member SET quit_date=?, WHERE id=?";
 
 		Date today = new Date(System.currentTimeMillis());
 

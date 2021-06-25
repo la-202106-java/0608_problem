@@ -23,11 +23,11 @@
 
 		<form action="/0608_problem/MemberRegistServlet?action=add" method="post">
 		<table>
-		<tr><td>名前</td><td>${logined-tmp.name}</td></tr>
-		<tr><td>住所</td><td>${logined-tmp.address}</td></tr>
-		<tr><td>電話番号</td><td>${logined-tmp.tel}</td></tr>
-		<tr><td>メールアドレス</td><td>${logined-tmp.email}</td></tr>
-		<tr><td>生年月日</td><td>${logined-tmp.birthday}</td></tr>
+		<tr><td>名前</td><td>${setName}</td></tr>
+		<tr><td>住所</td><td>${setAddress}</td></tr>
+		<tr><td>電話番号</td><td>${setTel}</td></tr>
+		<tr><td>メールアドレス</td><td>${setEmail}</td></tr>
+		<tr><td>生年月日</td><td>${setBirthday}</td></tr>
 		</table><br>
 		<input type="submit" value="登録">
 	</form>

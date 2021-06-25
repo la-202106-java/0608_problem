@@ -192,6 +192,14 @@ public class ListedItemBean implements Serializable {
 		this.buyerId = buyerId;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public boolean isInStock() {
 		return inStock;
 	}

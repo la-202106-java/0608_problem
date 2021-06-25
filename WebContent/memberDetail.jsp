@@ -20,16 +20,29 @@
 </c:if>
 
 	<h1>会員情報</h1>
-	<a href="">会員情報変更</a>
 	<br>
 
-	<h3>山田花子</h3>
-	住所：東京都新宿区1-1-1<br>
-	電話番号：090-999-9999<br>
-	E-Mail：sample@aaa.com<br>
-	生年月日：2000/01/01<br>
+	<h3>${logined.name}</h3>
+	<table>
+		<tr><td>住所</td><td>${member_info.address}</td></tr>
+		<tr><td>電話番号</td><td>${member_info.tel}</td></tr>
+		<tr><td>メールアドレス</td><td>${member_info.email}</td></tr>
+		<tr><td>生年月日</td><td>${member_info.birthday}</td></tr>
+		<tr><td>入会年月日</td><td>${member_info.joinDate}</td></tr>
+		<c:if test="${!empty member_info.quitDate}">
+			<tr><td>退会年月日</td><td>${member_info.quitDate}</td></tr>
+		</c:if>
+		<tr><td>売上金額</td><td>${member_info.sales}</td></tr>
+	</table>
 
-	<hr>
-	<a href="/0608_problem/LeaveServlet?action=leave">退会</a>
+	<form action="/0608_problem/LeaveServlet" method="post">
+		<input type="submit" value="退会">
+	</form>
+
+	<form action="/0608_problem/MemberRegistChangeServlet" method="post">
+		<input type="hidden" name="action" value="change">
+		<input type="submit" value="会員情報変更">
+	</form>
+
 </body>
 </html>

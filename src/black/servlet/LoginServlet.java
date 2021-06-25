@@ -20,14 +20,23 @@ import black.dao.MemberDAO;
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-	//仮のログイン用のパスワードとメールアドレス
-	//private static final String MAIL = "xyz@abc@.com";
-	//private static final String PASS = "abc";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		gotoPage(request, response, "/memberLogin.jsp");
+	}
+
+	private void gotoPage(HttpServletRequest request,
+			HttpServletResponse response, String page) throws ServletException,
+			IOException {
+		RequestDispatcher rd = request.getRequestDispatcher(page);
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -41,41 +50,28 @@ public class LoginServlet extends HttpServlet {
 				String mail = request.getParameter("email");
 				String password = request.getParameter("pass");
 				MemberBean bean = dao.findByEmailAndPassword(mail, password);
-				if (bean != null) {
+				if (bean != null && bean.getQuitDate() == null) {
 					session.setAttribute("logined", bean);
 					session.setAttribute("user", "member");
 					if (session.getAttribute("page").equals("textbuy")) {
-						gotoPage(request, response, "/top.jsp");
+						gotoPage(request, response, "/listedItemBuyCheck.jsp");
 					} else {
-						gotoPage(request, response, "/top.jsp");
+						gotoPage(request, response, "/top");
 					}
+
 				} else {
 					String message = "メールアドレスとパスワードが一致しません";
 					request.setAttribute("message", message);
 					gotoPage(request, response, "/memberLogin.jsp");
 				}
 			} else if (action.equals("logout")) {
-				session = request.getSession();
-				session.setAttribute("items", "none");
-				gotoPage(request, response, "/top.jsp");
+				session.invalidate();
+				gotoPage(request, response, "/top");
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 			request.setAttribute("messgae", "内部エラーが発生しました。");
 			gotoPage(request, response, "/errInternal.jsp");
 		}
-	}
-
-	private void gotoPage(HttpServletRequest request,
-			HttpServletResponse response, String page) throws ServletException,
-			IOException {
-		RequestDispatcher rd = request.getRequestDispatcher(page);
-		rd.forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 }

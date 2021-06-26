@@ -16,6 +16,46 @@ public class ReservationsDAOSub {
 		getConnection();
 	}
 
+	public int find(int memberId) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT COUNT(*) FROM reservations WHERE member_id = ?";
+
+			st = con.prepareStatement(sql);
+			st.setInt(1, memberId);
+
+			rs = st.executeQuery();
+
+			int reservationsNum = 0;
+			while (rs.next()) {
+				reservationsNum = rs.getInt(1);
+			}
+			rs.close();
+			st.close();
+
+			return reservationsNum;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				if (st != null)
+					st.close();
+				if (rs != null)
+					rs.close();
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
 	public void add(ReservationBean reservation) throws DAOException {
 		if (con == null) {
 			getConnection();

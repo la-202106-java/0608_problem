@@ -53,6 +53,18 @@ public class ReservationServlet extends HttpServlet {
 					String checkIn = (String) session.getAttribute("checkIn");
 					String checkOut = (String) session.getAttribute("checkOut");
 
+					ReservationsDAOSub dao = new ReservationsDAOSub();
+
+					// 既に予約しているプランの数を数え、5を超える場合は予約できない
+					int reservationsNum = dao.find(member.getId());
+
+					if (reservationsNum >= 5) {
+						String message = "予約プラン数が上限に達しています。";
+						request.setAttribute("error", message);
+						gotoPage(request, response, "/top2.jsp");
+						return;
+					}
+
 					ReservationBean reservation = new ReservationBean();
 					reservation.setMemberId(member.getId());
 					reservation.setPlanId(plan.getPlanId());
@@ -60,7 +72,6 @@ public class ReservationServlet extends HttpServlet {
 					reservation.setOutDate(checkOut);
 					reservation.setRoom(roomNum);
 
-					ReservationsDAOSub dao = new ReservationsDAOSub();
 					dao.add(reservation);
 
 					request.setAttribute("reservation", reservation);

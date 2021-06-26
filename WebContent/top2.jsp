@@ -100,7 +100,7 @@
                             <div class="col">
                                 <div class="card h-100">
                                     <img src="${plan.imgUrl}" class="card-img-top" alt="plan.content"
-                                        onerror="this.src='https://dummyimage.com/600x400/fff/000&text=%E7%94%BB%E5%83%8F%E3%81%AA%E3%81%97'">
+                                        onerror="this.src='https://dummyimage.com/600x400/fff/000&text=%E7%94%BB%E5%83%8F%E3%81%AA%E3%81%97'" width="250" height="200">
                                     <div class="card-body">
                                         <h5 class="card-title">${plan.inn.name}</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">${plan.content}</h6>

@@ -103,12 +103,16 @@ public class UserReservationDAO {
 			getConnection();
 		}
 		PreparedStatement st = null;
+		PreparedStatement st2 = null;
 
 		try {
 			String sql = "UPDATE reservations SET cancel_check = ? WHERE id = ?";
+			String sql2 = "DELETE FROM reservation_detail  WHERE reservation_id = ?";
 			st = con.prepareStatement(sql);
+			st2 = con.prepareStatement(sql2);
 			st.setBoolean(1, true);
 			st.setInt(2, reservationID);
+			st2.setInt(1, reservationID);
 			int rows = st.executeUpdate();
 			return rows;
 		} catch (Exception e) {

@@ -21,7 +21,7 @@
     </div>
     <div class="row">貸出をする資料IDを入力してください</div>
     <div class="row">
-      <form class="form-inline" method="get" action="/0608_problem/BookLendingServlet">
+      <form class="form-inline" method="get" action="/ShinjukuLibrary/BookLendingServlet">
         <div class="form-group">
           資料ID&nbsp;
           <input type="text" name="bookID">

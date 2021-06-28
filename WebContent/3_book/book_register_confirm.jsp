@@ -21,7 +21,7 @@
 <div class="m-3 p-3">
 <div class="col-9">
 
-<form action="/0608_problem/BookRegistServlet?action=confirm&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}" method="post">
+<form action="/ShinjukuLibrary/BookRegistServlet?action=confirm&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}" method="post">
  <div class="row">
 <h2>資料登録確認</h2>
 </div>
@@ -36,7 +36,7 @@ ISBN番号：${isbn}<br>
 </div>
 <div class="btn-toolbar">
  <div class="pr-3">
-<a  class="btn btn-secondary" href="/0608_problem/BookRegistServlet?action=back&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}">戻る</a>
+<a  class="btn btn-secondary" href="/ShinjukuLibrary/BookRegistServlet?action=back&title=${title}&isbn=${isbn}&arrival_date=${arrivalDate}">戻る</a>
 </div>
  <div class="pr-3">
 <input class="btn btn-primary" type="submit" value = 登録>

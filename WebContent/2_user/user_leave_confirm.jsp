@@ -25,7 +25,7 @@
 		email：${bean.email}<br>
 		生年月日：${bean.birthDate}<br>
 		入会年月日：${bean.joinDate}<br>
-		<form action = "/0608_problem/UserSearchServlet" method = "post">
+		<form action = "/ShinjukuLibrary/UserSearchServlet" method = "post">
 		<button class="btn btn-danger" type="submit">退会</button>
 		<input type="hidden" name ="action" value = "delete2">
 		<input type="hidden" name ="id" value = "${bean.id}">

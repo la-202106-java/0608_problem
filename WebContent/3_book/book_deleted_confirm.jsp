@@ -19,8 +19,8 @@
       <h4>以下の資料を削除してよろしいですか？</h4>
       <br>
       資料ID：${book.id}<br> ISBN番号：${book.id}<br> 資料名：${book.title}<br> 入荷日：${book.arrivalDate}<br> <br>
-      <a class="btn btn-secondary" href="/0608_problem/BookSearchServlet?action=search_id&bookID=${book.id}" role="button">戻る</a>
-      <a class="btn btn-danger" href="/0608_problem/BookDeleteServlet?action=delete&id=${book.id}" role="button">削除</a>
+      <a class="btn btn-secondary" href="/ShinjukuLibrary/BookSearchServlet?action=search_id&bookID=${book.id}" role="button">戻る</a>
+      <a class="btn btn-danger" href="/ShinjukuLibrary/BookDeleteServlet?action=delete&id=${book.id}" role="button">削除</a>
     </div>
   </div>
 </body>

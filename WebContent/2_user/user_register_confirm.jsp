@@ -27,7 +27,7 @@
 	<div class="btn-toolbar">
 		<div class="pr-3">
 			<div class="form-group">
-				<form action = "/0608_problem/UserRegisterServlet" method = "get" style="display:inline;">
+				<form action = "/ShinjukuLibrary/UserRegisterServlet" method = "get" style="display:inline;">
 				<button class="btn btn-secondary" type="submit">戻る</button>
 				<input type="hidden" name = "action" value = "return_register1" >
 				</form>
@@ -35,7 +35,7 @@
 		</div>
 		<div class="pr-3">
 			<div class="form-group">
-				<form action = "/0608_problem/UserRegisterServlet" method = "get" style="display:inline;">
+				<form action = "/ShinjukuLibrary/UserRegisterServlet" method = "get" style="display:inline;">
 				<button class="btn btn-primary" type="submit">登録</button>
 				<input type="hidden" name = "action" value = "register2" >
 				</form>

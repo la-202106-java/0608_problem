@@ -29,7 +29,7 @@
 	<font color="red">
 		<h4>会員情報をすべて入力してください</h4>
 	</font>
-	<form action = "/0608_problem/UserRegisterServlet" method = "post">
+	<form action = "/ShinjukuLibrary/UserRegisterServlet" method = "post">
 	<div class="form-group">
 		<br>氏名：<input type ="text" name = "name">
 	</div>

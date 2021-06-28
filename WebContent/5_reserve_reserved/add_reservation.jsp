@@ -30,7 +30,7 @@
 		会員ID <input type ="text" name = "user_id"><br>
 
 		<button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button>
-		<button type="submit" class="btn btn-primary" formaction="/0608_problem/CatalogReserveServlet">予約</button>
+		<button type="submit" class="btn btn-primary" formaction="/ShinjukuLibrary/CatalogReserveServlet">予約</button>
 		<input type="hidden" name="action" value="reserve_confirm">
 		<input type="hidden" name="isbn" value="${isbn}">
 		<input type="hidden" name="title" value="${title}">

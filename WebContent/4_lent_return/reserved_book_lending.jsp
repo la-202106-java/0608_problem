@@ -39,14 +39,14 @@
                 <td>${book.id}</td>
                 <td>${book.title}</td>
                 <td>
-                  <a class="btn btn-danger" href="/0608_problem/BookLendingServlet?action=bookSearch2&userID=${user.id}&bookID=${book.id}" role="button">貸出</a>
+                  <a class="btn btn-danger" href="/ShinjukuLibrary/BookLendingServlet?action=bookSearch2&userID=${user.id}&bookID=${book.id}" role="button">貸出</a>
                 </td>
               </tr>
             </c:forEach>
           </tbody>
         </table>
       </div>
-      <a class="btn btn-secondary" href="/0608_problem/BookLendingServlet" role="button">戻る</a> <a class="btn btn-primary" href="/0608_problem/BookLendingServlet?action=userSearch2&userID=${user.id}"
+      <a class="btn btn-secondary" href="/ShinjukuLibrary/BookLendingServlet" role="button">戻る</a> <a class="btn btn-primary" href="/ShinjukuLibrary/BookLendingServlet?action=userSearch2&userID=${user.id}"
         role="button">別の資料を貸出</a>
     </div>
     </div>

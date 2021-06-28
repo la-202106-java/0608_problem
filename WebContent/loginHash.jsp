@@ -12,7 +12,7 @@
 
 ${errMessage}
 
-<form action="/0608_problem/LoginServlet" method="post">
+<form action="/ShinjukuLibrary/LoginServlet" method="post">
 メールアドレス：<input type="text" name="email" size="20"><br>
 パスワード：<input type="text" name="password" size="20"><br>
 <input type="submit" value="ログイン">

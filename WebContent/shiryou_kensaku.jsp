@@ -110,7 +110,9 @@
 
 <form action="/0608_problem/Shiryou_haikiServlet" method="post">
 
-<input type="submit" value="廃棄"><input type ="hidden" name ="action" value ="dispose_confirm">
+<input type="submit" value="廃棄">
+<input type ="hidden" name ="action" value ="dispose_confirm">
+<input type="hidden" name="material_id" value="${item.material_id }" >
 
 </form>
 </c:if>

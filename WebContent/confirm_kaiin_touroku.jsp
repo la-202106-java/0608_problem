@@ -12,7 +12,6 @@
 
 <jsp:include page="/menu.jsp" />
 <h2>会員の新規登録確認</h2>
-<table>
 <form action="/0608_problem/MemberServlet"method="post">
 
 <h3>正しい情報が入力されていれば、『登録』ボタンを押してください。</h3>
@@ -23,9 +22,10 @@
   <input type="submit" value="キャンセル">
     <input type="hidden" name="action" value="cancel">
 </form>
-</table>
 <br>
-<table border="1">
+
+
+<table  class="table table-striped table-hover " style="width:40%">
 
 <tr><td>氏名</td><td>${ member.name}</td></tr>
 <tr><td>住所</td><td>${ member.address}</td></tr>

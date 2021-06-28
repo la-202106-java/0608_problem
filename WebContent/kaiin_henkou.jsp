@@ -44,8 +44,58 @@ return true;
 <jsp:include page="/menu.jsp" />
 
 <h2>会員情報の変更</h2>
+<h3>正しい情報が入力されていれば、『変更』ボタンを押してください。</h3>
+<div style="width:40%">
+        <div class="well bs-component">
+  <form class="form-horizontal" name="form1" onsubmit="return validateForm()"action="/0608_problem/MemberServlet" method="post">
+            <fieldset>
+              <legend>貸出情報の検索</legend>
+              <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">会員ID</label>
+                <div class="col-lg-10">
+                   ${imember.id }
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">氏名：</label>
+                <div class="col-lg-10">
+                  <input type="text" name="name" value = "${imember.name }" class="form-control" >
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">住所：</label>
+                <div class="col-lg-10">
+                 <input type="text" name="address"value = "${imember.address }"  class="form-control">
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">電話番号：</label>
+                <div class="col-lg-10">
+                 <input type="text" name="tel"value = "${imember.tel }"  class="form-control">
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">E-Mail：</label>
+                <div class="col-lg-10">
+                 <input type="text" name="email"value = "${ imember.eMail }"  class="form-control" >
+                  </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                  <button type="submit" class="btn btn-primary">変更</button>
+                </div>
+              </div>
+            </fieldset>
+            	 <input type ="hidden" name ="action" value ="search">
+          </form>
+               <form action="/0608_problem/MemberServlet" method="post">
+ <button type="submit" class="btn btn-primary">キャンセル</button>
+     <input type ="hidden" name ="action" value ="return">
+     </form>
+</div>
+</div>
 
-
+<!--
 <h3>正しい情報が入力されていれば、『変更』ボタンを押してください。</h3>
 <table border ="0">
 <form name="form1" onsubmit="return validateForm()"action="/0608_problem/MemberServlet" method="post">
@@ -63,5 +113,7 @@ return true;
      <input type ="hidden" name ="action" value ="return">
      </form>
 </table>
+
+ -->
 </body>
 </html>

@@ -58,6 +58,7 @@ public class ListedItemBuyServlet extends HttpServlet {
 				dao2.plusSales(sales, seller_id);
 				dao2.upflag(id, seller_id);
 				dao.updateItem(id, buyer_id);
+				request.setAttribute("item", item);
 				session.removeAttribute("item");
 				session.removeAttribute("page");
 				//setterの追加

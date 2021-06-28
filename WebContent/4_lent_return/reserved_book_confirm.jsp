@@ -14,8 +14,12 @@
   <jsp:include page="/navbar.jsp" />
   <div class="m-3 p-3">
     <div class="col-9">
+
       <h2>資料取置確認</h2>
-      以下の予約があります<br> 取り置いたら完了ボタンを押してください<br>
+      <h5>
+      以下の予約があります。<br> 取り置いたら完了ボタンを押してください<br>
+      </h5>
+
       会員番号：${top.id}<br>
       氏名：${top.name}<br>
       資料ID:${book.id}<br>

@@ -35,6 +35,7 @@
 	<tr><td>分類</td><td>${departments.get(item.departmentCode)}</td></tr>
 	<tr><td>著者名</td><td>${item.author}</td></tr>
 	<tr><td>売値</td><td>${item.price}</td></tr>
+	<tr><td>状態</td><td>${item.condition}</td></tr>
 	<tr><td>在庫</td>
 		<td>
 			<c:if test="${item.inStock}">〇</c:if>

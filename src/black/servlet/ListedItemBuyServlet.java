@@ -56,6 +56,7 @@ public class ListedItemBuyServlet extends HttpServlet {
 				MemberBean bean = dao2.findMember(seller_id);
 				sales += bean.getSales();
 				dao2.plusSales(sales, seller_id);
+				dao2.upflag(id, seller_id);
 				dao.updateItem(id, buyer_id);
 				session.removeAttribute("item");
 				session.removeAttribute("page");
@@ -70,7 +71,7 @@ public class ListedItemBuyServlet extends HttpServlet {
 
 			//教科書削除完了後、トップページに戻る
 			else if (action.equals("topReturn")) {
-				gotoPage(request, response, "/top.jsp");
+				gotoPage(request, response, "/top");
 			}
 		} catch (Exception e) {
 

@@ -107,13 +107,14 @@ public class UserReservationDAO {
 
 		try {
 			String sql = "UPDATE reservations SET cancel_check = ? WHERE id = ?";
-			String sql2 = "DELETE FROM reservation_detail  WHERE reservation_id = ?";
+			String sql2 = "DELETE FROM reservation_details  WHERE reservations_id = ?";
 			st = con.prepareStatement(sql);
 			st2 = con.prepareStatement(sql2);
 			st.setBoolean(1, true);
 			st.setInt(2, reservationID);
 			st2.setInt(1, reservationID);
 			int rows = st.executeUpdate();
+			st2.executeUpdate();
 			return rows;
 		} catch (Exception e) {
 			e.printStackTrace();

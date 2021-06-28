@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
 </head>
 <body>
+	<h4>新宿大学 教科書売買サイト</h4>
+
 	<a href="/0608_problem/top">TOP</a> |
 
 	<c:if test="${!empty logined}">

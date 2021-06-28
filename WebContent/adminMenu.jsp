@@ -8,6 +8,8 @@
 <title>教科書売買サイト</title>
 </head>
 <body>
+	<h4>新宿大学 教科書売買サイト</h4>
+
 	<a href="/0608_problem/top">TOP</a> |
 	<a href="/0608_problem/ListedItemSearchServlet">教科書検索</a> |
 	<a href="/0608_problem/MemberSearchServlet">会員検索</a> |

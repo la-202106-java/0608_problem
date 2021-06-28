@@ -19,15 +19,17 @@
 
 <h1>この教科書を削除しますか？</h1>
 
+<img src="${item.image}">
+
 <table>
-<tr><td>ISBN</td><td>タイトル</td><td>カテゴリ</td><td>著者</td><td>売値</td></tr>
-
-
-<tr><td>${setIsbn}</td><td>${setTtitle}</td><td>${setDepartment_code}</td><td>${setAuthor}</td><td>${setPrice}</td></tr>
-
+<tr><td>ISBN</td><td>${item.isbn}</td></tr>
+<tr><td>タイトル</td><td>${item.title}</td></tr>
+<tr><td>分類</td><td>${departments.get(item.departmentCode)}</td></tr>
+<tr><td>著者名</td><td>${item.author}</td></tr>
+<tr><td>売値</td><td>${item.price}</td></tr>
+<tr><td>状態</td><td>${item.condition}</td></tr>
 
 </table>
-
 
 <div style="display:inline-flex">
 <!-- 削除するボタン(DeleteServlet) -->

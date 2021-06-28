@@ -30,7 +30,6 @@
 	<img src="${item.image}">
 
 	<table>
-	<tr><td>ID</td><td>${item.id}</td></tr>
 	<tr><td>ISBN</td><td>${item.isbn}</td></tr>
 	<tr><td>タイトル</td><td>${item.title}</td></tr>
 	<tr><td>分類</td><td>${departments.get(item.departmentCode)}</td></tr>

@@ -19,7 +19,7 @@
 
 <h1>この教科書を削除しますか？</h1>
 
-<table border="1">
+<table>
 <tr><td>ISBN</td><td>タイトル</td><td>カテゴリ</td><td>著者</td><td>売値</td></tr>
 
 

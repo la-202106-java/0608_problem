@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
-<title>Insert title here</title>
+<title>教科書売買サイト</title>
 </head>
 <body>
 
@@ -21,8 +21,9 @@
 
 <h1>この教科書を購入しますか？</h1>
 
-<table border="1">
-<tr><td>ID</td><td>${item.id}</td></tr>
+<img src="${item.image}">
+
+<table>
 <tr><td>ISBN</td><td>${item.isbn}</td></tr>
 <tr><td>タイトル</td><td>${item.title}</td></tr>
 <tr><td>分類</td><td>${departments.get(item.departmentCode)}</td></tr>

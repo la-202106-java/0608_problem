@@ -15,7 +15,7 @@
 <h3>変更完了しました。</h3>
 <br>
 
-<table border="1">
+<table  class="table table-striped table-hover " style="width:40%">
 <tr><td>会員ID</td><td>${upmember.id}</td></tr>
 <tr><td>氏名</td><td>${upmember.name }</td></tr>
 <tr><td>住所</td><td>${upmember.address }</td></tr>

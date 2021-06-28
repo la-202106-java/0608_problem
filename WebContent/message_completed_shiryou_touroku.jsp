@@ -14,7 +14,7 @@
 <h2>下記情報の登録が完了しました</h2>
 
 <br>
-<table border="1">
+<table  class="table table-striped table-hover " style="width:40%">
 <tr><td>資料ID</td><td>${bbean.id}</td></tr>
 <tr><td>資料名</td><td>${beans.title}</td></tr>
 <tr><td>ISBN</td><td>${bbean.isbn}</td></tr>

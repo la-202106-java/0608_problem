@@ -27,7 +27,8 @@
   <input type="submit" value="修正">
 </form>
 <br>
-<table border="1">
+
+<table  class="table table-striped table-hover " style="width:40%">
 <tr><td>ISBN番号</td><td>${beans.isbn}</td></tr>
 <tr><td>資料名</td><td>${beans.title}</td></tr>
 <tr><td>カテゴリコード</td><td>${beans1.name}</td></tr>

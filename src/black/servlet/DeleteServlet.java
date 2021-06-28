@@ -62,7 +62,7 @@ public class DeleteServlet extends HttpServlet {
 			}
 			//キャンセル　教科書詳細ページに行く
 			else if (action.equals("cancel")) {
-				gotoPage(request, response, "/ListedItemDetail.jsp");
+				gotoPage(request, response, "/ListedItemDetailServlet");
 			}
 
 			//教科書削除完了後、トップページに戻る

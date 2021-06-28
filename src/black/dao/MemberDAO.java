@@ -131,8 +131,9 @@ public class MemberDAO {
 				Date joinDate = rs.getDate("join_date");
 				Date quitDate = rs.getDate("quit_date");
 				int sales = rs.getInt("sales");
+				int info_flag = rs.getInt("info_flag");
 				MemberBean bean = new MemberBean(id, name, address, tel, email,
-						birthday, joinDate, quitDate, sales);
+						birthday, joinDate, quitDate, sales, info_flag);
 				return bean;
 			}
 			return null;
@@ -387,6 +388,61 @@ public class MemberDAO {
 		try (PreparedStatement st = con.prepareStatement(sql)) {
 			st.setInt(1, sales);
 			st.setInt(2, id);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	//通知用フラグの設定
+	public void upflag(int item_id, int member_id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "UPDATE member SET info_flag=? WHERE id=?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, item_id);
+			st.setInt(2, member_id);
+
+			//SQL実行
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		} finally {
+			try {
+				// リソースの開放
+				close();
+			} catch (Exception e) {
+				throw new DAOException("リソースの開放に失敗しました。");
+			}
+		}
+	}
+
+	//フラグの初期化
+	public void deflag(int member_id) throws DAOException {
+		if (con == null) {
+			getConnection();
+		}
+
+		String sql = "UPDATE member SET info_flag=0 WHERE id=?";
+
+		try (PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, member_id);
 
 			//SQL実行
 			st.executeUpdate();

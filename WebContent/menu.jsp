@@ -28,6 +28,10 @@
 	<a href="/0608_problem/LoginServlet">ログイン</a> |
 	<a href="/0608_problem/MemberRegistServlet">会員登録</a>
 	</c:if>
+	<br>
+	<c:if test="${flag > 0}">
+	<a href="/0608_problem/ListedItemBuyedCheck">購入された商品があります</a>
+	</c:if>
 
 
 

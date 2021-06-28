@@ -60,6 +60,8 @@ public class AdminTopServlet extends HttpServlet {
 				}
 			} else if (link.equals("searchPlan")) {
 				gotoPage(request, response, "/adminSearchPlan.jsp");
+			} else if (link.equals("reservation")) {
+				gotoPage(request, response, "/adminSearchReservation.jsp");
 			} else {
 				gotoPage(request, response, "/adminTop.jsp");
 			}

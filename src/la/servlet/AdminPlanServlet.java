@@ -65,9 +65,17 @@ public class AdminPlanServlet extends HttpServlet {
 					int PlanID = Integer.parseInt(request.getParameter("planid"));
 					int innID = Integer.parseInt(request.getParameter("id"));
 					String content = request.getParameter("contents");
-					int fee = Integer.parseInt(request.getParameter("fee"));
-					int roomMax = Integer.parseInt(request.getParameter("room"));
+					String StringFee = request.getParameter("fee");
+					String rmax = request.getParameter("room");
 					String imgUrl = request.getParameter("picture");
+					if (content == null || content.length() == 0 || StringFee == null || StringFee.length() == 0
+							|| rmax == null || rmax.length() == 0 || imgUrl == null || imgUrl.length() == 0) {
+						gotoPage(request, response, "/adminSearchPlan.jsp");
+						return;
+					}
+					int fee = Integer.parseInt(StringFee);
+					int roomMax = Integer.parseInt(rmax);
+
 					PlanBean target = new PlanBean(innID, content, fee, roomMax, imgUrl);
 					target.setPlanId(PlanID);
 					AdminInnDAO idao = new AdminInnDAO();

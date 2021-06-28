@@ -14,6 +14,7 @@
 <a href="/0608_problem/admin/top?link=searchInn">宿情報の検索</a>|
 <a href="/0608_problem/admin/top?link=addPlan">プラン情報の追加</a>|
 <a href="/0608_problem/admin/top?link=searchPlan">プラン情報の検索</a>|
+<a href="/0608_problem/admin/top?link=reservation">予約の検索</a>|
 <c:if test="${not empty isAdminLogin}">
 <form action="/0608_problem/admin/login" method="post" style="display:inline">
 <input type="submit" value="ログアウト">

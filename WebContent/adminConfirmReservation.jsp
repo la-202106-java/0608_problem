@@ -27,7 +27,7 @@
 
 
 <c:if test="${not empty Reservations}">
-紐づいている予約
+削除されたプランに紐づいている予約
 
 	<table border="1">
 		<tr>

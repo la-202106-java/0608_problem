@@ -119,8 +119,20 @@ public class AdminDeleteServlet extends HttpServlet {
 						AdminReservationDAO rdao = new AdminReservationDAO();
 						rdao.quitReservation(yoyakuID);
 					}
-					request.setAttribute("Reservations", list);
+					session.setAttribute("Reservations", list);
 					gotoPage(request, response, "/adminConfirmReservation.jsp");
+				} else if (action.equals("searchReservation")) {
+					AdminReservationDAO rdao = new AdminReservationDAO();
+					String name = request.getParameter("name");
+					List<ReservationBean> list = rdao.searchReservation(name);
+					request.setAttribute("ReservationsByName", list);
+					gotoPage(request, response, "/adminSearchReservation.jsp");
+				} else if (action.equals("reservationCancel")) {
+					AdminReservationDAO rdao = new AdminReservationDAO();
+					int yoyakuID = Integer.parseInt(request.getParameter("id"));
+					rdao.quitReservation(yoyakuID);
+					request.setAttribute("message", "予約ID：" + yoyakuID + "を削除しました。");
+					gotoPage(request, response, "/adminSearchReservation.jsp");
 				} else {
 					request.setAttribute("message", "正しく操作してください。");
 					gotoPage(request, response, "/errInternal.jsp");

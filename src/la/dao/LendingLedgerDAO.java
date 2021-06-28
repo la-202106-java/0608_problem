@@ -21,6 +21,7 @@ public class LendingLedgerDAO {
 
 	public List<LendingLedger> findUnreturn(int mid) {
 		Member member = new Member();
+
 		member.setId(mid);
 		List<LendingLedger> list = this.findByBean(member);
 		List<LendingLedger> result = new ArrayList<LendingLedger>();

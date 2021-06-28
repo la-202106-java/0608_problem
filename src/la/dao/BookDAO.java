@@ -28,7 +28,7 @@ public class BookDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM book";
+			String sql = "SELECT * FROM book ORDER BY id";
 			st = con.prepareStatement(sql);
 			rs = st.executeQuery();
 			List<BookBean> list = new ArrayList<BookBean>();

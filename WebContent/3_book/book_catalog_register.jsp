@@ -38,7 +38,20 @@ ISBN番号：<input type ="text" name = "isbn" value="${isbn}"><br>
 </div>
 <br>
 <div class="form-group">
-分類コード：<input type ="number" name = "code"><br>
+分類コード：
+<select name="code">
+<option value="0">0:総記</option>
+<option value="1">1:哲学</option>
+<option value="2">2:歴史</option>
+<option value="3">3:社会科学</option>
+<option value="4">4:自然科学</option>
+<option value="5">5:技術</option>
+<option value="6">6:産業</option>
+<option value="7">7:芸術</option>
+<option value="8">8:言語</option>
+<option value="9">9:文学</option>
+</select>
+<br>
 </div>
 <div class="form-group">
 著者：<input type ="text" name = "author"><br>

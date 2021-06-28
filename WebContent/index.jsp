@@ -228,7 +228,7 @@ time{
 <div class="split">
     <div class="split-item split-left">
         <div class="split-left__inner">
-             <img src="/0608_problem/facebook_profile_image.png" width="400px">
+             <img src="/0608_problem/facebook_profile_image.png" width="150px">
              <br>
              <div id="tete">
              <p>ようこそ、<br>

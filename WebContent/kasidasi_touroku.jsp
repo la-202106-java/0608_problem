@@ -60,7 +60,7 @@ return true;
               <div class="form-group">
                 <label for="inputEmail" class="col-lg-3 control-label">会員ID：</label>
                 <div class="col-lg-9">
-                  <input type="text"  class="form-control" name="mid4add" value="${mid }" maxlength="13">
+                  <input type="text"  class="form-control" name="mid4add" value="${mid }" maxlength="9">
                 </div>
               </div>
               <div class="form-group">

@@ -47,7 +47,7 @@ return true;
               <div class="form-group">
                 <label for="inputEmail" class="col-lg-2 control-label">会員ID</label>
                 <div class="col-lg-10">
-                  <input type="text"  class="form-control" name="mid" value="${mid }" maxlength="13">
+                  <input type="text"  class="form-control" name="mid" value="${mid }" maxlength="9">
                 </div>
               </div>
               <div class="form-group">

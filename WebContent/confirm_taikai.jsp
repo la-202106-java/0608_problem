@@ -14,7 +14,10 @@
 <h2>会員の退会確認</h2>
 
 <h3>正しい情報が入力されていれば、『退会』ボタンを押してください。</h3>
-<table border="1">
+
+
+
+<table  class="table table-striped table-hover " style="width:40%">
 <tr><td>ID</td><td>${ imember.id}</td></tr>
 <tr><td>氏名</td><td>${imember.name}</td></tr>
 <tr><td>住所</td><td>${imember.address}</td></tr>
@@ -26,11 +29,11 @@
 <br>
 <table >
 	<form action="/0608_problem/MemberServlet" method="post">
-  <input type="submit" value="退会" >
+  <button type="submit" class="btn btn-primary">退会</button>
   <input type ="hidden" name ="action" value ="delete">
   </form>
   <form action="/0608_problem/MemberServlet" method="post">
-  <input type="submit" value="キャンセル">
+  <button type="submit" class="btn btn-primary">キャンセル</button>
   <input type ="hidden" name ="action" value ="canceltaikai">
 </form>
 </table>

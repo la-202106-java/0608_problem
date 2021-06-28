@@ -15,11 +15,12 @@
 <form action="/0608_problem/MemberServlet"method="post">
 
 <h3>正しい情報が入力されていれば、『登録』ボタンを押してください。</h3>
-  <input type="submit" value="登録">
+
+ <button type="submit" class="btn btn-primary">登録</button>
   <input type="hidden" name="action" value="addmember">
   </form>
 	  <form action="/0608_problem/MemberServlet"method="post">
-  <input type="submit" value="キャンセル">
+ <button type="submit" class="btn btn-primary">キャンセル</button>
     <input type="hidden" name="action" value="cancel">
 </form>
 <br>

@@ -42,14 +42,12 @@ return true;
 <body>
 
 <jsp:include page="/menu.jsp" />
-
-<h2>会員情報の変更</h2>
 <h3>正しい情報が入力されていれば、『変更』ボタンを押してください。</h3>
-<div style="width:40%">
+<div style="width:50%">
         <div class="well bs-component">
   <form class="form-horizontal" name="form1" onsubmit="return validateForm()"action="/0608_problem/MemberServlet" method="post">
             <fieldset>
-              <legend>貸出情報の検索</legend>
+              <legend>会員情報の変更</legend>
               <div class="form-group">
                 <label for="inputEmail" class="col-lg-2 control-label">会員ID</label>
                 <div class="col-lg-10">
@@ -83,15 +81,26 @@ return true;
               <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
                   <button type="submit" class="btn btn-primary">変更</button>
+     <input type ="hidden" name ="action" value ="update">
                 </div>
               </div>
             </fieldset>
-            	 <input type ="hidden" name ="action" value ="search">
           </form>
-               <form action="/0608_problem/MemberServlet" method="post">
+
+<fieldset>
+
+
+         <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-1">
+                 <form action="/0608_problem/MemberServlet" method="post">
  <button type="submit" class="btn btn-primary">キャンセル</button>
      <input type ="hidden" name ="action" value ="return">
      </form>
+                </div>
+              </div>
+
+              </fieldset>
+
 </div>
 </div>
 

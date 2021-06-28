@@ -62,7 +62,8 @@ return true;
 </div>
 
 <form action="/0608_problem/MemberServlet" method="post">
- <input type="submit" value="会員一覧">
+
+ <button type="submit" class="btn btn-primary">会員一覧</button>
   	 <input type ="hidden" name ="action" value ="memberlist">
 </form>
 

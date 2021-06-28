@@ -35,7 +35,7 @@ ISBN番号：${book.isbn}<br>
 <br>
 <div class="btn-toolbar">
  <div class="pr-3">
-<form action="/0608_problem/BookRegistServlet?action=bookBack" method="post">
+<form action="/ShinjukuLibrary/BookRegistServlet?action=bookBack" method="post">
 <input type ="hidden" name = "title" value="${book.title}">
 <input type ="hidden" name = "isbn" value="${book.isbn}">
 <input type ="hidden" name = "arrivalDate" value="${book.arrivalDate}">
@@ -47,7 +47,7 @@ ISBN番号：${book.isbn}<br>
 </form>
 </div>
 <div class="pr-3">
-<form action="/0608_problem/BookRegistServlet?action=bookRegist" method="post">
+<form action="/ShinjukuLibrary/BookRegistServlet?action=bookRegist" method="post">
 <input type ="hidden" name = "title" value="${book.title}">
 <input type ="hidden" name = "isbn" value="${book.isbn}">
 <input type ="hidden" name = "arrivalDate" value="${book.arrivalDate}">

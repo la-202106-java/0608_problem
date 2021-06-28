@@ -25,7 +25,7 @@
 
 		<form method="post">
 		<button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button>
-			<button type="submit" class="btn btn-primary" formaction="/0608_problem/CatalogReserveServlet">予約</button>
+			<button type="submit" class="btn btn-primary" formaction="/ShinjukuLibrary/CatalogReserveServlet">予約</button>
 			<input type="hidden" name="action" value="reserve_confirm_execute">
 			<input type="hidden" name="isbn" value="${isbn}">
 			<input type="hidden" name="user_id" value="${userBean.id}">

@@ -27,7 +27,7 @@
 			  ${message}
 			</div>
 		</c:if>
-		<form action="/0608_problem/CatalogSearchServlet" method="post">
+		<form action="/ShinjukuLibrary/CatalogSearchServlet" method="post">
 		資料名 <input type ="text" name = "titles" value="${titles}"><input type="submit" value = 検索>
 		</form>
 
@@ -55,7 +55,7 @@
 			      <td>在庫${item.stockCount}</td>
 			      <c:if test="${item.stockCount eq 0}">
 				      <td>
-				        <form action="/0608_problem/CatalogReserveServlet" method="post">
+				        <form action="/ShinjukuLibrary/CatalogReserveServlet" method="post">
 				          <button type="submit" class="btn btn-primary">予約</button>
 				          <input type="hidden" name="isbn" value="${item.isbn}">
 				          <input type="hidden" name="title" value="${item.title}">
@@ -65,7 +65,7 @@
 			      </c:if>
 			      <c:if test="${item.stockCount ne 0}">
 				      <td>
-				        <form action="/0608_problem/CatalogReservedServlet" method="post">
+				        <form action="/ShinjukuLibrary/CatalogReservedServlet" method="post">
 				          <button type="submit" class="btn btn-secondary">取置</button>
 				          <input type="hidden" name="isbn" value="${item.isbn}">
 				          <input type="hidden" name="title" value="${item.title}">

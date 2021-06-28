@@ -27,7 +27,7 @@
 
 ${message}
 <br>
-<form action="/0608_problem/BookRegistServlet?action=regist" method="post">
+<form action="/ShinjukuLibrary/BookRegistServlet?action=regist" method="post">
 <div class="form-group">
 資料名：<input type ="text" name = "title" value="${title}" placeholder="">
 </div>

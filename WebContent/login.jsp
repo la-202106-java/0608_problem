@@ -21,7 +21,7 @@
 
       <!-- 入力フォーム -->
       <div class="col-6">
-        <form action="/0608_problem/LoginServlet" method="post">
+        <form action="/ShinjukuLibrary/LoginServlet" method="post">
           <div class="form-group">
             <label for="InputEmail">メールアドレス</label>
             <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="xxx@gmail.com">

@@ -26,7 +26,7 @@
 ${message}
 <br>
 <c:if test="${empty code}" >
-<form action="/0608_problem/BookRegistServlet?action=bookConfirm" method="post">
+<form action="/ShinjukuLibrary/BookRegistServlet?action=bookConfirm" method="post">
 <div class="form-group">
 資料名：<input type ="text" name = "title" value="${title}"><br>
 </div>
@@ -68,7 +68,7 @@ ISBN番号：<input type ="text" name = "isbn" value="${isbn}"><br>
 </c:if>
 
 <c:if test="${!empty code}" >
-<form action="/0608_problem/BookRegistServlet?action=bookConfirm" method="post">
+<form action="/ShinjukuLibrary/BookRegistServlet?action=bookConfirm" method="post">
 <div class="form-group">
 資料名：<input type ="text" name = "title" value="${title}"><br>
 </div>

@@ -18,20 +18,20 @@
       <div class="form-group">
       <div style="display:inline-flex">
       <div class="pr-3">
-        <form class="form-inline" action="/0608_problem/LendingSearchServlet?action=book" method="post">
+        <form class="form-inline" action="/ShinjukuLibrary/LendingSearchServlet?action=book" method="post">
           資料ID&nbsp;
           <input type="text" name="book_id">
           <input type="submit" value=検索>
         </form>
         </div>
-        <form class="form-inline" action="/0608_problem/LendingSearchServlet?action=overdue" method="post">
+        <form class="form-inline" action="/ShinjukuLibrary/LendingSearchServlet?action=overdue" method="post">
           <button type="submit" class="btn btn-danger">延滞資料一覧</button>
         </form>
       </div>
       </div>
 
       <div class="form-group">
-        <form class="form-inline" action="/0608_problem/LendingSearchServlet?action=user" method="post">
+        <form class="form-inline" action="/ShinjukuLibrary/LendingSearchServlet?action=user" method="post">
 
           会員ID&nbsp;
           <input type="text" name="user_id">

@@ -34,38 +34,38 @@
               </tr>
               <tr>
                 <td>
-                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/UserSearchServlet" role="button">
+                  <a class="btn btn-outline-dark btn-lg" href="/ShinjukuLibrary/UserSearchServlet" role="button">
                     会員検索 <i class="fas fa-search" ></i></a>
                 </td>
                 <td>
-                  <a class="btn btn-secondary btn-lg" href="/0608_problem/BookSearchServlet" role="button">
+                  <a class="btn btn-secondary btn-lg" href="/ShinjukuLibrary/BookSearchServlet" role="button">
                     資料検索 <i class="fas fa-search"></i>
                   </a>
                 </td>
                 <td>
-                  <a class="btn btn-secondary btn-lg" href="/0608_problem/BookRegistServlet" role="button">
+                  <a class="btn btn-secondary btn-lg" href="/ShinjukuLibrary/BookRegistServlet" role="button">
 	                  資料登録 <i class="fas fa-plus-circle"></i>
                   </a>
                 </td>
                 <td>
-                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/CatalogSearchServlet" role="button">
+                  <a class="btn btn-outline-dark btn-lg" href="/ShinjukuLibrary/CatalogSearchServlet" role="button">
                     目録検索 <i class="fas fa-search"></i>
                   </a>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/UserRegisterServlet" role="button">
+                  <a class="btn btn-outline-dark btn-lg" href="/ShinjukuLibrary/UserRegisterServlet" role="button">
                   会員登録 <i class="fas fa-plus-circle" ></i></a>
                 </td>
                 <td>
-                  <a class="btn btn-danger btn-lg"  href="/0608_problem/BookLendingServlet" role="button">資料貸出</a>
+                  <a class="btn btn-danger btn-lg"  href="/ShinjukuLibrary/BookLendingServlet" role="button">資料貸出</a>
                 </td>
                 <td>
-                  <a class="btn btn-secondary btn-lg" href="/0608_problem/LendingSearchServlet">貸出履歴 <i class="fas fa-search"></i></a>
+                  <a class="btn btn-secondary btn-lg" href="/ShinjukuLibrary/LendingSearchServlet">貸出履歴 <i class="fas fa-search"></i></a>
                 </td>
                 <td>
-                  <a class="btn btn-outline-dark btn-lg" href="/0608_problem/CatalogRegistServlet" role="button">
+                  <a class="btn btn-outline-dark btn-lg" href="/ShinjukuLibrary/CatalogRegistServlet" role="button">
                   	目録登録 <i class="fas fa-plus-circle"></i>
                   </a>
                 </td>
@@ -73,7 +73,7 @@
               <tr>
                 <td></td>
                 <td>
-                <a class="btn btn-primary btn-lg" href="/0608_problem/BookReturningServlet" role="button">資料返却</a>
+                <a class="btn btn-primary btn-lg" href="/ShinjukuLibrary/BookReturningServlet" role="button">資料返却</a>
                 </td>
                 <td></td>
                 <td></td>
@@ -108,7 +108,7 @@
                 <tr>
                   <td scope="row">${book.id}</td>
                   <td>
-                  <a href="/0608_problem/UserSearchServlet?action=detail&id=${book.userId}">${book.userId}</a>
+                  <a href="/ShinjukuLibrary/UserSearchServlet?action=detail&id=${book.userId}">${book.userId}</a>
                   </td>
                   <td>${book.bookId}</td>
            		  <td>${book.lendingDate}</td>

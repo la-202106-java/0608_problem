@@ -27,7 +27,7 @@
     <h5>返却をする資料IDを入力してください</h5><br>
     </div>
     <div class="row">
-      <form class="form-inline" action="/0608_problem/BookReturningServlet" method="get">
+      <form class="form-inline" action="/ShinjukuLibrary/BookReturningServlet" method="get">
         <div class="form-group">
           資料ID&nbsp;
           <input type="text" name="bookID" class="form-control" id="InputID" placeholder="123">

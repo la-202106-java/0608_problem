@@ -21,7 +21,7 @@
       <h2>資料検索</h2>
     </div>
     <div class="row">
-      <form class="form-inline" action="/0608_problem/BookSearchServlet" method="get">
+      <form class="form-inline" action="/ShinjukuLibrary/BookSearchServlet" method="get">
         <div class="form-group">
           資料ID&nbsp;
           <input type="text" name="bookID" class="form-control" id="InputID" placeholder="123">
@@ -29,7 +29,7 @@
           <input type="submit" value="検索">
         </div>
       </form>
-      <form class="form-inline" action="/0608_problem/BookSearchServlet" method="get">
+      <form class="form-inline" action="/ShinjukuLibrary/BookSearchServlet" method="get">
         <div class="form-group">
           &nbsp;ISBN番号&nbsp;
           <input type="text" name="isbn" class="form-control" id="InputISBN" placeholder="9784111111111">
@@ -37,7 +37,7 @@
           <input type="submit" value="検索">
         </div>
       </form>
-      <form class="form-inline" action="/0608_problem/BookSearchServlet" method="get">
+      <form class="form-inline" action="/ShinjukuLibrary/BookSearchServlet" method="get">
         <div class="form-group">
           &nbsp;資料名&nbsp;
           <input type="text" name="title" class="form-control" id="InputTitle" placeholder="よい子の">
@@ -90,7 +90,7 @@
             </td>
             <td>${book.note}</td>
             <td>
-              <a class="btn btn-danger" href="/0608_problem/BookDeleteServlet?&id=${book.id}" role="button">削除</a>
+              <a class="btn btn-danger" href="/ShinjukuLibrary/BookDeleteServlet?&id=${book.id}" role="button">削除</a>
             </td>
           </tr>
         </c:forEach>

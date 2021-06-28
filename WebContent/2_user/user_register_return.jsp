@@ -30,7 +30,7 @@
     <div class="col-9">
 	<h2>会員登録</h2>
 	<h4>新規会員情報を入力してください</h4>
-	<form action = "/0608_problem/UserRegisterServlet" method = "post">
+	<form action = "/ShinjukuLibrary/UserRegisterServlet" method = "post">
 	<div class="form-group">
 		<br>氏名：<input type ="text" name = "name" value="${bean.name}">
 	</div>

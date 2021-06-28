@@ -17,7 +17,7 @@
 <div class="m-3 p-3">
 	<div class="col-9">
 		<h2>会員更新確認</h2>
-		<form action = "/0608_problem/UserSearchServlet" method = "post">
+		<form action = "/ShinjukuLibrary/UserSearchServlet" method = "post">
 		<h4>以下の情報で会員情報を更新してよろしいですか？</h4>
 		<br>会員ID：${bean.id}<br>
 		氏名：${bean.name}<br>

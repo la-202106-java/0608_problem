@@ -19,7 +19,7 @@
 <div class="m-3 p-3">
 	<div class="col-9">
 		<h2>会員検索結果</h2>
-		<form class="form-inline" action = "/0608_problem/UserSearchServlet" method = "post">
+		<form class="form-inline" action = "/ShinjukuLibrary/UserSearchServlet" method = "post">
 		email&nbsp;
 		<input type ="email" name = "email">
 		<input type="submit" value = 検索>
@@ -36,7 +36,7 @@
 		<div class="btn-toolbar">
 			<div class="pr-3">
 				<div class="form-group">
-					<form action = "/0608_problem/UserSearchServlet" method = "get" style="display:inline;">
+					<form action = "/ShinjukuLibrary/UserSearchServlet" method = "get" style="display:inline;">
 					<button class="btn btn-primary" type="submit">更新</button>
 					<input type="hidden" name ="action" value = "renew1">
 					</form>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="pr-3">
 				<div class="form-group">
-					<form action = "/0608_problem/UserSearchServlet" method = "get" style="display:inline;">
+					<form action = "/ShinjukuLibrary/UserSearchServlet" method = "get" style="display:inline;">
 					<button class="btn btn-danger" type="submit">退会</button>
 					<input type="hidden" name ="action" value = "delete1">
 					</form>

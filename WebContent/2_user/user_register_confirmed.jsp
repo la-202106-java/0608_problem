@@ -28,14 +28,14 @@
 		<div class="btn-toolbar">
 			<div class="pr-3">
 				<div class="form-group">
-					<form action = "/0608_problem/TopServlet" method = "get" style="display:inline;">
+					<form action = "/ShinjukuLibrary/TopServlet" method = "get" style="display:inline;">
 					<button class="btn btn-danger" type="submit">終了</button>
 					</form>
 				</div>
 			</div>
 			<div class="pr-3">
 				<div class="form-group">
-					<form action = "/0608_problem/UserRegisterServlet" method = "get" style="display:inline;">
+					<form action = "/ShinjukuLibrary/UserRegisterServlet" method = "get" style="display:inline;">
 					<button class="btn btn-primary" type="submit">登録を続行</button>
 					<input type="hidden" name = "action" value = "return_register" >
 					</form>

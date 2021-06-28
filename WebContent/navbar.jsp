@@ -22,8 +22,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent"id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="/0608_problem/TopServlet">トップページ</a></li>
-        <li class="nav-item"><a class="nav-link" href="/0608_problem/LoginServlet?action=logout">ログアウト</a></li>
+        <li class="nav-item"><a class="nav-link" href="/ShinjukuLibrary/TopServlet">トップページ</a></li>
+        <li class="nav-item"><a class="nav-link" href="/ShinjukuLibrary/LoginServlet?action=logout">ログアウト</a></li>
       </ul>
     </div>
   </nav>

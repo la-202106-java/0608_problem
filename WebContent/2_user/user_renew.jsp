@@ -17,7 +17,7 @@
 <div class="m-3 p-3">
     <div class="col-9">
 		<h2>会員更新</h2>
-		<form action = "/0608_problem/UserSearchServlet" method = "post">
+		<form action = "/ShinjukuLibrary/UserSearchServlet" method = "post">
 		<div class="form-group">
 			<br>会員ID：${bean.id}
 		</div>

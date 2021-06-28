@@ -23,7 +23,7 @@
 <h2>目録登録確認</h2>
 <h4>以下の資料を目録に登録してもよろしいでしょうか</h4>
 <br>
-<form action="/0608_problem/CatalogRegistServlet?action=confirm&title=${title}&isbn=${isbn}&code=${code}&author=${author}&publisher=${publisher}&publicationDate=${publicationDate}" method="post">
+<form action="/ShinjukuLibrary/CatalogRegistServlet?action=confirm&title=${title}&isbn=${isbn}&code=${code}&author=${author}&publisher=${publisher}&publicationDate=${publicationDate}" method="post">
 資料名：${title}<br>
 ISBN番号：${isbn}<br>
 分類コード：${code}<br>
@@ -33,7 +33,7 @@ ISBN番号：${isbn}<br>
 <br>
 <div class="btn-toolbar">
  <div class="pr-3">
-<a class="btn btn-secondary" href="/0608_problem/CatalogRegistServlet?action=back&title=${title}&isbn=${isbn}&code=${code}&author=${author}&publisher=${publisher}&publicationDate=${publicationDate}">戻る</a>
+<a class="btn btn-secondary" href="/ShinjukuLibrary/CatalogRegistServlet?action=back&title=${title}&isbn=${isbn}&code=${code}&author=${author}&publisher=${publisher}&publicationDate=${publicationDate}">戻る</a>
 </div>
 <div class="pr-3">
 <input class="btn btn-primary" type="submit" value = 登録>

@@ -24,7 +24,7 @@
       氏名：${top.name}<br>
       資料ID:${book.id}<br>
       資料名：${book.title}<br>
-      <a class="btn btn-danger" href="/0608_problem/BookReturningServlet?action=reserve&id=${book.id}&userID=${top.id}" role="button">取置完了</a>
+      <a class="btn btn-danger" href="/ShinjukuLibrary/BookReturningServlet?action=reserve&id=${book.id}&userID=${top.id}" role="button">取置完了</a>
     </div>
   </div>
 </body>

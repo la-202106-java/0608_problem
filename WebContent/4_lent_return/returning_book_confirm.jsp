@@ -23,8 +23,8 @@
       資料ID：${book.id}<br>
       資料名：${book.title}<br>
       貸出日：${lending.lendingDate}<br> <br>
-      <a class="btn btn-secondary" href="/0608_problem/BookReturningServlet" role="button">戻る</a>
-      <a class="btn btn-danger" href="/0608_problem/BookReturningServlet?action=confirm&id=${book.id}" role="button">確認</a>
+      <a class="btn btn-secondary" href="/ShinjukuLibrary/BookReturningServlet" role="button">戻る</a>
+      <a class="btn btn-danger" href="/ShinjukuLibrary/BookReturningServlet?action=confirm&id=${book.id}" role="button">確認</a>
     </div>
   </div>
 </body>
